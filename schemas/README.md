@@ -1,22 +1,66 @@
 # Public configuration schemas
 
-This directory is reserved for future public, machine-readable schemas. The repository is in its documentation-bootstrap phase, so it contains no schema files yet.
+Phase 0 documentation bootstrap is complete at baseline commit
+`79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and
+Models is current, but Phase 1 implementation has not yet begun. The repository
+remains pre-operational, and this directory contains no Schema implementation.
+The first Schema artifact requires a later, separately authorized
+`schema-contracts` implementation task in a dedicated worktree created or bound
+by the repository owner from `main` after the Phase 1 activation is integrated.
 
-The initial public configuration API version will be `contextctl.dev/v1alpha1`. Its schemas will live under `schemas/v1alpha1/`. Configuration API versions MUST evolve independently of package release versions, which will use Semantic Versioning.
+The initial public configuration API version is `contextctl.dev/v1alpha1`.
+Future Schema definitions will live under `schemas/v1alpha1/`. Configuration
+API versions MUST evolve independently of package release versions, which will
+use Semantic Versioning.
 
-Schema definitions for all seven kinds—`Project`, `Domain`, `WorktreeRole`, `HostOverlay`, `RoutingPolicy`, `TaskContract`, and `ExecutionReceipt`—MAY later live here. Schema location does not determine concrete-instance trust or storage. Concrete `Project`, `Domain`, `WorktreeRole`, and `RoutingPolicy` instances are portable customer governance; concrete `HostOverlay` instances are host-local input; and concrete `TaskContract` and `ExecutionReceipt` instances are runtime artifacts. Host-local and runtime instances MUST remain outside the target worktree, and generated receipts MUST never become portable governance.
+## Phase 1 ownership and boundary
 
-Machine-readable structured customer governance will be authoritative for portable policy. Markdown MAY explain or mirror that configuration, but it MUST NOT independently grant authority.
+`schema-contracts` owns `schemas/v1alpha1/**`, shared Schema definitions,
+strict object envelopes, Schema-expressible structural constraints,
+unknown-field rejection, types, formats, enums, required fields, local
+structural invariants, conspicuously synthetic positive and negative Schema
+fixtures, Schema validation and contract tests, and documentation changes
+directly required to describe the finalized Schema contract.
 
-## Planned validation behavior
+Within the approved Phase 1 boundary, Schema work MAY cover JSON Schema
+structural validation; supported API-version checks; field type, format, enum,
+range, and required-property validation; object-local invariants; and
+Schema-expressible portions of closed-bundle ID uniqueness, reference shape,
+reference existence, and static restriction-shape checks. The role MAY document
+semantic invariants that later phases must enforce, but it MUST NOT implement
+Python models, decoding, canonical serialization, deterministic task
+resolution, `RoutingPolicy` execution, live Git inspection, runtime leases,
+`TaskContract` issuance, receipt generation, a CLI, adapters, or operational
+enforcement.
 
-Future schema processing MUST:
+The Schema baseline MUST be designed, independently audited, approved through
+`integration-control`, committed, reviewed, and integrated into `main` before a
+distinct `model-implementation` worktree is created or bound from that updated
+`main`. Schema and model implementation tasks MUST NOT share a worktree.
 
-- reject unknown fields;
-- reject missing required fields, invalid types, and unsupported API versions;
-- apply strict format and value constraints; and
-- fail closed when configuration is malformed, ambiguous, stale, or mismatched.
+## Object families and later validation
 
-JSON Schema validation alone will not be sufficient. Semantic validation MUST also enforce cross-object references and invariants. Task resolution MUST produce exactly one `Project` and a non-empty deterministic `Domain` set; exactly one selected `WorktreeRole` MUST own every `Domain` in that set; and a `TaskContract` MUST bind the same set. `RoutingPolicy` consumes the already-resolved project and complete domain set to select the one covering role; it does not resolve or discover them. Permission bounds and expected repository state also require semantic validation. A `HostOverlay` MAY further restrict customer governance but MUST NOT widen it. Runtime Git state MUST be inspected live rather than inferred from configuration.
+Schema definitions for all seven kinds—`Project`, `Domain`, `WorktreeRole`,
+`HostOverlay`, `RoutingPolicy`, `TaskContract`, and `ExecutionReceipt`—MAY later
+live here. Schema location does not determine concrete-instance trust or
+storage. Concrete `Project`, `Domain`, `WorktreeRole`, and `RoutingPolicy`
+instances are portable customer governance; concrete `HostOverlay` instances
+are host-local input; and concrete `TaskContract` and `ExecutionReceipt`
+instances are runtime artifacts. Host-local and runtime instances MUST remain
+outside the target worktree, and generated receipts MUST never become portable
+governance.
 
-See the [configuration model](../docs/configuration-model.md) for the planned objects and trust boundaries.
+Phase 1 static configuration and model integrity validation MUST remain
+separate from operational semantic execution. Matching task intent to a
+`Project`, resolving a task's `Domain` set, evaluating `RoutingPolicy`, selecting
+a role, and deciding split versus deny are Phase 2. Live Git and worktree
+inspection, runtime coordination, and leases are Phase 3. Trusted runtime
+contract issuance or provenance validation, scope authorization and
+verification, terminalization, and receipt generation are Phase 4. CLI and
+adapter implementation remain Phases 5 and 6, respectively.
+
+Machine-readable structured customer governance will be authoritative for the
+future operational path. Markdown MAY explain or mirror that configuration,
+but it MUST NOT independently grant authority. See the
+[configuration model](../docs/configuration-model.md) for the planned objects
+and trust boundaries.

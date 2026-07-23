@@ -2,11 +2,21 @@
 
 ## Status and scope
 
-Agent Context Governance is in an architectural bootstrap phase. This document
-defines the intended boundaries and invariants of a future implementation; it
-does not describe an existing CLI, policy engine, router, Git inspector, lease
-service, trusted `TaskContract` issuer, receipt generator, adapter, enforcement
-system, or execution runtime.
+Phase 0 documentation bootstrap is complete at baseline commit
+`79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and
+Models is current, but Phase 1 implementation has not yet begun. The repository
+remains pre-operational and has no Schema implementation, typed model, test,
+fixture, package release, normal policy engine, trusted `TaskContract` issuer,
+lease manager, Git inspector, CLI, adapter, enforcement mechanism, or
+cryptographic authorization. Phase 1 activation is not operational-governance
+activation, and the first Schema or model artifact requires a later, separately
+authorized implementation task.
+
+This document defines the intended boundaries and invariants of a future
+implementation; it does not describe an existing execution runtime. The
+initial architecture implementation is limited to the Schema and model layers
+described below. Control-plane routing, runtime inspection and coordination,
+authorization, execution adapters, and evidence remain later-phase work.
 
 The core architecture is agent-neutral. Core types and control-plane behavior
 MUST NOT depend on Codex, another agent product, an agent SDK, or a product-
@@ -28,6 +38,100 @@ as permission to implement.
 `mode: plan-only` and `allowWrite: true` is invalid and MUST be rejected.
 Future governed adapter execution, including plan-only execution, requires a
 valid bounded `TaskContract`.
+
+## Phase 1 implementation boundary
+
+Phase 1 is limited to public JSON Schema definitions under
+`schemas/v1alpha1/`, shared Schema definitions, strict object envelopes,
+Schema-expressible structural constraints, conspicuously synthetic positive and
+negative Schema fixtures, typed in-memory models, strict decoding, canonical
+serialization, model unit tests, Schema validation and contract tests,
+Schema/model conformance tests, and static configuration/model integrity
+validation.
+
+Allowed Phase 1 validation includes JSON Schema structural checks,
+unknown-field rejection, supported API-version checks, field type and value
+constraints, object-local invariants, deterministic decoding, canonical
+serialization, representation conformance, ID uniqueness and reference checks
+inside a closed synthetic or loaded bundle, and static restriction or model
+invariants that do not calculate an operational result or require task intent,
+host bindings, Git state, lease state, or runtime decisions.
+
+Phase 1 MUST NOT match task intent to a `Project`, resolve a task's `Domain`
+set, evaluate `RoutingPolicy` for an actual task, select a role, decide split
+versus deny, calculate operational authorization, resolve a concrete host
+binding, read live Git state, inspect or modify lease state, issue or validate
+trusted runtime contract authority, or generate runtime receipt evidence.
+Deterministic resolution and routing are Phase 2; live Git, worktree inspection,
+runtime coordination, and leases are Phase 3; trusted contract issuance or
+provenance validation, scope authorization and verification, terminalization,
+and receipts are Phase 4; the CLI is Phase 5; and agent adapters are Phase 6.
+
+### Required Schema-before-model sequence
+
+1. Phase 1 activation is committed to `main`.
+2. The repository owner creates or binds a dedicated `schema-contracts`
+   worktree from that updated `main`.
+3. The Schema contract baseline is designed in `schema-contracts`.
+4. The Schema baseline receives independent read-only audit.
+5. The Schema baseline is approved through `integration-control`.
+6. The Schema baseline is committed, reviewed, and integrated into `main`.
+7. Only after updated `main` contains the approved Schema baseline may the
+   repository owner create or bind a distinct `model-implementation` worktree.
+8. That model worktree MUST be created from the updated `main` containing the
+   approved Schema baseline.
+9. Model implementation then consumes the approved Schema contract.
+10. Any requested Schema semantic change discovered during model work MUST be
+    routed back to a separately authorized `schema-contracts` task and
+    integrated first.
+
+The model worktree MUST NOT be created from the Phase 0 baseline or before the
+approved Schema baseline reaches `main`, and a free Schema worktree cannot be
+reused for model implementation.
+
+### Logical responsibility roles
+
+`integration-control` owns phase decisions, cross-worktree coordination,
+implementation sequencing, integration review, independent-audit gating, merge
+readiness, promotion of approved baselines into `main`, release control, and
+responsibility-boundary and escalation decisions. It does not own routine
+Schema or Python model implementation, Phase 2 routing implementation, runtime
+Git or lease implementation, or CLI or adapter implementation. `main` is the
+control and integration baseline, not an ordinary implementation area.
+
+`schema-contracts` owns `schemas/v1alpha1/**`, shared Schema definitions,
+strict object envelopes, Schema-expressible structural constraints,
+unknown-field rejection, types, formats, enums, required fields, local
+structural invariants, conspicuously synthetic positive and negative Schema
+fixtures, Schema validation and contract tests, and documentation changes
+directly required to describe the finalized Schema contract. It does not own
+Python models, decoding, canonical serialization, deterministic task
+resolution, routing-policy execution, live Git inspection, runtime leases,
+contract issuance, receipt generation, a CLI, adapters, or operational
+enforcement. It MAY document semantic invariants that later phases must enforce
+but MUST NOT implement Phase 2 routing behavior.
+
+`model-implementation` owns typed in-memory representations corresponding to
+the approved Schema contract, strict decoding, canonical serialization,
+model-level validation that does not execute later control-plane behavior,
+model unit tests, Schema/model conformance tests, and permitted static
+configuration-integrity checks. It does not own independent redefinition of
+Schema fields or semantics, task-intent resolution, `Project` or `Domain`
+resolution, `RoutingPolicy` execution, role selection, host-binding execution,
+live Git inspection, lease acquisition or release, contract issuance, receipt
+generation, a CLI, adapters, or operational enforcement. A Schema mismatch
+MUST stop model implementation for the affected contract and be routed back to
+`schema-contracts`.
+
+`integration-control` is a third responsibility role distinct from both
+implementation roles. `schema-contracts` and `model-implementation`
+implementation tasks MUST use distinct worktrees; they MUST NOT be assigned to,
+implemented in, or allowed to write through the same worktree. A free Schema
+worktree cannot be reused for model implementation. Concrete local paths are
+host-local and are not portable governance. Branch creation, worktree creation
+or binding, committing, merging, and pushing require separately authorized
+repository-owner administrative actions; a Codex implementation task MUST NOT
+perform them under the current pre-operational procedure.
 
 ## Architectural layers
 
@@ -174,7 +278,8 @@ freshness, and current policy, runtime, and lease preconditions. A caller-,
 adapter-, or task-supplied object claiming to be a `TaskContract` is untrusted
 input and MUST NOT grant or expand authority. A digest alone detects mutation
 but does not prove trusted issuance. Phase 0 does not select a final signing
-mechanism, and human bootstrap authority is not a substitute runtime `TaskContract`.
+mechanism, and pre-operational `human-bootstrap-maintenance` authority is not a
+substitute runtime `TaskContract`.
 
 Customer governance and a `HostOverlay` are deliberately asymmetric. Customer
 governance establishes the portable authorization ceiling. A `HostOverlay` binds

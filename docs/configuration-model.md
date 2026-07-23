@@ -2,6 +2,14 @@
 
 ## Status
 
+Phase 0 documentation bootstrap is complete at baseline commit
+`79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and
+Models is current, but Phase 1 implementation has not yet begun. The repository
+remains pre-operational and has no Schema implementation, typed model, test,
+fixture, package release, or Phase 2–6 operational feature. Phase 1 activation
+is not operational-governance activation; the first Schema or model artifact
+requires a later, separately authorized implementation task.
+
 This document defines the responsibilities, authority classes, and relationships
 of the planned configuration objects. It is not a finished field specification
 and does not define JSON Schemas, exact property names, serialization layouts,
@@ -10,7 +18,7 @@ below are mandatory future requirements even though their serialization is
 deferred.
 
 The initial public configuration API version is
-`contextctl.dev/v1alpha1`. Future schema files will live under
+`contextctl.dev/v1alpha1`. Future Schema files will live under
 `schemas/v1alpha1/`.
 
 Package releases use Semantic Versioning and will begin later with `0.1.0`.
@@ -68,7 +76,8 @@ freshness, and current policy, runtime, and lease preconditions. A caller-,
 adapter-, or task-supplied object claiming to be a `TaskContract` is untrusted
 input and MUST NOT grant or expand authority. A digest alone detects mutation
 but does not prove trusted issuance. Phase 0 does not select a final signing
-mechanism, and human bootstrap authority is not a substitute runtime `TaskContract`.
+mechanism, and pre-operational `human-bootstrap-maintenance` authority is not a
+substitute runtime `TaskContract`.
 
 ## Planned object kinds and families
 
@@ -144,9 +153,11 @@ the domain set. It MUST evaluate worktree-role ownership before availability and
 MUST NOT route to an ineligible role merely because its worktree is free or
 treat a runtime write lease as evidence of ownership.
 
-Conflicting or ambiguous routing outcomes deny implementation. Future schemas
-and semantic validation will need to detect policy combinations that cannot
-produce one unambiguous eligible result.
+Phase 1 static integrity checks MAY reject duplicate identifiers, invalid
+references, or declared ownership conflicts visible inside a closed loaded
+bundle, but they MUST NOT evaluate a `RoutingPolicy` for an actual task or
+determine its covering role. Conflicting or ambiguous operational routing
+outcomes are Phase 2 decisions and deny implementation.
 
 ### `TaskContract`
 
@@ -248,18 +259,45 @@ until ownership-checked release or separately authorized operator resolution.
 
 ## Validation model
 
-Future readers for `contextctl.dev/v1alpha1` MUST validate both structure and
-meaning. Structural validation will use schemas under `schemas/v1alpha1/` and
-MUST reject unknown fields rather than silently ignoring possible policy.
-Semantic validation MUST additionally resolve references and reject ambiguity,
-conflicting worktree-role ownership, invalid restriction relationships, and other unsafe
-cross-object combinations that syntax alone cannot detect.
+Phase 1 MAY implement only JSON Schema structural validation and static
+configuration/model integrity validation. That boundary includes:
 
-Runtime validation remains separate. A structurally and semantically valid
-configuration cannot prove the current repository root, branch, HEAD, dirty
-state, active operation state, worktree registration, role binding, or lease
-availability. Those conditions MUST be inspected live and fail closed when
-missing, malformed, ambiguous, stale, or mismatched.
+- unknown-field rejection;
+- supported API-version checks;
+- field type, format, enum, range, and required-property validation;
+- object-local invariants;
+- deterministic decoding and canonical serialization;
+- model/Schema representation conformance;
+- ID uniqueness inside a closed synthetic or loaded governance bundle;
+- reference shape and reference existence checks inside that closed bundle;
+- static restriction-shape checks that do not calculate an operational
+  authorization result; and
+- static model invariants that do not require task intent, host bindings, Git
+  state, lease state, or runtime decisions.
+
+Phase 1 MUST NOT execute broader operational semantics. It MUST NOT match task
+intent to a `Project`; resolve an affected `Domain` set from a task; evaluate
+`RoutingPolicy` for an actual task; select a `WorktreeRole`; decide split versus
+deny for a real task; calculate effective operational authorization; resolve a
+concrete `HostOverlay` binding; read live Git state; inspect or modify lease
+state; issue or validate trusted runtime `TaskContract` authority; or generate
+runtime `ExecutionReceipt` evidence.
+
+Phase 2 owns task-intent resolution, exact `Project` selection, complete
+`Domain`-set resolution, `RoutingPolicy` evaluation, covering-role selection,
+routing ambiguity and split-or-deny decisions, and deterministic routing
+results. Phase 3 owns live Git and worktree inspection, runtime coordination,
+and write leases. Phase 4 owns trusted `TaskContract` issuance or provenance
+validation, the scope authorization and verification lifecycle,
+terminalization, and `ExecutionReceipt` generation. Phase 5 owns the CLI, and
+Phase 6 owns agent adapters.
+
+Runtime validation remains separate. A structurally and statically valid
+configuration bundle under the Phase 1 boundary cannot prove the current
+repository root, branch, HEAD, dirty state, active operation state, worktree
+registration, role binding, or lease availability. Those later-phase
+conditions MUST be inspected live and fail closed when missing, malformed,
+ambiguous, stale, or mismatched.
 
 This bootstrap intentionally leaves exact property names, nesting,
 serialization choices, schema identifiers, compatibility rules within

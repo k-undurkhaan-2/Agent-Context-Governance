@@ -1,6 +1,32 @@
 # Planned test strategy
 
-No tests are implemented in the documentation-bootstrap phase. Future tests MUST be deterministic, MUST use sanitized synthetic data, and SHOULD cover the following categories.
+Phase 0 documentation bootstrap is complete at baseline commit
+`79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and
+Models is current, but Phase 1 implementation has not yet begun. The repository
+remains pre-operational, and no tests or fixtures exist yet. Future tests MUST
+be deterministic and MUST use sanitized synthetic data.
+
+## Phase 1 test order and ownership
+
+Schema-contract testing comes first. A later, separately authorized
+`schema-contracts` task in its dedicated worktree owns conspicuously synthetic
+positive and negative Schema fixtures, Schema validation, and Schema contract
+tests. The Schema baseline must then receive independent read-only audit,
+approval through `integration-control`, and committed, reviewed integration
+into `main`.
+
+Only after that integration may the repository owner create or bind a distinct
+`model-implementation` worktree from the updated `main`. That role owns model
+unit tests and Schema/model conformance tests against the approved Schema
+contract. The two implementation roles MUST NOT share a worktree, and a Schema
+mismatch discovered during model work MUST stop the affected model work and be
+routed back to a separately authorized `schema-contracts` task.
+
+Phase 1 testing is limited to Schema structure and static configuration/model
+integrity. Tests for actual task resolution and routing, live Git and worktree
+inspection, runtime coordination and leases, trusted contract issuance and
+receipt generation, CLI behavior, and agent adapters remain planned for Phases
+2 through 6; they are not Phase 1 implementation.
 
 ## Categories
 
@@ -13,7 +39,7 @@ No tests are implemented in the documentation-bootstrap phase. Future tests MUST
 
 Contract tests MUST prove that a `TaskContract` has authority only after trusted framework issuance or validation of trusted issuer, integrity, derivation, task and target binding, freshness, and current policy, runtime, and lease preconditions. A caller-, adapter-, or task-supplied claim MUST remain untrusted, and a digest alone MUST NOT be accepted as proof of issuance. Phase 0 selects no final signing mechanism.
 
-Tests MUST prove that future governed adapter execution, including plan-only execution, requires a valid bounded `TaskContract` and rejects a missing, invalid, stale, or unbounded contract. They MUST also prove that temporary Phase 0 human bootstrap authority is not accepted as a runtime `TaskContract`.
+Tests MUST prove that future governed adapter execution, including plan-only execution, requires a valid bounded `TaskContract` and rejects a missing, invalid, stale, or unbounded contract. They MUST also prove that pre-operational `human-bootstrap-maintenance` authority is not accepted as a runtime `TaskContract`.
 
 ## Required failure scenarios
 

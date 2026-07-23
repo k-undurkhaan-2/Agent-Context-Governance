@@ -6,7 +6,7 @@
 
 Agent Context Governance is intended to apply the same governance decisions across different execution products. Product-specific concepts in the core would couple authorization, routing, and verification to one agent interface and would make policy behavior vary by adapter.
 
-The repository is currently an architectural bootstrap. This decision defines future boundaries; it does not claim that a core library or adapter exists.
+Phase 0 documentation bootstrap is complete at baseline commit `79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and Models is current, but its implementation has not yet begun. The repository remains pre-operational. This decision defines future boundaries; it does not claim that a core library, control plane, CLI, or adapter exists.
 
 ## Decision
 

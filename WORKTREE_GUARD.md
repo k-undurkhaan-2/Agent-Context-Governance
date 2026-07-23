@@ -1,6 +1,6 @@
 # Worktree Guard
 
-This document specifies the planned fail-closed worktree guard for Agent Context Governance and the cooperative preflight required for narrowly authorized Phase 0 bootstrap maintenance. No operational guard, schema, policy engine, trusted `TaskContract` issuer, lease manager, Git inspector, CLI, adapter, enforcement mechanism, or cryptographic bootstrap authorization is implemented in this repository.
+Phase 0 documentation bootstrap is complete at baseline commit `79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and Models is current, but its implementation has not yet begun. The repository remains pre-operational, and Phase 1 activation is not operational-governance activation. This document specifies the planned fail-closed worktree guard and the cooperative preflight required for narrowly authorized pre-operational bootstrap maintenance. No operational guard, Schema implementation, typed model, test, fixture, package release, policy engine, trusted `TaskContract` issuer, lease manager, Git inspector, CLI, adapter, enforcement mechanism, or cryptographic authorization is implemented in this repository. The first Schema or model artifact requires a later, separately authorized implementation task.
 
 ## Authority and defaults
 
@@ -17,17 +17,17 @@ An `ExecutionReceipt` records evidence after an attempt. It MUST NOT supply expe
 
 `mode: plan-only` implies `allowWrite: false`. The combination of `mode: plan-only` and `allowWrite: true` is invalid and MUST be rejected. A plan-only contract permits only bounded non-writing action.
 
-A `TaskContract` has authority only when trusted framework logic issued it or validated its trusted issuer, integrity, derivation, task and target binding, freshness, and current policy, runtime, and lease preconditions. A caller-, adapter-, or task-supplied object claiming to be a `TaskContract` is untrusted input and MUST NOT grant or expand authority. A digest alone detects mutation but does not prove trusted issuance. Phase 0 does not select a final signing mechanism, and human bootstrap authority is not a substitute runtime contract.
+A `TaskContract` has authority only when trusted framework logic issued it or validated its trusted issuer, integrity, derivation, task and target binding, freshness, and current policy, runtime, and lease preconditions. A caller-, adapter-, or task-supplied object claiming to be a `TaskContract` is untrusted input and MUST NOT grant or expand authority. A digest alone detects mutation but does not prove trusted issuance. Phase 0 selected no final signing mechanism, Phase 1 activation does not select one, and pre-operational bootstrap authority is not a substitute runtime contract.
 
-## Phase 0 bootstrap preflight and stop conditions
+## Pre-operational bootstrap preflight and stop conditions
 
-Before the operational governance core and trusted `TaskContract` issuer exist, a directly supplied repository-owner or bootstrap-administrator instruction with authority class `human-bootstrap-maintenance` MAY make a governance-foundation task eligible for cooperative execution. This is a temporary external root of trust, not authority created by Markdown, ordinary task intent, a caller-created `TaskContract`, a `HostOverlay`, an `ExecutionReceipt`, an agent-facing guide, or an implemented policy-engine decision. A bootstrap task MUST NOT fabricate a `TaskContract`, lease, or receipt to imitate mechanisms that do not exist.
+Before the operational governance core and trusted `TaskContract` issuer exist, a directly supplied repository-owner instruction MAY provide narrow pre-operational `human-bootstrap-maintenance` authority for a task that implements or repairs this governance framework itself. This eligibility includes bounded Phase 1 work while the normal operational authorization path is absent. It is a temporary external root of trust, not authority created by Markdown, ordinary task intent, a caller-created `TaskContract`, a `HostOverlay`, an `ExecutionReceipt`, an agent-facing guide, or an implemented policy-engine decision. A bootstrap task MUST NOT fabricate a `TaskContract`, lease, or receipt to imitate mechanisms that do not exist.
 
 Bootstrap authority is eligible only when all of the following are explicit and true:
 
-- the repository is designated Phase 0 or pre-operational, and the normal operational authorization path is absent;
-- the task establishes, repairs, or reviews governance foundations rather than customer or unrelated product work;
-- the instruction is supplied directly for the current task by an identified repository owner or bootstrap administrator;
+- the repository is pre-operational and the normal operational authorization path is absent;
+- the task implements, repairs, or reviews this governance framework's core rather than customer or unrelated product work;
+- the instruction is supplied directly for the current task by the identified repository owner;
 - exactly one repository, one registered worktree, its expected branch, and its expected exact `HEAD` or unborn condition are identified;
 - the complete expected file and status inventory, exact allowed-file set, and permitted operations are enumerated; and
 - no caller, prompt, adapter, receipt, observed state, or other lower-trust input is allowed to widen the instruction.
@@ -48,9 +48,105 @@ Immediately before a permitted edit, bootstrap preflight MUST observe and compar
 
 Any missing, failed, stale, ambiguous, or mismatched observation MUST stop the task without editing or repair. Bootstrap authority cannot waive repository-root, branch, `HEAD`, state, path, allowed-file, worktree, remote, active-operation, administrative-lock, or Git-operation checks. Revalidation MUST occur immediately before the first write and at later protected boundaries; a relevant state change invalidates earlier observations.
 
-Bootstrap authority MUST NOT authorize customer application work, unrelated features, production deployment, secret handling, external-repository access, another worktree, automatic Git repair, branch switching or creation, stash, reset, clean, restore, fetch, pull, merge, rebase, lease or lock breaking, staging, committing, or pushing. A future separately designed administrative procedure would be required to govern any such exceptional action; this bootstrap path does not provide one.
+Bootstrap authority MUST NOT authorize customer application work, unrelated feature work, another repository, another worktree unless separately and explicitly bound, production deployment, secret handling, automatic Git repair, branch switching or creation, worktree creation, stash, reset, clean, restore, fetch, pull, merge, rebase, lease or lock breaking, staging, committing, or pushing. A future separately designed administrative procedure would be required to govern any such exceptional action; this bootstrap path does not provide one.
 
-Current authentication is cooperative and depends on the interactive development environment treating the operator as the identified owner or administrator. It is not cryptographic proof, an operating-system permission, a sandbox, or protection against a process that bypasses the framework. The bootstrap path MUST be retired or disabled when the project formally activates the operational governance path.
+Bootstrap authority also MUST NOT waive logical role ownership, the requirement
+for distinct Schema and model worktrees, the Schema-before-model sequence, the
+required current baseline, or separation of repository-owner administrative
+actions from implementation. Every Phase 1 implementation task MUST be bound to
+the correct logical role and a worktree dedicated to that role.
+
+Current authentication is cooperative and depends on the interactive development environment treating the operator as the identified repository owner. It is not cryptographic proof, an operating-system permission, a sandbox, or protection against a process that bypasses the framework. The bootstrap path MUST be retired or disabled when the project formally activates the operational governance and trusted contract-issuance path. Phase 1 activation is not that retirement event.
+
+Branch creation, worktree creation or binding, committing, merging, and pushing
+remain separately authorized repository-owner administrative actions. A Codex
+implementation task MUST NOT create its own branch or worktree under the
+current pre-operational procedure.
+
+## Phase 1 implementation routing boundary
+
+Phase 1 is limited to public JSON Schema definitions under
+`schemas/v1alpha1/`, shared definitions, strict object envelopes,
+Schema-expressible constraints, unknown-field rejection, field constraints and
+local invariants, conspicuously synthetic positive and negative Schema
+fixtures, in-memory typed models, strict decoding, canonical serialization,
+Schema validation and contract tests, model unit tests, Schema/model conformance
+tests, and bounded static configuration/model integrity checks.
+
+Phase 1 MAY validate structure, supported API versions, object-local
+invariants, deterministic decoding and serialization, Schema/model
+representation conformance, closed-bundle ID and reference integrity, and
+static restrictions that do not calculate an operational result. It MUST NOT
+execute task-intent or Project/Domain resolution, `RoutingPolicy`, role
+selection, split-versus-deny decisions, host binding, operational
+authorization, live Git inspection, leases, trusted contract authority, or
+runtime receipt generation. Those responsibilities remain in Phases 2 through
+4; the CLI and adapters remain Phases 5 and 6.
+
+The planned logical roles are:
+
+- `integration-control`, which owns phase decisions, cross-worktree
+  coordination, implementation sequencing, integration review,
+  independent-audit gating, merge readiness, promotion of approved baselines
+  into `main`, release control, and responsibility-boundary and escalation
+  decisions; it does not own routine Schema or Python model implementation,
+  Phase 2 routing, runtime Git or lease implementation, or CLI or adapter
+  implementation;
+- `schema-contracts`, which owns `schemas/v1alpha1/**`, shared definitions,
+  strict envelopes, Schema-expressible constraints, unknown-field rejection,
+  field constraints and local invariants, synthetic fixtures, Schema validation
+  and contract tests, and directly required Schema documentation; it does not
+  own Python models, decoding, serialization, task resolution, routing, live
+  Git, leases, contracts, receipts, a CLI, adapters, or operational
+  enforcement; and
+- `model-implementation`, which owns typed representations of the approved
+  Schema contract, strict decoding, canonical serialization, bounded model
+  validation, model unit tests, Schema/model conformance tests, and permitted
+  static integrity checks; it does not own Schema redefinition, task-intent or
+  Project/Domain resolution, routing, role or host-binding decisions, live Git,
+  leases, contracts, receipts, a CLI, adapters, or operational enforcement.
+
+`integration-control` is a third, distinct responsibility role. The current
+`integration-control` worktree and `main` are the control and integration
+baseline and MUST NOT be used for routine Phase 1 Schema or model
+implementation. A Schema mismatch discovered by `model-implementation` MUST
+stop affected work and be routed back to `schema-contracts`; the model role
+MUST NOT redefine Schema semantics.
+
+`schema-contracts` and `model-implementation` implementation tasks MUST use
+distinct worktrees. They MUST NOT be assigned to, implemented in, or allowed to
+write through the same worktree. A free Schema worktree cannot be reused as the
+model worktree.
+
+The mandatory sequence is:
+
+1. Phase 1 activation is committed to `main`.
+2. The repository owner creates or binds a dedicated `schema-contracts`
+   worktree from that updated `main`.
+3. The Schema contract baseline is designed in `schema-contracts`.
+4. The Schema baseline receives independent read-only audit.
+5. The Schema baseline is approved through `integration-control`.
+6. The Schema baseline is committed, reviewed, and integrated into `main`.
+7. Only after updated `main` contains the approved Schema baseline may the
+   repository owner create or bind a distinct `model-implementation` worktree.
+8. That model worktree MUST be created from the updated `main` containing the
+   approved Schema baseline.
+9. Model implementation then consumes the approved Schema contract.
+10. Any requested Schema semantic change discovered during model work MUST be
+    routed back to a separately authorized `schema-contracts` task and
+    integrated first.
+
+Model work cannot be authorized until the distinct model worktree is bound from
+the updated `main` that contains the approved Schema baseline. The model
+worktree MUST NOT be created from the Phase 0 baseline, and a free Schema
+worktree cannot be reused for model implementation.
+
+These logical roles are portable governance concepts, not an implemented router or a substitute for authorization. Concrete local worktree paths are host-local and MUST NOT be committed.
+
+Branch creation, worktree creation or binding, committing, merging, and pushing
+remain separately authorized repository-owner administrative actions. The
+implementation task itself MUST NOT create its branch or worktree under the
+current pre-operational procedure.
 
 ## Expected state and observed state
 
@@ -64,7 +160,14 @@ A check passes only when all required observations succeed and exactly satisfy t
 
 ## Required checks
 
-The numbered checks below define the future ordinary operational guard. For Phase 0 bootstrap maintenance, checks 1 through 6 apply as direct live observations under the exact external instruction and its complete expected inventory; the task MUST NOT fabricate the unimplemented role, lease, policy, or contract mechanisms described in checks 7 and 8. Where a numbered check refers to a `TaskContract` or structured governance, that requirement applies to the future operational path rather than replacing the bootstrap preflight above.
+The numbered checks below define the future ordinary operational guard. For
+pre-operational bootstrap maintenance, checks 1 through 6 and the direct Phase
+1 role, worktree-isolation, sequencing, and baseline checks above apply under
+the exact external instruction and its complete expected inventory. The task
+MUST NOT fabricate the unimplemented operational routing, lease, policy, or
+contract mechanisms described in checks 7 and 8. Where a numbered check refers
+to a `TaskContract` or structured governance, that requirement applies to the
+future operational path rather than replacing the bootstrap preflight above.
 
 ### 1. Repository root
 
@@ -82,7 +185,7 @@ If an authorized operation is intended to change `HEAD`, each later checkpoint M
 
 ### 4. Dirty state
 
-The guard MUST inspect the complete working-tree state, including staged changes, unstaged changes, untracked files, ignored files relevant to policy, submodule state, and conflicts. The default expected state for ordinary operational implementation is clean. Any permitted pre-existing state MUST be described explicitly and narrowly by the applicable authority and, in the ordinary path, the `TaskContract`; an unclassified path or change MUST deny implementation. A Phase 0 bootstrap instruction MAY bind a different state only by enumerating its complete exact inventory.
+The guard MUST inspect the complete working-tree state, including staged changes, unstaged changes, untracked files, ignored files relevant to policy, submodule state, and conflicts. The default expected state for ordinary operational implementation is clean. Any permitted pre-existing state MUST be described explicitly and narrowly by the applicable authority and, in the ordinary path, the `TaskContract`; an unclassified path or change MUST deny implementation. A pre-operational bootstrap instruction MAY bind a different state only by enumerating its complete exact inventory.
 
 The observed state MUST be compared by status class and path, not reduced to a single clean/dirty boolean. A conflict, unexpected modification, unexpected staging, unexpected untracked or ignored content, unreadable path, or status failure MUST deny implementation. The guard MUST NOT silently absorb a task's own earlier changes into the expected baseline.
 
@@ -104,7 +207,7 @@ Implementation MUST be denied when the project, domain set, covering role, or bi
 
 ### 8. Runtime write lease
 
-Every ordinary governed task that may write MUST have effective `allowWrite: true` and MUST acquire, through an atomic operation, the task-owned write lease for the canonical worktree before contract issuance. The acquisition result MUST carry a stable lease identity and ownership evidence. The guard MUST inspect the runtime lease store live and bind the lease to the exact worktree and task identity. At most one live write lease may be held for a worktree; any malformed, ambiguous, stale, unreleased, or otherwise unresolved coordination state blocks acquisition and later writers. Plan-only eligibility MUST NOT be interpreted as write authorization. A Phase 0 bootstrap task relies only on its bounded external authorization and direct live revalidation; it MUST NOT create or claim a framework lease.
+Every ordinary governed task that may write MUST have effective `allowWrite: true` and MUST acquire, through an atomic operation, the task-owned write lease for the canonical worktree before contract issuance. The acquisition result MUST carry a stable lease identity and ownership evidence. The guard MUST inspect the runtime lease store live and bind the lease to the exact worktree and task identity. At most one live write lease may be held for a worktree; any malformed, ambiguous, stale, unreleased, or otherwise unresolved coordination state blocks acquisition and later writers. Plan-only eligibility MUST NOT be interpreted as write authorization. A pre-operational bootstrap task relies only on its bounded external authorization and direct live revalidation; it MUST NOT create or claim a framework lease.
 
 A conflicting lease held by another task, failed atomic acquisition, a missing required lease after acquisition, identity mismatch, malformed or unreadable lease record, ambiguous coordination state, or unexpected lease-store lock MUST deny writing. A held lease is acceptable only when the current task can prove that it acquired and still owns that exact lease. Apparent expiry or staleness MUST NOT authorize automatic takeover or lease-store-lock breaking. After acquisition, every repository, role, scope, policy, and authorization check MUST run again so a race or intervening change fails closed. A lease does not correct a wrong role, expand scope, or replace a valid `TaskContract`.
 
@@ -112,7 +215,7 @@ Release MUST target only the lease identified by the acquisition result and prov
 
 ## Checkpoints and stop conditions
 
-For the future operational path, four checkpoints are distinct: (1) initial live preflight; (2) post-acquisition, pre-contract-issuance revalidation, or immediate pre-issuance revalidation when no lease is required; (3) post-contract, immediately-before-action revalidation, including contract scope validation; and (4) post-execution scope and state verification. Only successful checkpoint-two revalidation MAY allow trusted `TaskContract` issuance or validation. Relevant checks MUST also run at later policy-defined boundaries. If live state changes after observation, the observation is stale and MUST be repeated. A Phase 0 bootstrap task instead uses the external authorization and bootstrap preflight above and MUST NOT pretend that a `TaskContract` or lease was issued.
+For the future operational path, four checkpoints are distinct: (1) initial live preflight; (2) post-acquisition, pre-contract-issuance revalidation, or immediate pre-issuance revalidation when no lease is required; (3) post-contract, immediately-before-action revalidation, including contract scope validation; and (4) post-execution scope and state verification. Only successful checkpoint-two revalidation MAY allow trusted `TaskContract` issuance or validation. Relevant checks MUST also run at later policy-defined boundaries. If live state changes after observation, the observation is stale and MUST be repeated. A pre-operational bootstrap task instead uses the external authorization and bootstrap preflight above and MUST NOT pretend that a `TaskContract` or lease was issued.
 
 The guard MUST stop implementation and return a denial when any of the following is true:
 

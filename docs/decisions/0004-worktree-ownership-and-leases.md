@@ -8,7 +8,7 @@ Choosing where a task is allowed to run and preventing concurrent writers are di
 
 Conflating these questions could route work to an idle but unauthorized worktree or allow simultaneous writers in a correctly assigned worktree.
 
-This ADR defines future routing and lease requirements. It does not claim that a router, lease store or manager, trusted `TaskContract` issuer, or enforcement system exists during Phase 0.
+Phase 0 documentation bootstrap is complete at baseline commit `79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and Models is current, but its implementation has not yet begun. The repository remains pre-operational. This ADR defines future Phase 2 routing and Phase 3 lease requirements; it does not claim that a router, lease store or manager, trusted `TaskContract` issuer, or enforcement system exists.
 
 ## Decision
 

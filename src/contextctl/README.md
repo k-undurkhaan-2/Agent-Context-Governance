@@ -1,21 +1,48 @@
 # Planned `contextctl` package boundaries
 
-This directory is reserved for a future Python package. No Python modules, packaging metadata, command-line executable, or operational framework behavior exists in this bootstrap phase.
+Phase 0 documentation bootstrap is complete at baseline commit
+`79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and
+Models is current, but Phase 1 implementation has not yet begun. The repository
+remains pre-operational, and this directory contains no Python implementation,
+packaging metadata, command-line executable, or operational framework behavior.
 
-The planned package boundaries are:
+Initial model work begins only after the Schema contract baseline has been
+designed in `schema-contracts`, independently audited, approved through
+`integration-control`, committed, reviewed, and integrated into `main`. Only
+then may the repository owner create or bind the distinct
+`model-implementation` worktree from that updated `main`. The model role
+consumes the approved Schema baseline and MUST stop for the affected contract
+and route any requested Schema semantic change back to a separately authorized
+`schema-contracts` task for prior integration.
 
-- **Models and decoding:** typed representations of public configuration objects and strict input decoding.
-- **Validation:** schema-independent semantic checks and cross-object invariants.
-- **Resolution and routing:** deterministic project and domain resolution followed by worktree-role selection.
-- **Runtime inspection:** live, read-only observation of repository, worktree, branch, HEAD, dirty-state, and active-operation state.
-- **Leases:** acquisition, revalidation, and release of exclusive runtime write leases.
-- **Contracts:** issuance and verification of bounded Task Contracts.
-- **Scope verification:** comparison of observed changes with the contract's permitted scope.
-- **Receipts:** generation of execution evidence that MUST NOT be accepted as authorization input.
-- **Adapter interfaces:** narrow boundaries through which future agent-specific integrations MAY invoke the agent-neutral core.
-- **Application orchestration:** a future command-line layer that composes the boundaries above without embedding policy in presentation code.
+## Phase 1 model boundary
 
-Dependencies SHOULD point inward toward models and policy rules. The core MUST remain independent of any particular agent product. Runtime inspection and persistence SHOULD be isolated behind explicit interfaces so deterministic policy logic can be tested without a live repository.
+`model-implementation` owns typed in-memory representations corresponding to
+the approved Schema contract, strict decoding, canonical serialization,
+model-level validation that does not execute later-phase control-plane
+behavior, model unit tests, Schema/model conformance tests, and static
+configuration-integrity checks permitted by the approved Phase 1 boundary.
 
-The default authorization state will be `mode: plan-only` with `allowWrite: false`. Customer governance MAY restrict permissions, and a local Host Overlay MAY restrict them further but MUST NOT widen them. A write operation will require both correct worktree role ownership and a valid runtime write lease; those are separate controls.
+Phase 1 model validation MAY cover deterministic decoding and serialization,
+model/Schema representation conformance, ID uniqueness and reference existence
+inside a closed synthetic or loaded governance bundle, static
+restriction-shape checks that do not calculate operational authorization, and
+static model invariants that do not require task intent, host bindings, Git
+state, lease state, or runtime decisions.
 
+The model role MUST NOT independently redefine Schema fields or semantics or
+implement task-intent resolution, `Project` or `Domain` resolution,
+`RoutingPolicy` execution, role selection, host-binding execution, live Git
+inspection, lease acquisition or release, `TaskContract` issuance,
+`ExecutionReceipt` generation, a CLI, adapters, or operational enforcement.
+
+## Later package areas
+
+Resolution and routing remain Phase 2; runtime Git and worktree inspection and
+leases remain Phase 3; trusted contract issuance, scope verification,
+terminalization, and receipts remain Phase 4; the CLI remains Phase 5; and
+agent adapters remain Phase 6. None of those package areas is implemented.
+
+Dependencies will point inward toward models and policy rules. The core will
+remain independent of any agent product, and later runtime inspection and
+persistence will be isolated behind explicit interfaces.

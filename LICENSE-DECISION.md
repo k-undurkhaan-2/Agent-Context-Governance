@@ -10,7 +10,7 @@ The repository MUST NOT add a license file or describe any project material as l
 
 A later decision MUST define the terms under which source code, schemas, documentation, examples, tests, and other project artifacts may be used, modified, distributed, and contributed. It MUST also decide whether all artifact types use the same terms or require clearly identified, compatible terms.
 
-The decision MUST be evaluated against evidence available when implementation and distribution plans are concrete. The current documentation-bootstrap phase does not provide enough information to resolve it.
+The decision MUST be evaluated against evidence available when implementation and distribution plans are concrete. Phase 0 documentation bootstrap is complete at baseline commit `79cc9d77fd48410f37645afdb429a7cd2e34a0bd`, and Phase 1: Schemas and Models is current but unimplemented. The repository remains pre-operational, has no package release, and still does not provide enough information to resolve the license decision.
 
 ## Evaluation dimensions
 

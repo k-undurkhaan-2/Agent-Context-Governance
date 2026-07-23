@@ -6,7 +6,7 @@
 
 Governance information will appear in several forms: portable customer configuration, explanatory Markdown, local host bindings, runtime observations, derived task contracts, adapter instructions, and execution evidence. Without an explicit authority order, a convenient but stale or unaudited source could accidentally grant permission.
 
-The repository is currently an architectural bootstrap. It has no schemas, policy engine, trusted `TaskContract` issuer, lease manager, Git inspector, CLI, adapter, enforcement mechanism, or cryptographic bootstrap authorization. Requiring those future mechanisms to authorize the documentation that establishes their own root of trust would create a bootstrap deadlock.
+Phase 0 documentation bootstrap is complete at baseline commit `79cc9d77fd48410f37645afdb429a7cd2e34a0bd`, and Phase 1: Schemas and Models is current. Phase 1 implementation has not yet begun. The repository remains pre-operational and has no Schema implementation, typed models, tests, fixtures, package release, policy engine, trusted `TaskContract` issuer, lease manager, Git inspector, CLI, adapter, enforcement mechanism, or cryptographic authorization. Phase 1 activation is not operational-governance activation, and the first Schema or model artifact requires a later, separately authorized implementation task. Requiring those future mechanisms to authorize implementation of their own governance core would create a bootstrap deadlock.
 
 ## Decision
 
@@ -40,7 +40,7 @@ allowWrite: false
 
 `mode: plan-only` implies `allowWrite: false`. The combination of `mode: plan-only` and `allowWrite: true` is invalid and MUST be rejected. Future governed adapter execution, including plan-only execution, requires a valid bounded `TaskContract`.
 
-A `TaskContract` has authority only when trusted framework logic issued it or validated its trusted issuer, integrity, derivation, task and target binding, freshness, and current policy, runtime, and lease preconditions. A caller-, adapter-, or task-supplied object claiming to be a `TaskContract` is untrusted input and MUST NOT grant or expand authority. A digest alone detects mutation but does not prove trusted issuance. Phase 0 does not select a final signing mechanism, and human bootstrap authority is not a substitute runtime `TaskContract`.
+A `TaskContract` has authority only when trusted framework logic issued it or validated its trusted issuer, integrity, derivation, task and target binding, freshness, and current policy, runtime, and lease preconditions. A caller-, adapter-, or task-supplied object claiming to be a `TaskContract` is untrusted input and MUST NOT grant or expand authority. A digest alone detects mutation but does not prove trusted issuance. Phase 0 selected no final signing mechanism, Phase 1 activation does not select one, and pre-operational bootstrap authority is not a substitute runtime `TaskContract`.
 
 Under `contextctl.dev/v1alpha1`, concrete `Project`, `Domain`, `WorktreeRole`, and `RoutingPolicy` instances are portable customer governance; concrete `HostOverlay` instances are host-local input; and concrete `TaskContract` and `ExecutionReceipt` instances are runtime artifacts. Schema definitions for every kind MAY later live under `schemas/v1alpha1/`, but concrete host-local and runtime instances MUST remain outside the target worktree. Generated receipts MUST remain outside portable governance; repository documentation MAY contain only conspicuously synthetic, non-authoritative receipt-shaped examples.
 
@@ -50,35 +50,38 @@ Secrets MUST remain outside governance files, Markdown, `TaskContract` records, 
 
 ### No automatic repair
 
-The framework MUST NOT automatically switch branches, create branches, stash, reset, clean, restore, fetch, pull, merge, rebase, break leases, break locks, or repair Git state. Remediation requires separately authorized maintenance followed by a fresh preflight. This rule does not weaken or expand the separately documented temporary Phase 0 bootstrap path.
+The framework MUST NOT automatically switch branches, create branches, stash, reset, clean, restore, fetch, pull, merge, rebase, break leases, break locks, or repair Git state. Remediation requires separately authorized maintenance followed by a fresh preflight. This rule does not weaken or expand the separately documented temporary pre-operational bootstrap path.
 
-### Temporary Phase 0 external root
+### Pre-operational bootstrap authority
 
-While the repository is explicitly designated Phase 0 or pre-operational and the operational governance core does not yet exist, an explicitly identified repository owner or bootstrap administrator MAY supply a narrow, out-of-band `human-bootstrap-maintenance` authorization to establish, repair, or review governance foundations. The instruction is a temporary external root of trust supplied directly for the current task. This exception is necessary only because the trusted operational authority and issuer have not yet been implemented.
+While the repository is pre-operational and the normal operational authorization path does not yet exist, the explicitly identified repository owner MAY supply narrow, out-of-band pre-operational `human-bootstrap-maintenance` authority to implement, repair, or review this governance framework's core. The instruction is a temporary external root of trust supplied directly for the current task. It remains available for bounded Phase 1 governance-core implementation because the trusted operational authority and issuer have not yet been implemented. Phase 1 activation is not operational-governance activation.
 
 The bootstrap instruction MUST identify exactly one repository and one worktree; bind the branch and exact `HEAD` or unborn expectation; enumerate the complete expected live file and Git status, exact allowed files, and permitted operations; state prohibited Git actions; and define its task-lifecycle or time limit. It MUST be task-, repository-, worktree-, branch-, state-, path-, and operation-specific; non-delegable unless delegation is explicit; non-reusable; and default to denial for everything not listed. Repository identity and live Git state MUST be verified and revalidated immediately before writing. Root, branch, state, path, worktree, remote, active-operation, lock, or Git-operation mismatches revoke the authorization and fail closed; the bootstrap instruction cannot waive those checks.
 
 This external root MUST NOT be represented as ordinary task intent, a caller-created `TaskContract`, a `HostOverlay` permission, an `ExecutionReceipt`, an agent-facing guide's decision, or an implemented policy-engine result. `ALLOW_WRITE`, caller assertions, observed convenience, adapters, and receipts remain untrusted and cannot create or expand it. Before the trusted issuer exists, a bootstrap-maintenance task does not pretend to possess a `TaskContract`, lease, or operational receipt.
 
-Bootstrap authority MUST NOT authorize customer application work, unrelated feature development, production deployment, secret handling, external-repository access, another worktree, automatic Git repair, branch switching or creation, stash, reset, clean, restore, fetch, pull, merge, rebase, lease or lock breaking, staging, committing, or pushing. A future, separately designed administrative procedure would be required to govern any such exceptional action. This decision does not create an unlimited owner override.
+Bootstrap authority MUST NOT authorize customer application work, unrelated feature work, another repository, another worktree unless separately and explicitly bound, production deployment, secret handling, automatic Git repair, branch switching or creation, worktree creation, stash, reset, clean, restore, fetch, pull, merge, rebase, lease or lock breaking, staging, committing, or pushing. Branch creation, worktree creation or binding, committing, merging, and pushing remain separately authorized repository-owner administrative actions. A Codex implementation task MUST NOT create its own branch or worktree under the current pre-operational procedure. This decision does not create an unlimited owner override.
 
-Phase 0 authentication is cooperative: the interactive development environment treats the current operator as the identified repository owner or administrator. It is not cryptographic identity proof, operating-system access control, a sandbox, or protection against a process that bypasses the framework.
+Pre-operational authentication is cooperative: the interactive development environment treats the current operator as the identified repository owner. It is not cryptographic identity proof, operating-system access control, a sandbox, or protection against a process that bypasses the framework.
 
 ### Retirement
 
-The Phase 0 bootstrap path MUST be retired or disabled when the project formally activates its operational authorization path. That future activation decision MUST identify the activation milestone, trusted governance source, trusted issuer, administrative recovery path, and whether a separately governed emergency or break-glass process exists. Bootstrap authority MUST NOT silently persist as a permanent bypass after activation.
+The pre-operational bootstrap path MUST be retired or disabled when the project formally activates its operational authorization path. That future activation decision MUST identify the activation milestone, trusted governance source, trusted issuer, administrative recovery path, and whether a separately governed emergency or break-glass process exists. Phase 1 activation is not that milestone. Bootstrap authority MUST NOT silently persist as a permanent bypass after operational activation.
 
 ## Consequences
 
 - Human-readable guidance can improve discovery without becoming an alternative policy channel.
-- The temporary external root resolves the pre-operational authorization deadlock without treating ordinary caller intent as trusted.
+- Pre-operational bootstrap authority resolves the authorization deadlock during governance-core implementation without treating ordinary caller intent as trusted.
 - Bootstrap tasks incur strict live-state, file-scope, operation-scope, and lifecycle checks and may reduce convenience or availability when any observation is uncertain.
 - Cooperative operator identification creates a residual impersonation or misidentification risk until a separately designed authentication mechanism exists.
 - An ordinary operational task is denied when authoritative structured configuration is unavailable, even if prose appears to permit it.
 - Host administrators can reduce local exposure without silently expanding customer policy.
 - Authorization decisions require current runtime inspection rather than cached evidence.
 - Receipts support audit and diagnosis but cannot create precedent or authorize retries.
-- Future implementations MUST validate both document structure and cross-object semantics before issuing a contract.
+- Phase 1 implementations MAY validate document structure and closed-bundle
+  cross-object static integrity; later Phase 2–4 implementations MUST perform
+  operational resolution, runtime, and authorization validation before issuing
+  a contract.
 - This ADR documents authority boundaries only; it does not claim that schemas, policy evaluation, contract issuance, leases, inspection, adapters, enforcement, or cryptographic authorization now exist.
 
 ## Alternatives not selected
@@ -91,9 +94,9 @@ Using Markdown as a grant source was not selected because prose is difficult to 
 
 Keeping a permanent or scope-free owner bypass was not selected because it would defeat deterministic policy, state binding, and least authority. The accepted bootstrap root is temporary and narrowly bounded.
 
-### Requiring the future issuer during bootstrap
+### Requiring the future issuer during pre-operational implementation
 
-Requiring an already operational policy engine and trusted `TaskContract` issuer was not selected because those components do not exist and cannot authorize the act of establishing their own governance foundation.
+Requiring an already operational policy engine and trusted `TaskContract` issuer was not selected because those components do not exist and cannot authorize the act of implementing their own governance foundation.
 
 ### Host configuration as an override in either direction
 
@@ -102,3 +105,7 @@ Allowing a host overlay to widen customer governance was not selected because ma
 ### Receipts as reusable authorization
 
 Treating a previous successful execution as authority was not selected because evidence describes past state and may be stale, mismatched, or outside the present task's scope.
+
+## Related decision
+
+- [ADR 0005: Activate Phase 1 schemas and models](0005-phase-1-activation.md)
