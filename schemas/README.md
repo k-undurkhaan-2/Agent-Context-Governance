@@ -4,14 +4,25 @@ Phase 0 documentation bootstrap is complete at baseline commit
 `79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and
 Models is current, but Phase 1 implementation has not yet begun. The repository
 remains pre-operational, and this directory contains no Schema implementation.
-The first Schema artifact requires a later, separately authorized
-`schema-contracts` implementation task in a dedicated worktree created or bound
-by the repository owner from `main` after the Phase 1 activation is integrated.
+The proposed v1alpha1 Schema contract design is recorded in
+[the Schema contract design](../docs/schema-contract-v1alpha1.md).
+Independent audit, including re-audit after design repair, and
+`integration-control` approval remain pending. Its exact 11-resource UUID-URN
+catalog has status `reserved-unpublished`; the catalog reserves identifiers but
+does not publish or implement Schema resources.
 
 The initial public configuration API version is `contextctl.dev/v1alpha1`.
 Future Schema definitions will live under `schemas/v1alpha1/`. Configuration
 API versions MUST evolve independently of package release versions, which will
 use Semantic Versioning.
+
+No Schema implementation may begin until both the proposed design has passed
+independent audit and `integration-control` approval, and
+`integration-control` has approved the validator, package metadata, dependency
+lock, provenance, and license handling required by the design's toolchain gate.
+The first Schema artifact then requires a fresh, separately authorized
+`schema-contracts` task in this dedicated role worktree. No Schema file
+currently exists.
 
 ## Phase 1 ownership and boundary
 
@@ -20,13 +31,14 @@ strict object envelopes, Schema-expressible structural constraints,
 unknown-field rejection, types, formats, enums, required fields, local
 structural invariants, conspicuously synthetic positive and negative Schema
 fixtures, Schema validation and contract tests, and documentation changes
-directly required to describe the finalized Schema contract.
+directly required to describe the proposed Schema contract through approval.
 
-Within the approved Phase 1 boundary, Schema work MAY cover JSON Schema
-structural validation; supported API-version checks; field type, format, enum,
-range, and required-property validation; object-local invariants; and
-Schema-expressible portions of closed-bundle ID uniqueness, reference shape,
-reference existence, and static restriction-shape checks. The role MAY document
+Within the Phase 1 boundary established by ADR 0005, Schema work MAY
+cover JSON Schema structural validation; supported API-version checks; field
+type, format, enum, range, and required-property validation; object-local
+invariants; and Schema-expressible portions of closed-bundle ID uniqueness,
+reference shape, reference existence, and static restriction-shape checks. The
+role MAY document
 semantic invariants that later phases must enforce, but it MUST NOT implement
 Python models, decoding, canonical serialization, deterministic task
 resolution, `RoutingPolicy` execution, live Git inspection, runtime leases,

@@ -4,7 +4,26 @@ Phase 0 documentation bootstrap is complete at baseline commit
 `79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and
 Models is current, but Phase 1 implementation has not yet begun. The repository
 remains pre-operational, and no tests or fixtures exist yet. Future tests MUST
-be deterministic and MUST use sanitized synthetic data.
+be deterministic and MUST use sanitized synthetic data. The planned Schema
+contract, static-validation vectors, and fixture inventory are recorded in the
+[v1alpha1 Schema contract design](../docs/schema-contract-v1alpha1.md).
+
+## Validator and toolchain gate
+
+No validator has been selected, and no `pyproject.toml`, dependency
+declaration, transitive lock, or approved executable test environment exists.
+Executable Schema tests and Schema implementation remain blocked until
+`integration-control` approves the validator, packaging, lock, provenance,
+license, and release decisions. `schema-contracts` owns the validator
+capability requirements and future conformance vectors. Ad hoc imports,
+globally installed packages, and untracked environments are not accepted.
+
+Planned Phase 1 tests are limited to strict parsing prerequisites, JSON Schema
+structure, offline reference resolution, canonical representation checks, and
+closed-bundle static integrity. Task resolution and RoutingPolicy execution
+remain Phase 2; live Git, worktree, and lease tests remain Phase 3; trusted
+contract, scope-verification, sanitization, receipt, and delivery tests remain
+Phase 4; CLI and adapter tests remain Phases 5 and 6.
 
 ## Phase 1 test order and ownership
 
@@ -41,6 +60,25 @@ Contract tests MUST prove that a `TaskContract` has authority only after trusted
 
 Tests MUST prove that future governed adapter execution, including plan-only execution, requires a valid bounded `TaskContract` and rejects a missing, invalid, stale, or unbounded contract. They MUST also prove that pre-operational `human-bootstrap-maintenance` authority is not accepted as a runtime `TaskContract`.
 
+Future `ExecutionReceipt` contract coverage MUST exercise both closed receipt-origin branches and the conditional presence of contract fields. It MUST cover pre-contract denials before and after lease acquisition, require acquisition binding and applicable cleanup or release evidence only when a lease was acquired, and reject both fabricated contract binding and successful-execution claims in pre-contract denial receipts. This coverage preserves optional policy-required pre-contract denial receipts without duplicating the field-level design recorded in the Schema contract.
+
+### Path-keyed baseline and postcondition entries
+
+Future Phase 1 static and contract tests MUST prove that the repository-relative path is the sole identity, uniqueness, and canonical ordering key, `S(entry.path)`, for `TaskContract` baseline index, tracked, and submodule entry arrays and every corresponding entry array nested in required postconditions. Two entries with the same path MUST be rejected even when their remaining fields differ, including index mode, stage, object identity, or other index-entry state; tracked object identity, mode, status, or other tracked-entry state; submodule object ID, branch or ref information, or dirty state; or required-postcondition entry contents.
+
+`J(entry)` MAY be used only for deterministic diagnostic comparison after path uniqueness is established. It MUST NOT participate in entry identity, uniqueness, or canonical ordering, and differing full-object bytes MUST NOT make duplicate paths valid.
+
+Tests MUST prove that duplicate-path rejection occurs after strict parsing and applicable structural validation, during Phase 1 static validation, and before canonical digest projection, RFC 8785 JCS serialization, and hashing. A duplicate path MUST NOT reach hashing as a valid instance.
+
+Planned negative coverage MUST include:
+
+- duplicate baseline index path with different entry contents;
+- duplicate baseline tracked path with different entry contents;
+- duplicate baseline submodule path with different object IDs or dirty state; and
+- duplicate nested required-postcondition entry path with different contents.
+
+Untracked and ignored path arrays MUST remain unique and canonically ordered by `S(path)`. Path arrays nested in transitions or postconditions MUST retain their applicable `S(path)` rule. This test-plan synchronization does not change the design record's [array-ordering contract](../docs/schema-contract-v1alpha1.md#11-complete-array-ordering-matrix).
+
 ## Required failure scenarios
 
 Future integration coverage MUST exercise this order:
@@ -75,6 +113,7 @@ The test suite MUST demonstrate fail-closed behavior for at least:
 - post-acquisition denial and pre-contract cleanup that releases only the acquisition-result lease provably owned by the task without requiring a nonexistent contract;
 - drift after contract issuance or at another checkpoint, and changes outside a `TaskContract`'s allowed scope;
 - receipt storage or delivery failure, lease release failure, and failed or cancelled execution with an unresolved lease;
+- invalid receipt-origin combinations, including conditional contract-field violations, pre-contract denial around lease acquisition, and inconsistent cleanup or release evidence;
 - an `ExecutionReceipt` being presented as authorization input;
 - invalid in-worktree concrete `HostOverlay`, `TaskContract`, receipt, lock, lease, or runtime-state artifacts even if an ignore rule would otherwise hide them; and
 - secrets or machine-specific runtime data appearing in diagnostics, fixtures, golden files, logs, or receipts.
