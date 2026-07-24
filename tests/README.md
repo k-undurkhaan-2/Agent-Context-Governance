@@ -60,7 +60,7 @@ Contract tests MUST prove that a `TaskContract` has authority only after trusted
 
 Tests MUST prove that future governed adapter execution, including plan-only execution, requires a valid bounded `TaskContract` and rejects a missing, invalid, stale, or unbounded contract. They MUST also prove that pre-operational `human-bootstrap-maintenance` authority is not accepted as a runtime `TaskContract`.
 
-Future `ExecutionReceipt` contract coverage MUST exercise both closed receipt-origin branches and the conditional presence of contract fields. It MUST cover pre-contract denials before and after lease acquisition, require acquisition binding and applicable cleanup or release evidence only when a lease was acquired, and reject both fabricated contract binding and successful-execution claims in pre-contract denial receipts. This coverage preserves optional policy-required pre-contract denial receipts without duplicating the field-level design recorded in the Schema contract.
+Future `ExecutionReceipt` contract coverage MUST exercise both closed receipt-origin branches and the conditional presence of contract fields. It MUST cover pre-contract denials before and after lease acquisition, require acquisition binding only for a proven acquired lease, require applicable cleanup or indeterminate release evidence for acquired or indeterminate acquisition state, and reject both fabricated contract binding and successful-execution claims in pre-contract denial receipts. This coverage preserves optional policy-required pre-contract denial receipts without duplicating the field-level design recorded in the Schema contract.
 
 ### Path-keyed baseline and postcondition entries
 
@@ -77,7 +77,100 @@ Planned negative coverage MUST include:
 - duplicate baseline submodule path with different object IDs or dirty state; and
 - duplicate nested required-postcondition entry path with different contents.
 
-Untracked and ignored path arrays MUST remain unique and canonically ordered by `S(path)`. Path arrays nested in transitions or postconditions MUST retain their applicable `S(path)` rule. This test-plan synchronization does not change the design record's [array-ordering contract](../docs/schema-contract-v1alpha1.md#11-complete-array-ordering-matrix).
+Untracked and ignored path arrays MUST remain unique and canonically ordered by `S(path)`. Path arrays nested in postconditions MUST retain their applicable `S(path)` rule. This test-plan synchronization does not change the design record's [array-ordering contract](../docs/schema-contract-v1alpha1.md#11-complete-array-ordering-matrix).
+
+### SG-001 closure coverage
+
+Future Schema and static-contract coverage MUST implement every row of the
+design record's [mandatory exhaustive fixture/conformance
+matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
+That requirement remains planned and does not imply that the design is
+approved, a validator is selected, or any fixture or executable test exists.
+
+The required future coverage includes, concisely:
+
+- the conflict-free stage-0 `TaskContract` index profile, including clean,
+  non-empty exact, and empty exact complete inventories;
+- fail-closed pre-contract denial of unmerged, intent-to-add, skip-worktree,
+  assume-unchanged, sparse, unsupported-mode, and otherwise unrepresentable
+  index states;
+- complete-inventory rather than delta semantics for every exact baseline and
+  the canonical meanings of every clean or none branch;
+- index, tracked, submodule, untracked, and ignored cross-dimension
+  consistency, coverage, equality, and exact-path disjointness at the
+  appropriate Phase 1 static or Phase 3 live layer;
+- the equality required for `tracked.modified` and inequality required for
+  `tracked.type-changed` worktree/index modes, plus every other tracked status
+  branch invariant;
+- all four allowed `TaskContract` requested-mode, effective-mode, write,
+  lease-required, lease-ID, and lease-state rows and every invalid combination;
+- same-receipt `relatedCheckId` integrity, including absent, forward, backward,
+  dangling, cross-receipt, duplicate-check, and delivery-result cases;
+- exhaustive positive and applicable negative coverage for every ref/HEAD,
+  baseline, transition, postcondition, warning, check, outcome, and
+  lease-acquisition branch;
+- required `preContractEvidence.sanitizedSummary` and
+  `ReceiptDeliveryResult.sanitizedSummary` presence while warning and check
+  summaries retain their designed optionality;
+- the material pre-publication five-state lease-acquisition correction:
+  `not-required`, `not-attempted`, `not-acquired`, `indeterminate`, and
+  `acquired`; and
+- the preserved `profile.number.v1alpha1-r1` numeric contract with Git index
+  stage range exactly `0..0`, stage `0` valid, and stages `1` through `4`
+  invalid.
+
+### Closed runtime and numeric-profile conformance
+
+Future Phase 1 Schema and static contract coverage MUST exercise the exact
+closed runtime representations in the design record. Baseline fixtures MUST
+cover all nine required dimensions; the conflict-free stage-0 clean, non-empty
+exact, and empty exact index forms; every tracked, submodule,
+active-operation, and administrative-lock branch; and rejection of missing or
+unknown dimensions, branch-inapplicable fields, stage `1` through `4`,
+unsupported index modes and flags, unmerged or sparse index state, and duplicate
+path or lock identities. The complete-inventory clean, none, and exact forms
+must remain canonical and unambiguous.
+
+Every one of the nine permitted-transition branches and eleven
+required-postcondition branches requires positive coverage. Negative coverage
+MUST reject identical `from`/`to` values, missing target keys, unknown
+transition types, duplicate transition targets, duplicate postcondition types,
+and a missing or repeated `scope-contained` postcondition. Transition target
+and postcondition type uniqueness MUST be established before digest projection
+or hashing.
+
+Receipt vectors MUST cover warning records with and without optional fields,
+all check types, contiguous warning/check sequences, unique check IDs, ordered
+reason-code sets, and every same-receipt `relatedCheckId` success and failure
+case independent of sequence position. Issued-contract vectors MUST exercise successful,
+denied-before-action, failed, cancelled, and indeterminate outcomes under the
+exact precedence rules; failed or indeterminate release without an unresolved
+coordination warning MUST be rejected. Pre-contract-denial vectors MUST cover
+every permitted checkpoint/acquisition-state pair, reject every unlisted pair,
+and cover acquired-lease cleanup that succeeds, fails, or remains indeterminate.
+Impossible execution, verification, release, lifecycle, and unresolved-warning
+combinations MUST be rejected deterministically.
+
+The selected `v1alpha1-r1` number profile accepts only raw JSON number tokens
+matching `0|[1-9][0-9]*`, with a universal maximum of
+`9007199254740991`. Planned boundary vectors MUST cover RoutingPolicy
+priority, remote port, Git index stage `0..0`, warning and check sequence, and
+receipt redaction-count minima and maxima, plus their first out-of-range values.
+Stage `0` is the sole valid Git index-stage vector; stages `1`, `2`, `3`, and
+`4` are invalid. The vectors MUST reject negative and negative-zero forms,
+leading plus or zeroes,
+fractions, exponent forms, unsafe integers, NaN, Infinity, and equivalent
+permissive-parser extensions in every numeric field.
+
+Raw numeric-token validation and duplicate-key detection MUST occur during
+strict parsing before ordinary decoding, Schema validation, static validation,
+array checks, digest projection, JCS, or hashing. Planned conformance coverage
+MUST prove no precision loss through parsing, model transfer, RFC 8785 JCS, or
+replay; produce identical digest vectors across supported runtimes; combine
+official RFC 8785 vectors with project-specific numeric boundaries; and reject
+a generic decoded object that lacks trusted proof of strict profile parsing.
+Validator research must prove this selected profile and MUST NOT choose or
+weaken it. All coverage in this section remains planned and unimplemented.
 
 ## Required failure scenarios
 
