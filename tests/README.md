@@ -104,7 +104,9 @@ the design, while preserving its assigned phase and ownership boundary:
   reuse through transitions and postconditions.
 - **D3:** exercise the sole eleven-step recursive leaf-only untracked/ignored
   inventory, complete ignore precedence and negation, submodule and nested-repo
-  boundaries, `S(path)` order, and every fail-closed observation class.
+  boundaries, `S(path)` order, require every repository-relative path to
+  satisfy the defined `repositoryRelativePath` profile, strict UTF-8, and
+  already-NFC checks, and cover every fail-closed observation class.
 - **D4:** reproduce the fixed raw regular, executable, and link-target byte
   digests without filters, decoding, normalization, or dereference, and reject
   unstable, unreadable, replaced, truncated, or unsupported objects.
@@ -129,9 +131,14 @@ the design, while preserving its assigned phase and ownership boundary:
   and remote inclusion, binding-name resolution, and path-language inclusion
   with deterministic automata; reject widening and every unavailable proof.
 - **D11:** independently inventory eleven digest field paths bound once to ten
-  computations and reproduce every exact separator, raw/JCS payload, excluded
-  field, completed source value, tagged hash, negative vector, and delivery
-  digest copy from the recorded corpus.
+  computations; prove every cataloged field selector resolves to a valid
+  branch in its closed union; require the acquired acquisition-result selector
+  to be exactly
+  `ExecutionReceipt.spec.origin[type=pre-contract-denial].leaseAcquisition[state=acquired].acquisitionResultDigest`;
+  reject the invalid `leaseAcquisition` predicate `[type=acquired]` and never accept it as a catalog field path;
+  and reproduce every exact separator, raw/JCS payload, excluded field,
+  completed source value, tagged hash, negative vector, and delivery digest
+  copy from the recorded corpus.
 - **D12:** verify the complete five-class capability partition and all four
   valid review-only permitted sets with exact prohibited-set complements, plus
   every non-observation, role, mode, overlap, complement, exclusive-write, and
