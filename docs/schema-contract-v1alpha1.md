@@ -8,7 +8,7 @@ Concrete `HostOverlay`, `TaskContract`, `ExecutionReceipt`, lease, lock, runtime
 
 ## 1. Status, scope, and authority
 
-The `schema-contracts` role owns the public JSON Schema contract under `schemas/v1alpha1/`, shared definitions, closed envelopes, Schema-expressible constraints, unknown-field rejection, conspicuously synthetic fixtures, Schema validation and contract tests, and directly required Schema documentation. It does not own Python models, decoding, canonical serialization implementation, task resolution, operational routing, live Git inspection, leases, contract issuance, receipt generation, a CLI, adapters, or enforcement.
+The `schema-contracts` role owns the public JSON Schema contract under `schemas/v1alpha1/`, shared definitions, closed envelopes, Schema-expressible constraints, unknown-field rejection, conspicuously synthetic fixtures, Schema validation and contract tests, the static validation/codec contract for the internal validated representation defined in section 10, and directly required Schema documentation. It does not own production Python models, production decoding or serialization implementation, task resolution, operational routing, live Git inspection, leases, contract issuance, receipt generation, a CLI, adapters, or enforcement.
 
 The phase boundaries are binding:
 
@@ -136,7 +136,7 @@ There is no `metadata.name`, label map, or annotation map in v1alpha1. Human-rea
 | Canonical UUID | Lower-case canonical UUID string with `format: uuid` and a lexical pattern | Version-specific constraints where required | Identity does not prove issuer or ownership |
 | Display text | Bounded string without control characters | Already NFC; fixture hygiene | Phase 4 sanitizes text copied into evidence; external classification still applies |
 | Repository-relative path | POSIX `/` separators; no leading slash, drive prefix, backslash, empty segment, `.` segment, `..` segment, NUL, or trailing slash; maximum 4096 characters | Already NFC; canonical spelling and set ordering | Phase 3 resolves against the bound canonical root and checks containment live |
-| Path pattern | Repository-relative grammar; `*` and `?` stay within a segment and `**` is allowed only as a complete segment; no negation, backslash, brace expansion, or host absolute syntax | Pattern parse succeeds; include/exclude relationships are statically checked where provable | Phase 2 resolves task coverage; Phase 3 checks concrete effects |
+| Path pattern | Repository-relative grammar; `*` and `?` stay within a segment and `**` is allowed only as a complete segment; no negation, backslash, brace expansion, or host absolute syntax | Pattern parse succeeds; D10 language relationships are decided exactly by its finite-automata inclusion proof | Phase 2 resolves task coverage; Phase 3 checks concrete effects |
 | Absolute host path | Closed object `{ platform, value }`, where `platform` is `windows` or `posix`; lexical checks only | Fixtures use conspicuously synthetic paths | Phase 3 canonicalizes, resolves aliases, and checks the real binding and containment |
 | Object reference | Closed `{ apiVersion, kind, id }` object | Target kind, uniqueness, existence, and bundle association where applicable | Later phases bind the reference to the selected runtime object |
 | Mode | Enum `plan-only` or `implementation` | `plan-only` with `allowWrite: true` is rejected | Phase 4 checks requested/effective mode against authority |
@@ -306,7 +306,43 @@ Required `spec` fields:
 | `exclusiveWriteRequired` | Required Boolean |
 | `reviewOnly` | Required Boolean |
 
-Owned and excluded Domains are disjoint and must exist in the same Project. A role may own multiple Domains. `reviewOnly: true` requires `roleClass: review`, excludes implementation mode and write capabilities, and does not become write-capable through another field. `roleClass: integration-control` identifies responsibility only; it grants no administrative operation. Branch deny rules win over allow rules during later evaluation. The object defines a logical responsibility profile, not a filesystem path or live worktree.
+Owned and excluded Domains are disjoint and must exist in the same Project. A role may own multiple Domains. `roleClass: integration-control` identifies responsibility only; it grants no administrative operation. Branch deny rules win over allow rules during later evaluation. The object defines a logical responsibility profile, not a filesystem path or live worktree.
+
+#### Capability classes and review-only roles
+
+The complete 13-member capability vocabulary is partitioned into exactly five
+classes. Every member occurs in exactly one class:
+
+| Capability class | Exact members |
+| --- | --- |
+| Observation | `inspect`, `validate` |
+| Repository mutation | `create`, `modify`, `delete` |
+| Execution | `execute-tests`, `execute-build` |
+| Git administration | `git-stage`, `git-commit`, `git-branch`, `git-remote` |
+| External access | `network`, `external-secret-use` |
+
+Let `C` be that complete capability set and let `P` be
+`permissions.permittedCapabilities`. When `reviewOnly` is `true`, all of the
+following are required simultaneously:
+
+```text
+roleClass == review
+permissions.modes == [plan-only]
+P ⊆ {inspect, validate}
+permissions.prohibitedCapabilities == C − P
+exclusiveWriteRequired == false
+```
+
+The four valid permitted sets are exactly `[]`, `[inspect]`,
+`[validate]`, and `[inspect,validate]`, each with the exact complement
+in canonical order as its prohibited set. Permitted and prohibited sets remain
+disjoint. Project, Domain, HostOverlay, routing, availability, adapter, or any
+other field may narrow the result but cannot restore a capability excluded by
+this rule. Negative vectors place each of the eleven non-observation members
+in `P` separately and also cover a non-review role, any mode other than the
+one-element plan-only set, a missing complement member, an extra prohibition
+that overlaps `P`, `exclusiveWriteRequired: true`, and attempted restoration
+through another field.
 
 ### `RoutingPolicy`
 
@@ -336,7 +372,7 @@ Required `spec` fields:
 | `hostId` | Non-secret logical host-local identity; it is not proof of host identity |
 | `projectRef` | One portable `Project` reference |
 | `repositoryIdentity` | Restrictive local repository expectation |
-| `bindings` | Role-to-worktree binding records containing `roleRef`, `worktreeId`, synthetic-capable absolute-path representation, and optional expected branch/remote names |
+| `bindings` | Non-empty canonical set of the exact closed five-field binding records defined below |
 | `remoteExpectations` | Set-like closed records containing `remoteName` and required non-empty `acceptedRemotes` |
 | `capabilityCeiling` | Canonical capability set that may only narrow customer governance |
 | `pathCeiling` | Canonical repository-relative include/exclude arrays |
@@ -345,7 +381,124 @@ Required `spec` fields:
 
 Within one HostOverlay, `remoteName` is the sole identity of a remote-expectation record. The outer `remoteExpectations` array is set-like, contains at most one record for each name, and is unique and canonically ordered by `S(remoteName)`. Each record's `acceptedRemotes` is required, non-empty, set-like, unique, and canonically ordered by `J(remote)`. Multiple acceptable repository remotes for one configured Git remote name are represented inside that one record. Two outer records with the same `remoteName` are invalid even when their accepted remote values differ. Runtime comparison with the observed Git remote remains Phase 3. The structured representation cannot contain a credential-bearing URL, user-info, query, fragment, local file transport, token, or key path.
 
-Bindings have unique `(roleRef, worktreeId)` keys. Static validation checks reference shape, uniqueness, absolute-path syntax, and canonical arrays. Closed-bundle static validation rejects a capability, path, role, or repository identity that visibly widens portable governance. Real path identity, branch, remote, registration, containment, and runtime state remain Phase 3 observations. The overlay has no secret field and no field for cached Git observations. Concrete overlay instances remain outside the target worktree.
+#### Closed HostOverlay binding
+
+Every `bindings` member is one closed record requiring exactly these five
+fields and no others:
+
+| Field | Exact type |
+| --- | --- |
+| `roleRef` | `WorktreeRole` object reference |
+| `worktreeId` | `logicalIdentifier` |
+| `repositoryRoot` | `absoluteHostPath` |
+| `expectedRef` | the exact `refState` branch/detached union |
+| `remoteNames` | non-empty `logicalIdentifier[]` |
+
+`remoteNames` is set-like, unique, and strictly ordered by `S(value)`. Every
+name resolves to exactly one `HostOverlay.remoteExpectations` record. A branch
+`expectedRef` requires `branchRef`; a detached `expectedRef` forbids it. A
+generic `expectedBranch` field and cached observed HEAD, branch, remote URL, or
+other Git-state fields are forbidden. Binding identity remains
+`(R(roleRef), S(worktreeId))`. `repositoryRoot` is restrictive host-local
+input and grants no authority. Phase 3 compares the live canonical root,
+worktree registration, ref state, and every named remote with this binding.
+
+Positive vectors cover complete branch and detached records. Negative vectors
+cover each missing field, every unknown field, duplicate or empty
+`remoteNames`, an unknown remote name, non-canonical name order, a branch
+without `branchRef`, a detached value with `branchRef`, `expectedBranch`, and
+each forbidden cached observation.
+
+#### Exact Phase 1 HostOverlay narrowing proof
+
+For every binding, `HostOverlay.spec.projectRef` resolves exactly one Project,
+`roleRef` occurs in that Project's `worktreeRoleRefs`, and the resolved
+WorktreeRole's `projectRef` equals the overlay Project. An overlay cannot add,
+replace, or modify portable role or Domain ownership.
+
+Let `Pp` and `Pr` be the Project and WorktreeRole permitted-capability sets,
+and let `Xp` and `Xr` be their prohibited-capability sets. Define:
+
+```text
+Cportable = (Pp ∩ Pr) − (Xp ∪ Xr)
+HostOverlay.capabilityCeiling ⊆ Cportable
+Cbinding = Cportable ∩ HostOverlay.capabilityCeiling
+```
+
+All comparisons use exact capability-enum membership. Unknown or unprovable
+membership rejects the overlay.
+
+Every structured remote in `HostOverlay.repositoryIdentity.acceptedRemotes`
+must occur in `Project.repositoryIdentity.acceptedRemotes` by exact
+`J(remote)` equality. Every value in every
+`remoteExpectations[].acceptedRemotes` set must occur in the same Project set.
+The overlay may remove acceptable remotes but cannot add one. Every binding
+`remoteNames` member resolves to one non-empty narrowed expectation record.
+
+For path proofs, `U` is the universe of all already-NFC strings accepted by
+the `repositoryRelativePath` profile. A path pattern is anchored to the whole
+path and has exactly this restricted meaning:
+
+- a literal character matches itself;
+- `?` matches exactly one permitted non-`/` Unicode scalar within a segment;
+- `*` matches zero or more permitted non-`/` scalars within one non-empty
+  segment;
+- `**` is special only as a complete segment and matches zero or more complete
+  non-empty segments; and
+- negation, brace expansion, absolute syntax, backslash, normalization, host
+  transformation, and every other metacharacter or extension are forbidden.
+
+Pattern syntax, matched paths, and path arrays must independently satisfy
+their declared profiles. For one include/exclude scope `X`, define:
+
+```text
+L(X) = union(language(pattern) for pattern in X.include)
+       − union(language(pattern) for pattern in X.exclude)
+
+Lproject = union(L(Domain.pathScope) for Domain in Project.domainRefs)
+Lrole    = union(L(Domain.pathScope) for Domain in WorktreeRole.ownedDomainRefs)
+Loverlay = L(HostOverlay.pathCeiling)
+Lbinding = Loverlay ∩ Lrole
+```
+
+An empty HostOverlay include array denotes the empty language. Phase 1 must
+prove the exact restriction:
+
+```text
+Loverlay ∩ (U − Lproject) = ∅
+```
+
+The proof compiles the restricted grammar into deterministic automata,
+complements `Lproject` relative to `U`, constructs the product intersection,
+and tests emptiness. Unsupported syntax, compilation failure, resource
+exhaustion, or an indeterminate result rejects the overlay. Samples, path
+prefixes, and heuristic matching are never inclusion proof.
+
+The exact rejection codes are:
+
+- `reason.overlay.project-mismatch`;
+- `reason.overlay.role-not-in-project`;
+- `reason.overlay.role-project-mismatch`;
+- `reason.overlay.capability-widening`;
+- `reason.overlay.repository-widening`;
+- `reason.overlay.remote-widening`;
+- `reason.overlay.remote-unresolved`;
+- `reason.overlay.path-widening`; and
+- `reason.overlay.path-proof-unavailable`.
+
+Vectors cover valid narrowing and widening for capabilities, Project/role
+identity, repository identity, remote expectations, and path language. Path
+vectors include `src/lib/**` within Project `src/**`, `docs/**` outside that
+universe, unsupported syntax, compilation failure, resource exhaustion, and
+an indeterminate emptiness result. This is static closed-configuration
+restriction validation only; it does not resolve task intent or execute
+RoutingPolicy.
+
+Static validation checks binding shape, reference integrity, uniqueness,
+absolute-path syntax, canonical arrays, and every restriction proof above.
+Real path identity, registration, ref and remote observation, containment, and
+runtime state remain Phase 3. The overlay has no secret or cached-observation
+field, and concrete overlay instances remain outside the target worktree.
 
 ### `TaskContract`
 
@@ -369,7 +522,7 @@ Bindings have unique `(roleRef, worktreeId)` keys. Static validation checks refe
 | `requiredPostconditions` | Canonical set of postcondition records |
 | `leaseRequired` | Explicit Boolean |
 | `leaseId` | Canonical UUID, present exactly when a lease is required |
-| `issuanceCheckpoint` | Closed observation timestamp and tagged state digest |
+| `issuanceCheckpoint` | Closed observation timestamp and `profile.digest.issuance-state-v1` state digest defined exactly in section 10 |
 | `freshness` | Mandatory `issuedAt` and `expiresAt` boundary |
 
 #### Closed mode, write, and lease truth table
@@ -394,6 +547,30 @@ if and only if `leaseRequired` is true. A present `lease-state` postcondition is
 `owned` if and only if `leaseRequired` is true and is `not-required` if and
 only if `leaseRequired` is false. Schema validity does not prove lease
 ownership; actual ownership validation remains Phase 3 and Phase 4.
+
+#### Non-writing contracts
+
+For each of the first three truth-table rows, where `allowWrite` is `false`,
+`permittedTransitions` is exactly `[]`. No transition type is implicitly
+non-writing. If any state postcondition is present, its expected value equals
+the corresponding immutable baseline projection; it cannot describe drift.
+`leaseRequired` remains `false`, `leaseId` remains absent, and a present
+`lease-state` remains `not-required`.
+
+An issued-contract receipt for any non-writing contract has
+`changedPaths: []`. Observed drift is denial or failure evidence, not
+authorization. Possession of `execute-tests` or `execute-build` cannot
+override `allowWrite: false`.
+
+The mandatory 27 negative vectors are the Cartesian product of the three
+non-writing rows—plan-only/plan-only, implementation/plan-only, and
+implementation/implementation—with the nine transition types:
+`ref-state`, `head-state`, `index-entry`, `tracked-entry`, `untracked-path`,
+`ignored-path`, `submodule-entry`, `active-operation`, and
+`administrative-lock`. Phase 1 rejects the closed contract and checks any
+explicit state postcondition against the baseline. Phase 4 requires the empty
+changed-path set and treats mutation or uncertain drift as failed or
+indeterminate verification.
 
 #### Exact `expectedBaseline`
 
@@ -525,6 +702,41 @@ listed for the selected status are forbidden. An exact tracked condition
 contains at most one entry for a path and is strictly ordered solely by
 `S(entry.path)`; duplicate paths are invalid across status branches.
 
+#### Raw tracked worktree-content digest
+
+`trackedEntry.contentDigest` is bound only to
+`profile.digest.worktree-content-v1` in the exhaustive digest catalog in
+section 10. The profile payload is determined solely by the observed
+worktree object:
+
+- for mode `100644` or `100755`, it is the exact raw file bytes;
+- for mode `120000`, it is the exact lossless link-target byte sequence;
+- filters, clean/smudge processing, EOL conversion, decoding, Unicode
+  normalization, and symlink dereference are forbidden; and
+- mode, path, object ID, directories, and gitlinks are not payload bytes.
+
+The payload is obtained from an opened, identity-bound object or an equivalent
+observation that proves the same identity. Identity, kind, length, and relevant
+metadata are checked before and after reading, and the path must still resolve
+to the same object. Replacement, truncation, changed length, unreadability,
+lossy link-target access, a race, or an unsupported object type denies
+issuance. A directory or gitlink never receives `contentDigest`.
+
+After the profile's exact domain separator is prepended, the fixed positive
+vectors are:
+
+| Worktree object | Exact payload hex | Tagged digest |
+| --- | --- | --- |
+| Empty regular file | empty | `sha256:75a1e5502a349f7d22cbb583985b3045b6d5fd084f9f053cf3379bbbfe3781f9` |
+| Regular binary file | `00ff100a` | `sha256:d81685f62ae980ae8f1ca44242368c5c790894f055bd18ec1d76cbb5aa212db1` |
+| Executable file with the same bytes | `00ff100a` | `sha256:d81685f62ae980ae8f1ca44242368c5c790894f055bd18ec1d76cbb5aa212db1` |
+| Symlink target `../target.bin` | `2e2e2f7461726765742e62696e` | `sha256:dfe817225dbc5a625497132435cd03bb8330b34fab83b2263c8d9707d9e71940` |
+
+Negative vectors use filtered or EOL-converted bytes, decoded or normalized
+text, dereferenced symlink content, an unreadable file, replacement during
+observation, changed or inconsistent length, a lossy link-target observation,
+a directory, a gitlink, and every other unsupported object type.
+
 `untrackedCondition` and `ignoredCondition` each use the same exact union:
 
 | `state` | Required additional field | Forbidden field |
@@ -534,6 +746,59 @@ contains at most one entry for a path and is strictly ordered solely by
 
 Every exact path array is unique and strictly ordered by `S(path)`.
 
+#### Canonical untracked and ignored path inventory
+
+`profile.git.path-inventory-v1alpha1-r1` is the sole observation and encoding
+profile for baseline and postcondition untracked and ignored arrays. Its exact
+algorithm is:
+
+1. Resolve and identity-bind the repository root and its Git administrative
+   locations.
+2. Resolve every registered gitlink root before traversal.
+3. Recursively traverse the worktree without following symlinks.
+4. Exclude the repository's Git administrative data and every registered
+   submodule root and descendant.
+5. Treat a regular file, executable file, or symlink as one leaf; executable
+   state is not encoded in these path-only inventories.
+6. Never emit a directory; consequently, an empty directory has no
+   representation.
+7. Deny an unregistered nested repository without traversing or collapsing
+   it.
+8. For each non-tracked candidate leaf, evaluate the complete effective Git
+   ignore stack, including applicable `.gitignore` files, repository exclude
+   data, configured global excludes, precedence, later-match behavior, and
+   negation. Observer-only ad hoc rules are forbidden. Ignored directories
+   are still traversed so qualifying leaves can be enumerated.
+9. Put the leaf in ignored when the final effective result is ignored;
+   otherwise put it in untracked. A leaf occurs in at most one class.
+10. Require the repository-relative path, strict UTF-8, already-NFC, and
+    platform-safety profiles.
+11. Strictly order each final array by `S(path)`. A directory entry, collapsed
+    directory, or another expanded/collapsed alternative is invalid.
+
+Unreadable directories, traversal races, cycles, unresolved filesystem
+identity, unresolved ignore classification, unresolved submodule boundaries,
+and unsupported object types fail closed. The exact reason codes are:
+
+- `reason.git.path-inventory.unregistered-nested-repository`;
+- `reason.git.path-inventory.unreadable`;
+- `reason.git.path-inventory.traversal-race`;
+- `reason.git.path-inventory.cycle`;
+- `reason.git.path-inventory.identity-unresolved`;
+- `reason.git.path-inventory.classification-unresolved`;
+- `reason.git.path-inventory.path-unrepresentable`;
+- `reason.git.path-inventory.submodule-boundary-unresolved`;
+- `reason.git.path-inventory.object-type-unsupported`;
+- `reason.contract.path-inventory.directory-entry`; and
+- `reason.contract.path-inventory.collapsed-directory`.
+
+Required vectors cover a regular leaf, executable leaf, symlink leaf without
+dereference, recursive ignored-directory leaves, ignore-rule negation, an empty
+directory, a registered submodule boundary, an unregistered nested repository,
+unreadable/racing/cyclic traversal, unresolved identity or classification,
+an unrepresentable filename, a directory member, and a collapsed-directory
+alternative. The profile is not defined by one particular Git CLI command.
+
 `submoduleCondition` is exactly:
 
 | `state` | Required additional field | Forbidden field |
@@ -541,9 +806,9 @@ Every exact path array is unique and strictly ordered by `S(path)`.
 | `none` | — | `entries` |
 | `exact` | non-empty `entries: submoduleEntry[]` | — |
 
-Every closed `submoduleEntry` requires `path`, `recordedObjectId`,
-`checkout`, and `worktreeState`. `recordedObjectId` and the initialized
-checkout ID below are `gitObjectId` values. `checkout` is exactly:
+Every closed `submoduleEntry` requires exactly `path`, `recordedObjectId`,
+`checkout`, and `observation`. `recordedObjectId` and the initialized checkout
+ID below are `gitObjectId` values. `checkout` is exactly:
 
 | `state` | Required additional field | Forbidden field |
 | --- | --- | --- |
@@ -551,11 +816,43 @@ checkout ID below are `gitObjectId` values. `checkout` is exactly:
 | `uninitialized` | — | `checkedOutObjectId` |
 | `initialized` | `checkedOutObjectId` | — |
 
-`worktreeState` is exactly one of `clean`, `modified`, `untracked`,
-`conflicted`, or `indeterminate`. An absent checkout requires
-`worktreeState: indeterminate`. Entries are unique and strictly ordered
-solely by `S(entry.path)`; same-path entries remain invalid regardless of
-object IDs, checkout state, or worktree state.
+`observation` is exactly:
+
+| `state` | Required additional fields | Forbidden additional fields |
+| --- | --- | --- |
+| `unavailable` | none | `trackedChanges`, `untrackedChanges`, `conflicts` |
+| `observed` | `trackedChanges: Boolean`, `untrackedChanges: Boolean`, `conflicts: Boolean` | none |
+
+`unavailable` is valid only with checkout `absent` or `uninitialized`.
+`observed` is valid only with checkout `initialized`, and all eight Boolean
+triples from `false,false,false` through `true,true,true` are valid. A
+`checkedOutObjectId` different from `recordedObjectId` represents checkout
+commit difference independently from the three Booleans. `unavailable` never
+means clean. An initialized checkout without conclusive observation denies
+issuance; neither an `indeterminate` observation nor the superseded
+`worktreeState` field is valid contract data. Uncertainty may appear only in
+sanitized pre-contract evidence.
+
+The four exact denial codes are:
+
+- `reason.git.submodule.observation-unavailable`;
+- `reason.git.submodule.state-unreadable`;
+- `reason.git.submodule.observation-race`; and
+- `reason.git.nested-repository.unsupported`.
+
+Positive vectors cover absent/unavailable, uninitialized/unavailable,
+initialized/observed with each of the eight Boolean triples, and initialized
+checkout IDs both equal to and different from `recordedObjectId`. Invalid
+vectors cover absent/observed, uninitialized/observed,
+initialized/unavailable, missing or branch-inapplicable
+`checkedOutObjectId`, fields on `unavailable`, each missing observed Boolean,
+unknown fields, `indeterminate`, and `worktreeState`.
+
+Entries are unique and strictly ordered solely by `S(entry.path)`; same-path
+entries remain invalid regardless of object IDs, checkout state, or
+observation. The complete checkout and observation value passes unchanged
+through `submodule-entry` transitions, final-composite validation, and
+submodule-state postconditions; no weaker parallel representation exists.
 
 `activeOperationsCondition` is exactly:
 
@@ -674,6 +971,75 @@ Postcondition type uniqueness is validated before hashing.
 `J(postcondition)` is diagnostic-only after type uniqueness; a duplicated or
 conflicting type is invalid.
 
+#### Simultaneous transition composition
+
+Let `B` be the complete materialized baseline projection. For every transition
+target, `B(target)` is defined exactly as follows:
+
+| Transition target | Exact `B(target)` | Matching postcondition type |
+| --- | --- | --- |
+| `ref-state` | `expectedBaseline.ref` | `ref-state` |
+| `head-state` | `expectedBaseline.head` | `head-state` |
+| `index-entry(path)` | present with the complete matching index entry without `path`, or absent | `index-state` |
+| `tracked-entry(path)` | present with the complete matching tracked entry without `path`, or absent | `tracked-state` |
+| `untracked-path(path)` | present if and only if the path is in the complete untracked inventory | `untracked-state` |
+| `ignored-path(path)` | present if and only if the path is in the complete ignored inventory | `ignored-state` |
+| `submodule-entry(path)` | present with the complete matching D2 checkout/observation entry without `path`, or absent | `submodule-state` |
+| `active-operation(operation)` | active if and only if the operation is in the complete set | `active-operations` |
+| `administrative-lock(lock)` | present if and only if the lock identity is in the complete set | `administrative-locks` |
+
+An explicit exact baseline supplies the complete target value directly. When
+a clean or none branch requires HEAD, object, index, ignore, filesystem,
+checkout, or other live information, Phase 3 materializes and verifies the
+complete canonical target projection before issuance. An unprovable target
+denies issuance.
+
+For every transition, `from` equals `B(target)` by direct RFC 8785 JCS-byte
+equality after strict parsing, static validation, and canonical-array checks;
+no hash is used. A structurally different encoding is not equivalent. The
+existing `from != to` and unique-target requirements remain mandatory. A
+transition cannot use another transition's `to` as its `from`.
+
+All transitions apply simultaneously and independently of array order:
+
+```text
+F = Apply(B, permittedTransitions)
+```
+
+For each unique target, `Apply` replaces the baseline value with that
+transition's `to`; every unmentioned target retains its baseline value. No
+sequential dependency is permitted. The wire array still uses canonical
+`T(transition)` order, but reordering valid independent transitions cannot
+change `F`.
+
+The complete `F` is reconstructed into the unique canonical condition
+branches and revalidated as one composite. Validation includes ref/HEAD
+compatibility, index/tracked equality and coverage, index/submodule equality
+and coverage, tracked/submodule disjointness, the canonical D3 untracked and
+ignored inventories, explicit path-set disjointness, stage-0 and supported-mode
+restrictions, D2 checkout/observation rules, active-operation and
+administrative-lock rules, and every other baseline cross-dimension invariant.
+
+Every dimension changed by at least one transition requires its matching
+postcondition from the table, and that postcondition's `expected` value equals
+the corresponding canonical projection of `F`. A postcondition for an
+unchanged dimension is optional; if present, it equals the unchanged baseline
+projection. `scope-contained` and `lease-state` retain their independent
+mandatory rules.
+
+Phase 1 owns explicit closed-data comparison, simultaneous application,
+canonical reconstruction, and static final-composite validation. Phase 3 owns
+HEAD/live/object/index/filesystem materialization before issuance. Phase 4
+compares final evidence with `F`, attributes transitions, and verifies scope
+and postconditions.
+
+Positive vectors include independent simultaneous changes whose order does
+not affect the same valid final composite. Negative vectors cover baseline/
+`from` mismatch, an attempted sequential dependency, an invalid final
+cross-dimension composite, a missing postcondition for a changed dimension, a
+mismatched final postcondition, and drift asserted by a postcondition on an
+unchanged dimension.
+
 Local constraints enforce the complete four-row mode/write/lease truth table,
 including non-widening effective mode, `leaseRequired == allowWrite`, exact
 `leaseId` presence, and any present `lease-state` postcondition. They also
@@ -702,7 +1068,7 @@ remain outside the target worktree.
 | `changedPaths` | Canonical repository-relative path set |
 | `reasonCodes` | Canonical reason-code set |
 | `sanitization` | Closed required `profileId`, `applied`, `redactionCount`, and `completedAt` record |
-| `receiptDigest` | Tagged digest over the versioned receipt projection that excludes this field |
+| `receiptDigest` | `profile.digest.execution-receipt-v1` over the complete `ExecutionReceipt` resource excluding only `spec.receiptDigest`, exactly as cataloged in section 10 |
 | `startedAt` / `finishedAt` | Canonical UTC timestamps |
 
 `spec.origin` is exactly one of these closed branches:
@@ -712,12 +1078,22 @@ remain outside the target worktree.
 
 `denialCheckpoint` is a closed vocabulary containing exactly `intent-validation`, `project-domain-resolution`, `role-routing`, `host-binding`, `initial-preflight`, `lease-acquisition`, `post-acquisition-revalidation`, and `contract-issuance`. It contains no checkpoint that occurs only after contract issuance.
 
-`preContractEvidence` is a closed sanitized record requiring `observedAt`, a tagged `evidenceDigest` over its versioned evidence projection, a non-empty canonical `reasonCodes` set, and a bounded `sanitizedSummary`. Together with the receipt's ordered `checks`, it records enough evidence to explain the denial without asserting contract authority. It has no issuer, contract, absolute-host-path, secret, or authority-grant field. Structural validation cannot prove arbitrary summary text safe; Phase 4 sanitization and external controls remain required.
+`preContractEvidence` is a closed sanitized record requiring `observedAt`, a
+tagged `evidenceDigest` bound only to the exact
+`profile.digest.pre-contract-evidence-v1` catalog projection, a non-empty
+canonical `reasonCodes` set, and a bounded `sanitizedSummary`. Together with
+the receipt's ordered `checks`, it records enough evidence to explain the
+denial without asserting contract authority. It has no issuer, contract,
+absolute-host-path, secret, or authority-grant field. Structural validation
+cannot prove arbitrary summary text safe; Phase 4 sanitization and external
+controls remain required.
 
 `leaseAcquisition` is one closed discriminated union with these states:
 
 - `not-required`, `not-attempted`, `not-acquired`, and `indeterminate` each contain only their fixed `state` discriminator and therefore forbid `leaseId` and acquisition-result binding fields;
-- `acquired` requires `state` fixed to `acquired`, a canonical `leaseId`, and a tagged `acquisitionResultDigest` that immutably binds the acquisition result.
+- `acquired` requires `state` fixed to `acquired`, a canonical `leaseId`, and
+  `acquisitionResultDigest` bound only to the exact
+  `profile.digest.lease-acquisition-result-v1` catalog projection.
 
 The states have these exact lifecycle meanings:
 
@@ -823,6 +1199,31 @@ Planned negative vectors include a dangling `relatedCheckId`, a duplicate
 reference to a delivery-result identifier.
 
 #### Receipt outcome consistency
+
+Before lifecycle precedence is evaluated, every receipt must satisfy the exact
+biconditional:
+
+```text
+verificationOutcome == not-performed
+if and only if
+executionOutcome == not-attempted
+```
+
+The complete allowed table is:
+
+| `executionOutcome` | Allowed `verificationOutcome` |
+| --- | --- |
+| `not-attempted` | `not-performed` only |
+| `succeeded` | `passed`, `failed`, or `indeterminate` |
+| `failed` | `passed`, `failed`, or `indeterminate` |
+| `cancelled` | `passed`, `failed`, or `indeterminate` |
+| `indeterminate` | `passed`, `failed`, or `indeterminate` |
+
+The seven explicit invalid combinations are `succeeded`, `failed`,
+`cancelled`, or `indeterminate` with `not-performed`, and `not-attempted` with
+`passed`, `failed`, or `indeterminate`. Only after these combinations are
+rejected is the existing lifecycle-precedence table below applied. Its
+precedence is otherwise unchanged.
 
 For an `issued-contract` receipt, Phase 1 static consistency applies the first
 matching row in this exact precedence order:
@@ -1025,25 +1426,56 @@ GovernanceBundle static validation checks unique IDs, exact reference existence 
 
 ## 9. RoutingPolicy priority semantics
 
-The priority model is:
+Rule IDs are unique. Duplicate numeric priorities are allowed, rules with
+disjoint match conditions may share a priority, and canonical rule order
+remains priority descending followed by ID ascending.
 
-- rule IDs are unique;
-- duplicate numeric priorities are allowed;
-- rules with disjoint match conditions may share a priority;
-- canonical rule order is priority descending and then ID ascending;
-- Phase 1 rejects an exact normalized duplicate rule after ignoring its ID;
-- Phase 1 rejects rules with the same priority and identical normalized match conditions, whether their decisions agree or conflict;
-- Phase 1 may reject another contradiction only when it can prove it statically and deterministically, without resolving a real task;
-- Phase 1 does not execute routing;
-- Phase 2 collects all matching rules, finds the greatest matching priority, and fails closed when more than one rule matches at that priority, even when their decisions are identical;
-- one highest-priority match yields its route or deny decision; and
-- no match uses the required explicit deny fallback.
+For each already-valid, canonically ordered rule, define the closed
+projections:
 
-Global priority uniqueness is not required. Availability, host binding, and lease state cannot change rule priority or make an ineligible role eligible.
+```text
+RuleProjection = {
+  priority: rule.priority,
+  match: rule.match,
+  decision: rule.decision
+}
+
+MatchProjection = rule.match
+```
+
+Two rules are exact duplicates when the RFC 8785 JCS bytes of their
+`RuleProjection` values are equal. Rule ID is excluded, no digest is computed,
+and different IDs do not legalize a duplicate. Two rules have identical
+matches when the RFC 8785 JCS bytes of their closed `MatchProjection` values
+are equal. At the same priority, identical matches are invalid whether the
+decisions agree or differ.
+
+No additional transformation occurs: there is no case folding, path-pattern
+rewriting, inferred semantic equivalence, host transformation, or array
+reordering. Inputs must pass strict parsing, structural/static validation, and
+canonical-array checks before equality is evaluated. For deterministic
+diagnostics, exact-duplicate classification takes precedence over
+same-priority identical-match classification when both apply.
+
+Positive and negative vectors cover different IDs with otherwise identical
+rules; the same priority and match with different decisions; identical matches
+at different priorities; independently valid case-different or
+pattern-different matches; non-canonical array order rejected before
+projection; and sample-equivalent but structurally different patterns that are
+not equal.
+
+Phase 1 may reject another contradiction only when it proves it statically and
+deterministically without resolving a real task, and it does not execute
+routing. Phase 2 collects all matching rules, finds the greatest matching
+priority, and fails closed when more than one rule matches at that priority,
+even when their decisions are identical. One highest-priority match yields its
+route or deny decision; no match uses the required explicit deny fallback.
+Global priority uniqueness is not required. Availability, host binding, and
+lease state cannot change priority or make an ineligible role eligible.
 
 ## 10. Non-mutating validation and canonicalization pipeline
 
-Validation, canonicalization, hashing, and verification use these eleven
+Validation, canonicalization, hashing, and verification use these twelve
 ordered steps:
 
 1. Accept strict UTF-8 JSON bytes and begin strict JSON tokenization. Reject a
@@ -1068,24 +1500,53 @@ ordered steps:
 7. Verify that every array already has the canonical order in section 11 and
    that evidence sequences are contiguous. Reject non-canonical order; do not
    sort.
-8. Construct the explicitly versioned digest projection, such as excluding a
-   receipt's own digest field, without mutating the source object.
-9. Serialize that unchanged projection with RFC 8785 JSON Canonicalization
+8. Construct the internal `validated canonical instance representation`
+   defined below, binding the immutable value and completed proof to the
+   selected Schema and original bytes or same-process provenance.
+9. Construct the exact field-bound digest projection from the profile catalog
+   below without mutating the immutable source value.
+10. Serialize that unchanged projection with RFC 8785 JSON Canonicalization
    Scheme.
-10. Hash the exact JCS UTF-8 bytes with SHA-256 and encode the result as
+11. Hash the exact JCS UTF-8 bytes with SHA-256 and encode the result as
     `sha256:` followed by lower-case hexadecimal.
-11. Verification repeats the same pipeline and compares the result; it does
+12. Verification repeats the same pipeline and compares the result; it does
     not repair, normalize, sort, migrate, or infer prior parser compliance.
+
+The `validated canonical instance representation` is an internal,
+non-serializable record containing exactly:
+
+1. the immutable closed JSON value;
+2. the selected schema-set revision and exact root Schema `$id`;
+3. proof that strict UTF-8, duplicate-key, raw-number-token, NFC, JSON Schema,
+   Phase 1 static-invariant, and canonical-array checks all passed; and
+4. retained original bytes or same-process provenance that binds that proof to
+   the same immutable value.
+
+A caller-created or generic decoded object cannot claim this status. The
+representation is not a public kind, production typed model, transferable
+authority, `TaskContract`, or runtime artifact. Static replay of a digest from
+it establishes integrity only and does not establish trusted issuance or
+operational authenticity.
+
+`schema-contracts` defines and tests this static validation/codec boundary,
+projection reconstruction, JCS bytes, and golden vectors. The future distinct
+`model-implementation` worktree owns production typed models, typed round
+trips, Schema/model conformance, and production decoders and serializers only
+after the approved Schema baseline is integrated into `main` and the separate
+worktree is created. Phase 4 owns operational replay against trusted issuer
+provenance, current runtime state, contract authorization, execution evidence,
+and receipts. This boundary does not weaken the Schema-before-model gate.
 
 Every accepted integer token is exactly representable under binary64, and RFC
 8785 serialization emits its canonical number representation without
 precision rounding. No negative-zero normalization is needed because `-0` is
 rejected. No fraction or exponent normalization is needed because those token
 forms are rejected. Verification repeats raw-token validation whenever the
-original JSON bytes are available. If verification begins from an already
-decoded model, the trusted decoder must have recorded successful validation
-under `profile.number.v1alpha1-r1`; a generic decoded object without that
-proof is insufficient for digest verification.
+original JSON bytes are available. If verification begins from a
+`validated canonical instance representation`, its retained same-process proof
+must include successful validation under `profile.number.v1alpha1-r1` and bind
+that proof to the immutable value. A generic decoded object without that proof
+is insufficient for digest verification.
 
 There is no silent Unicode normalization, array sorting, numeric
 normalization, or migration during loading, hashing, contract verification, or
@@ -1093,6 +1554,236 @@ receipt verification. JCS sorts object property names but preserves string
 values and array order. A future formatter or migrator, if authorized, is a
 separate explicit operation that emits a new value and submits it to the
 complete pipeline from step 1.
+
+### Complete digest-profile catalog
+
+The design contains exactly eleven digest-valued field paths and ten
+independent digest computations. Every field is bound to exactly one profile;
+an instance cannot choose or substitute a profile. The universal framing is:
+
+```text
+separator(profile) =
+  ASCII("contextctl.dev") || NUL ||
+  ASCII("v1alpha1-r1") || NUL ||
+  ASCII(profile identifier) || NUL
+
+taggedDigest =
+  sha256: || lowercaseHex(
+    SHA256(separator(profile) || payloadBytes)
+  )
+```
+
+For a JCS profile, `payloadBytes` is the UTF-8 encoding of the exact RFC 8785
+JCS projection. For a raw profile, it is the exact source bytes. A digest in
+any row establishes integrity only; it never establishes issuer provenance,
+trusted authenticity, authorization, or that an evidence claim is true.
+
+| Exact field path | Exact profile and payload kind | Exact protected value and included fields | Exact exclusions | Byte construction, replay source, and lifecycle phase |
+| --- | --- | --- | --- | --- |
+| `trackedEntry.contentDigest` | `profile.digest.worktree-content-v1`; raw | Exact D4 regular-file bytes or symlink-target bytes | Path, mode, Git object ID, filters, decoded text, directories, gitlinks | `separator(profile) || rawBytes`; stable Phase 3 observation and Phase 4 verification |
+| `TaskContract.spec.issuer.derivationDigest` | `profile.digest.contract-derivation-v1`; JCS | Complete `TaskContract` resource, including identity, every source digest, target, scope, baseline, transitions, postconditions, lease fields, issuance checkpoint, and freshness | Only `issuer.derivationDigest` | `separator(profile) || UTF8(JCS(projection))`; validated representation and issuance/provenance replay in Phase 4 |
+| `TaskContract.spec.digests.policyDigest` | `profile.digest.policy-selection-v1`; JCS | Closed `{project, domains, worktreeRole, routingPolicy}` containing the complete selected Project, complete canonically ordered resolved Domain resource set, selected WorktreeRole, and selected RoutingPolicy | HostOverlay and all runtime state | Same framed JCS construction; authoritative configuration snapshot used for issuance and Phase 4 verification |
+| `TaskContract.spec.digests.configurationDigest` | `profile.digest.configuration-snapshot-v1`; JCS | Closed `{governanceBundle, hostOverlay}` containing the complete GovernanceBundle used for resolution and complete selected HostOverlay | Secrets, leases, contracts, receipts | Same framed JCS construction; validated configuration source used for issuance and verification |
+| `TaskContract.spec.digests.taskIntentDigest` | `profile.digest.task-intent-bytes-v1`; raw | Exact original strict UTF-8 task-intent bytes | BOM, normalization, trimming, line-ending conversion, JCS, semantic interpretation | `separator(profile) || originalBytes`; retained original intent bytes at issuance and verification |
+| `TaskContract.spec.issuanceCheckpoint.stateDigest` | `profile.digest.issuance-state-v1`; JCS | Closed `{repositoryIdentity, target, expectedBaseline, observedAt}` using the contract values and `issuanceCheckpoint.observedAt` | `stateDigest` itself and every other contract field | Same framed JCS construction; issuance-checkpoint representation and Phase 4 replay |
+| `ExecutionReceipt.spec.origin[type=issued-contract].contractDigest` | `profile.digest.task-contract-v1`; JCS | Complete `TaskContract` resource including `issuer.derivationDigest` | Nothing | Same framed JCS construction; referenced trusted contract bytes during receipt binding and verification |
+| `ExecutionReceipt.spec.origin[type=pre-contract-denial].preContractEvidence.evidenceDigest` | `profile.digest.pre-contract-evidence-v1`; JCS | Closed `{taskId, denialCheckpoint, preContractEvidence}` with all evidence members other than its digest | Only `preContractEvidence.evidenceDigest`; receipt checks and later receipt fields are outside the protected value | Same framed JCS construction; retained pre-contract evidence in Phase 4 |
+| `ExecutionReceipt.spec.origin[type=pre-contract-denial].leaseAcquisition[type=acquired].acquisitionResultDigest` | `profile.digest.lease-acquisition-result-v1`; JCS | Closed `{taskId, denialCheckpoint, leaseAcquisition:{state:acquired,leaseId}}` | Only `acquisitionResultDigest` and every other receipt field | Same framed JCS construction; acquisition-result evidence from Phase 3, bound in Phase 4 |
+| `ExecutionReceipt.spec.receiptDigest` | `profile.digest.execution-receipt-v1`; JCS | Complete `ExecutionReceipt` resource | Only `spec.receiptDigest`; `ReceiptDeliveryResult` occurs after finalization and is outside the receipt | Same framed JCS construction; validated receipt representation at Phase 4 finalization and replay |
+| `ReceiptDeliveryResult.receiptDigest` | `profile.digest.execution-receipt-v1`; exact copy, no additional computation | The referenced finalized receipt's already-computed `ExecutionReceipt.spec.receiptDigest` | The delivery result is never included in or rehashed as the receipt | Exact tagged-string equality with the referenced receipt and receipt ID after finalization; the same execution-receipt profile remains the sole binding |
+
+The computation dependency graph is acyclic. Policy, configuration, raw intent,
+and issuance-state values precede contract derivation; the full contract then
+precedes the receipt's contract binding; the full receipt is finalized last.
+Worktree content, pre-contract evidence, and lease-acquisition-result
+computations are independent leaves. The delivery result copies the finalized
+receipt digest and adds no computation.
+
+### Golden-vector corpus and exact bytes
+
+The following corpus is conspicuously synthetic. Every member name and string
+is ASCII and every number is a safe non-negative integer, so UTF-16 property
+ordering and RFC 8785 escaping are unambiguous. No omitted field, default,
+ellipsis, reference macro, or unexpanded named value participates in a payload.
+
+Each exact separator is shown in hexadecimal:
+
+| Profile | Exact `separator(profile)` hex |
+| --- | --- |
+| `profile.digest.worktree-content-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e776f726b747265652d636f6e74656e742d763100` |
+| `profile.digest.policy-selection-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e706f6c6963792d73656c656374696f6e2d763100` |
+| `profile.digest.configuration-snapshot-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e636f6e66696775726174696f6e2d736e617073686f742d763100` |
+| `profile.digest.task-intent-bytes-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e7461736b2d696e74656e742d62797465732d763100` |
+| `profile.digest.issuance-state-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e69737375616e63652d73746174652d763100` |
+| `profile.digest.contract-derivation-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e636f6e74726163742d64657269766174696f6e2d763100` |
+| `profile.digest.task-contract-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e7461736b2d636f6e74726163742d763100` |
+| `profile.digest.pre-contract-evidence-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e7072652d636f6e74726163742d65766964656e63652d763100` |
+| `profile.digest.lease-acquisition-result-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e6c656173652d6163717569736974696f6e2d726573756c742d763100` |
+| `profile.digest.execution-receipt-v1` | `636f6e7465787463746c2e646576007631616c706861312d72310070726f66696c652e6469676573742e657865637574696f6e2d726563656970742d763100` |
+
+For every JCS vector below, concatenate the ASCII lines in its code block in
+physical order with no delimiter, whitespace, or line ending. The result is
+the exact canonical JSON string and its exact UTF-8 payload bytes. The payload
+follows the corresponding separator immediately, with no intervening byte.
+
+#### `profile.digest.policy-selection-v1` payload
+
+```json
+{"domains":[{"apiVersion":"contextctl.dev/v1alpha1","kind":"Domain","metadata":{"id":"domain.invalid"},"spec":{"overlapRefs":[],"pathScope":{"exclude":[],"include":["README.md"]},"permissions":{"modes":["plan-only"],"permittedCapabilities":["inspect"],"prohibitedCapabilities":[]},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"responsibility":"Synthetic read-only domain."}}],
+"project":{"apiVersion":"contextctl.dev/v1alpha1","kind":"Project","metadata":{"id":"project.invalid"},"spec":{"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"permissions":{"modes":["plan-only"],"permittedCapabilities":["inspect"],"prohibitedCapabilities":[]},"repositoryIdentity":{"acceptedRemotes":[{"host":"repo.invalid","namespace":["synthetic"],"repository":"governance","transport":"https"}]},"routingPolicyRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"routing.invalid","kind":"RoutingPolicy"},"secureDefaults":{"allowWrite":false,"mode":"plan-only"},"worktreeRoleRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}]}},
+"routingPolicy":{"apiVersion":"contextctl.dev/v1alpha1","kind":"RoutingPolicy","metadata":{"id":"routing.invalid"},"spec":{"fallback":{"reasonCode":"reason.synthetic.denied","type":"deny"},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"rules":[{"decision":{"type":"route","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}},"id":"rule.invalid","match":{"domainSet":{"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"operator":"exact"},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"}},"priority":1}]}},
+"worktreeRole":{"apiVersion":"contextctl.dev/v1alpha1","kind":"WorktreeRole","metadata":{"id":"role.invalid"},"spec":{"branchPolicy":{"allowed":{"exact":["refs/heads/synthetic"],"prefixes":[]},"denied":{"exact":[],"prefixes":[]}},"cleanlinessPolicy":{"ignored":"none","index":"clean","submodules":"none","tracked":"clean","untracked":"none"},"excludedDomainRefs":[],"exclusiveWriteRequired":false,"ownedDomainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"permissions":{"modes":["plan-only"],"permittedCapabilities":["inspect"],"prohibitedCapabilities":[]},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"reviewOnly":false,"roleClass":"implementation"}}}
+```
+
+#### `profile.digest.configuration-snapshot-v1` payload
+
+```json
+{"governanceBundle":{"apiVersion":"contextctl.dev/v1alpha1","domains":[{"apiVersion":"contextctl.dev/v1alpha1","kind":"Domain","metadata":{"id":"domain.invalid"},"spec":{"overlapRefs":[],"pathScope":{"exclude":[],"include":["README.md"]},"permissions":{"modes":["plan-only"],"permittedCapabilities":["inspect"],"prohibitedCapabilities":[]},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"responsibility":"Synthetic read-only domain."}}],
+"project":{"apiVersion":"contextctl.dev/v1alpha1","kind":"Project","metadata":{"id":"project.invalid"},"spec":{"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"permissions":{"modes":["plan-only"],"permittedCapabilities":["inspect"],"prohibitedCapabilities":[]},"repositoryIdentity":{"acceptedRemotes":[{"host":"repo.invalid","namespace":["synthetic"],"repository":"governance","transport":"https"}]},"routingPolicyRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"routing.invalid","kind":"RoutingPolicy"},"secureDefaults":{"allowWrite":false,"mode":"plan-only"},"worktreeRoleRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}]}},
+"routingPolicy":{"apiVersion":"contextctl.dev/v1alpha1","kind":"RoutingPolicy","metadata":{"id":"routing.invalid"},"spec":{"fallback":{"reasonCode":"reason.synthetic.denied","type":"deny"},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"rules":[{"decision":{"type":"route","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}},"id":"rule.invalid","match":{"domainSet":{"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"operator":"exact"},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"}},"priority":1}]}},
+"worktreeRoles":[{"apiVersion":"contextctl.dev/v1alpha1","kind":"WorktreeRole","metadata":{"id":"role.invalid"},"spec":{"branchPolicy":{"allowed":{"exact":["refs/heads/synthetic"],"prefixes":[]},"denied":{"exact":[],"prefixes":[]}},"cleanlinessPolicy":{"ignored":"none","index":"clean","submodules":"none","tracked":"clean","untracked":"none"},"excludedDomainRefs":[],"exclusiveWriteRequired":false,"ownedDomainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"permissions":{"modes":["plan-only"],"permittedCapabilities":["inspect"],"prohibitedCapabilities":[]},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"reviewOnly":false,"roleClass":"implementation"}}]},
+"hostOverlay":{"apiVersion":"contextctl.dev/v1alpha1","kind":"HostOverlay","metadata":{"id":"overlay.invalid"},"spec":{"bindings":[{"expectedRef":{"branchRef":"refs/heads/synthetic","state":"branch"},"remoteNames":["origin"],"repositoryRoot":{"platform":"posix","value":"/srv/synthetic.invalid/worktree"},"roleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"},"worktreeId":"worktree.invalid"}],
+"capabilityCeiling":["inspect"],"hostId":"host.invalid","lockRoot":{"platform":"posix","value":"/srv/synthetic.invalid/locks"},"pathCeiling":{"exclude":[],"include":["README.md"]},"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"remoteExpectations":[{"acceptedRemotes":[{"host":"repo.invalid","namespace":["synthetic"],"repository":"governance","transport":"https"}],"remoteName":"origin"}],
+"repositoryIdentity":{"acceptedRemotes":[{"host":"repo.invalid","namespace":["synthetic"],"repository":"governance","transport":"https"}]},"stateRoot":{"platform":"posix","value":"/srv/synthetic.invalid/state"}}}}
+```
+
+#### Exact raw payloads
+
+The `profile.digest.task-intent-bytes-v1` payload is the following exact
+56-byte UTF-8 sequence, with no BOM, final newline, or other byte:
+
+```text
+{"requestedMode":"plan-only","task":"inspect README.md"}
+```
+
+Its exact payload hex is
+`7b227265717565737465644d6f6465223a22706c616e2d6f6e6c79222c227461736b223a22696e737065637420524541444d452e6d64227d`.
+The exact `profile.digest.worktree-content-v1` raw vectors are:
+
+| Synthetic value | Mode | Exact payload hex | Tagged digest |
+| --- | --- | --- | --- |
+| Empty regular file | `100644` | empty byte sequence | `sha256:75a1e5502a349f7d22cbb583985b3045b6d5fd084f9f053cf3379bbbfe3781f9` |
+| Binary regular file | `100644` | `00ff100a` | `sha256:d81685f62ae980ae8f1ca44242368c5c790894f055bd18ec1d76cbb5aa212db1` |
+| Binary executable file | `100755` | `00ff100a` | `sha256:d81685f62ae980ae8f1ca44242368c5c790894f055bd18ec1d76cbb5aa212db1` |
+| Symlink to `../target.bin` | `120000` | `2e2e2f7461726765742e62696e` | `sha256:dfe817225dbc5a625497132435cd03bb8330b34fab83b2263c8d9707d9e71940` |
+
+#### `profile.digest.issuance-state-v1` payload
+
+```json
+{"expectedBaseline":{"activeOperations":{"state":"none"},"administrativeLocks":{"state":"none"},"head":{"state":"unborn"},"ignored":{"state":"none"},"index":{"state":"clean"},"ref":{"branchRef":"refs/heads/synthetic","state":"branch"},"submodules":{"state":"none"},"tracked":{"state":"clean"},"untracked":{"state":"none"}},"observedAt":"2000-01-01T00:00:00Z","repositoryIdentity":{"acceptedRemotes":[{"host":"repo.invalid","namespace":["synthetic"],"repository":"governance","transport":"https"}]},"target":{"worktreeId":"worktree.invalid","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}}}
+```
+
+#### `profile.digest.contract-derivation-v1` payload
+
+The payload is the complete synthetic TaskContract with only
+`spec.issuer.derivationDigest` excluded:
+
+```json
+{"apiVersion":"contextctl.dev/v1alpha1","kind":"TaskContract","metadata":{"id":"00000000-0000-4000-8000-000000000002"},"spec":{"allowWrite":false,"authorizedScope":{"capabilities":["inspect"],"paths":["README.md"]},"contractVersion":"1","digests":{"configurationDigest":"sha256:d673b61894f1377ae4e7b7a563db05204ec96cc95bfa9ffb08ccc191e3154f86","policyDigest":"sha256:632908742df166217cf19fc74febda89e2f8ea816d71ec69f65a11a1a4831743","taskIntentDigest":"sha256:f4dda8a653d84b21ae740b502386262ebd525e7086270c5eba7af31eda6929c8"},
+"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"effectiveMode":"plan-only","expectedBaseline":{"activeOperations":{"state":"none"},"administrativeLocks":{"state":"none"},"head":{"state":"unborn"},"ignored":{"state":"none"},"index":{"state":"clean"},"ref":{"branchRef":"refs/heads/synthetic","state":"branch"},"submodules":{"state":"none"},"tracked":{"state":"clean"},"untracked":{"state":"none"}},
+"freshness":{"expiresAt":"2000-01-01T00:01:00Z","issuedAt":"2000-01-01T00:00:00Z"},"issuanceCheckpoint":{"observedAt":"2000-01-01T00:00:00Z","stateDigest":"sha256:4b9cf13b1accd0e3c29754feedb601c5a7b43619842ad76cbf118a56ae4a2702"},"issuer":{"issuanceMethod":"trusted-framework","issuerId":"issuer.invalid"},"leaseRequired":false,"permittedTransitions":[],"prohibitedScope":{"capabilities":[],"paths":[]},
+"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"repositoryIdentity":{"acceptedRemotes":[{"host":"repo.invalid","namespace":["synthetic"],"repository":"governance","transport":"https"}]},"requestedMode":"plan-only","requiredPostconditions":[{"type":"scope-contained"}],"target":{"worktreeId":"worktree.invalid","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}},"taskId":"00000000-0000-4000-8000-000000000001"}}
+```
+
+#### `profile.digest.task-contract-v1` payload
+
+This is the complete contract after insertion of its derivation digest:
+
+```json
+{"apiVersion":"contextctl.dev/v1alpha1","kind":"TaskContract","metadata":{"id":"00000000-0000-4000-8000-000000000002"},"spec":{"allowWrite":false,"authorizedScope":{"capabilities":["inspect"],"paths":["README.md"]},"contractVersion":"1","digests":{"configurationDigest":"sha256:d673b61894f1377ae4e7b7a563db05204ec96cc95bfa9ffb08ccc191e3154f86","policyDigest":"sha256:632908742df166217cf19fc74febda89e2f8ea816d71ec69f65a11a1a4831743","taskIntentDigest":"sha256:f4dda8a653d84b21ae740b502386262ebd525e7086270c5eba7af31eda6929c8"},
+"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"effectiveMode":"plan-only","expectedBaseline":{"activeOperations":{"state":"none"},"administrativeLocks":{"state":"none"},"head":{"state":"unborn"},"ignored":{"state":"none"},"index":{"state":"clean"},"ref":{"branchRef":"refs/heads/synthetic","state":"branch"},"submodules":{"state":"none"},"tracked":{"state":"clean"},"untracked":{"state":"none"}},
+"freshness":{"expiresAt":"2000-01-01T00:01:00Z","issuedAt":"2000-01-01T00:00:00Z"},"issuanceCheckpoint":{"observedAt":"2000-01-01T00:00:00Z","stateDigest":"sha256:4b9cf13b1accd0e3c29754feedb601c5a7b43619842ad76cbf118a56ae4a2702"},"issuer":{"derivationDigest":"sha256:9ced52eaa97d549c51caea566cc4681016f18614b68d1db0bc7a2748113f9a25","issuanceMethod":"trusted-framework","issuerId":"issuer.invalid"},"leaseRequired":false,"permittedTransitions":[],"prohibitedScope":{"capabilities":[],"paths":[]},
+"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"repositoryIdentity":{"acceptedRemotes":[{"host":"repo.invalid","namespace":["synthetic"],"repository":"governance","transport":"https"}]},"requestedMode":"plan-only","requiredPostconditions":[{"type":"scope-contained"}],"target":{"worktreeId":"worktree.invalid","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}},"taskId":"00000000-0000-4000-8000-000000000001"}}
+```
+
+#### `profile.digest.pre-contract-evidence-v1` payload and completion
+
+```json
+{"denialCheckpoint":"post-acquisition-revalidation","preContractEvidence":{"observedAt":"2000-01-01T00:00:00Z","reasonCodes":["reason.synthetic.denied"],"sanitizedSummary":"Synthetic denial."},"taskId":"00000000-0000-4000-8000-000000000001"}
+```
+
+The exact completed source value, proving the sole excluded member, is:
+
+```json
+{"denialCheckpoint":"post-acquisition-revalidation","preContractEvidence":{"evidenceDigest":"sha256:db7c19635103fc202ab07f4d9e2eb3686cf0046bba8c79887a7aabfd0e72be20","observedAt":"2000-01-01T00:00:00Z","reasonCodes":["reason.synthetic.denied"],"sanitizedSummary":"Synthetic denial."},"taskId":"00000000-0000-4000-8000-000000000001"}
+```
+
+#### `profile.digest.lease-acquisition-result-v1` payload and completion
+
+```json
+{"denialCheckpoint":"post-acquisition-revalidation","leaseAcquisition":{"leaseId":"00000000-0000-4000-8000-000000000004","state":"acquired"},"taskId":"00000000-0000-4000-8000-000000000001"}
+```
+
+The exact completed source value, proving the sole excluded member, is:
+
+```json
+{"denialCheckpoint":"post-acquisition-revalidation","leaseAcquisition":{"acquisitionResultDigest":"sha256:1aeb432f3667229535829959d6a1bcb463472150a31eb999aaf058423f65b244","leaseId":"00000000-0000-4000-8000-000000000004","state":"acquired"},"taskId":"00000000-0000-4000-8000-000000000001"}
+```
+
+#### `profile.digest.execution-receipt-v1` payload
+
+The exact digest projection excludes only `spec.receiptDigest`:
+
+```json
+{"apiVersion":"contextctl.dev/v1alpha1","kind":"ExecutionReceipt","metadata":{"id":"00000000-0000-4000-8000-000000000003"},"spec":{"changedPaths":[],"checks":[],"executionOutcome":"succeeded","finishedAt":"2000-01-01T00:00:02Z","lifecycleOutcome":"succeeded","origin":{
+"contractDigest":"sha256:238c3af3ceab3eafc70d660b6e3d5cef97c3741d48b76c49e9e998a26d8afe30","contractId":"00000000-0000-4000-8000-000000000002","effectiveMode":"plan-only","resolvedTarget":{"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"worktreeId":"worktree.invalid","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}},"type":"issued-contract"},
+"reasonCodes":[],"receiptVersion":"1","releaseOutcome":"not-required","sanitization":{"applied":true,"completedAt":"2000-01-01T00:00:02Z","profileId":"profile.sanitization.v1","redactionCount":0},"startedAt":"2000-01-01T00:00:01Z","taskId":"00000000-0000-4000-8000-000000000001","unresolvedCoordinationWarnings":[],"verificationOutcome":"passed"}}
+```
+
+The exact completed receipt, proving the sole excluded member, is:
+
+```json
+{"apiVersion":"contextctl.dev/v1alpha1","kind":"ExecutionReceipt","metadata":{"id":"00000000-0000-4000-8000-000000000003"},"spec":{"changedPaths":[],"checks":[],"executionOutcome":"succeeded","finishedAt":"2000-01-01T00:00:02Z","lifecycleOutcome":"succeeded","origin":{
+"contractDigest":"sha256:238c3af3ceab3eafc70d660b6e3d5cef97c3741d48b76c49e9e998a26d8afe30","contractId":"00000000-0000-4000-8000-000000000002","effectiveMode":"plan-only","resolvedTarget":{"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"worktreeId":"worktree.invalid","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}},"type":"issued-contract"},
+"reasonCodes":[],"receiptDigest":"sha256:b4dee763f7f2113830aa90298940bd164099dd2049b339c8de6a82b0b650d9b6","receiptVersion":"1","releaseOutcome":"not-required","sanitization":{"applied":true,"completedAt":"2000-01-01T00:00:02Z","profileId":"profile.sanitization.v1","redactionCount":0},"startedAt":"2000-01-01T00:00:01Z","taskId":"00000000-0000-4000-8000-000000000001","unresolvedCoordinationWarnings":[],"verificationOutcome":"passed"}}
+```
+
+The exact post-finalization `ReceiptDeliveryResult` is not a new digest
+payload. It copies the finalized receipt digest by exact tagged-string equality:
+
+```json
+{"apiVersion":"contextctl.dev/v1alpha1","attemptedAt":"2000-01-01T00:00:03Z","outcome":"succeeded","reasonCodes":[],"receiptDigest":"sha256:b4dee763f7f2113830aa90298940bd164099dd2049b339c8de6a82b0b650d9b6","receiptId":"00000000-0000-4000-8000-000000000003","sanitizedSummary":"Synthetic delivery succeeded."}
+```
+
+#### Recalculated golden results
+
+| Independent computation profile | Tagged digest |
+| --- | --- |
+| `profile.digest.worktree-content-v1` (empty payload) | `sha256:75a1e5502a349f7d22cbb583985b3045b6d5fd084f9f053cf3379bbbfe3781f9` |
+| `profile.digest.policy-selection-v1` | `sha256:632908742df166217cf19fc74febda89e2f8ea816d71ec69f65a11a1a4831743` |
+| `profile.digest.configuration-snapshot-v1` | `sha256:d673b61894f1377ae4e7b7a563db05204ec96cc95bfa9ffb08ccc191e3154f86` |
+| `profile.digest.task-intent-bytes-v1` | `sha256:f4dda8a653d84b21ae740b502386262ebd525e7086270c5eba7af31eda6929c8` |
+| `profile.digest.issuance-state-v1` | `sha256:4b9cf13b1accd0e3c29754feedb601c5a7b43619842ad76cbf118a56ae4a2702` |
+| `profile.digest.contract-derivation-v1` | `sha256:9ced52eaa97d549c51caea566cc4681016f18614b68d1db0bc7a2748113f9a25` |
+| `profile.digest.task-contract-v1` | `sha256:238c3af3ceab3eafc70d660b6e3d5cef97c3741d48b76c49e9e998a26d8afe30` |
+| `profile.digest.pre-contract-evidence-v1` | `sha256:db7c19635103fc202ab07f4d9e2eb3686cf0046bba8c79887a7aabfd0e72be20` |
+| `profile.digest.lease-acquisition-result-v1` | `sha256:1aeb432f3667229535829959d6a1bcb463472150a31eb999aaf058423f65b244` |
+| `profile.digest.execution-receipt-v1` | `sha256:b4dee763f7f2113830aa90298940bd164099dd2049b339c8de6a82b0b650d9b6` |
+
+The corpus requires deterministic negative vectors at the projection boundary:
+
+- mutating any included field produces different payload bytes and a different
+  digest;
+- adding an otherwise-valid source member that the catalog explicitly excludes
+  leaves the defined projection unchanged, while adding a member forbidden by
+  the source's closed shape is rejected before projection;
+- including a self-digest that the profile excludes is a wrong projection and
+  cannot reproduce the golden value;
+- deleting or changing any separator byte, including any NUL, cannot reproduce
+  the golden value;
+- substituting any other profile identifier changes the separator and cannot
+  reproduce the golden value;
+- changing, trimming, transcoding, filtering, dereferencing, or appending a
+  newline to a raw payload cannot reproduce its golden value;
+- selecting a partial, expanded, reordered-array, implementation-defined, or
+  otherwise wrong JCS projection cannot reproduce the golden value; and
+- a `ReceiptDeliveryResult` whose `receiptId` does not identify the referenced
+  finalized receipt or whose tagged digest differs from that receipt is
+  rejected rather than rehashed.
+
+These results establish only static integrity of the exact framed bytes. None
+establishes trusted issuance, provenance, authenticity, authorization, or the
+truth of evidence.
 
 ## 11. Complete array-ordering matrix
 
@@ -1137,6 +1828,7 @@ Comparators and identity functions are defined as follows:
 | `RoutingPolicy.rules` | Ordered by explicit semantics | `S(rule.id)` | Priority descending, then `S(rule.id)` ascending |
 | `RoutingPolicy.rules[].match.domainSet.domainRefs` | Set-like | `R(ref)` | `R(ref)` |
 | `HostOverlay.bindings` | Set-like | `(R(roleRef), S(worktreeId))` | Same tuple |
+| `HostOverlay.bindings[].remoteNames` | Set-like, non-empty | `S(value)` | `S(value)` |
 | `HostOverlay.remoteExpectations` | Set-like | `S(remoteName)` | `S(remoteName)` |
 | `HostOverlay.remoteExpectations[].acceptedRemotes` | Set-like | `J(remote)` | `J(remote)` after canonical remote checks |
 | `HostOverlay.capabilityCeiling` | Set-like | `S(value)` | `S(value)` |
@@ -1172,7 +1864,7 @@ Comparators and identity functions are defined as follows:
 | `GovernanceBundle.domains` | Set-like | `S(metadata.id)` | `S(metadata.id)` |
 | `GovernanceBundle.worktreeRoles` | Set-like | `S(metadata.id)` | `S(metadata.id)` |
 
-The final matrix contains 55 data rows, counted from the table above. It covers
+The final matrix contains 56 data rows, counted from the table above. It covers
 every instance array in the `v1alpha1-r1` design. Shared definitions use the
 same rule everywhere they are embedded. No v1alpha1 array is
 "order-insensitive but preserved on the wire." Adding such a field would make
@@ -1186,7 +1878,7 @@ JCS never reorders an array.
 | Required fields, types, enums, closed objects | Enforce | Contract vectors | Not applicable | Not applicable |
 | Identifier, path, digest, UUID, and format syntax | Enforce lexical profile | Canonical spelling and cross-reference checks | Bind to trusted/live values where required | Not applicable |
 | Duplicate JSON keys | Not observable after ordinary parsing | Strict parser detects them during parsing before object construction completes | Same parser before later verification | Not applicable |
-| Raw JSON-number token profile | `type: integer` cannot preserve lexical form | Strict parser enforces `0|[1-9][0-9]*`, the safe-integer ceiling, and field bounds before ordinary numeric conversion | Verification repeats raw-token validation or requires trusted decoder proof | Not applicable |
+| Raw JSON-number token profile | `type: integer` cannot preserve lexical form | Strict parser enforces `0|[1-9][0-9]*`, the safe-integer ceiling, and field bounds before ordinary numeric conversion | Verification repeats raw-token validation or requires the complete validated canonical instance representation proof | Not applicable |
 | Numeric field inventory | Exact integer type and per-field minimum/maximum | Reject any undeclared numeric field and audit the complete six-field inventory | A future signed or fractional field requires a contract revision | Not applicable |
 | Strings and member names already NFC | Not portable as an ordinary Schema assertion | Reject non-NFC before canonicalization | Repeat before hashing and verification | Authoring guidance |
 | Reference existence, uniqueness, subset rules, canonical arrays | Shape only or partial uniqueness | Enforce within a closed loaded set | Revalidate selected/runtime bindings | Not applicable |
@@ -1197,7 +1889,7 @@ JCS never reorders an array.
 | No secrets in arbitrary permitted strings | Unknown secret-like fields are rejected; allowed strings can still hold secrets | Best-effort scanners | Phase 4 redaction; no secret values in contracts or receipts | External secret delivery and incident handling |
 | Absolute path denotes the intended worktree | Platform/value syntax only | Synthetic path hygiene | Phase 3 canonical path, alias, registration, and containment checks | Host filesystem permissions |
 | Domain resolution and routing are unambiguous | Policy shape only | Provable contradictions only | Phase 2 resolves and fails closed | Not applicable |
-| HostOverlay narrows customer governance | Shape and conditional fields | Static subset checks where provable | Phases 2-3 calculate the actual restrictive intersection | Host configuration review |
+| HostOverlay narrows customer governance | Shape and conditional fields | Enforce D10 Project/role identity, exact capability equations, accepted-remote inclusions, binding-name resolution, and DFA path-language inclusions; any unsupported or indeterminate proof denies the configuration | Phases 2-3 consume the statically valid restriction and compare the bound worktree live; this row does not execute routing | Host configuration review |
 | HostOverlay remote expectations have one record per name and non-empty accepted sets | Enforce closed records and non-empty `acceptedRemotes` | Outer uniqueness and order use only `S(remoteName)`; nested remote uniqueness and order use `J(remote)` | Phase 3 compares each observed named Git remote with its accepted set | Credential handling remains outside governance |
 | Conflict-free index is representable | Enforce stage `0`, required false index flags, supported modes, and closed fields | Enforce path uniqueness, canonical order, and complete-inventory semantics | Phase 3 denies unmerged, intent-to-add, skip-worktree, assume-unchanged, sparse, unsupported-mode, or otherwise unrepresentable indexes before issuance | Phase 4 may record only sanitized pre-contract denial evidence |
 | Baseline runtime structures are closed and exhaustive | Enforce all nine required dimensions, exact union branches, required and forbidden fields, enums, and branch-specific exact cardinalities | Cross-branch consistency and canonical identity checks | Phases 3–4 observe and compare the corresponding live state | Repository and host protections |
@@ -1230,11 +1922,12 @@ A later selected validator and parser must provide all of the following:
 - strict UTF-8 and Unicode-scalar handling plus exact enforcement of
   `0|[1-9][0-9]*`, the `9007199254740991` ceiling, and every per-field
   numeric bound;
-- proof that accepted integers transfer through parsing, models, RFC 8785 JCS,
-  replay, and supported runtimes without precision loss, and rejection of a
-  generic decoded object lacking trusted strict-parser profile evidence;
+- proof that accepted integers transfer through strict parsing, the immutable
+  validated canonical instance representation, RFC 8785 JCS, replay, and
+  supported runtimes without precision loss, and rejection of a generic
+  decoded object lacking the complete representation proof;
 - structured error access exposing the resource/schema ID, instance JSON Pointer, Schema JSON Pointer, and failing keyword;
-- deterministic normalization and sorting of error records without assertions against vendor-specific message prose;
+- deterministic ordering of error records without assertions against vendor-specific message prose;
 - hooks for Phase 1 static validation, canonical-array checks, transition and
   postcondition uniqueness, receipt outcome consistency, and closed-bundle
   validation;
@@ -1242,7 +1935,7 @@ A later selected validator and parser must provide all of the following:
 - dependency provenance and license review; and
 - a pinned conformance profile covering every Schema feature actually used.
 
-Normalized error ordering is by instance pointer, Schema resource ID, Schema pointer, and keyword, with a deterministic final tie-breaker defined by the chosen adapter. A command failure and a valid empty result must remain distinguishable.
+Error-record ordering is by instance pointer, Schema resource ID, Schema pointer, and keyword, with a deterministic final tie-breaker defined by the chosen adapter. A command failure and a valid empty result must remain distinguishable.
 
 ## 14. Toolchain gate
 
@@ -1298,7 +1991,8 @@ Planned negative fixtures include:
 - TaskContract with `leaseId` when no lease is required;
 - duplicate TaskContract baseline index path with different entry contents;
 - duplicate TaskContract baseline tracked path with different entry contents;
-- duplicate TaskContract baseline submodule path with different object IDs or dirty state;
+- duplicate TaskContract baseline submodule path with different object IDs,
+  checkout, or observation contents;
 - duplicate required-postcondition entry path with different contents;
 - issued-contract receipt origin missing `contractId`;
 - issued-contract receipt origin missing `contractDigest`;
@@ -1314,8 +2008,10 @@ Planned negative fixtures include:
 - pre-contract-denial receipt claiming successful execution;
 - non-NFC string/member name, duplicate JSON key, malformed UTF-8, and unsupported number representation;
 - non-canonical or duplicate set-like array entry and non-contiguous evidence sequence;
-- exact normalized duplicate RoutingPolicy rule; and
-- same-priority rules with identical normalized match conditions.
+- different rule IDs whose exact `RuleProjection` RFC 8785 JCS bytes are equal;
+  and
+- same-priority rules whose exact `MatchProjection` RFC 8785 JCS bytes are
+  equal, whether their decisions agree or differ.
 
 Duplicate priority by itself is not an invalid fixture. Context-dependent multiple-highest-match execution tests belong to Phase 2.
 
@@ -1340,8 +2036,8 @@ evidence. Each row requires every listed positive and negative vector.
 | Reference and HEAD | branch plus commit; branch plus unborn; detached plus commit | detached plus unborn; branch missing `branchRef`; detached containing `branchRef`; commit missing `objectId`; unborn containing `objectId` | Schema enforces closed branches and required/forbidden fields; Phase 1 static rejects detached/unborn; Phase 3 live selects and compares the actual ref and HEAD |
 | Conflict-free index | clean conflict-free index; exact non-empty stage-0 complete inventory; exact empty complete inventory representing removal of all HEAD paths | stage `1`; stage `2`; stage `3`; duplicate path; unsupported mode; `intentToAdd: true`; `skipWorktree: true`; `assumeUnchanged: true`; sparse entry; unmerged index presented as a `TaskContract` baseline | Schema fixes stage and flags and closes entries; Phase 1 static enforces path identity, order, and complete explicit inventory; Phase 3 live selects clean versus exact and denies unrepresentable state; Phase 4 evidence may record sanitized pre-contract denial only |
 | Tracked | tracked clean; exact inventory containing clean; modified with equal `worktreeMode` and `indexMode`; deleted; type-changed with unequal modes | modified with unequal modes; type-changed with equal modes; missing required field; branch-inapplicable field; mode `160000`; tracked/index mode mismatch; tracked/index object mismatch; omitted index path from `tracked.exact`; tracked entry for a gitlink path | Schema enforces status branches and fields; Phase 1 static enforces mode relations and explicit index equality/coverage; Phase 3 live confirms content, deletion, type, HEAD-dependent equality, and completeness; Phase 4 evidence verifies postconditions |
-| Untracked and ignored | `none` for each category; non-empty exact complete inventory for each category | empty exact inventory; duplicate path; non-canonical order; same path in untracked and ignored; collision with an explicit index, tracked, or submodule path | Schema enforces unions and non-empty exact arrays; Phase 1 static enforces order and explicit exact-path disjointness; Phase 3 live applies ignore rules and HEAD-dependent collision checks; Phase 4 evidence verifies postconditions |
-| Submodules | `none`; absent checkout; uninitialized checkout; initialized checkout; every `worktreeState` permitted by its checkout branch | initialized without `checkedOutObjectId`; absent or uninitialized containing `checkedOutObjectId`; absent with non-indeterminate `worktreeState`; `recordedObjectId` mismatch; submodule path missing from mode-`160000` index inventory; tracked/submodule collision | Schema enforces checkout branches; Phase 1 static enforces explicit gitlink equality, coverage, and disjointness; Phase 3 live confirms HEAD-dependent recorded IDs and checkout state; Phase 4 evidence verifies postconditions |
+| Untracked and ignored / D3 path inventory | `none` for each category; non-empty exact complete inventories; regular, executable, and non-dereferenced symlink leaves; recursive ignored-directory leaves; ignore negation; empty directory emitting no member; registered submodule boundary exclusion | empty exact inventory; duplicate or non-canonical path; cross-category or explicit-state collision; directory member; collapsed-directory alternative; unregistered nested repository; unreadable, racing, cyclic, identity/classification/submodule-boundary-unresolved, unrepresentable-path, or unsupported-object observation | Schema enforces unions and non-empty exact arrays; Phase 1 static enforces `S(path)`, explicit disjointness, and rejection of directory/collapsed encodings; Phase 3 live executes the sole eleven-step leaf-only profile and emits its exact reason code; Phase 4 evidence verifies postconditions without a weaker encoding |
+| Submodules / D2 orthogonal state | `none`; absent/unavailable; uninitialized/unavailable; initialized/observed with each of all eight Boolean triples; initialized checkout ID equal to and different from `recordedObjectId` | absent/observed; uninitialized/observed; initialized/unavailable; missing or branch-inapplicable `checkedOutObjectId`; fields on unavailable; each missing observed Boolean; unknown field; `indeterminate`; superseded `worktreeState`; `recordedObjectId` mismatch; missing mode-`160000` inventory path; tracked/submodule collision | Schema enforces the closed checkout and observation unions; Phase 1 static enforces all pairings, explicit gitlink equality, coverage, and disjointness; Phase 3 live denies inconclusive initialized observation with one of the four D2 reason codes; Phase 4 transitions and postconditions reuse the complete checkout/observation value |
 | Active operations | one vector for each `merge`, `rebase`, `cherry-pick`, `revert`, `bisect`, `sequencer`, and `apply-mailbox` | duplicate operation; unknown operation; non-canonical order; empty exact array | Schema enforces vocabulary and non-empty exact shape; Phase 1 static enforces uniqueness and `S(value)` order; Phase 3 live observes operation state; Phase 4 evidence verifies postconditions |
 | Administrative locks | one vector for each `index`, `packed-refs`, `shallow`, `config`, `head`, `ref`, and `other` branch | duplicate identity; missing `ref` identifier; forbidden `ref` on singleton branch; missing `other` identifier; forbidden identifier on non-`other` branch; non-canonical order; empty exact array | Schema enforces every closed branch; Phase 1 static enforces `L(lock)` identity and order; Phase 3 live observes locks; Phase 4 evidence verifies postconditions |
 | Permitted transitions | one positive vector for each `ref-state`, `head-state`, `index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, `submodule-entry`, `active-operation`, and `administrative-lock` branch | identical `from` and `to`; duplicate target; unknown type; missing target key; branch-inapplicable key; invalid target comparator | Schema enforces branch shapes; Phase 1 static enforces exact inequality, target uniqueness, and the unchanged normative `T(transition)` comparator; Phase 3 live observes Git transitions; Phase 4 evidence attributes only authorized transitions |
@@ -1349,15 +2045,26 @@ evidence. Each row requires every listed positive and negative vector.
 | Warnings and checks | warning without optional fields; warning with summary only; warning with an earlier `relatedCheckId`; warning with a later `relatedCheckId`; check without optional summaries; check with `expectedSummary`; check with `observedSummary`; check with both; one check for every `intent-validation`, `project-domain-resolution`, `role-routing`, `host-binding`, `initial-preflight`, `lease-acquisition`, `post-acquisition-revalidation`, `contract-issuance`, `pre-action-revalidation`, `execution`, `post-execution-verification`, `lease-release`, and `receipt-finalization` value | warning or check sequence gap; warning or check sequence duplicate; duplicate `checkId`; dangling `relatedCheckId`; reference resolved only by another receipt or a delivery result; invalid reason-code order; unknown `checkType`; branch-inapplicable or unknown field | Schema enforces record shapes and vocabularies; Phase 1 static enforces sequences, unique check IDs, reason-code order, and same-receipt references independent of position; Phase 4 evidence produces and sanitizes the ordered records |
 | Receipt outcomes and lease acquisition | every existing issued-contract outcome vector; every existing pre-contract-denial outcome vector; each `not-required`, `not-attempted`, `not-acquired`, `indeterminate`, and `acquired` branch; every allowed checkpoint/acquisition chronology; acquired cleanup success, failure, and indeterminate; indeterminate acquisition with required warning; every release/lifecycle precedence branch | every prohibited checkpoint/acquisition chronology; acquired or indeterminate branch missing required binding or warning; inconsistent cleanup, release, execution, verification, or lifecycle outcome; successful lifecycle with unresolved warning | Schema enforces origin and union shape; Phase 1 static enforces chronology, binding, warnings, and precedence; Phase 3 live supplies acquisition and release facts; Phase 4 evidence finalizes the consistent receipt |
 | TaskContract truth table | each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition | requested plan-only with effective implementation; effective plan-only with `allowWrite: true`; `allowWrite: false` with `leaseRequired: true`; `allowWrite: true` with `leaseRequired: false`; `leaseId` present while no lease is required; `leaseId` absent while required; `owned` postcondition while no lease is required; `not-required` postcondition while a lease is required | Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions |
+| D1 validated canonical instance representation | strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation | generic decoded object; missing or stale proof component; proof rebound to another value; mutable value; representation asserted as a public kind, production typed model, transferable authority, TaskContract, or runtime artifact | `schema-contracts` defines and tests the Phase 1 static validation/codec boundary; later `model-implementation` owns production typed round trips and serializers; Phase 4 owns operational replay and authenticity |
+| D4 raw worktree-content digest | exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation | filtered or EOL-converted bytes; decoded or Unicode-normalized text; dereferenced symlink; unreadable, replaced, raced, truncated, length-inconsistent, or lossy observation; directory, gitlink, or unsupported type | Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile |
+| D5 non-writing contracts | all three non-writing truth-table rows have exactly empty transitions, baseline-equal state postconditions, no lease identity, optional `lease-state: not-required`, and issued-receipt `changedPaths: []`; observed drift is evidence only | the independently enumerable Cartesian product of all three non-writing rows and all nine transition types (27 cases); any drift-describing state postcondition; lease identity/ownership; non-empty changed paths; `execute-tests` or `execute-build` treated as a write override | Schema and Phase 1 static reject the closed contract and compare explicit postconditions with the immutable baseline; Phase 4 enforces empty changed paths and classifies drift as failed or indeterminate verification |
+| D6 execution/verification biconditional | `not-attempted/not-performed`; each of `succeeded`, `failed`, `cancelled`, and `indeterminate` with each of `passed`, `failed`, and `indeterminate` | exactly seven pairs: each attempted execution outcome with `not-performed`, plus `not-attempted` with `passed`, `failed`, or `indeterminate` | Phase 1 static applies the biconditional before, and without changing, the existing lifecycle-precedence table; Phase 4 supplies evidence claims |
+| D7 simultaneous transition composition | complete materialized `B`; every `from` equals `B(target)` by direct JCS bytes; independent transitions produce the same canonical `F` regardless of wire order; unchanged targets persist; every changed dimension has an `F`-equal matching postcondition; unchanged postconditions are absent or baseline-equal | baseline/from mismatch; sequential dependency; order-dependent result; invalid final cross-dimension composite; missing or mismatched changed-dimension postcondition; drift asserted for an unchanged dimension; incomplete D2 or D3 value | Phase 1 performs comparison, simultaneous `Apply`, canonical branch reconstruction, and static final-composite validation; Phase 3 materializes live-dependent `B`; Phase 4 compares evidence with `F`, attributes transitions, and verifies scope/postconditions |
+| D8 closed HostOverlay binding | complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once | each missing field; every unknown field; empty, duplicate, or non-canonical remote names; unknown name; branch without `branchRef`; detached with `branchRef`; `expectedBranch`; each cached observed root/HEAD/branch/remote field | Schema closes the five-field record and ref branches; Phase 1 enforces binding identity, array canon, and name resolution; Phase 3 compares live canonical root, registration, ref, and every named remote |
+| D9 RoutingPolicy projection equality | different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification | different IDs with equal `RuleProjection` JCS bytes; same-priority equal `MatchProjection` JCS bytes with same or different decisions; non-canonical nested array rejected before projection | Phase 1 compares direct RFC 8785 bytes with no digest, case folding, rewriting, inference, host transformation, or array reorder; exact-duplicate classification precedes identical-match classification; Phase 2 alone executes matching |
+| D10 HostOverlay narrowing proof | exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; repository and remote subsets by `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**` by DFA language proof | each of the nine exact rejection-code classes; added capability or remote; role/project mismatch; `docs/**` outside the Project universe; unsupported syntax, compilation failure, resource exhaustion, or indeterminate emptiness; sample or prefix heuristic offered as proof | Phase 1 performs exact set/reference checks and automata complement/product/emptiness relative to `U`; Phase 3 supplies live binding comparison; neither layer executes task routing here |
+| D11 digest catalog and golden corpus | all eleven digest field paths bind once to ten computations; every exact separator, raw payload, JCS payload, exclusion, completed source value, tagged hash, and delivery-copy equality reproduces the recorded corpus | included-field mutation; excluded-field mishandling; self-digest inclusion; missing/changed separator byte; substituted profile; changed raw bytes; wrong JCS projection; mismatched copied receipt digest; a cycle, ambiguity, duplicate binding, or missing field path | Phase 1 static/codec conformance reproduces exact bytes and verifies the acyclic catalog; Phase 3 supplies stable raw observations; Phase 4 replays operational bindings and exact delivery copy; every digest remains integrity-only |
+| D12 review-only capability complement | exactly four permitted sets: empty, inspect, validate, and inspect-plus-validate; each has `roleClass: review`, only plan-only mode, exact `C − P` prohibited set, and no exclusive write | each of the eleven non-observation capabilities permitted separately; wrong role or mode; missing complement member; permitted/prohibited overlap or other complement error; exclusive write; restoration attempted through another field | Schema and Phase 1 static enforce the complete five-class partition and exact equations; later intersections may only narrow the result and cannot restore a forbidden capability |
 | Cross-dimension baselines | complete inventories rather than deltas; index/tracked field equality; gitlink/submodule object equality; tracked/submodule and untracked/ignored disjointness; canonical clean/none versus exact selection | omitted inventory member; index/tracked mode or object mismatch; gitlink/submodule mismatch; tracked/submodule collision; untracked/ignored collision; exact-path collision with explicit index, tracked, or submodule path; a Phase 1 check incorrectly depending on live state | Schema enforces local shape; Phase 1 static enforces relationships over explicit closed data; Phase 3 live owns HEAD-, object-, ignore-, filesystem-, checkout-, and index-dependent checks; Phase 4 evidence reuses the same postcondition semantics |
 | Required summaries and five-state correction | pre-contract evidence with required `sanitizedSummary`; delivery result with required `sanitizedSummary`; warnings and checks omitting or including their optional summaries; all five acquisition states | pre-contract evidence missing `sanitizedSummary`; delivery result missing `sanitizedSummary`; any stale four-state-only validator or vector | Schema enforces record-specific presence; Phase 1 static runs the vectors; Phase 4 evidence establishes actual sanitization and the five-state lifecycle meaning |
-| SG-002 numeric profile | every existing canonical-token, field-minimum, and field-maximum vector, with Git stage `0` as its only valid stage | Git stage `1`, `2`, `3`, and `4`; every existing signed, negative-zero, leading-plus, leading-zero, fractional, exponent, unsafe, NaN, Infinity, and field-out-of-range vector | Strict parsing and Phase 1 static enforce `profile.number.v1alpha1-r1` before conversion and exact field ranges; Phase 4 verification requires raw-token replay or trusted-decoder proof |
+| SG-002 numeric profile | every existing canonical-token, field-minimum, and field-maximum vector, with Git stage `0` as its only valid stage | Git stage `1`, `2`, `3`, and `4`; every existing signed, negative-zero, leading-plus, leading-zero, fractional, exponent, unsafe, NaN, Infinity, and field-out-of-range vector | Strict parsing and Phase 1 static enforce `profile.number.v1alpha1-r1` before conversion and exact field ranges; Phase 4 verification requires raw-token replay or the complete validated-representation proof |
 
-The matrix preserves all existing issued-contract and pre-contract outcome
-vectors, the normative `T(transition)` definition, and the complete SG-002
-vectors. A future implementation is conformant only when every matrix cell is
-covered at its assigned layer; a lower layer MUST NOT claim a live or evidence
-property it cannot establish.
+The matrix contains 25 logical data rows, independently counted from the table.
+It preserves all existing issued-contract and pre-contract outcome vectors,
+the normative `T(transition)` definition, and the complete SG-002 vectors. A
+future implementation is conformant only when every matrix cell is covered at
+its assigned layer; a lower layer MUST NOT claim a live or evidence property
+it cannot establish.
 
 ### SG-001 runtime-structure vectors
 
@@ -1369,8 +2076,9 @@ Additional planned positive fixtures cover:
   stage-0 inventory representing removal of all HEAD paths;
 - each `trackedEntry` status branch: `clean`, `modified`, `deleted`, and
   `type-changed`;
-- each submodule checkout branch: `absent`, `uninitialized`, and
-  `initialized`;
+- absent/unavailable and uninitialized/unavailable submodules, plus
+  initialized/observed submodules for all eight Boolean triples and checkout
+  IDs both equal to and different from the recorded ID;
 - a non-empty exact active-operation set and every administrative-lock branch;
 - every permitted-transition branch and every required-postcondition branch;
 - warning records both with and without the optional summary and related check
@@ -1388,8 +2096,10 @@ Additional planned negative fixtures cover:
   field that is inapplicable to its selected baseline branch;
 - a duplicate entry path; index stage `1`, `2`, or `3`; an unsupported mode;
   true `intentToAdd`, `skipWorktree`, or `assumeUnchanged`; a sparse entry; an
-  unmerged index; initialized submodule without `checkedOutObjectId`; and
-  absent submodule with a non-indeterminate worktree state;
+  unmerged index; initialized submodule without `checkedOutObjectId`;
+  absent/observed, uninitialized/observed, or initialized/unavailable pairing;
+  a missing observed Boolean; `indeterminate`; or a superseded
+  `worktreeState` field;
 - a duplicate active operation and duplicate administrative-lock identity;
 - a transition with identical `from` and `to`, a duplicate transition target,
   an unknown transition type, and a missing branch target key;
@@ -1437,12 +2147,12 @@ conformance vectors so a permissive parser extension cannot accept them.
 
 Planned SG-002 tests require raw-token-aware rejection before Schema
 validation; exact lower and upper bounds; the exact safe-integer maximum; no
-precision loss through parse, model transfer, JCS, or replay; identical digest
-vectors across supported runtimes; rejection of a generic decoded object
-without proof of strict profile parsing; and official RFC 8785 vectors together
-with the project-specific boundaries above. Validator and toolchain research
-must prove conformance to this selected profile and MUST NOT choose or weaken
-it.
+precision loss through strict parse, validated canonical instance
+representation construction, JCS, or replay; identical digest vectors across
+supported runtimes; rejection of a generic decoded object without the complete
+representation proof; and official RFC 8785 vectors together with the
+project-specific boundaries above. Validator and toolchain research must prove
+conformance to this selected profile and MUST NOT choose or weaken it.
 
 ## 16. Deferred work
 

@@ -54,7 +54,7 @@ receipt generation, CLI behavior, and agent adapters remain planned for Phases
 - **Integration tests:** the complete ordered lifecycle from untrusted task intent, through resolution and execution, to lease release and receipt finalization.
 - **Concurrency tests:** competing write tasks, exclusive lease acquisition, lease release, stale owners, and state changes during revalidation.
 - **Fixture tests:** reusable synthetic repositories and governance inputs representing valid and invalid states.
-- **Golden tests:** stable diagnostics, denial reasons, normalized contracts, and sanitized receipts reviewed as intentional output changes.
+- **Golden tests:** stable diagnostics, denial reasons, canonical contract serialization bytes, and sanitized receipts reviewed as intentional output changes.
 
 Contract tests MUST prove that a `TaskContract` has authority only after trusted framework issuance or validation of trusted issuer, integrity, derivation, task and target binding, freshness, and current policy, runtime, and lease preconditions. A caller-, adapter-, or task-supplied claim MUST remain untrusted, and a digest alone MUST NOT be accepted as proof of issuance. Phase 0 selects no final signing mechanism.
 
@@ -64,7 +64,7 @@ Future `ExecutionReceipt` contract coverage MUST exercise both closed receipt-or
 
 ### Path-keyed baseline and postcondition entries
 
-Future Phase 1 static and contract tests MUST prove that the repository-relative path is the sole identity, uniqueness, and canonical ordering key, `S(entry.path)`, for `TaskContract` baseline index, tracked, and submodule entry arrays and every corresponding entry array nested in required postconditions. Two entries with the same path MUST be rejected even when their remaining fields differ, including index mode, stage, object identity, or other index-entry state; tracked object identity, mode, status, or other tracked-entry state; submodule object ID, branch or ref information, or dirty state; or required-postcondition entry contents.
+Future Phase 1 static and contract tests MUST prove that the repository-relative path is the sole identity, uniqueness, and canonical ordering key, `S(entry.path)`, for `TaskContract` baseline index, tracked, and submodule entry arrays and every corresponding entry array nested in required postconditions. Two entries with the same path MUST be rejected even when their remaining fields differ, including index mode, stage, object identity, or other index-entry state; tracked object identity, mode, status, or other tracked-entry state; submodule object ID, checkout, or observation contents; or required-postcondition entry contents.
 
 `J(entry)` MAY be used only for deterministic diagnostic comparison after path uniqueness is established. It MUST NOT participate in entry identity, uniqueness, or canonical ordering, and differing full-object bytes MUST NOT make duplicate paths valid.
 
@@ -74,7 +74,8 @@ Planned negative coverage MUST include:
 
 - duplicate baseline index path with different entry contents;
 - duplicate baseline tracked path with different entry contents;
-- duplicate baseline submodule path with different object IDs or dirty state; and
+- duplicate baseline submodule path with different object IDs, checkout, or
+  observation contents; and
 - duplicate nested required-postcondition entry path with different contents.
 
 Untracked and ignored path arrays MUST remain unique and canonically ordered by `S(path)`. Path arrays nested in postconditions MUST retain their applicable `S(path)` rule. This test-plan synchronization does not change the design record's [array-ordering contract](../docs/schema-contract-v1alpha1.md#11-complete-array-ordering-matrix).
@@ -86,6 +87,61 @@ design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
 That requirement remains planned and does not imply that the design is
 approved, a validator is selected, or any fixture or executable test exists.
+
+### F-01–F-12 semantic-closure coverage
+
+Future conformance coverage MUST exercise every D1–D12 contract recorded in
+the design, while preserving its assigned phase and ownership boundary:
+
+- **D1:** construct the internal immutable validated canonical instance
+  representation only after all strict parse, Schema, static-invariant, and
+  canonical-array checks; bind its complete proof to the original bytes or
+  same-process value; reject a generic decoded object; and do not treat it as a
+  public kind, production typed model, TaskContract, or authority.
+- **D2:** cover absent/unavailable, uninitialized/unavailable, and
+  initialized/observed with all eight Boolean triples, checkout commit
+  difference, every forbidden pairing, all four denial codes, and unchanged
+  reuse through transitions and postconditions.
+- **D3:** exercise the sole eleven-step recursive leaf-only untracked/ignored
+  inventory, complete ignore precedence and negation, submodule and nested-repo
+  boundaries, `S(path)` order, and every fail-closed observation class.
+- **D4:** reproduce the fixed raw regular, executable, and link-target byte
+  digests without filters, decoding, normalization, or dereference, and reject
+  unstable, unreadable, replaced, truncated, or unsupported objects.
+- **D5:** require exactly empty transitions, baseline-equal state
+  postconditions, no lease, and empty issued-receipt changed paths for all three
+  non-writing rows, including the complete three-by-nine negative product.
+- **D6:** enforce `verificationOutcome: not-performed` if and only if
+  `executionOutcome: not-attempted`, cover every allowed pair and all seven
+  invalid pairs, and apply this gate before lifecycle precedence.
+- **D7:** bind each `from` directly to the complete materialized baseline,
+  apply all unique transitions simultaneously, reconstruct and validate one
+  canonical final composite, and require an exact final postcondition for every
+  changed dimension.
+- **D8:** require exactly the five closed HostOverlay binding fields, canonical
+  non-empty `remoteNames`, exact ref-branch conditions, name resolution, and
+  rejection of `expectedBranch` or any cached observation field.
+- **D9:** compare exact RFC 8785 JCS bytes of `RuleProjection` and
+  `MatchProjection`, apply exact-duplicate diagnostic precedence, and perform
+  no digest, case folding, rewriting, inference, host transformation, or array
+  reordering.
+- **D10:** prove Project/role identity, exact capability equations, repository
+  and remote inclusion, binding-name resolution, and path-language inclusion
+  with deterministic automata; reject widening and every unavailable proof.
+- **D11:** independently inventory eleven digest field paths bound once to ten
+  computations and reproduce every exact separator, raw/JCS payload, excluded
+  field, completed source value, tagged hash, negative vector, and delivery
+  digest copy from the recorded corpus.
+- **D12:** verify the complete five-class capability partition and all four
+  valid review-only permitted sets with exact prohibited-set complements, plus
+  every non-observation, role, mode, overlap, complement, exclusive-write, and
+  restoration negative.
+
+This coverage belongs to the future `schema-contracts` static validation/codec
+contract only. Production typed models, typed round trips, Schema/model
+conformance, and production serializers remain later `model-implementation`
+work after the existing worktree and integration gates; operational replay and
+authenticity remain Phase 4.
 
 The required future coverage includes, concisely:
 
@@ -164,11 +220,13 @@ permissive-parser extensions in every numeric field.
 
 Raw numeric-token validation and duplicate-key detection MUST occur during
 strict parsing before ordinary decoding, Schema validation, static validation,
-array checks, digest projection, JCS, or hashing. Planned conformance coverage
-MUST prove no precision loss through parsing, model transfer, RFC 8785 JCS, or
-replay; produce identical digest vectors across supported runtimes; combine
-official RFC 8785 vectors with project-specific numeric boundaries; and reject
-a generic decoded object that lacks trusted proof of strict profile parsing.
+array checks, validated canonical instance representation construction, digest
+projection, JCS, or hashing. Planned conformance coverage MUST prove no
+precision loss through strict parsing, representation construction, RFC 8785
+JCS, or replay; produce identical digest vectors across supported runtimes;
+combine official RFC 8785 vectors with project-specific numeric boundaries;
+and reject a generic decoded object that lacks the complete representation
+proof.
 Validator research must prove this selected profile and MUST NOT choose or
 weaken it. All coverage in this section remains planned and unimplemented.
 
