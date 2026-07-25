@@ -4,25 +4,28 @@ Phase 0 documentation bootstrap is complete at baseline commit
 `79cc9d77fd48410f37645afdb429a7cd2e34a0bd`. Phase 1: Schemas and
 Models is current, but Phase 1 implementation has not yet begun. The repository
 remains pre-operational, and this directory contains no Schema implementation.
-The proposed v1alpha1 Schema contract design is recorded in
+The v1alpha1 Schema contract design is recorded in
 [the Schema contract design](../docs/schema-contract-v1alpha1.md).
-Independent audit, including re-audit after design repair, and
-`integration-control` approval remain pending. Its exact 11-resource UUID-URN
-catalog has status `reserved-unpublished`; the catalog reserves identifiers but
-does not publish or implement Schema resources.
+Independent design audit and `integration-control` design approval are
+complete. The recorded decision is
+`APPROVE SCHEMA DESIGN FOR INTEGRATION — TOOLCHAIN GATE REMAINS`. PR #1 is
+open and unmerged, so the design is not yet integrated into `main`. This
+material PR-review repair requires fresh independent re-audit and
+`integration-control` confirmation before integration. The exact 11-resource
+UUID-URN catalog remains `reserved-unpublished`; it reserves identifiers but
+does not publish or implement Schema resources, and no Schema artifact exists.
 
 The initial public configuration API version is `contextctl.dev/v1alpha1`.
 Future Schema definitions will live under `schemas/v1alpha1/`. Configuration
 API versions MUST evolve independently of package release versions, which will
 use Semantic Versioning.
 
-No Schema implementation may begin until both the proposed design has passed
-independent audit and `integration-control` approval, and
-`integration-control` has approved the validator, package metadata, dependency
-lock, provenance, and license handling required by the design's toolchain gate.
-The first Schema artifact then requires a fresh, separately authorized
-`schema-contracts` task in this dedicated role worktree. No Schema file
-currently exists.
+No Schema implementation may begin until `integration-control` has approved
+the validator/toolchain, packaging, dependency lock, provenance, licensing,
+security, and release gate. The first Schema artifact then requires a fresh,
+separately authorized `schema-contracts` task in this dedicated role worktree.
+Model-worktree creation and model implementation remain prohibited until the
+approved Schema baseline is committed, reviewed, and integrated into `main`.
 
 ## Phase 1 ownership and boundary
 

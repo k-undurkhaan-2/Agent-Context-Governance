@@ -8,15 +8,28 @@ be deterministic and MUST use sanitized synthetic data. The planned Schema
 contract, static-validation vectors, and fixture inventory are recorded in the
 [v1alpha1 Schema contract design](../docs/schema-contract-v1alpha1.md).
 
+Independent design audit and `integration-control` design approval are
+complete. The recorded decision is
+`APPROVE SCHEMA DESIGN FOR INTEGRATION — TOOLCHAIN GATE REMAINS`. PR #1
+remains open and unmerged, so the design is not yet integrated into `main`.
+This material PR-review repair requires fresh independent re-audit and
+`integration-control` confirmation before integration.
+
+All 11 Schema resources remain `reserved-unpublished`, and no Schema
+implementation exists. Model-worktree creation and model implementation remain
+prohibited by the Schema-before-model sequence.
+
 ## Validator and toolchain gate
 
 No validator has been selected, and no `pyproject.toml`, dependency
 declaration, transitive lock, or approved executable test environment exists.
 Executable Schema tests and Schema implementation remain blocked until
-`integration-control` approves the validator, packaging, lock, provenance,
-license, and release decisions. `schema-contracts` owns the validator
-capability requirements and future conformance vectors. Ad hoc imports,
-globally installed packages, and untracked environments are not accepted.
+`integration-control` approves the validator/toolchain, packaging, dependency
+lock, provenance, licensing, security, and release gate and a fresh, separately
+authorized `schema-contracts` task is issued. `schema-contracts` owns the
+validator capability requirements and future conformance vectors. Ad hoc
+imports, globally installed packages, and untracked environments are not
+accepted.
 
 Planned Phase 1 tests are limited to strict parsing prerequisites, JSON Schema
 structure, offline reference resolution, canonical representation checks, and
@@ -62,6 +75,59 @@ Tests MUST prove that future governed adapter execution, including plan-only exe
 
 Future `ExecutionReceipt` contract coverage MUST exercise both closed receipt-origin branches and the conditional presence of contract fields. It MUST cover pre-contract denials before and after lease acquisition, require acquisition binding only for a proven acquired lease, require applicable cleanup or indeterminate release evidence for acquired or indeterminate acquisition state, and reject both fabricated contract binding and successful-execution claims in pre-contract denial receipts. This coverage preserves optional policy-required pre-contract denial receipts without duplicating the field-level design recorded in the Schema contract.
 
+### Closed absolute-host-path coverage
+
+Future Schema and Phase 1 static coverage MUST implement the design record's
+[closed `absoluteHostPath`
+profile](../docs/schema-contract-v1alpha1.md#closed-absolutehostpath-profile).
+It MUST prove the closed required `{ platform, value }` union, exact POSIX
+grammar `"/" | "/" segment ("/" segment)*`, and exact drive-only Windows
+grammar `[A-Z]:\ | [A-Z]:\segment(\segment)*`.
+
+Positive vectors MUST include `/`, `/srv/synthetic.invalid/worktree`,
+`/srv/synthetic.invalid/例`, `C:\`,
+`C:\Synthetic.Invalid\Worktree`, and `C:\Synthetic.Invalid\例`.
+Negative vectors MUST cover empty and an exactly 4097-scalar value; non-NFC and
+every prohibited control scalar; relative, repeated-separator, trailing,
+dot-segment, and backslash-invalid POSIX forms; and every Windows lowercase
+drive, drive-relative, current-drive-rooted, UNC, device-namespace,
+forward-slash, mixed-separator, repeated-backslash, trailing-backslash,
+empty-segment, forbidden-punctuation, trailing-space, trailing-dot,
+dot-segment, and reserved-device-base class. Reserved-device vectors include
+`CON`, `PRN`, `AUX`, `NUL`, `CLOCK$`, every `COM1` through `COM9` and
+`LPT1` through `LPT9` value under ASCII-case-insensitive comparison, and
+extensions such as `CON.txt` and `LPT1.log`.
+
+These are lexical/static checks only. They MUST preserve spelling and exact
+`(platform, value)` equality without normalization, slash replacement, or
+case folding. Actual host compatibility, existence, aliases, symlinks and
+junctions, registration, identity, and containment remain Phase 3.
+
+### Timestamp chronology coverage
+
+Future Phase 1 static and contract coverage MUST enforce all chronology
+relations in the design record's [timestamp chronology
+section](../docs/schema-contract-v1alpha1.md#timestamp-chronology). Equality is
+permitted for every relation except the strict
+`freshness.issuedAt < freshness.expiresAt` boundary.
+
+Positive vectors MUST cover strict progression, all-equality boundaries within
+each applicable artifact combination with strict freshness preserved, each
+permitted equality boundary independently, both receipt origins, empty and
+populated check arrays, a complete issued-contract receipt/TaskContract pair,
+and a complete receipt/delivery-result pair. Negative vectors MUST reverse
+each relation independently, including checks before `startedAt` or after
+`sanitization.completedAt`, pre-contract evidence outside that interval,
+`issuanceCheckpoint.observedAt` after `freshness.issuedAt`, an issued-contract
+receipt starting before contract issuance, a delivery attempt before receipt
+completion, and equal and reversed freshness boundaries.
+
+Tests MUST NOT impose check-type or adjacent-check timestamp order, require
+receipt completion before contract expiry, infer truth from timestamp syntax,
+use a trusted clock in Phase 1, or treat chronology as authority. Existing
+canonical JSON, golden-vector bytes, digest projections, and recorded digests
+must remain unchanged.
+
 ### Path-keyed baseline and postcondition entries
 
 Future Phase 1 static and contract tests MUST prove that the repository-relative path is the sole identity, uniqueness, and canonical ordering key, `S(entry.path)`, for `TaskContract` baseline index, tracked, and submodule entry arrays and every corresponding entry array nested in required postconditions. Two entries with the same path MUST be rejected even when their remaining fields differ, including index mode, stage, object identity, or other index-entry state; tracked object identity, mode, status, or other tracked-entry state; submodule object ID, checkout, or observation contents; or required-postcondition entry contents.
@@ -85,8 +151,12 @@ Untracked and ignored path arrays MUST remain unique and canonically ordered by 
 Future Schema and static-contract coverage MUST implement every row of the
 design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
-That requirement remains planned and does not imply that the design is
-approved, a validator is selected, or any fixture or executable test exists.
+Design approval is recorded, but PR integration is incomplete and this
+material review repair requires fresh independent re-audit and
+`integration-control` confirmation before integration. Matrix coverage remains
+planned: no validator, fixture, executable test, or Schema implementation
+exists, and the toolchain and separately authorized implementation gates remain
+blocking.
 
 ### F-01–F-12 semantic-closure coverage
 
