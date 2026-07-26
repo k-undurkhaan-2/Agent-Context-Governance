@@ -650,7 +650,7 @@ Untracked and ignored path arrays MUST remain unique and canonically ordered by 
 Future Schema and static-contract coverage MUST implement every row of the
 design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
-The prior design approval remains recorded, but PR integration is incomplete.
+The prior design approval remains recorded; the referenced external gate record states that PR #1 remains open and unmerged.
 The third-review repairs are recorded at commit
 `9eac3e040a8d0f9c959eeb675eace795749e422a`; their pre-commit audit and any
 exact-head `integration-control` confirmation are external gate records, not
