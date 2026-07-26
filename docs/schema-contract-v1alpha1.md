@@ -2,7 +2,7 @@
 
 Phase 1: Schemas and Models is current, but Schema implementation has not begun. Independent design audit and `integration-control` design approval are complete. The recorded decision is `APPROVE SCHEMA DESIGN FOR INTEGRATION — TOOLCHAIN GATE REMAINS`. PR #1 remains open and unmerged, so the design is not yet integrated into `main`. This material PR-review repair requires fresh independent re-audit and `integration-control` confirmation before integration.
 
-All 11 Schema resources remain `reserved-unpublished`. No Schema implementation exists or may begin until `integration-control` approves the validator/toolchain, packaging, lock, provenance, licensing, security, and release gate and a fresh, separately authorized `schema-contracts` task is issued. Model-worktree creation and model implementation remain prohibited by the Schema-before-model sequence. This document remains an unpublished design record, not an implemented Schema contract, JSON Schema resource, configuration instance, execution adapter, policy engine, or authorization mechanism.
+All 11 Schema resources remain `reserved-unpublished`. No Schema implementation exists or may begin until `integration-control` approves the validator/toolchain, packaging, lock, provenance, licensing, security, and release gate and a fresh, separately authorized `schema-contracts` task is issued. No model worktree or model implementation exists, and model-worktree creation and model implementation remain prohibited by the Schema-before-model sequence. This document remains an unpublished design record, not an implemented Schema contract, JSON Schema resource, configuration instance, execution adapter, policy engine, or authorization mechanism.
 
 Nothing in this document grants operational authority. In particular, JSON-valid input shaped like a `TaskContract` is untrusted unless trusted framework logic issued it or validated its issuer, integrity, derivation, bindings, freshness, and current preconditions. A digest or successful Schema validation does not establish authority.
 
@@ -10,7 +10,7 @@ Concrete `HostOverlay`, `TaskContract`, `ExecutionReceipt`, lease, lock, runtime
 
 ## 1. Status, scope, and authority
 
-The `schema-contracts` role owns the public JSON Schema contract under `schemas/v1alpha1/`, shared definitions, closed envelopes, Schema-expressible constraints, unknown-field rejection, conspicuously synthetic fixtures, Schema validation and contract tests, the static validation/codec contract for the internal validated representation defined in section 10, and directly required Schema documentation. It does not own production Python models, production decoding or serialization implementation, task resolution, operational routing, live Git inspection, leases, contract issuance, receipt generation, a CLI, adapters, or enforcement.
+The `schema-contracts` role owns the normative public JSON Schema contract under `schemas/v1alpha1/`, shared definitions, closed envelopes, Schema-expressible constraints, unknown-field rejection, conspicuously synthetic structural fixtures, the documented Phase 1 static invariants, the normative validation/canonicalization/digest pipeline and validated-canonical-representation contracts, the digest catalog and framing definitions, recorded canonical and raw bytes and expected digest values, non-executable conformance requirements, Schema validation and structural/static contract tests, and directly required Schema documentation. It specifies and records those contracts; it does not implement the project strict decoder, validated canonical instance representation, canonical serializer, digest projection, JCS, hashing, replay, cross-runtime equivalence, production Python models, task resolution, operational routing, live Git inspection, leases, contract issuance, receipt generation, a CLI, adapters, or enforcement. Those executable Phase 1 codec and model responsibilities belong to the future distinct `model-implementation` role after the Schema-before-model gates are satisfied.
 
 The phase boundaries are binding:
 
@@ -208,6 +208,156 @@ segment after `heads`. These deliberately restricted profiles reject every
 space, control character, `~`, `^`, `:`, `?`, `*`, `[`, backslash, repeated or
 trailing slash, and implementation-specific Git shorthand rather than relying
 on host normalization.
+
+#### Closed `branchPrefix` and `branchPolicy` profile
+
+A `branchPrefix` is exactly a valid `branchRef`. It therefore is an
+already-NFC ASCII string, begins with `refs/heads/`, contains at least one
+non-empty branch-name segment after `heads`, and inherits the complete
+`gitRefIdentifier` and `branchRef` total-length, segment-length, permitted-
+character, leading-dot, trailing-dot, `.lock`, `..`, repeated-slash, trailing-
+slash, control-character, and Git-shorthand restrictions. It is not empty,
+cannot equal only `refs/heads/`, does not end in `/`, and contains no wildcard,
+glob, regular-expression, template, variable, or placeholder syntax. Every
+otherwise permitted character, including `.`, is literal. The value is stored
+exactly and is never case folded, normalized, rewritten, or suffixed with a
+stored separator.
+
+For one validated symbolic `branchRef` named `branch` and one validated
+`branchPrefix` named `prefix`, define the inclusive component-prefix predicate:
+
+```text
+branchPrefixMatches(prefix, branch) =
+  branch == prefix
+  OR
+  branch starts with prefix + "/"
+```
+
+Comparison is exact ASCII-byte comparison over the already validated values.
+The appended `/` is part of the comparison operation and is not stored in the
+prefix. Therefore `refs/heads/release` matches itself,
+`refs/heads/release/2026`, and `refs/heads/release/2026/july`; it does not match
+`refs/heads/release-malicious`, `refs/heads/releases`,
+`refs/heads/releas`, or `refs/heads/release_candidate`. Raw character-prefix
+matching and descendants-only matching are forbidden. A stored trailing-slash
+namespace and every wildcard catch-all are invalid.
+
+`WorktreeRole.spec.branchPolicy` is a closed object with required closed
+`allowed` and `denied` objects. Those objects contain exactly these four
+required arrays and no other members:
+
+| Field | Exact value type, identity, and order |
+| --- | --- |
+| `allowed.exact` | set-like `branchRef[]`, unique and strictly ordered by `S(branchRef)` |
+| `allowed.prefixes` | set-like `branchPrefix[]`, unique and strictly ordered by `S(branchPrefix)` |
+| `denied.exact` | set-like `branchRef[]`, unique and strictly ordered by `S(branchRef)` |
+| `denied.prefixes` | set-like `branchPrefix[]`, unique and strictly ordered by `S(branchPrefix)` |
+
+Every array may be empty, is rejected when it contains a duplicate or is not
+already canonically ordered, and is never silently sorted. One valid prefix
+may contain another valid prefix; that redundancy is permitted. Exact and
+prefix entries may overlap within or across allow and deny classes. Validation
+does not normalize, infer, collapse, or remove such entries; the evaluation
+below remains deterministic and deny precedence resolves every allow/deny
+overlap.
+
+For one observed symbolic branch `B`, define:
+
+```text
+allowExact =
+  B equals any allowed.exact value
+
+allowPrefix =
+  branchPrefixMatches(P, B)
+  for any P in allowed.prefixes
+
+denyExact =
+  B equals any denied.exact value
+
+denyPrefix =
+  branchPrefixMatches(P, B)
+  for any P in denied.prefixes
+
+allowMatch = allowExact OR allowPrefix
+denyMatch = denyExact OR denyPrefix
+
+branchPolicyEligible =
+  allowMatch == true
+  AND
+  denyMatch == false
+```
+
+Any exact or prefix deny match overrides every allow match. No allow match is
+denial; both allow arrays empty deny every symbolic branch. Empty deny arrays
+create no permission. Exact-allow/exact-deny, exact-allow/prefix-deny, prefix-
+allow/exact-deny, prefix-allow/prefix-deny, and several allow matches plus one
+deny match all deny. There is no implicit allow-all state, no wildcard allow-
+all prefix, and `refs/heads/` is not a valid catch-all prefix.
+
+A symbolic branch with a valid `branchRef` is evaluated normally. A detached
+HEAD has no `branchRef` and fails branch-policy eligibility. A symbolic unborn
+branch may be evaluated by its symbolic `branchRef`, but the separate expected-
+baseline and HEAD-state rules still decide whether the unborn state is
+permitted. Branch-policy success does not prove the current live branch, HEAD
+object, worktree registration, or repository state.
+
+Phase 1 owns `branchRef` and `branchPrefix` lexical validation, the closed
+`branchPolicy` structure, uniqueness and canonical order, the exact and
+inclusive component-prefix semantics, deny precedence, and statically provable
+contradictions. Phase 3 owns live symbolic/detached/unborn observation, actual
+branch comparison, HEAD-state verification, worktree registration, branch
+binding, and repository state.
+
+The seven required planned positive vectors are:
+
+1. exact allow with no deny;
+2. prefix equality for branch and prefix `refs/heads/release`;
+3. descendant `refs/heads/release/2026` under `refs/heads/release`;
+4. deep descendant `refs/heads/release/2026/july` under that prefix;
+5. one valid prefix contained by another, with deterministic allow;
+6. simultaneous exact and prefix allow with no deny; and
+7. an otherwise allowed symbolic unborn branch, still subject to the separate
+   unborn HEAD-state gate.
+
+The 33 required planned negative vectors are:
+
+1. empty prefix;
+2. `refs/heads/`;
+3. stored trailing-slash prefix;
+4. repeated slash;
+5. empty component;
+6. malformed `branchRef` component;
+7. leading dot;
+8. trailing dot;
+9. `.lock` suffix;
+10. `..`;
+11. wildcard or glob syntax;
+12. regular-expression syntax;
+13. `refs/heads/release-malicious` does not match
+    `refs/heads/release`;
+14. `refs/heads/releases` does not match `refs/heads/release`;
+15. `refs/heads/releas` does not match `refs/heads/release`;
+16. no allow match;
+17. both allow arrays empty;
+18. exact allow plus exact deny;
+19. exact allow plus prefix deny;
+20. prefix allow plus exact deny;
+21. prefix allow plus prefix deny;
+22. several matching allows plus one matching deny;
+23. detached HEAD;
+24. duplicate value in `allowed.exact`;
+25. duplicate value in `allowed.prefixes`;
+26. duplicate value in `denied.exact`;
+27. duplicate value in `denied.prefixes`;
+28. non-canonical ordering in each of the four arrays;
+29. raw character-prefix behavior that would match a partial component;
+30. branch-policy success paired with a mismatching live branch observation;
+31. symbolic unborn branch rejected by the separate HEAD-state rules;
+32. a deny prefix equal to an allowed exact branch; and
+33. an exact deny equal to a branch matched by an allow prefix.
+
+All are planned contract vectors. They do not claim that a fixture or
+executable test exists.
 
 Where a field uses the `sanitizedSummary` value profile, its value is an
 already-NFC string of 1 through 1024 decoded Unicode characters with none of
@@ -420,12 +570,12 @@ Required `spec` fields:
 | `ownedDomainRefs` | Non-empty set of Domains the role owns |
 | `excludedDomainRefs` | Set of explicitly excluded Domains |
 | `permissions` | Mode and capability ceiling using the shared permission shape |
-| `branchPolicy` | Closed allowed/denied exact-branch and prefix arrays |
+| `branchPolicy` | Closed required `allowed.exact`, `allowed.prefixes`, `denied.exact`, and `denied.prefixes` arrays using `branchRef` and `branchPrefix` exactly as defined in section 6 |
 | `cleanlinessPolicy` | Closed policy for tracked, untracked, ignored, index, and submodule state; each is `clean`/`none` or `contract-enumerated` as applicable |
 | `exclusiveWriteRequired` | Required Boolean |
 | `reviewOnly` | Required Boolean |
 
-Owned and excluded Domains are disjoint and must exist in the same Project. A role may own multiple Domains. `roleClass: integration-control` identifies responsibility only; it grants no administrative operation. Branch deny rules win over allow rules during later evaluation. The object defines a logical responsibility profile, not a filesystem path or live worktree.
+Owned and excluded Domains are disjoint and must exist in the same Project. A role may own multiple Domains. `roleClass: integration-control` identifies responsibility only; it grants no administrative operation. Branch-policy eligibility requires at least one exact or inclusive component-prefix allow match and no exact or prefix deny match. The object defines a logical responsibility profile, not a filesystem path or live worktree, and Phase 3 must still observe its actual branch and HEAD state.
 
 #### Capability classes and review-only roles
 
@@ -654,6 +804,15 @@ field, and concrete overlay instances remain outside the target worktree.
 | `issuanceCheckpoint` | Closed observation timestamp and `profile.digest.issuance-state-v1` state digest defined exactly in section 10 |
 | `freshness` | Mandatory `issuedAt` and `expiresAt` boundary |
 
+The contract binds the exact Phase 2 routing result. Its `projectRef` is the
+same resolved Project, `target.worktreeRoleRef` is the one selected role,
+`target.worktreeId` is the same resolved target, and `domainRefs` is exactly
+the complete non-empty resolved Domain-reference set. The set may neither omit
+a resolved Domain nor add an unrelated Domain. A mismatch among routing's
+complete set, selected role, resolved target, or these contract fields denies
+issuance or validation. Several roles may never be unioned into one contract
+target.
+
 #### Closed mode, write, and lease truth table
 
 The `requestedMode`, `effectiveMode`, `allowWrite`, `leaseRequired`, `leaseId`,
@@ -738,6 +897,12 @@ identity separately and is exactly:
 
 `ref.state: detached` with `head.state: unborn` is invalid. A branch may
 combine with either a committed or unborn HEAD.
+
+Branch-policy evaluation remains a separate eligibility gate. A valid
+symbolic branch is evaluated under the exact allow/deny rules in section 6; a
+detached state fails because it supplies no `branchRef`. A symbolic unborn
+branch may pass the branch-policy predicate, but it remains valid only when the
+separate baseline, HEAD-state, and later live-observation gates also pass.
 
 A `gitMode` is a JSON string, never a JSON number, and its complete vocabulary
 is `100644`, `100755`, `120000`, and `160000`.
@@ -1605,6 +1770,135 @@ Rule IDs are unique. Duplicate numeric priorities are allowed, rules with
 disjoint match conditions may share a priority, and canonical rule order
 remains priority descending followed by ID ascending.
 
+### Complete-set matching and Phase 1 static boundary
+
+Let:
+
+- `Dresolved` be the non-empty complete resolved Domain-reference set for one
+  task after deterministic Project and Domain resolution;
+- `Drule` be one rule's non-empty declared
+  `match.domainSet.domainRefs`;
+- `Rdecision` be the one WorktreeRole referenced by a route decision; and
+- `Owned(R)` be the complete set of Domain references in
+  `R.spec.ownedDomainRefs`.
+
+Rule matching is exactly:
+
+```text
+operator == exact:
+  Drule == Dresolved
+
+operator == contains:
+  Drule ⊆ Dresolved
+```
+
+Neither operator changes, truncates, replaces, narrows, or authorizes a
+partial `Dresolved`. `contains` describes only whether a rule matches the
+complete resolved set. It never permits a route target to own only `Drule`.
+
+Phase 1 preserves the closed-bundle static checks: every rule Domain belongs
+to the RoutingPolicy Project; every route target belongs to that Project;
+every route target statically owns every Domain in `Drule`; every reference
+exists with its declared kind; and rule arrays remain closed and canonical.
+Phase 1 does not resolve a real task and therefore cannot prove complete
+ownership of an unknown future `Dresolved` beyond the rule-declared set.
+
+### Exact Phase 2 evaluation order
+
+Phase 2 performs exactly this order:
+
+1. Resolve exactly one Project.
+2. Resolve one non-empty complete Domain-reference set `Dresolved`.
+3. Evaluate every rule's `exact` or `contains` match against that same complete
+   set.
+4. Collect every matching rule.
+5. If no rule matches, use the required explicit deny fallback.
+6. Find the greatest priority among all matching rules.
+7. If more than one rule matches at that greatest priority, deny, even when
+   their decisions or route targets are identical or every target owns the
+   complete set.
+8. Apply the unique highest-priority rule's route-or-deny decision.
+9. If the decision is deny, deny.
+10. If the decision is route, require:
+
+```text
+Dresolved ⊆ Owned(Rdecision)
+```
+
+11. If complete ownership fails, deny the routing result.
+12. Do not fall through to any lower-priority matching rule.
+13. Do not combine multiple WorktreeRoles to form one target.
+14. Do not allow worktree availability, HostOverlay binding, free capacity,
+    lease availability or possession, branch state, runtime state, cached
+    state, or previous receipt evidence to make an incomplete or otherwise
+    ineligible role eligible.
+15. Only the one eligible selected role may continue to HostOverlay binding.
+16. A later trusted TaskContract must bind that exact selected role, exact
+    complete `Dresolved`, same Project, and same resolved target.
+17. Any mismatch among routing's complete Domain set, selected role,
+    TaskContract `domainRefs`, or TaskContract target denies contract issuance
+    or validation.
+
+When the unique highest-priority route target does not own every Domain in
+`Dresolved`, the original routing result is denied. Phase 2 does not remove
+that rule and continue, select a lower-priority complete owner, reinterpret the
+denial as policy fallback, or repair policy dynamically. For example, if a
+priority-100 `contains {A}` rule routes to a role owning only `{A}`, while a
+priority-50 `exact {A,B}` rule routes to a role owning `{A,B}`, a resolved set
+`{A,B}` is denied at the priority-100 eligibility gate. The result is not the
+priority-50 role.
+
+### Split behavior
+
+A split is not routing fallback within the original task. If no single
+selected role may own the complete task, the original task is denied or
+returned for split planning. Each split creates a distinct task intent with
+its own non-empty complete Domain set and fresh Project resolution, Domain
+resolution, RoutingPolicy evaluation, role selection, HostOverlay binding,
+authorization, TaskContract, lease handling where applicable, and complete
+lifecycle. The original task's contract, lease, and worktree binding cannot
+authorize or be shared with a split task. A union of several WorktreeRoles is
+never one target for the original task.
+
+### Required routing vectors
+
+Required planned positive vectors cover:
+
+1. `exact` with `Drule == Dresolved` and a route role owning the full set;
+2. `contains` with `Drule` a strict subset of `Dresolved` and a route role
+   owning the full set;
+3. exact and contains matches at different priorities, with one unique
+   highest-priority match whose selected role owns the full set;
+4. several matches at different priorities, with one unique highest-priority
+   rule whose selected role owns the full set;
+5. `contains {A}` against `{A,B}` where the selected role owns `{A,B}`; and
+6. independently authorized split tasks A and B, each resolving and routing
+   its own complete Domain set to one full owner.
+
+Required planned negative vectors cover:
+
+1. `contains {A}` against `{A,B}` where the selected role owns only `{A}`;
+2. a higher-priority partial owner and lower-priority complete owner, proving
+   denial without fallthrough;
+3. several roles that collectively, but no one role that individually, cover
+   `Dresolved`;
+4. two greatest-priority matches routing to different complete owners;
+5. two greatest-priority matches routing to the same role;
+6. a complete selected owner with a TaskContract that omits a Domain, adds an
+   unrelated Domain, or changes the selected role;
+7. an incomplete selected owner despite a HostOverlay binding, free worktree,
+   or available lease;
+8. a split attempted under the original task, contract, lease, or target;
+9. no matching rule with absent, malformed, or non-deny fallback;
+10. attempted eligibility widening through availability, branch, host, or
+    lease state;
+11. exact and contains rules tied at the greatest matching priority; and
+12. any TaskContract Domain set different from `Dresolved`.
+
+These are normative planned Phase 2 vectors. They do not create fixtures,
+executable tests, task resolution, or routing implementation in this Phase 1
+design task.
+
 For each already-valid, canonically ordered rule, define the closed
 projections:
 
@@ -1641,12 +1935,15 @@ not equal.
 
 Phase 1 may reject another contradiction only when it proves it statically and
 deterministically without resolving a real task, and it does not execute
-routing. Phase 2 collects all matching rules, finds the greatest matching
-priority, and fails closed when more than one rule matches at that priority,
-even when their decisions are identical. One highest-priority match yields its
-route or deny decision; no match uses the required explicit deny fallback.
-Global priority uniqueness is not required. Availability, host binding, and
-lease state cannot change priority or make an ineligible role eligible.
+routing. Projection equality and other Phase 1 static checks do not alter the
+exact Phase 2 matching and evaluation order above. Phase 2 evaluates every
+rule against the complete `Dresolved`, denies multiple matches at the greatest
+matching priority, and applies only the unique highest-priority decision. A
+route is eligible only when its one selected role owns all of `Dresolved`;
+failure denies without lower-priority fallthrough or role union. No match uses
+the required explicit deny fallback. Global priority uniqueness is not
+required, and host, availability, branch, runtime, or lease state cannot widen
+eligibility.
 
 ## 10. Non-mutating validation and canonicalization pipeline
 
@@ -1703,14 +2000,24 @@ authority, `TaskContract`, or runtime artifact. Static replay of a digest from
 it establishes integrity only and does not establish trusted issuance or
 operational authenticity.
 
-`schema-contracts` defines and tests this static validation/codec boundary,
-projection reconstruction, JCS bytes, and golden vectors. The future distinct
-`model-implementation` worktree owns production typed models, typed round
-trips, Schema/model conformance, and production decoders and serializers only
-after the approved Schema baseline is integrated into `main` and the separate
-worktree is created. Phase 4 owns operational replay against trusted issuer
-provenance, current runtime state, contract authorization, execution evidence,
-and receipts. This boundary does not weaken the Schema-before-model gate.
+The twelve steps above are unchanged normative requirements, with these
+non-overlapping responsibilities:
+
+| Responsibility | Owned result |
+| --- | --- |
+| `schema-contracts` | Specifies the pipeline and validated-representation contract, digest projection catalog and framing, recorded canonical bytes and digests, structural JSON Schema constraints, static invariants over already-decoded closed values, and expected positive and negative vectors. It does not implement or claim executable coverage for the decoder, representation, projection, JCS, hashing, replay, round trips, or cross-runtime behavior. |
+| future distinct `model-implementation` | Implements and tests strict UTF-8/token decoding, duplicate-key and raw-number rejection, NFC checks, immutable validated canonical representation and provenance binding, typed models, canonical serialization, exact digest projection, RFC 8785 JCS, SHA-256 framing and verification, replay, typed round trips, Schema/model conformance, and cross-runtime reproduction of the recorded bytes and digests. |
+| `integration-control` | Independently reviews and approves the Schema baseline, validator/toolchain, dependency, packaging, licensing, release, and cross-worktree gates; it does not absorb either implementation role. |
+| Phase 4 trusted operational path | Replays the same profiles against trusted issuer provenance, current policy/runtime/lease state, contract authority and binding, execution evidence, receipt finalization, and delivery. |
+
+Digest equality establishes integrity only. It is not proof of trusted
+issuance, authenticity, freshness, authorization, or operational authority.
+The future model work remains blocked until the complete Schema baseline is
+independently audited, approved through `integration-control`, committed,
+reviewed, and integrated into `main`, after which the repository owner must
+separately create or bind a distinct model worktree from that updated `main`.
+This design task neither creates that worktree nor authorizes Schema or model
+implementation.
 
 Every accepted integer token is exactly representable under binary64, and RFC
 8785 serialization emits its canonical number representation without
@@ -1997,9 +2304,9 @@ Comparators and identity functions are defined as follows:
 | `WorktreeRole.ownedDomainRefs` | Set-like | `R(ref)` | `R(ref)` |
 | `WorktreeRole.excludedDomainRefs` | Set-like | `R(ref)` | `R(ref)` |
 | `WorktreeRole.branchPolicy.allowed.exact` | Set-like | `S(branchRef)` | `S(branchRef)` |
-| `WorktreeRole.branchPolicy.allowed.prefixes` | Set-like | `S(prefix)` | `S(prefix)` |
+| `WorktreeRole.branchPolicy.allowed.prefixes` | Set-like | `S(branchPrefix)` | `S(branchPrefix)` |
 | `WorktreeRole.branchPolicy.denied.exact` | Set-like | `S(branchRef)` | `S(branchRef)` |
-| `WorktreeRole.branchPolicy.denied.prefixes` | Set-like | `S(prefix)` | `S(prefix)` |
+| `WorktreeRole.branchPolicy.denied.prefixes` | Set-like | `S(branchPrefix)` | `S(branchPrefix)` |
 | `RoutingPolicy.rules` | Ordered by explicit semantics | `S(rule.id)` | Priority descending, then `S(rule.id)` ascending |
 | `RoutingPolicy.rules[].match.domainSet.domainRefs` | Set-like | `R(ref)` | `R(ref)` |
 | `HostOverlay.bindings` | Set-like | `(R(roleRef), S(worktreeId))` | Same tuple |
@@ -2052,10 +2359,10 @@ JCS never reorders an array.
 | --- | --- | --- | --- | --- |
 | Required fields, types, enums, closed objects | Enforce | Contract vectors | Not applicable | Not applicable |
 | Identifier, path, digest, UUID, and format syntax | Enforce lexical profile | Canonical spelling and cross-reference checks | Bind to trusted/live values where required | Not applicable |
-| Duplicate JSON keys | Not observable after ordinary parsing | Strict parser detects them during parsing before object construction completes | Same parser before later verification | Not applicable |
-| Raw JSON-number token profile | `type: integer` cannot preserve lexical form | Strict parser enforces `0|[1-9][0-9]*`, the safe-integer ceiling, and field bounds before ordinary numeric conversion | Verification repeats raw-token validation or requires the complete validated canonical instance representation proof | Not applicable |
+| Duplicate JSON keys | Not observable after ordinary parsing | Contract records rejection before object construction; executable strict-parser detection and tests belong to future `model-implementation` | The same trusted decoder runs before later verification | Not applicable |
+| Raw JSON-number token profile | `type: integer` cannot preserve lexical form | Contract records raw-token rejection, ceiling, and bounds; executable enforcement before conversion belongs to future `model-implementation` | Verification repeats raw-token validation or requires the complete validated canonical instance representation proof | Not applicable |
 | Numeric field inventory | Exact integer type and per-field minimum/maximum | Reject any undeclared numeric field and audit the complete six-field inventory | A future signed or fractional field requires a contract revision | Not applicable |
-| Strings and member names already NFC | Not portable as an ordinary Schema assertion | Reject non-NFC before canonicalization | Repeat before hashing and verification | Authoring guidance |
+| Strings and member names already NFC | Not portable as an ordinary Schema assertion | Contract records non-NFC rejection; executable checking belongs to future `model-implementation` | Repeat before hashing and verification | Authoring guidance |
 | Reference existence, uniqueness, subset rules, canonical arrays | Shape only or partial uniqueness | Enforce within a closed loaded set | Revalidate selected/runtime bindings | Not applicable |
 | `displayName` is non-identifying | Length and character shape only | Conspicuously synthetic fixtures and best-effort scanner | Sanitize if copied into Phase 4 evidence | Author review and data classification |
 | Description text is secret-free | Length and character shape only | Synthetic values and best-effort secret scanning | Phase 4 redaction/sanitization before evidence | Secret manager, DLP, review, and access controls |
@@ -2063,7 +2370,7 @@ JCS never reorders an array.
 | A `sanitizedSummary` is actually safe | Bounded string shape only | Synthetic fixture content | Phase 4 sanitizer must create/check it and fail closed on incomplete sanitization | DLP, review, and evidence access policy |
 | No secrets in arbitrary permitted strings | Unknown secret-like fields are rejected; allowed strings can still hold secrets | Best-effort scanners | Phase 4 redaction; no secret values in contracts or receipts | External secret delivery and incident handling |
 | `absoluteHostPath` lexical validity and intended-host binding | Enforce the closed `posix`/`windows` union, required `platform` and `value`, unknown-field rejection, and Schema-expressible branch syntax | Enforce strict UTF-8/scalars, already-NFC, length from 1 through 4096 decoded scalars, control exclusions, exact POSIX grammar, uppercase-drive-only Windows grammar, segment/device rules, UNC/device-namespace rejection, exact equality, and the complete synthetic vector set | Phase 3 checks actual platform compatibility, canonical filesystem identity, drive availability, aliases, symlinks/junctions, registration, real-path equality, and containment | Host filesystem permissions |
-| Domain resolution and routing are unambiguous | Policy shape only | Provable contradictions only | Phase 2 resolves and fails closed | Not applicable |
+| Domain resolution and routing are unambiguous | Policy shape only | Provable closed-bundle contradictions, complete-set matching contract, and expected vectors only | Phase 2 follows the exact 17-step order, requires `Dresolved ⊆ Owned(Rdecision)`, denies ties or incomplete ownership without fallthrough, and never unions roles | Not applicable |
 | HostOverlay narrows customer governance | Shape and conditional fields | Enforce D10 Project/role identity, exact capability equations, accepted-remote inclusions, binding-name resolution, and DFA path-language inclusions; any unsupported or indeterminate proof denies the configuration | Phases 2-3 consume the statically valid restriction and compare the bound worktree live; this row does not execute routing | Host configuration review |
 | HostOverlay remote expectations have one record per name and non-empty accepted sets | Enforce closed records and non-empty `acceptedRemotes` | Outer uniqueness and order use only `S(remoteName)`; nested remote uniqueness and order use `J(remote)` | Phase 3 compares each observed named Git remote with its accepted set | Credential handling remains outside governance |
 | Conflict-free index is representable | Enforce stage `0`, required false index flags, supported modes, and closed fields | Enforce path uniqueness, canonical order, and complete-inventory semantics | Phase 3 denies unmerged, intent-to-add, skip-worktree, assume-unchanged, sparse, unsupported-mode, or otherwise unrepresentable indexes before issuance | Phase 4 may record only sanitized pre-contract denial evidence |
@@ -2120,9 +2427,12 @@ If Python is selected, `pyproject.toml` and an approved exact dependency lock ar
 
 `integration-control` owns the validator/toolchain, packaging, dependency lock,
 provenance, licensing, security, and release decision. `schema-contracts` owns
-the capability requirements in section 13 and the future conformance vectors.
-Selecting a package requires a separate authorization and does not belong to
-this design-record task.
+the capability requirements in section 13, structural/static Schema vectors,
+and the recorded executable-codec expectations. The future distinct
+`model-implementation` role owns executable decoder, canonical representation,
+projection, JCS, hashing, replay, round-trip, Schema/model, and cross-runtime
+conformance. Selecting a package requires a separate authorization and does
+not belong to this design-record task.
 
 ## 15. Planned fixtures and contract tests
 
@@ -2194,7 +2504,18 @@ Planned negative fixtures include:
 
 Duplicate priority by itself is not an invalid fixture. Context-dependent multiple-highest-match execution tests belong to Phase 2.
 
-Planned Schema contract tests cover every Schema accepting its positive fixtures and rejecting its negative fixtures; nested unknown-field rejection; discriminator and supported-version enforcement; mandatory formats; exact offline catalog and `$ref` resolution; no network requirement; strict parser failures before validation; canonical array checks; closed-bundle uniqueness and reference integrity; deterministic structured errors; catalog UUID/resource invariants; non-mutating NFC/JCS/digest vectors; and confirmation that no test treats synthetic host/runtime data, a valid TaskContract shape, or a receipt as authority.
+Planned `schema-contracts` tests cover every Schema accepting structural
+positive fixtures and rejecting structural negative fixtures; nested
+unknown-field rejection; discriminators and supported versions; mandatory
+formats; exact offline catalog and `$ref` resolution; canonical arrays over
+already-decoded values; closed-bundle uniqueness, references, and static
+integrity; catalog UUID/resource invariants; and confirmation that no synthetic
+host/runtime value, valid TaskContract shape, digest, or receipt is authority.
+The contract records strict-parser, validated-representation, NFC, projection,
+JCS, hashing, replay, and golden-vector expectations, but executable coverage
+of those behaviors belongs to future `model-implementation`, together with
+typed round trips, Schema/model conformance, deterministic structured codec
+errors, and cross-runtime byte and digest reproduction.
 
 Baseline and postcondition contract tests require duplicate-path validation to fail before hashing. They prove that deterministic full-object order cannot make a duplicate path valid and that entry arrays nested in required postconditions use the same sole `S(entry.path)` uniqueness and ordering rule as baseline index, tracked, and submodule entries.
 
@@ -2204,15 +2525,17 @@ ExecutionReceipt contract tests exercise both closed origin branches, conditiona
 
 This matrix is mandatory future coverage, not a claim that fixtures or tests
 exist. `Schema` means JSON Schema structural enforcement, `Phase 1 static`
-means closed-data integrity after strict parsing and Schema validation,
-`Phase 3 live` means repository, Git, filesystem, checkout, and lease
-observation, and `Phase 4 evidence` means contract verification,
-post-execution verification, sanitization, terminalization, or receipt
-evidence. Each row requires every listed positive and negative vector.
+means `schema-contracts` structural/static integrity requirements over an
+already-decoded closed value, and executable codec/model checks named in a row
+belong to future `model-implementation`. `Phase 3 live` means repository, Git,
+filesystem, checkout, and lease observation, and `Phase 4 evidence` means
+trusted contract verification, post-execution verification, sanitization,
+terminalization, or receipt evidence. Each row requires every listed positive
+and negative vector at its assigned owner.
 
 | Branch or invariant | Required positive vectors | Required negative vectors | Enforcement layer and responsibility |
 | --- | --- | --- | --- |
-| Reference and HEAD | branch plus commit; branch plus unborn; detached plus commit | detached plus unborn; branch missing `branchRef`; detached containing `branchRef`; commit missing `objectId`; unborn containing `objectId` | Schema enforces closed branches and required/forbidden fields; Phase 1 static rejects detached/unborn; Phase 3 live selects and compares the actual ref and HEAD |
+| Reference, branch policy, and HEAD | branch plus commit; branch plus unborn; detached plus commit; all seven required positive `branchPrefix` and branch-policy vectors | detached plus unborn; branch missing `branchRef`; detached containing `branchRef`; commit missing `objectId`; unborn containing `objectId`; all 33 required negative branch-policy vectors, including raw-character-prefix, descendants-only, trailing-slash, and wildcard cases; plus each closed-shape missing-array variant | Schema enforces closed branches, four required policy arrays, and required/forbidden fields; Phase 1 static validates exact `branchRef`/`branchPrefix` syntax, `S(branchRef)`/`S(branchPrefix)` order and the recorded predicate vectors; Phase 3 live selects the symbolic branch or denies detached/unborn as specified, then compares actual ref and HEAD |
 | Conflict-free index | clean conflict-free index; exact non-empty stage-0 complete inventory; exact empty complete inventory representing removal of all HEAD paths | stage `1`; stage `2`; stage `3`; duplicate path; unsupported mode; `intentToAdd: true`; `skipWorktree: true`; `assumeUnchanged: true`; sparse entry; unmerged index presented as a `TaskContract` baseline | Schema fixes stage and flags and closes entries; Phase 1 static enforces path identity, order, and complete explicit inventory; Phase 3 live selects clean versus exact and denies unrepresentable state; Phase 4 evidence may record sanitized pre-contract denial only |
 | Tracked | tracked clean; exact inventory containing clean; modified with equal `worktreeMode` and `indexMode`; deleted; type-changed with unequal modes | modified with unequal modes; type-changed with equal modes; missing required field; branch-inapplicable field; mode `160000`; tracked/index mode mismatch; tracked/index object mismatch; omitted index path from `tracked.exact`; tracked entry for a gitlink path | Schema enforces status branches and fields; Phase 1 static enforces mode relations and explicit index equality/coverage; Phase 3 live confirms content, deletion, type, HEAD-dependent equality, and completeness; Phase 4 evidence verifies postconditions |
 | Untracked and ignored / D3 path inventory | `none` for each category; non-empty exact complete inventories; regular, executable, and non-dereferenced symlink leaves; recursive ignored-directory leaves; ignore negation; empty directory emitting no member; registered submodule boundary exclusion | empty exact inventory; duplicate or non-canonical path; cross-category or explicit-state collision; directory member; collapsed-directory alternative; unregistered nested repository; unreadable, racing, cyclic, identity/classification/submodule-boundary-unresolved, unrepresentable-path, or unsupported-object observation | Schema enforces unions and non-empty exact arrays; Phase 1 static enforces `S(path)`, explicit disjointness, and rejection of directory/collapsed encodings; Phase 3 live executes the sole eleven-step leaf-only profile and emits its exact reason code; Phase 4 evidence verifies postconditions without a weaker encoding |
@@ -2224,19 +2547,19 @@ evidence. Each row requires every listed positive and negative vector.
 | Warnings and checks | warning without optional fields; warning with summary only; warning with an earlier `relatedCheckId`; warning with a later `relatedCheckId`; check without optional summaries; check with `expectedSummary`; check with `observedSummary`; check with both; one check for every `intent-validation`, `project-domain-resolution`, `role-routing`, `host-binding`, `initial-preflight`, `lease-acquisition`, `post-acquisition-revalidation`, `contract-issuance`, `pre-action-revalidation`, `execution`, `post-execution-verification`, `lease-release`, and `receipt-finalization` value | warning or check sequence gap; warning or check sequence duplicate; duplicate `checkId`; dangling `relatedCheckId`; reference resolved only by another receipt or a delivery result; invalid reason-code order; unknown `checkType`; branch-inapplicable or unknown field | Schema enforces record shapes and vocabularies; Phase 1 static enforces sequences, unique check IDs, reason-code order, and same-receipt references independent of position; Phase 4 evidence produces and sanitizes the ordered records |
 | Receipt outcomes, lease acquisition, and timestamp chronology | every existing issued-contract and pre-contract-denial outcome vector; each `not-required`, `not-attempted`, `not-acquired`, `indeterminate`, and `acquired` branch; every allowed checkpoint/acquisition chronology; acquired cleanup success, failure, and indeterminate; indeterminate acquisition with required warning; every release/lifecycle precedence branch; strict timestamp progression; all-equality combinations where permitted with strict freshness preserved; each permitted timestamp-equality boundary independently; both origins; empty and populated checks; complete contract/receipt and receipt/delivery pairs | every prohibited checkpoint/acquisition chronology; acquired or indeterminate branch missing required binding or warning; inconsistent cleanup, release, execution, verification, or lifecycle outcome; successful lifecycle with unresolved warning; each timestamp relation reversed independently; check before start or after sanitization; pre-contract evidence before start or after sanitization; issuance checkpoint after issuance; receipt start before contract issuance; delivery before receipt finish; equal or reversed freshness | Schema enforces origin/union shape and canonical timestamp presence/lexical form; Phase 1 static enforces every listed same- and cross-artifact chronology, binding, warning, and precedence rule; Phase 3 live supplies acquisition and release facts; Phase 4 owns trusted time, authenticity, operational freshness, and final evidence |
 | TaskContract truth table | each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition | requested plan-only with effective implementation; effective plan-only with `allowWrite: true`; `allowWrite: false` with `leaseRequired: true`; `allowWrite: true` with `leaseRequired: false`; `leaseId` present while no lease is required; `leaseId` absent while required; `owned` postcondition while no lease is required; `not-required` postcondition while a lease is required | Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions |
-| D1 validated canonical instance representation | strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation | generic decoded object; missing or stale proof component; proof rebound to another value; mutable value; representation asserted as a public kind, production typed model, transferable authority, TaskContract, or runtime artifact | `schema-contracts` defines and tests the Phase 1 static validation/codec boundary; later `model-implementation` owns production typed round trips and serializers; Phase 4 owns operational replay and authenticity |
+| D1 validated canonical instance representation | strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation | generic decoded object; missing or stale proof component; proof rebound to another value; mutable value; representation asserted as a public kind, production typed model, transferable authority, TaskContract, or runtime artifact | `schema-contracts` specifies the representation contract and records its vectors; future `model-implementation` implements and tests decoding, construction, provenance binding, typed round trips, serialization, and Schema/model conformance; Phase 4 owns trusted operational replay and authenticity |
 | D4 raw worktree-content digest | exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation | filtered or EOL-converted bytes; decoded or Unicode-normalized text; dereferenced symlink; unreadable, replaced, raced, truncated, length-inconsistent, or lossy observation; directory, gitlink, or unsupported type | Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile |
 | D5 non-writing contracts | all three non-writing truth-table rows have exactly empty transitions, baseline-equal state postconditions, no lease identity, optional `lease-state: not-required`, and issued-receipt `changedPaths: []`; observed drift is evidence only | the independently enumerable Cartesian product of all three non-writing rows and all nine transition types (27 cases); any drift-describing state postcondition; lease identity/ownership; non-empty changed paths; `execute-tests` or `execute-build` treated as a write override | Schema and Phase 1 static reject the closed contract and compare explicit postconditions with the immutable baseline; Phase 4 enforces empty changed paths and classifies drift as failed or indeterminate verification |
 | D6 execution/verification biconditional | `not-attempted/not-performed`; each of `succeeded`, `failed`, `cancelled`, and `indeterminate` with each of `passed`, `failed`, and `indeterminate` | exactly seven pairs: each attempted execution outcome with `not-performed`, plus `not-attempted` with `passed`, `failed`, or `indeterminate` | Phase 1 static applies the biconditional before, and without changing, the existing lifecycle-precedence table; Phase 4 supplies evidence claims |
 | D7 simultaneous transition composition | complete materialized `B`; every `from` equals `B(target)` by direct JCS bytes; independent transitions produce the same canonical `F` regardless of wire order; unchanged targets persist; every changed dimension has an `F`-equal matching postcondition; unchanged postconditions are absent or baseline-equal | baseline/from mismatch; sequential dependency; order-dependent result; invalid final cross-dimension composite; missing or mismatched changed-dimension postcondition; drift asserted for an unchanged dimension; incomplete D2 or D3 value | Phase 1 performs comparison, simultaneous `Apply`, canonical branch reconstruction, and static final-composite validation; Phase 3 materializes live-dependent `B`; Phase 4 compares evidence with `F`, attributes transitions, and verifies scope/postconditions |
 | D8 closed HostOverlay binding | complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once | each missing field; every unknown field; empty, duplicate, or non-canonical remote names; unknown name; branch without `branchRef`; detached with `branchRef`; `expectedBranch`; each cached observed root/HEAD/branch/remote field | Schema closes the five-field record and ref branches; Phase 1 enforces binding identity, array canon, and name resolution; Phase 3 compares live canonical root, registration, ref, and every named remote |
-| D9 RoutingPolicy projection equality | different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification | different IDs with equal `RuleProjection` JCS bytes; same-priority equal `MatchProjection` JCS bytes with same or different decisions; non-canonical nested array rejected before projection | Phase 1 compares direct RFC 8785 bytes with no digest, case folding, rewriting, inference, host transformation, or array reorder; exact-duplicate classification precedes identical-match classification; Phase 2 alone executes matching |
-| D10 HostOverlay narrowing proof | exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; repository and remote subsets by `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**` by DFA language proof | each of the nine exact rejection-code classes; added capability or remote; role/project mismatch; `docs/**` outside the Project universe; unsupported syntax, compilation failure, resource exhaustion, or indeterminate emptiness; sample or prefix heuristic offered as proof | Phase 1 performs exact set/reference checks and automata complement/product/emptiness relative to `U`; Phase 3 supplies live binding comparison; neither layer executes task routing here |
-| D11 digest catalog and golden corpus | all eleven digest field paths bind once to ten computations; every exact separator, raw payload, JCS payload, exclusion, completed source value, tagged hash, and delivery-copy equality reproduces the recorded corpus | included-field mutation; excluded-field mishandling; self-digest inclusion; missing/changed separator byte; substituted profile; changed raw bytes; wrong JCS projection; mismatched copied receipt digest; a cycle, ambiguity, duplicate binding, or missing field path | Phase 1 static/codec conformance reproduces exact bytes and verifies the acyclic catalog; Phase 3 supplies stable raw observations; Phase 4 replays operational bindings and exact delivery copy; every digest remains integrity-only |
+| D9 RoutingPolicy projection equality and complete-set contract | all six required complete-set positive vectors; different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification | all twelve required complete-set negative vectors, including partial owner, no-fallthrough, same-target tie, collective-role union, split reuse, fallback failure, and TaskContract Domain/role/target mismatch; different IDs with equal `RuleProjection` JCS bytes; same-priority equal `MatchProjection` JCS bytes; non-canonical nested array | `schema-contracts` records projection equality, `Drule`/`Dresolved`/`Owned(R)` semantics, exact Phase 2 order, and vectors; executable projection/JCS comparison belongs to future `model-implementation`; Phase 2 alone resolves and routes the complete set, denies top-priority ambiguity or incomplete ownership, and never falls through or unions roles |
+| D10 HostOverlay narrowing proof | exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; repository and remote subsets by `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**` by DFA language proof | each of the nine exact rejection-code classes; added capability or remote; role/project mismatch; `docs/**` outside the Project universe; unsupported syntax, compilation failure, resource exhaustion, or indeterminate emptiness; sample or prefix heuristic offered as proof; any binding, free capacity, or lease offered to make an incomplete selected owner eligible | Phase 1 performs exact set/reference checks and automata complement/product/emptiness relative to `U`; only after Phase 2 selects one role that owns all of `Dresolved` may Phase 3 supply live binding comparison; HostOverlay and runtime state can narrow or deny but never widen routing eligibility |
+| D11 digest catalog and golden corpus | all eleven digest field paths bind once to ten computations; every exact separator, raw payload, JCS payload, exclusion, completed source value, tagged hash, and delivery-copy equality reproduces the recorded corpus | included-field mutation; excluded-field mishandling; self-digest inclusion; missing/changed separator byte; substituted profile; changed raw bytes; wrong JCS projection; mismatched copied receipt digest; a cycle, ambiguity, duplicate binding, or missing field path | `schema-contracts` specifies the acyclic catalog, framing, projection contract, and recorded corpus; future `model-implementation` reconstructs projections, emits JCS bytes, hashes, replays, and proves cross-runtime reproduction; Phase 3 supplies stable raw observations; Phase 4 performs trusted operational replay and exact delivery-copy checks; every digest remains integrity-only |
 | D12 review-only capability complement | exactly four permitted sets: empty, inspect, validate, and inspect-plus-validate; each has `roleClass: review`, only plan-only mode, exact `C − P` prohibited set, and no exclusive write | each of the eleven non-observation capabilities permitted separately; wrong role or mode; missing complement member; permitted/prohibited overlap or other complement error; exclusive write; restoration attempted through another field | Schema and Phase 1 static enforce the complete five-class partition and exact equations; later intersections may only narrow the result and cannot restore a forbidden capability |
 | Cross-dimension baselines | complete inventories rather than deltas; index/tracked field equality; gitlink/submodule object equality; tracked/submodule and untracked/ignored disjointness; canonical clean/none versus exact selection | omitted inventory member; index/tracked mode or object mismatch; gitlink/submodule mismatch; tracked/submodule collision; untracked/ignored collision; exact-path collision with explicit index, tracked, or submodule path; a Phase 1 check incorrectly depending on live state | Schema enforces local shape; Phase 1 static enforces relationships over explicit closed data; Phase 3 live owns HEAD-, object-, ignore-, filesystem-, checkout-, and index-dependent checks; Phase 4 evidence reuses the same postcondition semantics |
 | Required summaries and five-state correction | pre-contract evidence with required `sanitizedSummary`; delivery result with required `sanitizedSummary`; warnings and checks omitting or including their optional summaries; all five acquisition states | pre-contract evidence missing `sanitizedSummary`; delivery result missing `sanitizedSummary`; any stale four-state-only validator or vector | Schema enforces record-specific presence; Phase 1 static runs the vectors; Phase 4 evidence establishes actual sanitization and the five-state lifecycle meaning |
-| SG-002 numeric profile | every existing canonical-token, field-minimum, and field-maximum vector, with Git stage `0` as its only valid stage | Git stage `1`, `2`, `3`, and `4`; every existing signed, negative-zero, leading-plus, leading-zero, fractional, exponent, unsafe, NaN, Infinity, and field-out-of-range vector | Strict parsing and Phase 1 static enforce `profile.number.v1alpha1-r1` before conversion and exact field ranges; Phase 4 verification requires raw-token replay or the complete validated-representation proof |
+| SG-002 numeric profile | every existing canonical-token, field-minimum, and field-maximum vector, with Git stage `0` as its only valid stage | Git stage `1`, `2`, `3`, and `4`; every existing signed, negative-zero, leading-plus, leading-zero, fractional, exponent, unsafe, NaN, Infinity, and field-out-of-range vector | `schema-contracts` specifies the six-field profile, exact bounds, and vectors; future `model-implementation` enforces raw tokens before conversion and proves precision-safe representation/JCS/replay across runtimes; Phase 4 verification requires raw-token replay or the complete validated-representation proof |
 
 The matrix contains 25 logical data rows, independently counted from the table.
 It preserves all existing issued-contract and pre-contract outcome vectors,
@@ -2339,7 +2662,7 @@ The following remain explicitly deferred:
 
 - validator/package selection, package metadata, dependency lock, provenance and license approval;
 - every JSON Schema file, fixture, executable test, parser, validator adapter, static-validation implementation, CI workflow, package, and release;
-- typed models, decoding, canonical serialization implementation, and Schema/model conformance in the later distinct model worktree;
+- typed models, strict decoding, validated canonical representation, canonical serialization, digest projection, JCS, hashing, replay, round trips, Schema/model conformance, and cross-runtime reproduction in the later distinct model worktree;
 - Phase 2 task resolution, RoutingPolicy execution, covering-role selection, and context-dependent highest-priority ties;
 - Phase 3 live Git/worktree inspection, concrete path containment, runtime coordination, and leases;
 - Phase 4 trusted contract issuance/provenance, sanitization, scope verification, receipt generation, and receipt delivery;

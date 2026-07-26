@@ -24,8 +24,8 @@ No Schema implementation may begin until `integration-control` has approved
 the validator/toolchain, packaging, dependency lock, provenance, licensing,
 security, and release gate. The first Schema artifact then requires a fresh,
 separately authorized `schema-contracts` task in this dedicated role worktree.
-Model-worktree creation and model implementation remain prohibited until the
-approved Schema baseline is committed, reviewed, and integrated into `main`.
+No model worktree or model implementation exists. Model-worktree creation
+remains prohibited until the approved Schema baseline is integrated into `main`.
 
 ## Phase 1 ownership and boundary
 
@@ -36,22 +36,36 @@ structural invariants, conspicuously synthetic positive and negative Schema
 fixtures, Schema validation and contract tests, and documentation changes
 directly required to describe the proposed Schema contract through approval.
 
-Within the Phase 1 boundary established by ADR 0005, Schema work MAY
-cover JSON Schema structural validation; supported API-version checks; field
-type, format, enum, range, and required-property validation; object-local
-invariants; and Schema-expressible portions of closed-bundle ID uniqueness,
-reference shape, reference existence, and static restriction-shape checks. The
-role MAY document
-semantic invariants that later phases must enforce, but it MUST NOT implement
-Python models, decoding, canonical serialization, deterministic task
-resolution, `RoutingPolicy` execution, live Git inspection, runtime leases,
-`TaskContract` issuance, receipt generation, a CLI, adapters, or operational
-enforcement.
+Within the Phase 1 boundary established by ADR 0005, `schema-contracts`
+specifies the normative pipeline and validated-canonical-representation
+contract, digest projection catalog and framing, recorded canonical bytes and
+digests, JSON Schema structural constraints, static invariants over
+already-decoded closed values, and expected positive and negative vectors. It
+MAY cover supported API-version checks; field type, format, enum, range, and
+required-property validation; object-local invariants; and Schema-expressible
+or closed-bundle-static ID, reference, canonical-array, restriction, routing,
+and branch-policy checks.
+
+`schema-contracts` does not implement or claim executable coverage for strict
+decoding, duplicate-key or raw-number-token rejection, NFC validation, the
+immutable validated representation, typed models, canonical serialization,
+digest projection, RFC 8785 JCS, hashing, verification, replay, typed round
+trips, Schema/model conformance, or cross-runtime byte reproduction. Those
+executable codec/model responsibilities belong to the future distinct
+`model-implementation` role. Deterministic task resolution and
+`RoutingPolicy` execution remain Phase 2; live branch, HEAD, Git/worktree, and
+lease enforcement remain Phase 3; and trusted replay, issuer provenance,
+authority, contract verification, receipt generation, and delivery remain
+Phase 4.
 
 The Schema baseline MUST be designed, independently audited, approved through
 `integration-control`, committed, reviewed, and integrated into `main` before a
 distinct `model-implementation` worktree is created or bound from that updated
-`main`. Schema and model implementation tasks MUST NOT share a worktree.
+`main` by a separately authorized repository-owner action. Schema and model
+implementation tasks MUST NOT share a worktree. `integration-control` owns the
+independent approval, toolchain, dependency, packaging, licensing, release,
+and cross-worktree gates; this design repair does not authorize either
+implementation task.
 
 ## Object families and later validation
 
@@ -73,6 +87,16 @@ inspection, runtime coordination, and leases are Phase 3. Trusted runtime
 contract issuance or provenance validation, scope authorization and
 verification, terminalization, and receipt generation are Phase 4. CLI and
 adapter implementation remain Phases 5 and 6, respectively.
+
+The design's complete-set contract does not execute routing in this directory:
+every rule matches the same complete `Dresolved`, the unique highest-priority
+route is eligible only when `Dresolved ⊆ Owned(Rdecision)`, and incomplete
+ownership denies without lower-priority fallthrough or a union of roles. The
+closed branch-policy contract likewise records four required arrays and the
+inclusive component-prefix predicate `branch == prefix OR branch starts with
+prefix + "/"`; Phase 3 alone evaluates the actual symbolic branch and live
+HEAD. Host or lease state can narrow or deny, never make an incomplete role
+eligible.
 
 Machine-readable structured customer governance will be authoritative for the
 future operational path. Markdown MAY explain or mirror that configuration,
