@@ -8,12 +8,17 @@ be deterministic and MUST use sanitized synthetic data. The planned Schema
 contract, static-validation vectors, and fixture inventory are recorded in the
 [v1alpha1 Schema contract design](../docs/schema-contract-v1alpha1.md).
 
-Independent design audit and `integration-control` design approval are
-complete. The recorded decision is
-`APPROVE SCHEMA DESIGN FOR INTEGRATION — TOOLCHAIN GATE REMAINS`. PR #1
-remains open and unmerged, so the design is not yet integrated into `main`.
-This material PR-review repair requires fresh independent re-audit and
-`integration-control` confirmation before integration.
+Independent design audit and `integration-control` approval of the prior
+candidate remain complete. The six earlier review findings were repaired,
+independently audited, confirmed, replied to, and resolved. The third Codex
+review at exact HEAD `658c2e0f65c7dff0553a3433ca8cf484847f3a66` produced
+three accepted findings. The repository owner has selected `TS-LEX-01 A`,
+`REMOTE-HOST-01 A`, `REMOTE-NAMESPACE-01 A`,
+`REMOTE-REPOSITORY-01 A`, and `REMOTE-DOTGIT-01 A`; the receipt-binding
+repair is fully derived. This uncommitted three-finding working candidate
+requires fresh independent audit and `integration-control` confirmation. PR
+#1 remains open and unmerged. The candidate is not audited, confirmed,
+committed, pushed, integrated, merge-ready, or implementation-ready.
 
 All 11 Schema resources remain `reserved-unpublished`, and no Schema
 implementation exists. Model-worktree creation and model implementation remain
@@ -89,7 +94,118 @@ Contract tests MUST prove that a `TaskContract` has authority only after trusted
 
 Tests MUST prove that future governed adapter execution, including plan-only execution, requires a valid bounded `TaskContract` and rejects a missing, invalid, stale, or unbounded contract. They MUST also prove that pre-operational `human-bootstrap-maintenance` authority is not accepted as a runtime `TaskContract`.
 
-Future `ExecutionReceipt` contract coverage MUST exercise both closed receipt-origin branches and the conditional presence of contract fields. It MUST cover pre-contract denials before and after lease acquisition, require acquisition binding only for a proven acquired lease, require applicable cleanup or indeterminate release evidence for acquired or indeterminate acquisition state, and reject both fabricated contract binding and successful-execution claims in pre-contract denial receipts. This coverage preserves optional policy-required pre-contract denial receipts without duplicating the field-level design recorded in the Schema contract.
+### Issued-contract receipt and TaskContract binding coverage
+
+Future `ExecutionReceipt` contract coverage MUST exercise both closed
+receipt-origin branches and conditional contract fields. Pre-contract vectors
+cover denial before and after acquisition, require acquisition binding only for
+a proven acquired lease, require applicable cleanup or indeterminate release
+evidence, and reject both fabricated contract binding and successful-execution
+claims. Policy-required pre-contract receipts remain optional unless later
+policy requires them.
+
+For `origin.type: issued-contract`, coverage retains origin `contractId`,
+`contractDigest`, `resolvedTarget`, and `effectiveMode`; receipt-level
+`taskId`; and the complete referenced TaskContract's `metadata.id`,
+`spec.taskId`, `spec.projectRef`, `spec.domainRefs`,
+`spec.target.worktreeRoleRef`, `spec.target.worktreeId`, and
+`spec.effectiveMode`. It MUST enforce all eight equalities:
+
+```text
+receipt.spec.origin.contractId
+  == contract.metadata.id
+
+receipt.spec.origin.contractDigest
+  == recomputed profile.digest.task-contract-v1(contract)
+
+receipt.spec.taskId
+  == contract.spec.taskId
+
+receipt.spec.origin.resolvedTarget.projectRef
+  == contract.spec.projectRef
+
+receipt.spec.origin.resolvedTarget.worktreeRoleRef
+  == contract.spec.target.worktreeRoleRef
+
+receipt.spec.origin.resolvedTarget.worktreeId
+  == contract.spec.target.worktreeId
+
+receipt.spec.origin.resolvedTarget.domainRefs
+  == contract.spec.domainRefs
+
+receipt.spec.origin.effectiveMode
+  == contract.spec.effectiveMode
+```
+
+The exact non-digest target projection under test is:
+
+```text
+{
+  projectRef: contract.spec.projectRef,
+  worktreeRoleRef: contract.spec.target.worktreeRoleRef,
+  worktreeId: contract.spec.target.worktreeId,
+  domainRefs: contract.spec.domainRefs
+}
+```
+
+Equality is exact post-validation canonical equality. Object references compare
+as complete closed objects. Domain arrays require the same canonical length,
+members, order, and byte-equivalent canonical member representations; omission,
+addition, substitution, reordering, and partial resolution are invalid. Tests
+MUST NOT introduce another digest or a fictitious
+`TaskContract.spec.taskContractDigest`, or compare nonduplicated
+`requestedMode`, `allowWrite`, `leaseId`, scope, `contractVersion`,
+freshness, or expected baseline.
+
+The required conformance order is:
+
+1. strictly decode and structurally validate the complete receipt and complete
+   referenced TaskContract under the selected Schema revision;
+2. apply both artifacts' local Phase 1 and canonical-array checks;
+3. validate the complete contract and derivation prerequisites;
+4. recompute `profile.digest.task-contract-v1` over its exact projection;
+5. compare digest, contract ID, task ID, complete target, and effective mode;
+6. apply chronology against the same contract;
+7. apply receipt outcome, release, non-writing, and remaining consistency;
+8. only then compute and verify or accept the receipt digest; and
+9. only after receipt finalization validate delivery receipt-ID binding, exact
+   finalized digest copy, and delivery chronology.
+
+Positive vectors MUST cover:
+
+1. a matching plan-only contract/receipt pair;
+2. a matching valid implementation-mode pair;
+3. a matching multi-Domain pair proving complete ordered equality;
+4. exact Project, role, worktree, task, contract, digest, and mode equality; and
+5. a valid pair followed by a correctly bound delivery result.
+
+Independent negative vectors MUST alter and reject:
+
+1. `contractId`;
+2. `contractDigest`;
+3. receipt-level `taskId`;
+4. `resolvedTarget.projectRef`;
+5. `resolvedTarget.worktreeRoleRef`;
+6. `resolvedTarget.worktreeId`;
+7. one omitted Domain;
+8. one added Domain;
+9. one substituted Domain;
+10. non-canonical or reordered Domains;
+11. `effectiveMode`;
+12. a correct contract digest with incorrect duplicated claims;
+13. matching duplicated claims with a wrong contract digest;
+14. matching duplicated claims with another complete contract's digest;
+15. matching contract ID with another contract body;
+16. receipt-digest acceptance before cross-artifact equality;
+17. reinterpretation of the mismatch as `pre-contract-denial`; and
+18. delivery bound to another receipt ID or digest.
+
+Every negative rejects before receipt-digest acceptance; validators neither
+repair nor switch contracts. `schema-contracts` specifies this static contract
+and its expected vectors. Future `model-implementation` owns strict decoding,
+projection, hashing, and executable cross-artifact tests. Phase 4 owns trusted
+issuer provenance, authenticity, current authority and preconditions, and
+evidence truth. Digest equality alone grants no authority.
 
 ### Complete resolved-Domain routing coverage
 
@@ -257,7 +373,79 @@ These are lexical/static checks only. They MUST preserve spelling and exact
 case folding. Actual host compatibility, existence, aliases, symlinks and
 junctions, registration, identity, and containment remain Phase 3.
 
-### Timestamp chronology coverage
+### Canonical timestamp and chronology coverage
+
+The shared `canonicalUtcTimestamp` accepts only
+`YYYY-MM-DDTHH:MM:SSZ` matching:
+
+```text
+^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$
+```
+
+Future Schema uses `type: string`, that pattern, and asserted
+`format: date-time` as an additional check. Phase 1 additionally requires
+years `0001` through `9999`, rejects `0000`, and validates Gregorian dates
+and ordinary leap years. Hours stop at `23`; minutes and seconds stop at `59`.
+Leap second `60`, `24:00:00`, fractions, offsets, lower-case delimiters,
+whitespace, alternate spellings, normalization, and repair are invalid.
+
+The exact nine paths are:
+
+1. `TaskContract.spec.issuanceCheckpoint.observedAt`;
+2. `TaskContract.spec.freshness.issuedAt`;
+3. `TaskContract.spec.freshness.expiresAt`;
+4. `ExecutionReceipt.spec.startedAt`;
+5. `ExecutionReceipt.spec.finishedAt`;
+6. `ExecutionReceipt.spec.sanitization.completedAt`;
+7. `ExecutionReceipt.spec.checks[].observedAt`;
+8. `ExecutionReceipt.spec.origin.preContractEvidence.observedAt`; and
+9. `ReceiptDeliveryResult.attemptedAt`.
+
+Positive lexical/calendar and artifact vectors MUST cover:
+
+1. `0001-01-01T00:00:00Z`;
+2. `9999-12-31T23:59:59Z`;
+3. `2000-02-29T00:00:00Z`;
+4. `2004-02-29T23:59:59Z`;
+5. a valid ordinary date in a non-leap year;
+6. every current protected timestamp literal;
+7. strict chronology progression;
+8. every permitted equality boundary;
+9. strict freshness with whole-second separation; and
+10. valid contract/receipt and receipt/delivery pairs.
+
+Independent negative vectors MUST reject:
+
+1. lower-case `t`;
+2. lower-case `z`;
+3. a numeric UTC offset;
+4. missing `Z`;
+5. missing zero padding;
+6. any fractional seconds;
+7. one fractional digit;
+8. three fractional digits;
+9. six fractional digits;
+10. a trailing decimal point;
+11. leap second `:60`;
+12. `24:00:00`;
+13. an invalid month;
+14. an invalid day;
+15. an invalid month/day combination;
+16. an invalid February 29;
+17. year `0000`;
+18. a five-digit year;
+19. a signed year;
+20. leading whitespace;
+21. trailing whitespace;
+22. internal whitespace;
+23. an alternate spelling of an equivalent instant; and
+24. valid chronology encoded with an invalid lexical spelling.
+
+Phase 1 owns lexical, calendar, leap-year, and instant-order checks without a
+trusted clock. Future `model-implementation` owns strict decoding and
+executable parser/comparison conformance. Phase 4 owns trusted time,
+authenticity, freshness, and event truth. The five existing protected values
+and all 16 occurrences remain byte-identical.
 
 Future Phase 1 static and contract coverage MUST enforce all chronology
 relations in the design record's [timestamp chronology
@@ -282,6 +470,152 @@ use a trusted clock in Phase 1, or treat chronology as authority. Existing
 canonical JSON, golden-vector bytes, digest projections, and recorded digests
 must remain unchanged.
 
+### Canonical structured-remote coverage
+
+Future Schema and static tests MUST enforce the closed record with required
+`transport`, `host`, `namespace`, and `repository`, optional `port`, and
+no other field. Transport is exactly `https` or `ssh`. No raw URL, user-info,
+credential, token, password, private-key material, query, fragment, URI scheme,
+or environment-derived secret material is representable.
+
+The named `remoteDnsHost` permits only lower-case ASCII DNS names from 3
+through 253 characters with at least two labels. Each 1-through-63 character
+label matches:
+
+```text
+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?
+```
+
+Tests reject empty, leading, trailing, or repeated-dot labels; leading/trailing
+label hyphens; underscore, uppercase, whitespace, controls, Unicode, `xn--`,
+IDNA conversion, IP literals, brackets, zone identifiers, a single label, and
+`localhost`. They neither normalize nor case-fold. `repo.invalid` remains
+valid without implying reachability, DNS truth, ownership, or security.
+
+The default table is exactly `https -> 443` and `ssh -> 22`. Omitted `port`
+means that default, while explicit HTTPS 443 or SSH 22 is invalid. A non-default
+endpoint includes its integer port from 1 through 65535 under the existing
+numeric profile. Validators do not add or remove a port.
+
+`namespace` is an ordered array of 1 through 16 lower-case ASCII segments,
+each 1 through 63 characters and with joined slash-separated length at most
+1023. Every segment matches:
+
+```text
+[a-z0-9](?:[a-z0-9._-]{0,61}[a-z0-9])?
+```
+
+Empty, `.`, `..`, or `..`-containing segments; slash, backslash, whitespace,
+controls, uppercase, and Unicode reject. Segment order is significant; no
+sorting, normalization, path decoding, or separator inference occurs. A
+`.git` substring in a valid namespace segment remains literal.
+
+The distinct `remoteRepositoryName` is one lower-case ASCII segment from 1
+through 128 characters, with alphanumeric endpoints and internal
+`[a-z0-9._-]`. Tests reject empty, separators, whitespace, controls,
+uppercase, Unicode, leading/trailing dot or hyphen, any `..` substring, `.`,
+`..`, and a terminal lower-case `.git` suffix. They do not normalize, parse
+as a path, strip or append `.git`, or alias suffixed and unsuffixed names.
+
+After complete validation, identity is exact `J(remote)`, equivalently exact
+transport, host, effective port, ordered namespace, and repository. Explicit
+defaults remain invalid. `acceptedRemotes` is set-like, rejects duplicate
+`J(remote)`, and must already be strictly ordered by `J(remote)`. The outer
+record remains uniquely keyed and ordered only by `remoteName`. HostOverlay
+narrowing requires exact validated membership and cannot ignore a field,
+compare an alias, or widen the set.
+
+Positive vectors MUST cover:
+
+1. HTTPS with omitted default port;
+2. SSH with omitted default port;
+3. HTTPS with a valid non-default port;
+4. SSH with a valid non-default port;
+5. a minimum valid two-label DNS host;
+6. a maximum-length valid host;
+7. a one-segment namespace;
+8. a multi-segment namespace;
+9. minimum-length namespace and repository segments;
+10. maximum-length namespace and repository values;
+11. exact equality of two identical canonical remote records;
+12. inequality from one changed field;
+13. multiple accepted remotes under one `remoteName`;
+14. canonical `acceptedRemotes` ordering; and
+15. the unchanged protected remote
+    `{"host":"repo.invalid","namespace":["synthetic"],"repository":"governance","transport":"https"}`.
+
+Independent negative vectors MUST reject:
+
+1. missing `transport`;
+2. missing `host`;
+3. missing `namespace`;
+4. missing `repository`;
+5. an unknown field;
+6. an unsupported transport;
+7. a raw URL in a field;
+8. user-info;
+9. credential or token material;
+10. an uppercase host;
+11. a single-label host;
+12. `localhost`;
+13. a trailing dot;
+14. a leading dot;
+15. a repeated dot;
+16. an empty DNS label;
+17. a leading hyphen in a label;
+18. a trailing hyphen in a label;
+19. an underscore in a host label;
+20. an `xn--` label;
+21. a Unicode host;
+22. an IPv4 literal;
+23. an IPv6 literal;
+24. bracketed IPv6;
+25. port zero;
+26. a port above 65535;
+27. a negative port;
+28. a string port;
+29. a fractional port;
+30. explicit HTTPS port 443;
+31. explicit SSH port 22;
+32. an empty namespace array;
+33. more than 16 namespace segments;
+34. an empty namespace segment;
+35. a namespace segment over 63 characters;
+36. a joined namespace over 1023 characters;
+37. namespace segment `.`;
+38. namespace segment `..`;
+39. a namespace `..` substring;
+40. a slash in a namespace segment;
+41. a backslash in a namespace segment;
+42. an uppercase namespace;
+43. a Unicode namespace;
+44. an empty repository;
+45. a repository over 128 characters;
+46. a leading repository dot;
+47. a trailing repository dot;
+48. a leading repository hyphen;
+49. a trailing repository hyphen;
+50. a repository `..` substring;
+51. a slash in the repository;
+52. a backslash in the repository;
+53. an uppercase repository;
+54. a Unicode repository;
+55. a terminal `.git` suffix;
+56. a duplicate canonical remote;
+57. non-canonical `acceptedRemotes` ordering;
+58. a duplicate outer `remoteName`;
+59. the same endpoint attempted through explicit default-port spelling;
+60. HostOverlay acceptance on one runtime through an alias rejected by another;
+    and
+61. attempted widening by ignoring one remote field.
+
+Phase 1 owns these lexical, closed-shape, canonicality, equality, uniqueness,
+ordering, and static-membership checks. Future `model-implementation` owns
+strict decoding and executable conformance. Phase 3 owns live Git-remote
+observation, transport parsing, repository comparison, and runtime host facts.
+Phase 4 owns trusted authority and contract/evidence lifecycle. Canonical remote
+identity proves neither network ownership nor trust.
+
 ### Path-keyed baseline and postcondition entries
 
 Future Phase 1 static and contract tests MUST prove that the repository-relative path is the sole identity, uniqueness, and canonical ordering key, `S(entry.path)`, for `TaskContract` baseline index, tracked, and submodule entry arrays and every corresponding entry array nested in required postconditions. Two entries with the same path MUST be rejected even when their remaining fields differ, including index mode, stage, object identity, or other index-entry state; tracked object identity, mode, status, or other tracked-entry state; submodule object ID, checkout, or observation contents; or required-postcondition entry contents.
@@ -305,8 +639,8 @@ Untracked and ignored path arrays MUST remain unique and canonically ordered by 
 Future Schema and static-contract coverage MUST implement every row of the
 design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
-Design approval is recorded, but PR integration is incomplete and this
-material review repair requires fresh independent re-audit and
+The prior design approval remains recorded, but PR integration is incomplete.
+This current three-finding working candidate requires fresh independent audit and
 `integration-control` confirmation before integration. Matrix coverage remains
 planned: no validator, fixture, executable test, or Schema implementation
 exists, and the toolchain and separately authorized implementation gates remain
@@ -473,6 +807,25 @@ and reject a generic decoded object lacking complete representation proof.
 Phase 4 verification requires raw-token replay or the complete trusted
 representation proof. Validator research must prove this selected profile and
 MUST NOT choose or weaken it. All coverage remains planned and unimplemented.
+
+### Cross-finding validation-order coverage
+
+The repairs MUST be tested as this effective application of the existing
+universal pipeline and artifact dependency graph, not as a replacement
+pipeline:
+
+1. strict byte/token decoding prerequisites;
+2. timestamp and structured-remote lexical validation;
+3. JSON Schema structural validation;
+4. local Phase 1 static invariants;
+5. canonical-array and remote-order validation;
+6. validated canonical representation construction;
+7. digest projection and digest computation where applicable;
+8. complete TaskContract digest verification;
+9. issued receipt/TaskContract field equality;
+10. cross-artifact chronology and outcome consistency;
+11. receipt digest verification; and
+12. delivery-result binding and chronology.
 
 ## Required failure scenarios
 
