@@ -8,21 +8,32 @@ be deterministic and MUST use sanitized synthetic data. The planned Schema
 contract, static-validation vectors, and fixture inventory are recorded in the
 [v1alpha1 Schema contract design](../docs/schema-contract-v1alpha1.md).
 
-Independent design audit and `integration-control` approval of the prior
-candidate remain complete. The six earlier review findings were repaired,
-independently audited, confirmed, replied to, and resolved. The third Codex
-review at exact HEAD `658c2e0f65c7dff0553a3433ca8cf484847f3a66` produced
-three accepted findings. The repository owner has selected `TS-LEX-01 A`,
-`REMOTE-HOST-01 A`, `REMOTE-NAMESPACE-01 A`,
-`REMOTE-REPOSITORY-01 A`, and `REMOTE-DOTGIT-01 A`; the receipt-binding
-repair is fully derived. This uncommitted three-finding working candidate
-requires fresh independent audit and `integration-control` confirmation. PR
-#1 remains open and unmerged. The candidate is not audited, confirmed,
-committed, pushed, integrated, merge-ready, or implementation-ready.
+The recorded history identifies independent design audit and
+`integration-control` approval of the prior candidate as complete, and the six
+earlier review findings as repaired, independently audited, confirmed, replied
+to, and resolved. The third Codex review at exact HEAD
+`658c2e0f65c7dff0553a3433ca8cf484847f3a66` produced three accepted findings.
 
-All 11 Schema resources remain `reserved-unpublished`, and no Schema
-implementation exists. Model-worktree creation and model implementation remain
-prohibited by the Schema-before-model sequence.
+Commit `9eac3e040a8d0f9c959eeb675eace795749e422a` records the three
+third-review repairs and the repository owner's `TS-LEX-01 A`,
+`REMOTE-HOST-01 A`, `REMOTE-NAMESPACE-01 A`, `REMOTE-REPOSITORY-01 A`, and
+`REMOTE-DOTGIT-01 A` selections. The receipt-binding repair recorded there is
+fully derived. The repair candidate received an independent read-only audit
+before commit with decision `READY FOR THIRD-REVIEW REPAIR COMMIT`.
+
+Exact committed-head `integration-control` confirmation and PR-evidence
+synchronization are external gate records; this Markdown neither proves nor
+replaces external audit, review, confirmation, merge, publication, or
+implementation authority. The referenced external gate record states that PR
+#1 remains open and unmerged. Commit
+`9eac3e040a8d0f9c959eeb675eace795749e422a` contains design documentation only
+and no implementation artifact. Integration and implementation require
+separately recorded external decisions.
+
+All 11 resources remain `reserved-unpublished`; the validator/toolchain and
+Schema-before-model gates remain binding. No Schema implementation exists.
+Model-worktree creation and model implementation remain prohibited by the
+Schema-before-model sequence.
 
 ## Validator and toolchain gate
 
@@ -640,11 +651,12 @@ Future Schema and static-contract coverage MUST implement every row of the
 design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
 The prior design approval remains recorded, but PR integration is incomplete.
-This current three-finding working candidate requires fresh independent audit and
-`integration-control` confirmation before integration. Matrix coverage remains
-planned: no validator, fixture, executable test, or Schema implementation
-exists, and the toolchain and separately authorized implementation gates remain
-blocking.
+The third-review repairs are recorded at commit
+`9eac3e040a8d0f9c959eeb675eace795749e422a`; their pre-commit audit and any
+exact-head `integration-control` confirmation are external gate records, not
+claims proved by this test plan. Matrix coverage remains planned: no validator,
+fixture, executable test, or Schema implementation exists, and the toolchain
+and separately authorized implementation gates remain blocking.
 
 ### F-01–F-12 semantic-closure coverage
 

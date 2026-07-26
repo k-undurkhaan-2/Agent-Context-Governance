@@ -6,19 +6,32 @@ Models is current, but Phase 1 implementation has not yet begun. The repository
 remains pre-operational, and this directory contains no Schema implementation.
 The v1alpha1 Schema contract design is recorded in
 [the Schema contract design](../docs/schema-contract-v1alpha1.md).
-Independent design audit and `integration-control` approval of the prior
-candidate remain complete. The six earlier review findings were repaired,
-independently audited, confirmed, replied to, and resolved. The third Codex
-review at exact HEAD `658c2e0f65c7dff0553a3433ca8cf484847f3a66` produced
-three accepted findings. The repository owner has selected `TS-LEX-01 A`,
-`REMOTE-HOST-01 A`, `REMOTE-NAMESPACE-01 A`,
-`REMOTE-REPOSITORY-01 A`, and `REMOTE-DOTGIT-01 A`; the receipt binding is
-fully derived. This uncommitted three-finding working candidate requires fresh
-independent audit and `integration-control` confirmation. PR #1 remains open
-and unmerged. The candidate is not audited, confirmed, committed, pushed,
-integrated, merge-ready, or implementation-ready. The exact 11-resource
-UUID-URN catalog remains `reserved-unpublished`; it reserves identifiers but
-does not publish or implement Schema resources, and no Schema artifact exists.
+The recorded history identifies independent design audit and
+`integration-control` approval of the prior candidate as complete, and the six
+earlier review findings as repaired, independently audited, confirmed, replied
+to, and resolved. The third Codex review at exact HEAD
+`658c2e0f65c7dff0553a3433ca8cf484847f3a66` produced three accepted findings.
+
+Commit `9eac3e040a8d0f9c959eeb675eace795749e422a` records the three
+third-review repairs and the repository owner's `TS-LEX-01 A`,
+`REMOTE-HOST-01 A`, `REMOTE-NAMESPACE-01 A`, `REMOTE-REPOSITORY-01 A`, and
+`REMOTE-DOTGIT-01 A` selections. The receipt-binding repair recorded there is
+fully derived. The repair candidate received an independent read-only audit
+before commit with decision `READY FOR THIRD-REVIEW REPAIR COMMIT`.
+
+Exact committed-head `integration-control` confirmation and PR-evidence
+synchronization are external gate records; this Markdown neither proves nor
+replaces external audit, review, confirmation, merge, publication, or
+implementation authority. The referenced external gate record states that PR
+#1 remains open and unmerged. Commit
+`9eac3e040a8d0f9c959eeb675eace795749e422a` contains design documentation only
+and no implementation artifact. Integration and implementation require
+separately recorded external decisions.
+
+All 11 resources remain `reserved-unpublished`; the validator/toolchain and
+Schema-before-model gates remain binding. The exact UUID-URN catalog reserves
+identifiers but does not publish or implement Schema resources, and no Schema
+artifact exists.
 
 The initial public configuration API version is `contextctl.dev/v1alpha1`.
 Future Schema definitions will live under `schemas/v1alpha1/`. Configuration
