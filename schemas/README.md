@@ -7,26 +7,23 @@ remains pre-operational, and this directory contains no Schema implementation.
 The v1alpha1 Schema contract design is recorded in
 [the Schema contract design](../docs/schema-contract-v1alpha1.md).
 The recorded history identifies independent design audit and
-`integration-control` approval of the prior candidate as complete, and the six
-earlier review findings as repaired, independently audited, confirmed, replied
-to, and resolved. The third Codex review at exact HEAD
-`658c2e0f65c7dff0553a3433ca8cf484847f3a66` produced three accepted findings.
+`integration-control` approval of the prior candidate as complete, the six
+earlier review findings as repaired and closed, and the three third-review
+repairs as recorded at commit
+`9eac3e040a8d0f9c959eeb675eace795749e422a`.
 
-Commit `9eac3e040a8d0f9c959eeb675eace795749e422a` records the three
-third-review repairs and the repository owner's `TS-LEX-01 A`,
-`REMOTE-HOST-01 A`, `REMOTE-NAMESPACE-01 A`, `REMOTE-REPOSITORY-01 A`, and
-`REMOTE-DOTGIT-01 A` selections. The receipt-binding repair recorded there is
-fully derived. The repair candidate received an independent read-only audit
-before commit with decision `READY FOR THIRD-REVIEW REPAIR COMMIT`.
+The fourth Codex review `PRR_kwDOThD5p88AAAABHQ0C0g` at exact HEAD
+`df9b6eca8ad60aaf9e496688d936a5f97ce25c2b` identified two accepted P1
+findings: active-operation issued-contract inconsistency in thread
+`PRRT_kwDOThD5p86T4aiK` and pre-action freshness relative to contract expiry
+in thread `PRRT_kwDOThD5p86T4aiM`. This revision records the proposed repairs
+for those two findings. Administrative-lock semantics remain unchanged.
 
-Exact committed-head `integration-control` confirmation and PR-evidence
-synchronization are external gate records; this Markdown neither proves nor
-replaces external audit, review, confirmation, merge, publication, or
-implementation authority. The referenced external gate record states that PR
-#1 remains open and unmerged. Commit
-`9eac3e040a8d0f9c959eeb675eace795749e422a` contains design documentation only
-and no implementation artifact. Integration and implementation require
-separately recorded external decisions.
+Independent re-audit, commit, push, exact-head confirmation, owner replies,
+thread resolution, PR synchronization, re-review, merge-readiness review,
+implementation, and merge remain external gates and actions. This Markdown
+neither proves nor replaces external GitHub, audit, or authorization state.
+No Schema or model implementation is authorized.
 
 All 11 resources remain `reserved-unpublished`; the validator/toolchain and
 Schema-before-model gates remain binding. The exact UUID-URN catalog reserves
@@ -85,10 +82,10 @@ independent approval, toolchain, dependency, packaging, licensing, release,
 and cross-worktree gates; this design repair does not authorize either
 implementation task.
 
-## Third-review repair contract
+## Retained third-review repair contract
 
-This documentation candidate records three accepted contract repairs; it does
-not create a Schema, fixture, validator, model, or runtime behavior.
+This retained design record documents three accepted third-review repairs; it
+does not create a Schema, fixture, validator, model, or runtime behavior.
 
 For an `issued-contract` receipt validated with its complete referenced
 TaskContract, future Phase 1 static conformance requires exact equality of
@@ -125,7 +122,7 @@ matching:
 
 Future Schema uses `type: string`, that exact pattern, and asserted
 `format: date-time`. Phase 1 additionally enforces years `0001` through
-`9999`, Gregorian date and leap-year validity, and the 11 unchanged chronology
+`9999`, Gregorian date and leap-year validity, and all 12 chronology
 relations. Lower-case delimiters, offsets, fractions, leap seconds,
 `24:00:00`, whitespace, alternate spellings, and repair are forbidden. The
 profile applies to the three TaskContract timestamps, receipt `startedAt`,
@@ -166,12 +163,95 @@ These repairs apply the existing universal pipeline in this effective
 dependency order: strict bytes/tokens; timestamp and remote lexemes; Schema
 structure; local Phase 1 invariants; array and remote order; validated
 representation; digest projection/computation; complete TaskContract digest;
-receipt/contract equality; chronology/outcomes; receipt digest; then delivery
-binding/chronology. They do not replace or alter that protected pipeline.
+receipt/contract equality; chronology/pre-action freshness/outcomes; receipt
+digest; then delivery binding/chronology. They do not replace or alter that protected pipeline.
 `schema-contracts` specifies the structural/static contract and vectors;
 future `model-implementation` owns executable codec, projection, hashing, and
 cross-artifact conformance; Phase 3 owns live remote and host facts; and Phase 4
 owns trusted provenance, authority, time, freshness, and evidence truth.
+
+## Fourth-review proposed repairs
+
+The TaskContract still materializes nine baseline dimensions.
+`expectedBaseline.activeOperations` is exactly `{ "state": "none" }`; its
+reusable non-empty exact union remains available only for non-authorizing
+observation and evidence. Administrative-lock contract semantics are unchanged:
+`expectedBaseline.administrativeLocks` retains the complete
+`administrativeLocksCondition` union, the `administrative-lock` transition
+remains available, and the matching postcondition reuses the full condition.
+A present live Git administrative lock still denies at the governing guard
+checkpoint and remains distinct from a runtime write lease, lease-store lock,
+or command-internal transient lock.
+
+`permittedTransitions` has exactly eight branches: `ref-state`,
+`head-state`, `index-entry`, `tracked-entry`, `untracked-path`,
+`ignored-path`, `submodule-entry`, and `administrative-lock`. The
+required-postcondition union remains at eleven branches. Its optional
+`active-operations` branch is none-only and is not newly mandatory; its
+`administrative-locks` branch retains the complete condition grammar.
+Simultaneous composition applies the eight permitted transitions while
+reconstructing one final nine-dimension composite in which active operations
+remain none and administrative locks follow their ordinary condition semantics.
+
+A non-empty active operation at initial or pre-issuance revalidation denies
+before a contract exists. At post-contract immediately-before-action
+revalidation it permits no protected action and any issued receipt uses
+`not-attempted/not-performed`. At post-execution verification it is unexpected
+terminal evidence with failed or indeterminate verification, never an
+authorized final postcondition. Administrative-lock live denial is a separate
+guard rule and does not narrow its baseline, transition, or postcondition
+contract.
+
+For an issued-contract receipt, let `P` be every
+`pre-action-revalidation` check and `A` the passed members of `P`. Every
+{succeeded, failed, cancelled, indeterminate} execution attempt requires at
+least one member of `A`, and every member of `A` must be strictly before
+`TaskContract.spec.freshness.expiresAt`. Failed and indeterminate pre-action
+checks may coexist with valid passed/pre-expiry evidence. An attempted receipt
+with only failed checks, only indeterminate checks, or no passed check is
+invalid. Equality at expiry and any later passed check are invalid for every
+outcome.
+
+A `not-attempted` receipt may omit pre-action checks and may retain failed or
+indeterminate denial evidence at or after expiry; any passed check must still
+be strictly pre-expiry. Receipt completion and later lifecycle stages may occur
+after expiry. `startedAt` is not proof of action freshness, no
+`finishedAt <= expiresAt` rule exists, and check sequence creates no
+additional freshness or chronology relation. The expiry/check inventory is
+exactly eight positive and 17 negative classes.
+
+The corrected inventory is: nine baseline dimensions; eight transitions;
+eleven postconditions; 54 array-ordering rows; 25 SG-001 rows; D5 with exactly
+24 `3 × 8` negatives; nine timestamp paths; 12 chronology relations; eleven
+digest-bearing paths; ten digest computations; one receipt/delivery digest
+copy; five positive and 18 negative receipt-binding vectors; eight
+receipt/contract equalities; six numeric fields; and eleven catalog resources.
+Timestamp lexical vectors remain 10 positive and 24 negative.
+
+The active-operation legacy contract family is exactly 21 cases: seven
+single-operation exact baselines, seven retired active-operation transitions,
+and seven single-operation exact postconditions. Duplicate, unknown,
+non-canonical, and empty-exact observation cases form a separate generic shape
+family and do not inflate that 21. Administrative-lock vectors retain ordinary
+positive baseline, transition, and postcondition coverage plus their existing
+identity, branch-field, uniqueness, order, and empty-exact negatives.
+
+The repaired synthetic receipt projection is 1355 UTF-8 bytes and its completed
+form is 1445 UTF-8 bytes. Its independently recomputed digest is
+`sha256:0bdca1267e2e9d983565587b03a8cb8185b69e4f00271d897435661e974f2f77`,
+and the delivery result copies that value without a new computation. The
+protected corpus retains five distinct timestamp values across 18 occurrences
+and seven structured-remote occurrences. The universal twelve-step pipeline,
+all eleven digest selectors, ten profiles/computations, framing, separators,
+dependency graph, the other nine digest results, API/revision/version values,
+resource IDs, filenames, UUID URNs, and `reserved-unpublished` statuses remain
+unchanged.
+
+This section records design-only requirements and planned vectors. It creates
+no Schema, fixture, validator, executable test, model, codec, runtime behavior,
+or authority. Independent audit and later gate outcomes are recorded outside
+this repository when performed; this README neither asserts their current state
+nor replaces those records. No Schema or model implementation is authorized.
 
 ## Object families and later validation
 

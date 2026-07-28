@@ -9,26 +9,23 @@ contract, static-validation vectors, and fixture inventory are recorded in the
 [v1alpha1 Schema contract design](../docs/schema-contract-v1alpha1.md).
 
 The recorded history identifies independent design audit and
-`integration-control` approval of the prior candidate as complete, and the six
-earlier review findings as repaired, independently audited, confirmed, replied
-to, and resolved. The third Codex review at exact HEAD
-`658c2e0f65c7dff0553a3433ca8cf484847f3a66` produced three accepted findings.
+`integration-control` approval of the prior candidate as complete, the six
+earlier review findings as repaired and closed, and the three third-review
+repairs as recorded at commit
+`9eac3e040a8d0f9c959eeb675eace795749e422a`.
 
-Commit `9eac3e040a8d0f9c959eeb675eace795749e422a` records the three
-third-review repairs and the repository owner's `TS-LEX-01 A`,
-`REMOTE-HOST-01 A`, `REMOTE-NAMESPACE-01 A`, `REMOTE-REPOSITORY-01 A`, and
-`REMOTE-DOTGIT-01 A` selections. The receipt-binding repair recorded there is
-fully derived. The repair candidate received an independent read-only audit
-before commit with decision `READY FOR THIRD-REVIEW REPAIR COMMIT`.
+The fourth Codex review `PRR_kwDOThD5p88AAAABHQ0C0g` at exact HEAD
+`df9b6eca8ad60aaf9e496688d936a5f97ce25c2b` identified two accepted P1
+findings: active-operation issued-contract inconsistency in thread
+`PRRT_kwDOThD5p86T4aiK` and pre-action freshness relative to contract expiry
+in thread `PRRT_kwDOThD5p86T4aiM`. This revision records the proposed repairs
+for those two findings. Administrative-lock semantics remain unchanged.
 
-Exact committed-head `integration-control` confirmation and PR-evidence
-synchronization are external gate records; this Markdown neither proves nor
-replaces external audit, review, confirmation, merge, publication, or
-implementation authority. The referenced external gate record states that PR
-#1 remains open and unmerged. Commit
-`9eac3e040a8d0f9c959eeb675eace795749e422a` contains design documentation only
-and no implementation artifact. Integration and implementation require
-separately recorded external decisions.
+Independent re-audit, commit, push, exact-head confirmation, owner replies,
+thread resolution, PR synchronization, re-review, merge-readiness review,
+implementation, and merge remain external gates and actions. This Markdown
+neither proves nor replaces external GitHub, audit, or authorization state.
+No Schema or model implementation is authorized.
 
 All 11 resources remain `reserved-unpublished`; the validator/toolchain and
 Schema-before-model gates remain binding. No Schema implementation exists.
@@ -456,30 +453,96 @@ Phase 1 owns lexical, calendar, leap-year, and instant-order checks without a
 trusted clock. Future `model-implementation` owns strict decoding and
 executable parser/comparison conformance. Phase 4 owns trusted time,
 authenticity, freshness, and event truth. The five existing protected values
-and all 16 occurrences remain byte-identical.
+and all 18 occurrences after the golden-receipt repair remain byte-identical.
 
-Future Phase 1 static and contract coverage MUST enforce all chronology
+Future Phase 1 static and contract coverage MUST enforce all 12 chronology
 relations in the design record's [timestamp chronology
-section](../docs/schema-contract-v1alpha1.md#timestamp-chronology). Equality is
-permitted for every relation except the strict
-`freshness.issuedAt < freshness.expiresAt` boundary.
+section](../docs/schema-contract-v1alpha1.md#timestamp-chronology). Equality
+remains permitted at every earlier allowed boundary. The existing
+`freshness.issuedAt < freshness.expiresAt` relation and the attempted-receipt
+pre-action-before-expiry relation are strict.
 
 Positive vectors MUST cover strict progression, all-equality boundaries within
-each applicable artifact combination with strict freshness preserved, each
-permitted equality boundary independently, both receipt origins, empty and
-populated check arrays, a complete issued-contract receipt/TaskContract pair,
-and a complete receipt/delivery-result pair. Negative vectors MUST reverse
-each relation independently, including checks before `startedAt` or after
+each applicable earlier artifact combination with both strict freshness
+relations preserved, each earlier permitted equality boundary independently,
+both receipt origins, empty and populated check arrays, a complete
+issued-contract receipt/TaskContract pair, and a complete
+receipt/delivery-result pair. Negative vectors MUST reverse each chronology
+relation independently, including checks before `startedAt` or after
 `sanitization.completedAt`, pre-contract evidence outside that interval,
 `issuanceCheckpoint.observedAt` after `freshness.issuedAt`, an issued-contract
 receipt starting before contract issuance, a delivery attempt before receipt
-completion, and equal and reversed freshness boundaries.
+completion, and equal or reversed issuance freshness.
 
-Tests MUST NOT impose check-type or adjacent-check timestamp order, require
-receipt completion before contract expiry, infer truth from timestamp syntax,
-use a trusted clock in Phase 1, or treat chronology as authority. Existing
-canonical JSON, golden-vector bytes, digest projections, and recorded digests
-must remain unchanged.
+For one complete issued-contract receipt and referenced TaskContract pair,
+let `P` be every `pre-action-revalidation` check and `A` the passed
+members of `P`. Every `succeeded`, `failed`, `cancelled`, or
+`indeterminate` execution attempt requires at least one member of `A`.
+Every member of `A` must be strictly before contract expiry. Failed and
+indeterminate pre-action checks may coexist with that passed/pre-expiry
+evidence. An attempted receipt with only failed checks, only indeterminate
+checks, or no passed check is invalid before receipt-digest acceptance.
+
+The eight exact positive expiry/check classes are:
+
+1. `succeeded` attempted execution with passed pre-action evidence before
+   expiry;
+2. `failed` attempted execution with passed pre-action evidence before
+   expiry;
+3. `cancelled` attempted execution with passed pre-action evidence before
+   expiry;
+4. `indeterminate` attempted execution with passed pre-action evidence
+   before expiry;
+5. a passed check exactly at the permitted issuance-side lower-bound equality;
+6. a passed check at the last valid whole second before expiry;
+7. attempted execution whose completion and later lifecycle stages occur after
+   expiry after valid passed/pre-expiry evidence; and
+8. denied/not-attempted evidence using failed or indeterminate checks at or
+   after expiry.
+
+The 17 exact negative expiry/check classes are:
+
+1. `succeeded` attempted execution with the required check missing;
+2. `failed` attempted execution with the required check missing;
+3. `cancelled` attempted execution with the required check missing;
+4. `indeterminate` attempted execution with the required check missing;
+5. `succeeded` attempted execution with only failed pre-action checks;
+6. `failed` attempted execution with only failed pre-action checks;
+7. `cancelled` attempted execution with only failed pre-action checks;
+8. `indeterminate` attempted execution with only failed pre-action checks;
+9. `succeeded` attempted execution with only indeterminate pre-action checks;
+10. `failed` attempted execution with only indeterminate pre-action checks;
+11. `cancelled` attempted execution with only indeterminate pre-action checks;
+12. `indeterminate` attempted execution with only indeterminate pre-action
+    checks;
+13. a passed pre-action check exactly at expiry;
+14. a passed pre-action check after expiry;
+15. a whole receipt lifecycle beginning after expiry while claiming successful
+    attempted execution;
+16. a `not-attempted` receipt containing a passed check exactly at expiry;
+    and
+17. a `not-attempted` receipt containing a passed check after expiry.
+
+Mixed passed, failed, and indeterminate results are valid when attempted
+execution has at least one passed/pre-expiry check and every passed check is
+strictly pre-expiry. A `not-attempted` receipt may have no pre-action check
+and may retain failed or indeterminate evidence at or after expiry; any passed
+check must still be strictly pre-expiry. Tests MUST NOT require completion,
+sanitization, finalization, or delivery before expiry; infer freshness from
+`startedAt`; impose `finishedAt <= expiresAt`; introduce a new timestamp
+or checkpoint field; require exactly one pre-action check, global check-type
+uniqueness, or an execution check; or infer any freshness/chronology relation
+from check sequence. Phase 1 checks internal claims only. Phase 4 owns trusted
+time, authenticity, actual immediacy, evidence truth, and operational
+freshness.
+
+The universal pipeline, digest catalog, framing, separators, other nine digest
+results, and non-receipt golden bytes remain unchanged. The repaired successful
+receipt has one canonical passed pre-action check in both representations, a
+1355-byte projection, a 1445-byte completed value, and tagged digest
+`sha256:0bdca1267e2e9d983565587b03a8cb8185b69e4f00271d897435661e974f2f77`.
+The delivery result copies that value exactly rather than computing a new
+digest.
 
 ### Canonical structured-remote coverage
 
@@ -650,13 +713,10 @@ Untracked and ignored path arrays MUST remain unique and canonically ordered by 
 Future Schema and static-contract coverage MUST implement every row of the
 design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
-The prior design approval remains recorded; the referenced external gate record states that PR #1 remains open and unmerged.
-The third-review repairs are recorded at commit
-`9eac3e040a8d0f9c959eeb675eace795749e422a`; their pre-commit audit and any
-exact-head `integration-control` confirmation are external gate records, not
-claims proved by this test plan. Matrix coverage remains planned: no validator,
-fixture, executable test, or Schema implementation exists, and the toolchain
-and separately authorized implementation gates remain blocking.
+Prior approval and third-review repair history remain recorded externally and
+at commit `9eac3e040a8d0f9c959eeb675eace795749e422a`. This section records design-only, non-executable coverage requirements for the fourth-review repair. Independent audit and later gate outcomes are external records; this test plan neither asserts their current state nor replaces those records. Matrix coverage remains planned: no validator, fixture,
+executable test, or Schema implementation exists, and the toolchain and
+separately authorized implementation gates remain blocking.
 
 ### F-01–F-12 semantic-closure coverage
 
@@ -683,14 +743,18 @@ the design, while preserving its assigned phase and ownership boundary:
   unstable, unreadable, replaced, truncated, or unsupported objects.
 - **D5:** require exactly empty transitions, baseline-equal state
   postconditions, no lease, and empty issued-receipt changed paths for all three
-  non-writing rows, including the complete three-by-nine negative product.
+  non-writing rows; cover exactly 24 Cartesian negatives, `3 × 8`, across
+  the eight permitted transition branches.
 - **D6:** enforce `verificationOutcome: not-performed` if and only if
   `executionOutcome: not-attempted`, cover every allowed pair and all seven
   invalid pairs, and apply this gate before lifecycle precedence.
-- **D7:** bind each `from` directly to the complete materialized baseline,
-  apply all unique transitions simultaneously, reconstruct and validate one
-  canonical final composite, and require an exact final postcondition for every
-  changed dimension.
+- **D7:** bind each `from` directly to the complete nine-dimension
+  baseline, apply only the eight unique permitted transitions simultaneously,
+  reconstruct and validate one nine-dimension final composite with active
+  operations still none and administrative locks retaining their ordinary
+  condition semantics, require exact changed-dimension postconditions, and
+  allow only a none active-operation postcondition while retaining the full
+  administrative-lock postcondition.
 - **D8:** require exactly the five closed HostOverlay binding fields, canonical
   non-empty `remoteNames`, exact ref-branch conditions, name resolution, and
   rejection of `expectedBranch` or any cached observation field.
@@ -731,6 +795,18 @@ approval, integration, and distinct-worktree gates. Phase 2 retains routing,
 Phase 3 retains live Git/branch/worktree/lease observation, and Phase 4 retains
 trusted replay, issuer provenance, authority, receipt truth, and delivery.
 
+The corrected inventories are exact: nine baseline dimensions; eight
+transition branches; eleven postcondition branches; 54 array-ordering rows; 25
+mandatory SG-001 rows; 24 D5 negatives (`3 × 8`); 21 active-operation
+legacy contract regressions (`7 + 7 + 7`); nine timestamp paths; 12 chronology
+relations; eight positive and 17 negative expiry/check classes; eleven
+digest-bearing paths; ten computations; one receipt/delivery digest copy; five
+positive and 18 negative receipt-binding vectors; eight receipt/contract
+equalities; six numeric fields; and eleven catalog resources. Timestamp lexical
+vectors remain 10 positive and 24 negative. The protected corpus retains five
+distinct timestamp values across 18 occurrences and seven structured-remote
+occurrences.
+
 The required future coverage includes, concisely:
 
 - the conflict-free stage-0 `TaskContract` index profile, including clean,
@@ -763,37 +839,72 @@ The required future coverage includes, concisely:
   stage range exactly `0..0`, stage `0` valid, and stages `1` through `4`
   invalid.
 
+### Fourth-review operation and lock coverage
+
+Active-operation positives cover a none-only TaskContract baseline, an optional
+none-only postcondition, all seven operation identities as non-authorizing live
+observations, pre-contract denial evidence, post-contract/pre-action
+`not-attempted/not-performed` evidence, and post-execution failed or
+indeterminate evidence. The exact legacy contract family has 21 negatives:
+seven single-operation exact baselines, seven retired active-operation
+transitions, and seven single-operation exact postconditions. Duplicate,
+unknown, non-canonical, and empty-exact observations form a separate generic
+shape family. Multi-operation cases do not inflate the 21-case legacy family.
+
+Administrative-lock contract semantics remain unchanged. Positives cover
+`none` and non-empty exact baselines and matching postconditions, all seven
+lock-identity branches, and the `administrative-lock` transition. Existing
+negative coverage retains duplicate identity, missing or forbidden branch
+fields, non-canonical order, and empty exact arrays. A present live Git
+administrative lock still denies at the governing guard checkpoint and remains
+distinct from runtime leases, lease-store locks, and command-internal transient
+locks; that live denial does not retire or narrow its declarative baseline,
+transition, or postcondition semantics.
+
+At initial or pre-issuance revalidation, a non-empty active-operation
+observation denies before a contract exists and may be retained in optional
+pre-contract evidence. At immediately-before-action revalidation it permits no
+protected action and requires an issued receipt to be
+`not-attempted/not-performed`. At post-execution verification it is unexpected
+terminal evidence with failed or indeterminate verification, never a successful
+postcondition.
+
 ### Closed runtime and numeric-profile conformance
 
 Future Phase 1 Schema and static contract coverage MUST exercise the exact
-closed runtime representations in the design record. Baseline fixtures MUST
-cover all nine required dimensions; the conflict-free stage-0 clean, non-empty
-exact, and empty exact index forms; every tracked, submodule,
-active-operation, and administrative-lock branch; and rejection of missing or
-unknown dimensions, branch-inapplicable fields, stage `1` through `4`,
-unsupported index modes and flags, unmerged or sparse index state, and duplicate
-path or lock identities. The complete-inventory clean, none, and exact forms
-must remain canonical and unambiguous.
+closed runtime representations in the design record. Baseline fixtures cover
+all nine required dimensions; conflict-free stage-0 clean, non-empty exact, and
+empty exact index forms; every tracked and submodule branch; the none-only
+TaskContract active-operation dimension; the full administrative-lock condition;
+and rejection of missing or unknown dimensions, branch-inapplicable fields,
+stage `1` through `4`, unsupported index state, duplicate paths, and every
+single-operation exact active baseline. The reusable active-operation
+observation/evidence union retains all seven identities and malformed duplicate,
+order, unknown, and empty-exact negatives. Administrative-lock fixtures retain
+their ordinary condition, identity, and `L(lock)` coverage.
 
-Every one of the nine permitted-transition branches and eleven
-required-postcondition branches requires positive coverage. Negative coverage
-MUST reject identical `from`/`to` values, missing target keys, unknown
-transition types, duplicate transition targets, duplicate postcondition types,
-and a missing or repeated `scope-contained` postcondition. Transition target
-and postcondition type uniqueness MUST be established before digest projection
-or hashing.
+Every one of the eight permitted-transition branches and all eleven
+required-postcondition branches requires positive coverage. The active-operation
+postcondition is optional and none-only; the administrative-lock postcondition
+retains its full condition grammar. Negative coverage MUST reject identical
+`from`/`to`, missing target keys, unknown transition types, the retired
+active-operation transition, duplicate transition targets, duplicate
+postcondition types, non-empty active-operation expectations, malformed
+administrative-lock expectations, and a missing or repeated `scope-contained`.
+Uniqueness is established before digest projection or hashing.
 
 Receipt vectors MUST cover warning records with and without optional fields,
 all check types, contiguous warning/check sequences, unique check IDs, ordered
-reason-code sets, and every same-receipt `relatedCheckId` success and failure
-case independent of sequence position. Issued-contract vectors MUST exercise successful,
-denied-before-action, failed, cancelled, and indeterminate outcomes under the
-exact precedence rules; failed or indeterminate release without an unresolved
-coordination warning MUST be rejected. Pre-contract-denial vectors MUST cover
-every permitted checkpoint/acquisition-state pair, reject every unlisted pair,
-and cover acquired-lease cleanup that succeeds, fails, or remains indeterminate.
-Impossible execution, verification, release, lifecycle, and unresolved-warning
-combinations MUST be rejected deterministically.
+reason-code sets, and every same-receipt `relatedCheckId` case independent of
+sequence position. Issued-contract vectors exercise successful,
+denied-before-action, failed, cancelled, and indeterminate outcomes, all 12
+chronology relations, all eight positive and 17 negative expiry/check classes,
+and no additional check-sequence chronology. Failed or indeterminate release
+without an unresolved warning rejects. Pre-contract-denial vectors cover every
+permitted checkpoint/acquisition-state pair, every unlisted pair, and all
+acquired-lease cleanup outcomes. Impossible execution, verification, release,
+lifecycle, warning, and attempted-execution freshness combinations reject
+deterministically.
 
 The selected `v1alpha1-r1` number profile accepts only raw JSON number tokens
 matching `0|[1-9][0-9]*`, with a universal maximum of
@@ -835,7 +946,7 @@ pipeline:
 7. digest projection and digest computation where applicable;
 8. complete TaskContract digest verification;
 9. issued receipt/TaskContract field equality;
-10. cross-artifact chronology and outcome consistency;
+10. cross-artifact chronology, attempted-execution check order, and outcome consistency;
 11. receipt digest verification; and
 12. delivery-result binding and chronology.
 
