@@ -12,18 +12,20 @@ earlier review findings as repaired and closed, and the three third-review
 repairs as recorded at commit
 `9eac3e040a8d0f9c959eeb675eace795749e422a`.
 
-The fourth Codex review `PRR_kwDOThD5p88AAAABHQ0C0g` at exact HEAD
-`df9b6eca8ad60aaf9e496688d936a5f97ce25c2b` identified two accepted P1
-findings: active-operation issued-contract inconsistency in thread
-`PRRT_kwDOThD5p86T4aiK` and pre-action freshness relative to contract expiry
-in thread `PRRT_kwDOThD5p86T4aiM`. This revision records the proposed repairs
-for those two findings. Administrative-lock semantics remain unchanged.
+The two fourth-review repairs are recorded at commit
+`b972382fad27a4dda0a4dff945c94b711019ec45`. The fifth Codex review
+`PRR_kwDOThD5p88AAAABHivnYw` at that exact HEAD identified two validated P1
+findings requiring repair: retire administrative-lock transitions from
+contracts in thread `PRRT_kwDOThD5p86Uhp0v`, and require the final pre-action
+check to pass in thread `PRRT_kwDOThD5p86Uhp0x`. This working-tree revision
+records the proposed documentation-only repairs for those findings.
 
-Independent re-audit, commit, push, exact-head confirmation, owner replies,
-thread resolution, PR synchronization, re-review, merge-readiness review,
-implementation, and merge remain external gates and actions. This Markdown
-neither proves nor replaces external GitHub, audit, or authorization state.
-No Schema or model implementation is authorized.
+The proposed repair awaits independent read-only audit, separate commit
+authorization, exact committed-head verification, push authorization,
+remote-head confirmation, GitHub evidence synchronization, re-review, and
+merge-readiness review. Implementation and merge remain external and
+unauthorized. No thread reply or resolution, PR-body update, review request,
+Schema implementation, or model implementation is claimed.
 
 All 11 resources remain `reserved-unpublished`; the validator/toolchain and
 Schema-before-model gates remain binding. The exact UUID-URN catalog reserves
@@ -170,71 +172,100 @@ future `model-implementation` owns executable codec, projection, hashing, and
 cross-artifact conformance; Phase 3 owns live remote and host facts; and Phase 4
 owns trusted provenance, authority, time, freshness, and evidence truth.
 
-## Fourth-review proposed repairs
+## Fifth-review proposed repairs
 
-The TaskContract still materializes nine baseline dimensions.
-`expectedBaseline.activeOperations` is exactly `{ "state": "none" }`; its
-reusable non-empty exact union remains available only for non-authorizing
-observation and evidence. Administrative-lock contract semantics are unchanged:
-`expectedBaseline.administrativeLocks` retains the complete
-`administrativeLocksCondition` union, the `administrative-lock` transition
-remains available, and the matching postcondition reuses the full condition.
-A present live Git administrative lock still denies at the governing guard
-checkpoint and remains distinct from a runtime write lease, lease-store lock,
-or command-internal transient lock.
+The fourth-review active-operation retirement remains unchanged. A
+`TaskContract` materializes nine baseline dimensions, and both
+`expectedBaseline.activeOperations` and
+`expectedBaseline.administrativeLocks` are exactly `{ "state": "none" }`.
+Their reusable non-empty exact unions remain available only for
+non-authorizing observation and evidence. A present live Git active operation
+or administrative lock still denies at the governing guard checkpoint; neither
+may be contracted as an allowed baseline, transition, or final postcondition.
+Git administrative locks remain distinct from runtime write leases,
+lease-store locks, and transient command-internal lock files.
 
-`permittedTransitions` has exactly eight branches: `ref-state`,
-`head-state`, `index-entry`, `tracked-entry`, `untracked-path`,
-`ignored-path`, `submodule-entry`, and `administrative-lock`. The
-required-postcondition union remains at eleven branches. Its optional
-`active-operations` branch is none-only and is not newly mandatory; its
-`administrative-locks` branch retains the complete condition grammar.
-Simultaneous composition applies the eight permitted transitions while
-reconstructing one final nine-dimension composite in which active operations
-remain none and administrative locks follow their ordinary condition semantics.
+`permittedTransitions` has exactly seven branches: `ref-state`, `head-state`,
+`index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, and
+`submodule-entry`. The required-postcondition union remains at eleven branches.
+Its optional `active-operations` and `administrative-locks` branches are both
+none-only and are not newly mandatory. Simultaneous composition applies the
+seven transitions while reconstructing one final nine-dimension composite in
+which both active operations and administrative locks remain none.
 
-A non-empty active operation at initial or pre-issuance revalidation denies
-before a contract exists. At post-contract immediately-before-action
-revalidation it permits no protected action and any issued receipt uses
-`not-attempted/not-performed`. At post-execution verification it is unexpected
-terminal evidence with failed or indeterminate verification, never an
-authorized final postcondition. Administrative-lock live denial is a separate
-guard rule and does not narrow its baseline, transition, or postcondition
-contract.
+A non-empty active operation or administrative lock at initial or pre-issuance
+revalidation denies before a contract exists. At post-contract
+immediately-before-action revalidation it permits no protected action and any
+issued receipt uses `not-attempted/not-performed`. At post-execution
+verification it is unexpected terminal evidence with failed or indeterminate
+verification, never an authorized final postcondition. The reusable
+administrative-lock condition union and its seven lock identities remain part
+of generic observation and evidence; they no longer create a contract
+transition branch.
+
+The active-operation legacy contract family remains exactly 21 cases: seven
+single-operation exact baselines, seven retired transitions, and seven
+single-operation exact postconditions. The administrative-lock legacy contract
+family is likewise exactly 21 cases: seven single-lock exact baselines, seven
+retired transitions, and seven single-lock exact postconditions. Its generic
+observation-shape negatives remain separate: duplicate lock identity, missing
+or forbidden branch identifiers, unknown branch, non-canonical order, empty
+exact array, and other malformed reusable observation forms. These cases do
+not inflate the 21-case administrative-lock family; active-operation generic
+shape failures likewise remain outside its 21-case family.
 
 For an issued-contract receipt, let `P` be every
-`pre-action-revalidation` check and `A` the passed members of `P`. Every
-{succeeded, failed, cancelled, indeterminate} execution attempt requires at
-least one member of `A`, and every member of `A` must be strictly before
-`TaskContract.spec.freshness.expiresAt`. Failed and indeterminate pre-action
-checks may coexist with valid passed/pre-expiry evidence. An attempted receipt
-with only failed checks, only indeterminate checks, or no passed check is
-invalid. Equality at expiry and any later passed check are invalid for every
-outcome.
+`pre-action-revalidation` check. Check sequence is the array position:
+sequences are contiguous from zero, check IDs are unique, and the final
+applicable check is the unique greatest-sequence member of `P`. It is not
+selected by `observedAt`, serialization, iteration order, locale, or check ID.
+Every {succeeded, failed, cancelled, indeterminate} execution attempt requires
+`count(P) >= 1`, requires that final applicable check to have outcome `passed`,
+and requires it—and every other passed member of `P`—to be strictly before
+`TaskContract.spec.freshness.expiresAt`. Earlier failed or indeterminate checks
+may coexist with a later final pass. An earlier pass followed by a final failed
+or indeterminate check is invalid even when all passed checks are pre-expiry.
 
 A `not-attempted` receipt may omit pre-action checks and may retain failed or
 indeterminate denial evidence at or after expiry; any passed check must still
 be strictly pre-expiry. Receipt completion and later lifecycle stages may occur
 after expiry. `startedAt` is not proof of action freshness, no
-`finishedAt <= expiresAt` rule exists, and check sequence creates no
-additional freshness or chronology relation. The expiry/check inventory is
-exactly eight positive and 17 negative classes.
+`finishedAt <= expiresAt` rule exists, and final-check selection adds no
+timestamp chronology relation. The focused inventory is exactly eight positive
+and 25 negative classes.
 
-The corrected inventory is: nine baseline dimensions; eight transitions;
-eleven postconditions; 54 array-ordering rows; 25 SG-001 rows; D5 with exactly
-24 `3 × 8` negatives; nine timestamp paths; 12 chronology relations; eleven
-digest-bearing paths; ten digest computations; one receipt/delivery digest
-copy; five positive and 18 negative receipt-binding vectors; eight
-receipt/contract equalities; six numeric fields; and eleven catalog resources.
-Timestamp lexical vectors remain 10 positive and 24 negative.
+D5 now contains exactly 21 `3 × 7` Cartesian negatives. Removing the retired
+administrative-lock transition removes two TaskContract administrative-lock
+array rows, so the array-ordering matrix contains 52 rows while the reusable
+evidence union retains its identity and ordering rules.
 
-The active-operation legacy contract family is exactly 21 cases: seven
-single-operation exact baselines, seven retired active-operation transitions,
-and seven single-operation exact postconditions. Duplicate, unknown,
-non-canonical, and empty-exact observation cases form a separate generic shape
-family and do not inflate that 21. Administrative-lock vectors retain ordinary
-positive baseline, transition, and postcondition coverage plus their existing
-identity, branch-field, uniqueness, order, and empty-exact negatives.
+The fifth-review repaired invariant inventory is:
+
+```text
+Schema resources = 11
+dispatchable kinds = 7
+baseline dimensions = 9
+permitted-transition branches = 7
+required-postcondition branches = 11
+array-ordering matrix rows = 52
+mandatory SG-001 matrix rows = 25
+D5 Cartesian negatives = 21 = 3 × 7
+active-operation legacy-contract regressions = 21
+administrative-lock legacy-contract regressions = 21
+timestamp paths = 9
+timestamp lexical/calendar positives = 10
+timestamp lexical/calendar negatives = 24
+chronology relations = 12
+focused pre-action positive classes = 8
+focused pre-action negative classes = 25
+receipt/contract equalities = 8
+receipt-binding positive vectors = 5
+receipt-binding negative vectors = 18
+digest-bearing paths = 11
+digest computations = 10
+receipt/delivery digest copies = 1
+numeric fields = 6
+```
 
 The repaired synthetic receipt projection is 1355 UTF-8 bytes and its completed
 form is 1445 UTF-8 bytes. Its independently recomputed digest is
