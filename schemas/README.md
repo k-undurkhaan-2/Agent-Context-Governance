@@ -15,22 +15,34 @@ repairs as recorded at commit
 The two fourth-review repairs are recorded at commit
 `b972382fad27a4dda0a4dff945c94b711019ec45`, and the two fifth-review repairs
 are present at exact commit
-`a99e57773384c0af4a6531f38aa14bee3781f19d`. The sixth Codex review at that
-exact HEAD identified two validated P1 findings requiring repair: require
-valid immediately-before-action revalidation evidence to precede every
-execution-stage check for an attempted issued-contract receipt in thread
-`PRRT_kwDOThD5p86VKc3R`, and exclude Git administrative paths from portable
-repository-relative paths, patterns, ordinary scopes, and changed-path
-evidence in thread `PRRT_kwDOThD5p86VKc3X`. This working-tree revision records
-the proposed documentation-only repairs for those findings. Both sixth-review
-threads remain external GitHub records; no reply or resolution is claimed.
+`a99e57773384c0af4a6531f38aa14bee3781f19d`. The originating `a99e5777...`
+push transaction remains historically attribution-indeterminate.
 
-The proposed sixth-review repair awaits independent read-only audit, separate
-commit authorization, exact committed-head verification, push authorization,
-remote-head confirmation, GitHub evidence synchronization, re-review, and
-merge-readiness review. Implementation and merge remain external and
-unauthorized. No thread reply or resolution, PR-body update, review request,
-Schema implementation, or model implementation is claimed.
+The sixth-review documentation repair was committed at exact commit
+`37e3f373b012050ac424ea7d74c39396196d7da4` after its three-file candidate
+received independent read-only audit. The exact OpenPGP-signed committed head
+was independently verified; its single-ref non-force push and remote
+branch/PR-head confirmation completed; and both sixth-review threads,
+`PRRT_kwDOThD5p86VKc3R` and `PRRT_kwDOThD5p86VKc3X`, received exactly one owner
+evidence reply and were resolved.
+
+The seventh Codex review, REST review `4828747866` and GraphQL review
+`PRR_kwDOThD5p88AAAABH9DYWg`, was submitted `2026-07-31T13:11:51Z` against
+exact head `37e3f373b012050ac424ea7d74c39396196d7da4` and produced exactly four
+validated findings in threads `PRRT_kwDOThD5p86VbJ8z`,
+`PRRT_kwDOThD5p86VbJ83`, `PRRT_kwDOThD5p86VbJ85`, and
+`PRRT_kwDOThD5p86VbJ89`. This working-tree revision records proposed
+documentation-only repairs for those four findings. All four seventh-review
+threads remain unresolved external records with no owner reply.
+
+This candidate awaits independent read-only audit, separate commit
+authorization, exact committed-head verification, push authorization,
+remote/PR-head confirmation, GitHub evidence synchronization, re-review, and
+merge-readiness review. Schema implementation, model implementation,
+model-worktree creation, and merge remain external and unauthorized. No
+seventh-review thread reply or resolution, PR-body update, review request,
+Schema implementation, model implementation, or model-worktree action is
+claimed.
 
 All 11 resources remain `reserved-unpublished`; the validator/toolchain and
 Schema-before-model gates remain binding. The exact UUID-URN catalog reserves
@@ -129,7 +141,7 @@ matching:
 
 Future Schema uses `type: string`, that exact pattern, and asserted
 `format: date-time`. Phase 1 additionally enforces years `0001` through
-`9999`, Gregorian date and leap-year validity, and all 12 chronology
+`9999`, Gregorian date and leap-year validity, and all 14 chronology
 relations. Lower-case delimiters, offsets, fractions, leap seconds,
 `24:00:00`, whitespace, alternate spellings, and repair are forbidden. The
 profile applies to the three TaskContract timestamps, receipt `startedAt`,
@@ -163,21 +175,24 @@ transport, host, effective port, ordered namespace, and repository tuple.
 by `J(remote)`; outer remote expectations remain keyed and ordered by only
 `remoteName`. HostOverlay narrowing uses exact validated membership without
 aliases or ignored fields. The design and test plan record all five positive
-and 18 negative receipt vectors, ten positive and 24 negative timestamp
+and 18 negative receipt-binding vectors, ten positive and 24 negative timestamp
+vectors, ten positive and 20 negative focused post-execution-verification
 vectors, and 15 positive and 61 negative remote vectors.
 
 These repairs apply the existing universal pipeline in this effective
 dependency order: strict bytes/tokens; timestamp and remote lexemes; Schema
 structure; local Phase 1 invariants; array and remote order; validated
 representation; digest projection/computation; complete TaskContract digest;
-receipt/contract equality; chronology/pre-action freshness/outcomes; receipt
-digest; then delivery binding/chronology. They do not replace or alter that protected pipeline.
+receipt/contract equality; chronology, P/E/V presence and universal ordering,
+final-`P` freshness, final-`V` outcome binding, not-attempted `V` emptiness and
+outcome consistency; receipt digest; then delivery binding/chronology. They do
+not replace or alter that protected pipeline.
 `schema-contracts` specifies the structural/static contract and vectors;
 future `model-implementation` owns executable codec, projection, hashing, and
 cross-artifact conformance; Phase 3 owns live remote and host facts; and Phase 4
 owns trusted provenance, authority, time, freshness, and evidence truth.
 
-## Retained fifth-review repairs and sixth-review proposed repairs
+## Retained prior-review repairs and seventh-review proposed repairs
 
 The fourth-review active-operation retirement remains unchanged. A
 `TaskContract` materializes nine baseline dimensions, and both
@@ -255,45 +270,64 @@ nested-repository administrative roots. Uncertainty fails closed, and portable
 governance never records the resolved host paths.
 
 For an issued-contract receipt, let `P` be every
-`pre-action-revalidation` check and let `E` be every `execution` check. Check
-sequence is the array position:
-sequences are contiguous from zero, check IDs are unique, and the final
-applicable check is the unique greatest-sequence member of `P`. It is not
-selected by `observedAt`, serialization, iteration order, locale, or check ID.
-Every {succeeded, failed, cancelled, indeterminate} execution attempt requires
-`count(P) >= 1`, requires that final applicable check to have outcome `passed`,
-and requires it—and every other passed member of `P`—to be strictly before
-`TaskContract.spec.freshness.expiresAt`. Earlier failed or indeterminate checks
-may coexist with a later final pass. An earlier pass followed by a final failed
-or indeterminate check is invalid even when all passed checks are pre-expiry.
+`pre-action-revalidation` check, `E` every `execution` check, and `V` every
+`post-execution-verification` check. Check sequence is the array position:
+sequences are contiguous from zero and check IDs are unique. The final
+applicable pre-action check is the unique greatest-sequence member of `P`, and
+the final applicable verification check is the unique greatest-sequence member
+of `V`. Both selections use `sequence` only, never `observedAt`, outcome,
+serialization, iteration order, locale, or check ID. Earlier `V` outcomes may
+differ; the final greatest-sequence `V` controls the receipt-level outcome.
 
-For each execution outcome in `{succeeded, failed, cancelled, indeterminate}`,
-an attempted receipt requires `count(P) >= 1`, `count(E) >= 1`, the
-greatest-sequence member of `P` to be passed and strictly pre-expiry, every
-passed member of `P` to be strictly pre-expiry, and
-`finalApplicablePreActionCheck.sequence < e.sequence` for every `e` in `E`.
-Any execution check before the final applicable pre-action check invalidates
-the receipt even if another execution check occurs later.
+Every `{succeeded, failed, cancelled, indeterminate}` execution attempt
+requires `count(P) >= 1`, `count(E) >= 1`, and `count(V) >= 1`. The final
+applicable `P` must be passed and strictly before contract expiry; every other
+passed `P` must also be strictly pre-expiry. For every `e` in `E`, the final
+applicable `P` has a lower sequence and an equal or earlier `observedAt`. For
+every `e` in `E` and every `v` in `V`, `e` has a lower sequence and an equal or
+earlier `observedAt`. The receipt `verificationOutcome` must equal the final
+applicable `V` outcome exactly. These universal rules mean one early or
+interleaved member invalidates the receipt even when a later member is valid.
+Whole-second timestamp equality is permitted.
 
-A `not-attempted/not-performed` receipt may omit both `P` and `E` and may
-retain failed or indeterminate denial evidence at or after expiry; any passed
-pre-action check must still be strictly pre-expiry. Receipt completion and
-later lifecycle stages may occur after expiry. `startedAt` is not proof of
-action freshness, no `finishedAt <= expiresAt` rule exists, and final-check selection adds no
-timestamp chronology relation. The focused inventory is exactly eight positive
-and 33 negative classes, while chronology remains exactly 12 relations. Each
-attempted positive has at least one execution check after the final valid
-pre-action check. The eight added negatives are four attempted outcomes with no
-execution check and the same four outcomes with an execution check before the
-final applicable pre-action check; at least one ordering vector has execution
-checks on both sides and still rejects universally.
+The complete attempted chain is:
+
+```text
+by sequence:  final applicable P < every E < every V
+by timestamp: final applicable P <= every E <= every V
+```
+
+A `not-attempted/not-performed` receipt may omit both `P` and `E`, but `V` must
+be empty; any stray verification check is invalid. It may retain failed or
+indeterminate pre-action denial evidence at or after expiry, while any passed
+pre-action check remains strictly pre-expiry. Receipt completion and later
+lifecycle stages may occur after expiry. `startedAt` is not proof of action
+freshness, no `finishedAt <= expiresAt` rule exists, and sequence selection
+adds no timestamp relation. The two new universal timestamp comparisons bring
+the chronology total to exactly 14.
+
+The focused pre-action inventory remains exactly eight positive and 33 negative
+classes. The separate focused post-execution-verification family contains
+exactly ten positives: four attempted execution outcomes with `passed`; one
+`succeeded/failed`; one `succeeded/indeterminate`; E/V timestamp equality;
+multiple E before one V; mixed earlier V outcomes followed by final `passed`;
+and `not-attempted/not-performed` with V empty. Its exactly 20 negatives are
+four attempted outcomes with V missing; four with a V sequenced before an E,
+including one with a later valid V; one V interleaved between two E; one
+sequence-valid but timestamp-early V; one multiple-V case with an early
+verification timestamp; all six final-V/receipt-outcome mismatches, including
+an earlier matching V followed by a mismatching final V; and three
+not-attempted receipts with a stray passed, failed, or indeterminate V. Generic
+sequence gaps, duplicate sequences, duplicate check IDs, and malformed arrays
+remain outside this 10/20 family. D6 remains exactly 13 valid and 7 invalid
+receipt-level combinations.
 
 D5 now contains exactly 21 `3 × 7` Cartesian negatives. Removing the retired
 administrative-lock transition removes two TaskContract administrative-lock
 array rows, so the array-ordering matrix contains 52 rows while the reusable
 evidence union retains its identity and ordering rules.
 
-The sixth-review proposed-repair invariant inventory is:
+The seventh-review proposed-repair invariant inventory is:
 
 ```text
 Schema resources = 11
@@ -302,30 +336,34 @@ baseline dimensions = 9
 permitted-transition branches = 7
 required-postcondition branches = 11
 array-ordering matrix rows = 52
-mandatory SG-001 matrix rows = 25
-D5 Cartesian negatives = 21 = 3 × 7
-active-operation legacy-contract regressions = 21
-administrative-lock legacy-contract regressions = 21
+mandatory SG-001 rows = 25
+D5 Cartesian negatives = 21
+active-operation regressions = 21
+administrative-lock regressions = 21
 timestamp paths = 9
 timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
-chronology relations = 12
-focused pre-action positive classes = 8
-focused pre-action negative classes = 33
+chronology relations = 14
+focused pre-action positives = 8
+focused pre-action negatives = 33
+focused post-execution-verification positives = 10
+focused post-execution-verification negatives = 20
+D6 valid receipt-level combinations = 13
+D6 invalid receipt-level combinations = 7
 receipt/contract equalities = 8
-receipt-binding positive vectors = 5
-receipt-binding negative vectors = 18
+receipt-binding positives = 5
+receipt-binding negatives = 18
 digest-bearing paths = 11
 digest computations = 10
 receipt/delivery digest copies = 1
 numeric fields = 6
 ```
 
-The repaired synthetic receipt projection is 1530 UTF-8 bytes and its completed
-form is 1620 UTF-8 bytes. Its independently recomputed digest is
-`sha256:da362d27555ebf9c737b6bfcd7e31b12b3a7c7381280a6bba2b9965f0098f01e`,
+The repaired synthetic receipt projection is 1741 UTF-8 bytes and its completed
+form is 1831 UTF-8 bytes. Its independently recomputed digest is
+`sha256:95bb30141cd59f06c678ef685d754ee27ac9329af29050045836c7669530360d`,
 and the delivery result copies that value without a new computation. The
-protected corpus retains five distinct timestamp values across 20 occurrences
+protected corpus retains five distinct timestamp values across 22 occurrences
 and seven structured-remote occurrences. The universal twelve-step pipeline,
 all eleven digest selectors, ten profiles/computations, framing, separators,
 dependency graph, the other nine digest results, API/revision/version values,
@@ -334,9 +372,9 @@ unchanged.
 
 This section records design-only requirements and planned vectors. It creates
 no Schema, fixture, validator, executable test, model, codec, runtime behavior,
-or authority. Independent audit and later gate outcomes are recorded outside
-this repository when performed; this README neither asserts their current state
-nor replaces those records. No Schema or model implementation is authorized.
+or authority. The current review status is stated above; this README neither
+proves nor replaces external audit, GitHub, or authorization records. No Schema
+or model implementation is authorized.
 
 ## Object families and later validation
 
