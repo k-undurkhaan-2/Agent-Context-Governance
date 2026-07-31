@@ -1,10 +1,10 @@
 # contextctl.dev/v1alpha1 Schema Contract Design
 
-Phase 1: Schemas and Models is current, but Schema implementation has not begun. The recorded history identifies independent design audit and `integration-control` design approval of the prior candidate as complete, the six earlier review findings as repaired, independently audited, confirmed, replied to, and resolved, the three third-review findings as repaired at commit `9eac3e040a8d0f9c959eeb675eace795749e422a`, and the two fourth-review repairs as recorded at commit `b972382fad27a4dda0a4dff945c94b711019ec45`.
+Phase 1: Schemas and Models is current, but Schema implementation has not begun. The recorded history identifies independent design audit and `integration-control` design approval of the prior candidate as complete, the six earlier review findings as repaired, independently audited, confirmed, replied to, and resolved, the three third-review findings as repaired at commit `9eac3e040a8d0f9c959eeb675eace795749e422a`, the two fourth-review repairs as recorded at commit `b972382fad27a4dda0a4dff945c94b711019ec45`, and the two fifth-review repairs as present at exact commit `a99e57773384c0af4a6531f38aa14bee3781f19d`.
 
-The fifth Codex review `PRR_kwDOThD5p88AAAABHivnYw` at exact HEAD `b972382fad27a4dda0a4dff945c94b711019ec45` identified two validated P1 findings requiring repair: retire administrative-lock transitions from contracts in thread `PRRT_kwDOThD5p86Uhp0v`, and require the final pre-action check to pass in thread `PRRT_kwDOThD5p86Uhp0x`. This working-tree revision records the proposed documentation-only repairs for those findings.
+The sixth Codex review at exact HEAD `a99e57773384c0af4a6531f38aa14bee3781f19d` identified two validated P1 findings requiring repair: require valid immediately-before-action revalidation evidence to precede every execution-stage check for an attempted issued-contract receipt in thread `PRRT_kwDOThD5p86VKc3R`, and exclude Git administrative paths from portable repository-relative paths, patterns, ordinary scopes, and changed-path evidence in thread `PRRT_kwDOThD5p86VKc3X`. This working-tree revision records the proposed documentation-only repairs for those findings. Both sixth-review threads remain external GitHub records; no reply or resolution is claimed.
 
-The proposed working-tree repair awaits independent read-only audit, separate commit authorization, exact committed-head verification, push authorization, remote-head confirmation, GitHub evidence synchronization, re-review, and merge-readiness review. Implementation and merge also remain external and unauthorized. This Markdown neither proves nor replaces external GitHub, audit, or authorization state. No thread reply or resolution, PR-body update, review request, Schema implementation, or model implementation is claimed.
+The proposed working-tree repair awaits independent read-only audit, separate commit authorization, exact committed-head verification, push authorization, remote-head confirmation, GitHub evidence synchronization, re-review, and merge-readiness review. Schema implementation, model implementation, and merge remain external and unauthorized. This Markdown neither proves nor replaces external GitHub, audit, or authorization state. No thread reply or resolution, PR-body update, review request, Schema implementation, model implementation, or model-worktree action is claimed.
 
 All 11 Schema resources remain `reserved-unpublished`; the validator/toolchain and Schema-before-model gates remain binding. No Schema implementation exists or may begin until `integration-control` approves the validator/toolchain, packaging, dependency and lock, provenance, licensing, security, and release gate and a fresh, separately authorized `schema-contracts` task is issued. No model worktree or model implementation exists, and model-worktree creation and model implementation remain prohibited by the Schema-before-model sequence. This document remains an unpublished design record, not an implemented Schema contract, JSON Schema resource, configuration instance, execution adapter, policy engine, or authorization mechanism.
 
@@ -141,8 +141,8 @@ There is no `metadata.name`, label map, or annotation map in v1alpha1. Human-rea
 | Sanitized summary | 1–1024-character `sanitizedSummary` value profile defined below; presence is decided by each containing record | Already NFC and free of ASCII controls | Phase 4 plus external controls establish actual sanitization |
 | Canonical UUID | Lower-case canonical UUID string with `format: uuid` and a lexical pattern | Version-specific constraints where required | Identity does not prove issuer or ownership |
 | Display text | Bounded string without control characters | Already NFC; fixture hygiene | Phase 4 sanitizes text copied into evidence; external classification still applies |
-| Repository-relative path | POSIX `/` separators; no leading slash, drive prefix, backslash, empty segment, `.` segment, `..` segment, NUL, or trailing slash; maximum 4096 characters | Already NFC; canonical spelling and set ordering | Phase 3 resolves against the bound canonical root and checks containment live |
-| Path pattern | Repository-relative grammar; `*` and `?` stay within a segment and `**` is allowed only as a complete segment; no negation, backslash, brace expansion, or host absolute syntax | Pattern parse succeeds; D10 language relationships are decided exactly by its finite-automata inclusion proof | Phase 2 resolves task coverage; Phase 3 checks concrete effects |
+| Repository-relative path | POSIX `/` separators; no leading slash, drive prefix, backslash, empty segment, `.` segment, `..` segment, exact `.git` component, NUL, or trailing slash; maximum 4096 characters | Strict UTF-8, already NFC, exact case-sensitive `.git`-component exclusion, canonical spelling, and set ordering | Phase 3 resolves against the bound canonical root, rejects administrative aliases and indirection, and checks containment live |
+| Path pattern | Repository-relative grammar over the valid `repositoryRelativePath` universe; `*` and `?` stay within a segment and `**` is allowed only as a complete segment; a literal component exactly `.git`, negation, backslash, brace expansion, and host absolute syntax are invalid | Pattern parse succeeds; literal `.git` components reject; D10 language relationships are decided exactly by its finite-automata inclusion proof over the revised universe | Phase 2 resolves task coverage; Phase 3 checks concrete effects and administrative-path boundaries |
 | Absolute host path | Closed two-branch `{ platform, value }` union defined below; both fields are required and no other field is permitted | Enforce strict UTF-8/scalar/NFC, length, control, segment, POSIX, drive-only Windows, UNC-rejection, and exact-equality rules | Phase 3 checks actual host compatibility, filesystem identity, registration, aliases, and containment |
 | Object reference | Closed `{ apiVersion, kind, id }` object | Target kind, uniqueness, existence, and bundle association where applicable | Later phases bind the reference to the selected runtime object |
 | Mode | Enum `plan-only` or `implementation` | `plan-only` with `allowWrite: true` is rejected | Phase 4 checks requested/effective mode against authority |
@@ -167,11 +167,96 @@ There is no `metadata.name`, label map, or annotation map in v1alpha1. Human-rea
 | Release outcome | Enum `not-required`, `succeeded`, `failed`, or `indeterminate` | — | Phase 3 supplies ownership-checked release evidence |
 | Lifecycle outcome | Enum `denied`, `succeeded`, `failed`, `cancelled`, or `indeterminate` | Cross-field combinations are structurally bounded | Phase 4 derives the terminal outcome; it does not imply lease release |
 | Receipt-delivery outcome | Enum `not-attempted`, `succeeded`, `failed`, or `indeterminate` | — | Phase 4 records the post-finalization delivery attempt separately |
-| Scope | Closed `{ capabilities, paths }` with both arrays present | Arrays canonical; allowed/prohibited sets disjoint and containment checked where statically provable | Phases 2–4 calculate effective scope and verify effects |
+| Scope | Closed `{ capabilities, paths }` with both arrays present; `paths` contains path patterns over the revised valid `repositoryRelativePath` universe | Arrays canonical; allowed/prohibited sets disjoint and containment checked where statically provable; reserved `.git`-component paths are never members of an ordinary scope language | Phases 2–4 calculate effective scope and verify effects, with Git administrative effects outside ordinary path scope |
 | Permitted transition | One of exactly seven closed, target-keyed branches defined under `TaskContract`; active-operation and administrative-lock are not contract transitions | Target uniqueness and canonical target order before hashing | Phases 3–4 compare a live transition against immutable baseline authority |
 | Required postcondition | One of the eleven closed branches defined under `TaskContract`; `active-operations` and `administrative-locks` expectations are none-only, and no open postcondition name or generic expected record exists | Type uniqueness, required `scope-contained`, and exact nested-state consistency | Phase 4 checks fresh observations after execution |
 
 A structured remote uses lower-case canonical host text and ordered `namespace` segments. Default transport ports must be omitted so equivalent remotes do not acquire multiple encodings. Secret-bearing URLs, user-info, tokens, private-key material, and environment-derived host data are not representable fields.
+
+### Portable repository-relative paths and patterns
+
+The named `repositoryRelativePath` profile first requires strict UTF-8
+decoding to Unicode scalar values and then requires the decoded value to be
+already NFC. Validators reject rather than decode permissively, normalize, or
+repair. The resulting value uses POSIX `/` separators, is at most 4096 decoded
+characters, and has no leading slash, drive prefix, backslash, empty segment,
+`.` segment, `..` segment, NUL, or trailing slash.
+
+After those decoding and NFC checks, split the value into `/`-separated
+components. The value is invalid when any component is exactly `.git` under
+case-sensitive equality. The reservation applies at every component position,
+not only at the root. There is no case folding, alias expansion,
+normalization, or repair. These values are therefore invalid:
+
+```text
+.git
+.git/config
+.git/hooks/pre-commit
+.git/worktrees/example/HEAD
+foo/.git
+foo/.git/config
+nested/repository/.git/HEAD
+```
+
+The reservation is deliberately narrow. Similar names remain valid when they
+satisfy every other rule, including:
+
+```text
+.gitignore
+.gitmodules
+.github
+foo.git
+dir/.gitignore
+dir/.github/workflow.yml
+```
+
+Path-pattern syntax retains its existing anchored `*`, `?`, and
+complete-segment `**` grammar, but every pattern language is defined only over
+the revised universe `U` of valid `repositoryRelativePath` values. A pattern
+containing a literal component exactly equal to `.git` is itself invalid;
+validators do not normalize it into another language. Required invalid
+examples are:
+
+```text
+.git/**
+.git/config
+foo/.git/**
+foo/.git/config
+```
+
+The broad pattern `**` remains valid, but it cannot match a value containing
+an exact `.git` component because no such value belongs to `U`. Wildcards do
+not reintroduce excluded values, and no broader similar-name reservation is
+implied.
+
+This same universe and pattern language apply without exception to Domain path
+scope, WorktreeRole-derived path scope, HostOverlay path ceilings,
+RoutingPolicy/static path-language inclusion, TaskContract authorized and
+prohibited scopes, baseline path-keyed entries, required-postcondition
+path-keyed entries, receipt `changedPaths`, and `scope-contained` verification
+evidence. An ordinary `modify` capability combined with `**` therefore cannot
+authorize `.git/config`, `.git/hooks/pre-commit`, refs, linked-worktree
+metadata, or other Git administrative state. The separate `git-stage`,
+`git-commit`, `git-branch`, and `git-remote` capability tokens do not convert a
+Git administrative location into an ordinary repository-relative path and do
+not authorize direct filesystem mutation of reserved administrative state.
+
+An observed effect on a runtime-resolved Git administrative location is
+outside ordinary repository path scope. It cannot be represented as a
+successful ordinary `changedPaths` member, must make `scope-contained` fail or
+become indeterminate according to the evidence available, and must not be
+silently omitted while claiming successful scope verification. Phase 1 does
+not claim to identify every host-local administrative path.
+
+Phase 3 owns live resolution and rejection of a top-level `.git` file that
+points elsewhere; the linked-worktree administrative directory; the common
+Git directory; Git administrative paths outside the worktree root; symlink,
+junction, reparse-point, alias, or other filesystem-indirection paths;
+case-folded aliases; Windows 8.3 aliases; Unicode-normalized aliases;
+registered-submodule administrative roots; and nested repositories and their
+administrative roots. Portable governance must not record those host-specific
+resolved paths. It does not normalize an alias into a portable path; runtime
+ambiguity or aliasing fails closed.
 
 ### Canonical whole-second UTC timestamp profile
 
@@ -825,7 +910,7 @@ Required `spec` fields:
 | `permissions` | Permitted/prohibited mode and capability restrictions |
 | `overlapRefs` | Canonical set of other Domains whose declared scope may overlap |
 
-A Domain cannot reference itself. Overlap references must exist, remain within the Project, and be symmetric in a closed bundle. Phase 1 may identify undeclared or contradictory overlaps when the path grammar proves them, but does not resolve a real task to Domains. Include/exclude application, complete task coverage, and ambiguity are Phase 2. Domains contain neither host paths nor live state.
+A Domain cannot reference itself. Overlap references must exist, remain within the Project, and be symmetric in a closed bundle. Every `pathScope` pattern is parsed over the revised valid `repositoryRelativePath` universe; a literal exact `.git` component is invalid, and `**` cannot cover a reserved path. Phase 1 may identify undeclared or contradictory overlaps when the path grammar proves them, but does not resolve a real task to Domains. Include/exclude application, complete task coverage, and ambiguity are Phase 2. Domains contain neither host paths nor live state.
 
 ### `WorktreeRole`
 
@@ -843,7 +928,7 @@ Required `spec` fields:
 | `exclusiveWriteRequired` | Required Boolean |
 | `reviewOnly` | Required Boolean |
 
-Owned and excluded Domains are disjoint and must exist in the same Project. A role may own multiple Domains. `roleClass: integration-control` identifies responsibility only; it grants no administrative operation. Branch-policy eligibility requires at least one exact or inclusive component-prefix allow match and no exact or prefix deny match. The object defines a logical responsibility profile, not a filesystem path or live worktree, and Phase 3 must still observe its actual branch and HEAD state.
+Owned and excluded Domains are disjoint and must exist in the same Project. A role may own multiple Domains. Its derived path language is the union of its owned Domains' valid path-scope languages and therefore never contains a path with an exact `.git` component. `roleClass: integration-control` identifies responsibility only; it grants no administrative operation. Branch-policy eligibility requires at least one exact or inclusive component-prefix allow match and no exact or prefix deny match. The object defines a logical responsibility profile, not a filesystem path or live worktree, and Phase 3 must still observe its actual branch and HEAD state.
 
 #### Capability classes and review-only roles
 
@@ -899,6 +984,10 @@ operator `exact` or `contains`. `decision` is a closed union: route to one
 Domain must belong to the policy Project, and a route target must statically
 own the rule’s declared Domains. Phase 1 applies only the static rules in
 section 9; actual matching and unique role selection remain Phase 2.
+
+Static RoutingPolicy ownership and inclusion calculations consume only the
+revised valid Domain path languages. Neither routing nor complete-set ownership
+can restore a reserved `.git`-component path excluded from that universe.
 
 ### `HostOverlay`
 
@@ -983,8 +1072,10 @@ The overlay may remove acceptable remotes but cannot add one. Every binding
 `remoteNames` member resolves to one non-empty narrowed expectation record.
 
 For path proofs, `U` is the universe of all already-NFC strings accepted by
-the `repositoryRelativePath` profile. A path pattern is anchored to the whole
-path and has exactly this restricted meaning:
+the revised `repositoryRelativePath` profile, which excludes every value with
+an exact case-sensitive `.git` component. A literal `.git` component makes a
+pattern invalid before automata construction. A path pattern is anchored to
+the whole path and has exactly this restricted meaning:
 
 - a literal character matches itself;
 - `?` matches exactly one permitted non-`/` Unicode scalar within a segment;
@@ -1071,6 +1162,13 @@ field, and concrete overlay instances remain outside the target worktree.
 | `leaseId` | Canonical UUID, present exactly when a lease is required |
 | `issuanceCheckpoint` | Closed observation timestamp and `profile.digest.issuance-state-v1` state digest defined exactly in section 10 |
 | `freshness` | Mandatory `issuedAt` and `expiresAt` boundary |
+
+Both `authorizedScope.paths` and `prohibitedScope.paths` use pattern languages
+over the revised valid repository-relative path universe. A literal exact
+`.git` component is invalid, and even an authorized `modify` plus `**` cannot
+grant ordinary-path authority over `.git/config`, hooks, refs, or other Git
+administrative state. Git-administration capability tokens do not authorize
+direct filesystem mutation of those locations.
 
 The contract binds the exact Phase 2 routing result. Its `projectRef` is the
 same resolved Project, `target.worktreeRoleRef` is the one selected role,
@@ -1321,7 +1419,8 @@ algorithm is:
 2. Resolve every registered gitlink root before traversal.
 3. Recursively traverse the worktree without following symlinks.
 4. Exclude the repository's Git administrative data and every registered
-   submodule root and descendant.
+   submodule root and descendant. Never emit a path containing an exact `.git`
+   component.
 5. Treat a regular file, executable file, or symlink as one leaf; executable
    state is not encoded in these path-only inventories.
 6. Never emit a directory; consequently, an empty directory has no
@@ -1335,7 +1434,9 @@ algorithm is:
    are still traversed so qualifying leaves can be enumerated.
 9. Put the leaf in ignored when the final effective result is ignored;
    otherwise put it in untracked. A leaf occurs in at most one class.
-10. Require every repository-relative path to satisfy the defined repositoryRelativePath profile, strict UTF-8, and already-NFC checks.
+10. Require every repository-relative path to satisfy the revised
+    `repositoryRelativePath` profile, including strict UTF-8, already-NFC, and
+    exact case-sensitive `.git`-component rejection.
 11. Strictly order each final array by `S(path)`. A directory entry, collapsed
     directory, or another expanded/collapsed alternative is invalid.
 
@@ -1361,6 +1462,14 @@ directory, a registered submodule boundary, an unregistered nested repository,
 unreadable/racing/cyclic traversal, unresolved identity or classification,
 an unrepresentable filename, a directory member, and a collapsed-directory
 alternative. The profile is not defined by one particular Git CLI command.
+
+Phase 3 resolves top-level `.git` indirection, linked and common Git
+directories, administrative locations outside the worktree root, filesystem
+indirection and aliases, case-folded, Windows 8.3, and Unicode-normalized
+aliases, registered-submodule administrative roots, and nested-repository
+administrative roots before inventory acceptance. Host-local resolved paths
+are not recorded in portable governance, and an unresolved boundary fails
+closed.
 
 `submoduleCondition` is exactly:
 
@@ -1561,6 +1670,11 @@ transition per `(type, path)`. Targets must be strictly ordered by
 after that validation. A transition grants no authority outside the contract
 scope, and actual transition attribution remains Phase 4 verification.
 
+Each of the five path-keyed transition targets must be a valid
+`repositoryRelativePath`; any exact `.git` component rejects the contract. A
+transition capability or Git-administration capability token cannot convert a
+reserved administrative location into an ordinary transition target.
+
 #### Exact `requiredPostconditions`
 
 `TaskContract.spec.requiredPostconditions` is a non-empty set-like array with
@@ -1597,6 +1711,10 @@ does not prove it.
 Every entry or path array nested in an `expected` condition uses the identical
 closed branch, branch-specific cardinality, sole path identity, uniqueness,
 inventory, cross-dimension, and ordering rules defined for the baseline.
+Every nested path therefore uses the revised valid path universe and rejects
+an exact `.git` component. `scope-contained` verifies actual ordinary effects
+against that same universe: a runtime-resolved Git administrative effect makes
+the postcondition failed or indeterminate and may not be silently omitted.
 Postcondition type uniqueness is validated before hashing.
 `J(postcondition)` is diagnostic-only after type uniqueness; a duplicated or
 conflicting type is invalid.
@@ -1711,6 +1829,12 @@ remain outside the target worktree.
 | `sanitization` | Closed required `profileId`, `applied`, `redactionCount`, and `completedAt` record |
 | `receiptDigest` | `profile.digest.execution-receipt-v1` over the complete `ExecutionReceipt` resource excluding only `spec.receiptDigest`, exactly as cataloged in section 10 |
 | `startedAt` / `finishedAt` | Canonical UTC timestamps |
+
+Every `changedPaths` member is a valid actual repository-relative path from the
+revised universe. A runtime-resolved Git administrative effect cannot appear as
+a successful ordinary member, cannot be omitted while claiming successful
+`scope-contained` verification, and instead requires failed or indeterminate
+scope evidence.
 
 `spec.origin` is exactly one of these closed branches:
 
@@ -1984,6 +2108,10 @@ P =
   every ExecutionReceipt.spec.checks[] member where
   checkType == "pre-action-revalidation"
 
+E =
+  every ExecutionReceipt.spec.checks[] member where
+  checkType == "execution"
+
 attempted =
   ExecutionReceipt.spec.executionOutcome is one of
   "succeeded", "failed", "cancelled", or "indeterminate"
@@ -2014,9 +2142,12 @@ for every p in P where p.outcome == "passed":
 
 if attempted:
   count(P) >= 1
+  count(E) >= 1
   finalApplicablePreActionCheck.outcome == "passed"
   finalApplicablePreActionCheck.observedAt
     < TaskContract.spec.freshness.expiresAt
+  for every e in E:
+    finalApplicablePreActionCheck.sequence < e.sequence
 ```
 
 The boundary is strict. Equality at expiry and any later passed check are
@@ -2025,6 +2156,10 @@ indeterminate pre-action checks may coexist with attempted execution only when
 the final applicable check is passed and strictly pre-expiry. An earlier
 passed/pre-expiry check followed by a final failed or indeterminate check makes
 every attempted-execution outcome invalid before receipt-digest acceptance.
+For an attempted receipt, every execution check must occur after the final
+applicable pre-action check. One execution check before that authorization
+point invalidates the receipt even when another execution check occurs after
+it; a later execution check cannot cure the earlier ordering violation.
 
 A final passed check may occur exactly at the permitted issuance-side lower
 bound, subject to the existing
@@ -2035,31 +2170,42 @@ Receipt completion, verification, sanitization, release, finalization, and
 delivery may occur after expiry; `finishedAt <= freshness.expiresAt` is not a
 rule.
 
-A `not-attempted` receipt may contain no pre-action check and may retain failed
-or indeterminate denial evidence observed at or after expiry. Every passed
-pre-action check, when present, must still be strictly pre-expiry, but no
-final-passed requirement applies. No exactly-one-check rule, global check-type
-uniqueness, mandatory execution check, new check kind, new timestamp, or new
-checkpoint field is introduced. Greatest-sequence selection is a
-sequence/outcome consistency invariant and creates no thirteenth chronology
+A `not-attempted/not-performed` receipt may contain neither a pre-action check
+nor an execution check and may retain failed or indeterminate denial evidence
+observed at or after expiry. Every passed pre-action check, when present, must
+still be strictly pre-expiry, but no final-passed or execution-check presence
+requirement applies. No exactly-one-check rule, global check-type uniqueness,
+or requirement that execution checks form one contiguous region is introduced.
+The repair also introduces no new check kind, timestamp, or checkpoint field.
+Greatest-sequence selection and execution-after-authorization ordering are
+sequence/outcome consistency invariants and create no thirteenth chronology
 relation.
 
 The eight required focused positive classes are exactly:
 
-1. `succeeded` attempted execution with a final passed/pre-expiry check;
-2. `failed` attempted execution with a final passed/pre-expiry check;
-3. `cancelled` attempted execution with a final passed/pre-expiry check;
-4. `indeterminate` attempted execution with a final passed/pre-expiry check;
+1. `succeeded` attempted execution with a final passed/pre-expiry check and an
+   execution check after it;
+2. `failed` attempted execution with a final passed/pre-expiry check and an
+   execution check after it;
+3. `cancelled` attempted execution with a final passed/pre-expiry check and an
+   execution check after it;
+4. `indeterminate` attempted execution with a final passed/pre-expiry check and
+   an execution check after it;
 5. a final passed check exactly at the permitted issuance-side lower-bound
-   equality;
-6. a final passed check at the last valid whole second before expiry;
+   equality, followed by an execution check;
+6. a final passed check at the last valid whole second before expiry, followed
+   by an execution check;
 7. completion and later lifecycle stages after expiry following a valid final
-   passed/pre-expiry check; and
+   passed/pre-expiry check and a later execution check; and
 8. earlier failed and/or indeterminate checks followed by a final
-   passed/pre-expiry check.
+   passed/pre-expiry check and then an execution check.
 
-The 25 required focused negative classes are the existing 17 classes plus
-exactly eight mixed-result classes:
+Every attempted-execution member of these eight positive classes contains at
+least one `execution` check after the final applicable passed/pre-expiry
+pre-action check.
+
+The 33 required focused negative classes are the existing 25 classes plus
+exactly eight execution-presence and ordering classes:
 
 1. `succeeded` attempted execution with the required check missing;
 2. `failed` attempted execution with the required check missing;
@@ -2095,11 +2241,23 @@ exactly eight mixed-result classes:
 24. `cancelled` execution with an earlier passed/pre-expiry check followed by
     a final indeterminate check; and
 25. `indeterminate` execution with an earlier passed/pre-expiry check followed
-    by a final indeterminate check.
+    by a final indeterminate check;
+26. `succeeded` attempted execution with no execution check;
+27. `failed` attempted execution with no execution check;
+28. `cancelled` attempted execution with no execution check;
+29. `indeterminate` attempted execution with no execution check;
+30. `succeeded` attempted execution with an execution check before the final
+    applicable pre-action check and another execution check after it;
+31. `failed` attempted execution with an execution check before the final
+    applicable pre-action check;
+32. `cancelled` attempted execution with an execution check before the final
+    applicable pre-action check; and
+33. `indeterminate` attempted execution with an execution check before the
+    final applicable pre-action check.
 
 Duplicate sequence, sequence gap, duplicate check ID, and other generic
 check-array failures remain in their existing families and do not inflate this
-25-class focused total.
+33-class focused total.
 
 Earlier failed or indeterminate checks followed by a final passed/pre-expiry
 check remain valid. Phase 1 checks only the internal claims in the complete
@@ -2136,7 +2294,8 @@ evaluation against trusted current time remains Phase 4. Timestamp syntax
 alone does not prove truth, Phase 1 does not use a trusted clock, and timestamp
 ordering grants no authority.
 
-The greatest-sequence selection and final-passed requirement do not compare a
+The greatest-sequence selection, final-passed requirement, execution-check
+presence requirement, and check-sequence ordering requirement do not compare a
 new pair of timestamps. They are sequence/outcome consistency invariants, so
 the chronology relation count remains exactly 12.
 
@@ -2159,7 +2318,7 @@ vectors reverse each chronology relation independently, including a check
 before `startedAt` or after sanitization completion, pre-contract evidence
 before `startedAt` or after sanitization completion, an issuance checkpoint
 after `issuedAt`, an issued-contract receipt beginning before contract
-issuance, a delivery attempt before receipt completion, and the 25 focused
+issuance, a delivery attempt before receipt completion, and the 33 focused
 pre-action negative classes. Existing equal and reversed issuance
 freshness boundaries remain required negatives.
 
@@ -2272,7 +2431,8 @@ for, alteration of, or second normative pipeline:
 7. digest projection and digest computation where applicable;
 8. complete TaskContract digest verification;
 9. issued receipt/TaskContract field equality;
-10. cross-artifact chronology, final-applicable pre-action selection, and outcome consistency;
+10. cross-artifact chronology, final-applicable pre-action selection,
+    attempted-execution check presence and ordering, and outcome consistency;
 11. receipt digest verification; and
 12. delivery-result binding and chronology.
 
@@ -2857,7 +3017,7 @@ The exact completed source value, proving the sole excluded member, is:
 The exact digest projection excludes only `spec.receiptDigest`:
 
 ```json
-{"apiVersion":"contextctl.dev/v1alpha1","kind":"ExecutionReceipt","metadata":{"id":"00000000-0000-4000-8000-000000000003"},"spec":{"changedPaths":[],"checks":[{"checkId":"check.pre-action-revalidation","checkType":"pre-action-revalidation","observedAt":"2000-01-01T00:00:01Z","outcome":"passed","profileId":"profile.validation.v1","reasonCodes":[],"sequence":0}],"executionOutcome":"succeeded","finishedAt":"2000-01-01T00:00:02Z","lifecycleOutcome":"succeeded","origin":{
+{"apiVersion":"contextctl.dev/v1alpha1","kind":"ExecutionReceipt","metadata":{"id":"00000000-0000-4000-8000-000000000003"},"spec":{"changedPaths":[],"checks":[{"checkId":"check.pre-action-revalidation","checkType":"pre-action-revalidation","observedAt":"2000-01-01T00:00:01Z","outcome":"passed","profileId":"profile.validation.v1","reasonCodes":[],"sequence":0},{"checkId":"check.execution","checkType":"execution","observedAt":"2000-01-01T00:00:02Z","outcome":"passed","profileId":"profile.validation.v1","reasonCodes":[],"sequence":1}],"executionOutcome":"succeeded","finishedAt":"2000-01-01T00:00:02Z","lifecycleOutcome":"succeeded","origin":{
 "contractDigest":"sha256:238c3af3ceab3eafc70d660b6e3d5cef97c3741d48b76c49e9e998a26d8afe30","contractId":"00000000-0000-4000-8000-000000000002","effectiveMode":"plan-only","resolvedTarget":{"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"worktreeId":"worktree.invalid","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}},"type":"issued-contract"},
 "reasonCodes":[],"receiptVersion":"1","releaseOutcome":"not-required","sanitization":{"applied":true,"completedAt":"2000-01-01T00:00:02Z","profileId":"profile.sanitization.v1","redactionCount":0},"startedAt":"2000-01-01T00:00:01Z","taskId":"00000000-0000-4000-8000-000000000001","unresolvedCoordinationWarnings":[],"verificationOutcome":"passed"}}
 ```
@@ -2865,16 +3025,16 @@ The exact digest projection excludes only `spec.receiptDigest`:
 The exact completed receipt, proving the sole excluded member, is:
 
 ```json
-{"apiVersion":"contextctl.dev/v1alpha1","kind":"ExecutionReceipt","metadata":{"id":"00000000-0000-4000-8000-000000000003"},"spec":{"changedPaths":[],"checks":[{"checkId":"check.pre-action-revalidation","checkType":"pre-action-revalidation","observedAt":"2000-01-01T00:00:01Z","outcome":"passed","profileId":"profile.validation.v1","reasonCodes":[],"sequence":0}],"executionOutcome":"succeeded","finishedAt":"2000-01-01T00:00:02Z","lifecycleOutcome":"succeeded","origin":{
+{"apiVersion":"contextctl.dev/v1alpha1","kind":"ExecutionReceipt","metadata":{"id":"00000000-0000-4000-8000-000000000003"},"spec":{"changedPaths":[],"checks":[{"checkId":"check.pre-action-revalidation","checkType":"pre-action-revalidation","observedAt":"2000-01-01T00:00:01Z","outcome":"passed","profileId":"profile.validation.v1","reasonCodes":[],"sequence":0},{"checkId":"check.execution","checkType":"execution","observedAt":"2000-01-01T00:00:02Z","outcome":"passed","profileId":"profile.validation.v1","reasonCodes":[],"sequence":1}],"executionOutcome":"succeeded","finishedAt":"2000-01-01T00:00:02Z","lifecycleOutcome":"succeeded","origin":{
 "contractDigest":"sha256:238c3af3ceab3eafc70d660b6e3d5cef97c3741d48b76c49e9e998a26d8afe30","contractId":"00000000-0000-4000-8000-000000000002","effectiveMode":"plan-only","resolvedTarget":{"domainRefs":[{"apiVersion":"contextctl.dev/v1alpha1","id":"domain.invalid","kind":"Domain"}],"projectRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"project.invalid","kind":"Project"},"worktreeId":"worktree.invalid","worktreeRoleRef":{"apiVersion":"contextctl.dev/v1alpha1","id":"role.invalid","kind":"WorktreeRole"}},"type":"issued-contract"},
-"reasonCodes":[],"receiptDigest":"sha256:0bdca1267e2e9d983565587b03a8cb8185b69e4f00271d897435661e974f2f77","receiptVersion":"1","releaseOutcome":"not-required","sanitization":{"applied":true,"completedAt":"2000-01-01T00:00:02Z","profileId":"profile.sanitization.v1","redactionCount":0},"startedAt":"2000-01-01T00:00:01Z","taskId":"00000000-0000-4000-8000-000000000001","unresolvedCoordinationWarnings":[],"verificationOutcome":"passed"}}
+"reasonCodes":[],"receiptDigest":"sha256:da362d27555ebf9c737b6bfcd7e31b12b3a7c7381280a6bba2b9965f0098f01e","receiptVersion":"1","releaseOutcome":"not-required","sanitization":{"applied":true,"completedAt":"2000-01-01T00:00:02Z","profileId":"profile.sanitization.v1","redactionCount":0},"startedAt":"2000-01-01T00:00:01Z","taskId":"00000000-0000-4000-8000-000000000001","unresolvedCoordinationWarnings":[],"verificationOutcome":"passed"}}
 ```
 
 The exact post-finalization `ReceiptDeliveryResult` is not a new digest
 payload. It copies the finalized receipt digest by exact tagged-string equality:
 
 ```json
-{"apiVersion":"contextctl.dev/v1alpha1","attemptedAt":"2000-01-01T00:00:03Z","outcome":"succeeded","reasonCodes":[],"receiptDigest":"sha256:0bdca1267e2e9d983565587b03a8cb8185b69e4f00271d897435661e974f2f77","receiptId":"00000000-0000-4000-8000-000000000003","sanitizedSummary":"Synthetic delivery succeeded."}
+{"apiVersion":"contextctl.dev/v1alpha1","attemptedAt":"2000-01-01T00:00:03Z","outcome":"succeeded","reasonCodes":[],"receiptDigest":"sha256:da362d27555ebf9c737b6bfcd7e31b12b3a7c7381280a6bba2b9965f0098f01e","receiptId":"00000000-0000-4000-8000-000000000003","sanitizedSummary":"Synthetic delivery succeeded."}
 ```
 
 #### Recalculated golden results
@@ -2890,7 +3050,7 @@ payload. It copies the finalized receipt digest by exact tagged-string equality:
 | `profile.digest.task-contract-v1` | `sha256:238c3af3ceab3eafc70d660b6e3d5cef97c3741d48b76c49e9e998a26d8afe30` |
 | `profile.digest.pre-contract-evidence-v1` | `sha256:db7c19635103fc202ab07f4d9e2eb3686cf0046bba8c79887a7aabfd0e72be20` |
 | `profile.digest.lease-acquisition-result-v1` | `sha256:1aeb432f3667229535829959d6a1bcb463472150a31eb999aaf058423f65b244` |
-| `profile.digest.execution-receipt-v1` | `sha256:0bdca1267e2e9d983565587b03a8cb8185b69e4f00271d897435661e974f2f77` |
+| `profile.digest.execution-receipt-v1` | `sha256:da362d27555ebf9c737b6bfcd7e31b12b3a7c7381280a6bba2b9965f0098f01e` |
 
 The corpus requires deterministic negative vectors at the projection boundary:
 
@@ -3011,7 +3171,7 @@ JCS never reorders an array.
 | Requirement | JSON Schema structural enforcement | Phase 1 static or fixture hygiene | Later operational enforcement | External control |
 | --- | --- | --- | --- | --- |
 | Required fields, types, enums, closed objects | Enforce | Contract vectors | Not applicable | Not applicable |
-| Identifier, path, digest, UUID, and format syntax | Enforce lexical profile | Canonical spelling and cross-reference checks | Bind to trusted/live values where required | Not applicable |
+| Identifier, path, digest, UUID, and format syntax | Enforce lexical profile, including exact `.git`-component rejection for repository-relative paths and literal path patterns | Canonical spelling, revised-universe pattern parsing, and cross-reference checks | Bind to trusted/live values where required; Phase 3 rejects administrative indirection and aliases | Not applicable |
 | Duplicate JSON keys | Not observable after ordinary parsing | Contract records rejection before object construction; executable strict-parser detection and tests belong to future `model-implementation` | The same trusted decoder runs before later verification | Not applicable |
 | Raw JSON-number token profile | `type: integer` cannot preserve lexical form | Contract records raw-token rejection, ceiling, and bounds; executable enforcement before conversion belongs to future `model-implementation` | Verification repeats raw-token validation or requires the complete validated canonical instance representation proof | Not applicable |
 | Numeric field inventory | Exact integer type and per-field minimum/maximum | Reject any undeclared numeric field and audit the complete six-field inventory | A future signed or fractional field requires a contract revision | Not applicable |
@@ -3028,7 +3188,7 @@ JCS never reorders an array.
 | HostOverlay remote expectations have one record per name and non-empty accepted sets | Enforce the closed five-field remote, exact transport enum, `remoteDnsHost`, namespace and `remoteRepositoryName` lexical bounds, terminal-`.git` rejection, numeric port bounds, explicit-default-port rejection, and non-empty `acceptedRemotes` | Enforce joined namespace length, outer uniqueness/order by only `S(remoteName)`, nested exact `J(remote)` uniqueness/order, and HostOverlay narrowing by exact canonical membership without normalization or ignored fields | Phase 3 parses and compares each observed named Git remote with its accepted set and owns runtime host facts | Credential handling remains outside governance |
 | Conflict-free index is representable | Enforce stage `0`, required false index flags, supported modes, and closed fields | Enforce path uniqueness, canonical order, and complete-inventory semantics | Phase 3 denies unmerged, intent-to-add, skip-worktree, assume-unchanged, sparse, unsupported-mode, or otherwise unrepresentable indexes before issuance | Phase 4 may record only sanitized pre-contract denial evidence |
 | Baseline runtime structures are closed and exhaustive | Enforce all nine required dimensions, required and forbidden fields, enums, branch-specific exact cardinalities, and exact `none` constants for TaskContract active operations and administrative locks | Cross-branch consistency, rejection of every non-empty active-operation or administrative-lock contract baseline, and reusable-observation identity/order including `L(lock)` | Phase 3 retains the reusable live observation unions but denies a non-empty operation or present live lock at the applicable checkpoint; Phase 4 retains pre-contract denial, post-contract non-attempted, and failed/indeterminate terminal evidence | Repository and host protections |
-| ExpectedBaseline inventory and cross-dimension consistency | Enforce branch shapes and local field relationships | Enforce complete explicit inventories, index/tracked and gitlink/submodule equality, coverage, and exact-path disjointness where closed data suffices | Phase 3 enforces relationships requiring HEAD, objects, ignore rules, filesystem, checkout, or live index | Phase 4 verification reuses the same semantics for postconditions |
+| ExpectedBaseline inventory and cross-dimension consistency | Enforce branch shapes, local field relationships, and the revised valid path profile | Enforce complete explicit inventories, `.git`-component exclusion, index/tracked and gitlink/submodule equality, coverage, and exact-path disjointness where closed data suffices | Phase 3 enforces relationships requiring HEAD, objects, ignore rules, filesystem, checkout, live index, or administrative-root resolution | Phase 4 verification reuses the same path and state semantics for postconditions and changed-path evidence |
 | Baseline and postcondition state entries are unique by repository-relative path | Enforce entry shape and required path | Reject duplicate `S(entry.path)` before hashing, regardless of other entry fields | Phases 3–4 compare live state by the same path identity | Not applicable |
 | TaskContract mode, write, lease, and lease-state truth table | Enforce the four allowed closed combinations and conditional field presence | Reject every unlisted combination and cross-field mismatch | Phase 3 validates required lease ownership; Phase 4 validates effective authority and contract binding | Issuer and lease-store administration |
 | Seven transition targets and eleven postcondition types are unique | Enforce exactly seven transition branches and eleven postcondition branches, with active-operation and administrative-lock postconditions both none-only | Reject duplicate `T(transition)`, duplicate `S(type)`, either retired transition, and either non-empty postcondition before hashing | Phase 4 attributes only the seven authorized transition classes and checks all postconditions | Not applicable |
@@ -3065,8 +3225,9 @@ A later selected validator and parser must provide all of the following:
 - deterministic ordering of error records without assertions against vendor-specific message prose;
 - hooks for Phase 1 static validation, canonical-array checks, transition and
   postcondition uniqueness, greatest-sequence final-applicable pre-action
-  selection, attempted-execution freshness/outcome consistency, receipt outcome
-  consistency, and closed-bundle validation;
+  selection, `count(P) >= 1`, `count(E) >= 1`, universal execution-after-final-
+  pre-action ordering, attempted-execution freshness/outcome consistency,
+  receipt outcome consistency, and closed-bundle validation;
 - reproducible exact direct dependencies plus a transitive lock or verified hashes;
 - dependency provenance and license review; and
 - a pinned conformance profile covering every Schema feature actually used.
@@ -3124,6 +3285,13 @@ Planned negative fixtures include:
   effective `plan-only` with `allowWrite: true`, either mismatch between
   `allowWrite` and `leaseRequired`, either invalid `leaseId` presence case, and
   either invalid `lease-state` expectation;
+- every required valid and invalid repository-relative path and path-pattern
+  example in the portable-path section, including literal `.git` components,
+  broad `**`, and permitted similar names;
+- reserved `.git`-component values attempted through Domain scope,
+  role-derived scope, HostOverlay ceiling, TaskContract scopes, baseline and
+  postcondition entries, transition targets, changed paths, and
+  `scope-contained` evidence;
 - HostOverlay widening capabilities, paths, roles, or repository identity;
 - duplicate HostOverlay `remoteName` outer records even when their remote values differ;
 - empty HostOverlay `acceptedRemotes`;
@@ -3186,7 +3354,9 @@ recomputes its cataloged digest, enforces all eight exact equalities and complet
 ordered Domain projection before receipt-digest acceptance, and includes all
 five positive and 18 independent negative binding vectors above. It then applies all 12 chronology relations, the complete passed
 pre-action freshness invariant, greatest-sequence final-check selection, all
-eight focused positive and 25 focused negative pre-action classes, and
+eight focused positive and 33 focused negative pre-action classes, including
+execution-check presence and universal ordering after the final applicable
+pre-action check, and
 outcome/release consistency before the receipt digest. It validates delivery
 binding and chronology only after receipt finalization.
 
@@ -3214,14 +3384,14 @@ and negative vector at its assigned owner.
 | Reference, branch policy, and HEAD | branch plus commit; branch plus unborn; detached plus commit; all seven required positive `branchPrefix` and branch-policy vectors | detached plus unborn; branch missing `branchRef`; detached containing `branchRef`; commit missing `objectId`; unborn containing `objectId`; all 33 required negative branch-policy vectors, including raw-character-prefix, descendants-only, trailing-slash, and wildcard cases; plus each closed-shape missing-array variant | Schema enforces closed branches, four required policy arrays, and required/forbidden fields; Phase 1 static validates exact `branchRef`/`branchPrefix` syntax, `S(branchRef)`/`S(branchPrefix)` order and the recorded predicate vectors; Phase 3 live selects the symbolic branch or denies detached/unborn as specified, then compares actual ref and HEAD |
 | Conflict-free index | clean conflict-free index; exact non-empty stage-0 complete inventory; exact empty complete inventory representing removal of all HEAD paths | stage `1`; stage `2`; stage `3`; duplicate path; unsupported mode; `intentToAdd: true`; `skipWorktree: true`; `assumeUnchanged: true`; sparse entry; unmerged index presented as a `TaskContract` baseline | Schema fixes stage and flags and closes entries; Phase 1 static enforces path identity, order, and complete explicit inventory; Phase 3 live selects clean versus exact and denies unrepresentable state; Phase 4 evidence may record sanitized pre-contract denial only |
 | Tracked | tracked clean; exact inventory containing clean; modified with equal `worktreeMode` and `indexMode`; deleted; type-changed with unequal modes | modified with unequal modes; type-changed with equal modes; missing required field; branch-inapplicable field; mode `160000`; tracked/index mode mismatch; tracked/index object mismatch; omitted index path from `tracked.exact`; tracked entry for a gitlink path | Schema enforces status branches and fields; Phase 1 static enforces mode relations and explicit index equality/coverage; Phase 3 live confirms content, deletion, type, HEAD-dependent equality, and completeness; Phase 4 evidence verifies postconditions |
-| Untracked and ignored / D3 path inventory | `none` for each category; non-empty exact complete inventories; regular, executable, and non-dereferenced symlink leaves; recursive ignored-directory leaves; ignore negation; empty directory emitting no member; registered submodule boundary exclusion | empty exact inventory; duplicate or non-canonical path; cross-category or explicit-state collision; directory member; collapsed-directory alternative; unregistered nested repository; unreadable, racing, cyclic, identity/classification/submodule-boundary-unresolved, unrepresentable-path, or unsupported-object observation | Schema enforces unions and non-empty exact arrays; Phase 1 static enforces `S(path)`, explicit disjointness, and rejection of directory/collapsed encodings; Phase 3 live executes the sole eleven-step leaf-only profile and emits its exact reason code; Phase 4 evidence verifies postconditions without a weaker encoding |
+| Untracked and ignored / D3 path inventory | `none` for each category; non-empty exact complete inventories; regular, executable, and non-dereferenced symlink leaves; recursive ignored-directory leaves; ignore negation; empty directory emitting no member; registered submodule and Git-administrative boundary exclusion; valid `.gitignore`, `.gitmodules`, `.github`, `foo.git`, and nested similar-name paths | empty exact inventory; duplicate or non-canonical path; any exact `.git` component at any depth; cross-category or explicit-state collision; directory member; collapsed-directory alternative; unregistered nested repository; unreadable, racing, cyclic, identity/classification/submodule-boundary-unresolved, unrepresentable-path, unsupported-object, or unresolved administrative-root/alias observation | Schema enforces unions, non-empty exact arrays, and the revised path profile; Phase 1 static enforces `.git`-component rejection, `S(path)`, explicit disjointness, and directory/collapsed rejection; Phase 3 executes the leaf-only profile while resolving top-level indirection, linked/common Git dirs, aliases, registered-submodule roots, and nested repositories; Phase 4 evidence verifies postconditions without a weaker encoding |
 | Submodules / D2 orthogonal state | `none`; absent/unavailable; uninitialized/unavailable; initialized/observed with each of all eight Boolean triples; initialized checkout ID equal to and different from `recordedObjectId` | absent/observed; uninitialized/observed; initialized/unavailable; missing or branch-inapplicable `checkedOutObjectId`; fields on unavailable; each missing observed Boolean; unknown field; `indeterminate`; superseded `worktreeState`; `recordedObjectId` mismatch; missing mode-`160000` inventory path; tracked/submodule collision | Schema enforces the closed checkout and observation unions; Phase 1 static enforces all pairings, explicit gitlink equality, coverage, and disjointness; Phase 3 live denies inconclusive initialized observation with one of the four D2 reason codes; Phase 4 transitions and postconditions reuse the complete checkout/observation value |
 | Active operations | TaskContract baseline `none`; optional none-only postcondition; all seven `merge`, `rebase`, `cherry-pick`, `revert`, `bisect`, `sequencer`, and `apply-mailbox` identities as non-authorizing observations; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence | exactly 21 legacy contract regressions: seven single-operation exact baselines, seven retired active-operation transitions, and seven single-operation exact postconditions; separately, the generic observation-shape family covers duplicate, unknown, non-canonical, and empty-exact arrays | Schema enforces the reusable observation/evidence union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy contract cases and separately validates generic observation shape; Phase 3 live observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence |
 | Administrative locks | none-only TaskContract baseline and postcondition; all seven `index`, `packed-refs`, `shallow`, `config`, `head`, `ref`, and `other` branches as reusable observations/evidence; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence | exactly 21 legacy-contract regressions: seven non-empty single-lock baselines, seven retired transitions, and seven non-empty single-lock postconditions; separately, duplicate identity, missing or forbidden branch identifiers, unknown branch, non-canonical order, empty exact, and other malformed reusable observations | Schema enforces the reusable closed union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy cases and separately validates `L(lock)` identity/order; Phase 3 observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence |
-| Permitted transitions | one positive vector for each of exactly seven branches: `ref-state`, `head-state`, `index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, and `submodule-entry` | identical `from` and `to`; duplicate target; unknown type; missing target key; branch-inapplicable key; invalid target comparator; the retired `active-operation` and `administrative-lock` branches | Schema enforces seven closed branches; Phase 1 static enforces exact inequality, target uniqueness, the normative `T(transition)` comparator, and retired-branch rejection; Phase 3 live observes Git transitions; Phase 4 evidence attributes only authorized transitions |
-| Required postconditions | one positive vector for each of eleven branches; optional `active-operations` and `administrative-locks` each expect `none` | missing or repeated `scope-contained`; duplicate type; `scope-contained` containing `expected`; state branch missing `expected`; each forbidden single-operation active or administrative-lock expectation; malformed reusable observation condition; invalid lease-state truth-table combination | Schema enforces eleven closed branches and both none-only expectations; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 live observes state and lease ownership; Phase 4 evidence verifies every required postcondition |
+| Permitted transitions | one positive vector for each of exactly seven branches: `ref-state`, `head-state`, `index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, and `submodule-entry`, with every path-keyed branch in the revised valid universe | identical `from` and `to`; duplicate target; unknown type; missing target key; branch-inapplicable key; invalid target comparator; any exact `.git` component; the retired `active-operation` and `administrative-lock` branches | Schema enforces seven closed branches and the path profile; Phase 1 static enforces exact inequality, target uniqueness, the normative `T(transition)` comparator, reserved-path rejection, and retired-branch rejection; Phase 3 live observes Git transitions; Phase 4 evidence attributes only authorized ordinary-path transitions |
+| Required postconditions | one positive vector for each of eleven branches; optional `active-operations` and `administrative-locks` each expect `none`; path-keyed expected state uses the revised valid universe | missing or repeated `scope-contained`; duplicate type; `scope-contained` containing `expected`; state branch missing `expected`; reserved `.git`-component path; successful scope claim that omits an administrative effect; each forbidden single-operation active or administrative-lock expectation; malformed reusable observation condition; invalid lease-state truth-table combination | Schema enforces eleven closed branches, both none-only expectations, and valid paths; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 resolves administrative locations; Phase 4 requires an administrative effect to make `scope-contained` failed or indeterminate and verifies every postcondition |
 | Warnings and checks | warning without optional fields; warning with summary only; warning with an earlier `relatedCheckId`; warning with a later `relatedCheckId`; check without optional summaries; check with `expectedSummary`; check with `observedSummary`; check with both; one check for every `intent-validation`, `project-domain-resolution`, `role-routing`, `host-binding`, `initial-preflight`, `lease-acquisition`, `post-acquisition-revalidation`, `contract-issuance`, `pre-action-revalidation`, `execution`, `post-execution-verification`, `lease-release`, and `receipt-finalization` value | warning or check sequence gap; warning or check sequence duplicate; duplicate `checkId`; dangling `relatedCheckId`; reference resolved only by another receipt or a delivery result; invalid reason-code order; unknown `checkType`; branch-inapplicable or unknown field | Schema enforces record shapes and vocabularies; Phase 1 static enforces sequences, unique check IDs, reason-code order, and same-receipt references independent of position; Phase 4 evidence produces and sanitizes the ordered records |
-| Receipt outcomes, issued-contract binding, lease acquisition, timestamp chronology, and attempted-execution checks | every existing origin/outcome vector; all five exact receipt/contract binding vectors; every acquisition and cleanup branch; all ten timestamp-positive classes; all 12 chronology relations; all eight focused pre-action positive classes, including earlier failed/indeterminate followed by final passed; both origins; empty and populated checks; complete contract/receipt and receipt/delivery pairs | all 18 receipt/contract mismatches before receipt digest; every prohibited acquisition/outcome combination; all 24 timestamp lexical/calendar negatives; each chronology relation reversed independently; equal or reversed issuance freshness; all 25 focused pre-action negative classes, including the eight earlier-pass/final-failed-or-indeterminate cases | Schema enforces origin/union shape and all nine timestamp paths; Phase 1 validates both complete artifacts, calendar validity, contract digest, eight equalities, 12 chronology relations, greatest-sequence final-check selection, `count(P) >= 1` and final passed/pre-expiry for attempted execution, every passed pre-action check pre-expiry, warnings, and precedence before receipt digest and delivery; Phase 3 supplies acquisition/release facts; Phase 4 owns provenance, trusted time, immediacy, evidence truth, authority, freshness, and final evidence |
+| Receipt outcomes, issued-contract binding, lease acquisition, timestamp chronology, and attempted-execution checks | every existing origin/outcome vector; all five exact receipt/contract binding vectors; every acquisition and cleanup branch; all ten timestamp-positive classes; all 12 chronology relations; all eight focused positive classes, each with an execution check after the final passed/pre-expiry pre-action check; both origins; empty and populated checks; complete contract/receipt and receipt/delivery pairs | all 18 receipt/contract mismatches before receipt digest; every prohibited acquisition/outcome combination; all 24 timestamp lexical/calendar negatives; each chronology relation reversed independently; equal or reversed issuance freshness; all 33 focused negative classes, including four missing-execution-check and four execution-before-final-pre-action classes | Schema enforces origin/union shape and all nine timestamp paths; Phase 1 validates both complete artifacts, calendar validity, contract digest, eight equalities, 12 chronology relations, greatest-sequence selection, `count(P) >= 1`, `count(E) >= 1`, final passed/pre-expiry, every passed pre-action check pre-expiry, and `finalApplicablePreActionCheck.sequence < e.sequence` for every `e` in `E` before receipt digest and delivery; Phase 3 supplies acquisition/release facts; Phase 4 owns provenance, trusted time, immediacy, evidence truth, authority, freshness, and final evidence |
 | TaskContract truth table | each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition | requested plan-only with effective implementation; effective plan-only with `allowWrite: true`; `allowWrite: false` with `leaseRequired: true`; `allowWrite: true` with `leaseRequired: false`; `leaseId` present while no lease is required; `leaseId` absent while required; `owned` postcondition while no lease is required; `not-required` postcondition while a lease is required | Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions |
 | D1 validated canonical instance representation | strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation | generic decoded object; missing or stale proof component; proof rebound to another value; mutable value; representation asserted as a public kind, production typed model, transferable authority, TaskContract, or runtime artifact | `schema-contracts` specifies the representation contract and records its vectors; future `model-implementation` implements and tests decoding, construction, provenance binding, typed round trips, serialization, and Schema/model conformance; Phase 4 owns trusted operational replay and authenticity |
 | D4 raw worktree-content digest | exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation | filtered or EOL-converted bytes; decoded or Unicode-normalized text; dereferenced symlink; unreadable, replaced, raced, truncated, length-inconsistent, or lossy observation; directory, gitlink, or unsupported type | Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile |
@@ -3230,7 +3400,7 @@ and negative vector at its assigned owner.
 | D7 simultaneous transition composition | complete nine-dimension materialized `B`; all seven `from` values bind directly to `B`; unique transitions apply simultaneously; one canonical nine-dimension `F` results regardless of wire order; active operations and administrative locks remain none; changed dimensions have exact `F` postconditions | baseline/from mismatch; either retired transition; sequential dependency; order-dependent result; non-none active-operation or administrative-lock final state; invalid final composite; missing or mismatched changed-dimension postcondition; drift asserted for an unchanged dimension; incomplete D2 or D3 value | Phase 1 compares, applies only seven transition types simultaneously, reconstructs all nine dimensions, and validates `F`; Phase 3 materializes live-dependent `B`; Phase 4 compares evidence with `F`, attributes transitions, and verifies scope/postconditions |
 | D8 closed HostOverlay binding | complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once | each missing field; every unknown field; empty, duplicate, or non-canonical remote names; unknown name; branch without `branchRef`; detached with `branchRef`; `expectedBranch`; each cached observed root/HEAD/branch/remote field | Schema closes the five-field record and ref branches; Phase 1 enforces binding identity, array canon, and name resolution; Phase 3 compares live canonical root, registration, ref, and every named remote |
 | D9 RoutingPolicy projection equality and complete-set contract | all six required complete-set positive vectors; different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification | all twelve required complete-set negative vectors, including partial owner, no-fallthrough, same-target tie, collective-role union, split reuse, fallback failure, and TaskContract Domain/role/target mismatch; different IDs with equal `RuleProjection` JCS bytes; same-priority equal `MatchProjection` JCS bytes; non-canonical nested array | `schema-contracts` records projection equality, `Drule`/`Dresolved`/`Owned(R)` semantics, exact Phase 2 order, and vectors; executable projection/JCS comparison belongs to future `model-implementation`; Phase 2 alone resolves and routes the complete set, denies top-priority ambiguity or incomplete ownership, and never falls through or unions roles |
-| D10 HostOverlay narrowing proof and canonical structured remotes | exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; all 15 structured-remote positives; repository and remote subsets by exact validated `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**` by DFA language proof | all 61 independent structured-remote negatives; each of the nine exact narrowing rejection-code classes; added capability or remote; role/project mismatch; `docs/**` outside the Project universe; unsupported syntax, compilation failure, resource exhaustion, or indeterminate emptiness; sample, alias, normalization, ignored field, or prefix heuristic offered as proof; any binding, free capacity, or lease offered to make an incomplete selected owner eligible | Schema enforces the closed record, named host/repository profiles, namespace and port rules, and terminal-`.git` rejection; Phase 1 performs exact lexical, `J(remote)`, set/reference, membership, order, and automata checks relative to `U`; only after Phase 2 selects one role that owns all of `Dresolved` may Phase 3 parse and compare the live remote; HostOverlay and runtime state can narrow or deny but never widen routing eligibility |
+| D10 HostOverlay narrowing proof and canonical structured remotes | exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; all 15 structured-remote positives; repository and remote subsets by exact validated `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**`; broad `**` remains valid but excludes reserved paths | all 61 independent structured-remote negatives; each of the nine exact narrowing rejection-code classes; literal `.git/**`, `.git/config`, `foo/.git/**`, and `foo/.git/config`; added capability or remote; role/project mismatch; `docs/**` outside the Project universe; unsupported syntax, compilation failure, resource exhaustion, or indeterminate emptiness; sample, alias, normalization, ignored field, or prefix heuristic offered as proof; any binding, free capacity, or lease offered to make an incomplete selected owner eligible | Schema enforces the closed record, path profiles, named host/repository profiles, namespace and port rules; Phase 1 rejects literal `.git` components and performs exact lexical, `J(remote)`, set/reference, membership, order, and automata checks relative to revised `U`; only after Phase 2 selects one role that owns all of `Dresolved` may Phase 3 compare the live remote and reject administrative aliases; HostOverlay and runtime state can narrow or deny but never widen routing eligibility |
 | D11 digest catalog and golden corpus | all eleven digest field paths bind once to ten computations; every exact separator, raw payload, JCS payload, exclusion, completed source value, tagged hash, and delivery-copy equality reproduces the recorded corpus | included-field mutation; excluded-field mishandling; self-digest inclusion; missing/changed separator byte; substituted profile; changed raw bytes; wrong JCS projection; mismatched copied receipt digest; a cycle, ambiguity, duplicate binding, or missing field path | `schema-contracts` specifies the acyclic catalog, framing, projection contract, and recorded corpus; future `model-implementation` reconstructs projections, emits JCS bytes, hashes, replays, and proves cross-runtime reproduction; Phase 3 supplies stable raw observations; Phase 4 performs trusted operational replay and exact delivery-copy checks; every digest remains integrity-only |
 | D12 review-only capability complement | exactly four permitted sets: empty, inspect, validate, and inspect-plus-validate; each has `roleClass: review`, only plan-only mode, exact `C − P` prohibited set, and no exclusive write | each of the eleven non-observation capabilities permitted separately; wrong role or mode; missing complement member; permitted/prohibited overlap or other complement error; exclusive write; restoration attempted through another field | Schema and Phase 1 static enforce the complete five-class partition and exact equations; later intersections may only narrow the result and cannot restore a forbidden capability |
 | Cross-dimension baselines | complete inventories rather than deltas; index/tracked field equality; gitlink/submodule object equality; tracked/submodule and untracked/ignored disjointness; canonical clean/none versus exact selection | omitted inventory member; index/tracked mode or object mismatch; gitlink/submodule mismatch; tracked/submodule collision; untracked/ignored collision; exact-path collision with explicit index, tracked, or submodule path; a Phase 1 check incorrectly depending on live state | Schema enforces local shape; Phase 1 static enforces relationships over explicit closed data; Phase 3 live owns HEAD-, object-, ignore-, filesystem-, checkout-, and index-dependent checks; Phase 4 evidence reuses the same postcondition semantics |
@@ -3244,7 +3414,7 @@ future implementation is conformant only when every matrix cell is covered at
 its assigned layer; a lower layer MUST NOT claim a live or evidence property
 it cannot establish.
 
-### Fifth-review repaired invariant counts
+### Sixth-review proposed-repair invariant counts
 
 ```text
 Schema resources = 11
@@ -3262,7 +3432,7 @@ timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
 chronology relations = 12
 focused pre-action positive classes = 8
-focused pre-action negative classes = 25
+focused pre-action negative classes = 33
 receipt/contract equalities = 8
 receipt-binding positive vectors = 5
 receipt-binding negative vectors = 18
@@ -3272,13 +3442,12 @@ receipt/delivery digest copies = 1
 numeric fields = 6
 ```
 
-The repaired synthetic execution-receipt projection is exactly 1355 UTF-8
-bytes, the completed receipt is exactly 1445 UTF-8 bytes, and the independently
-recomputed tagged digest is
-`sha256:0bdca1267e2e9d983565587b03a8cb8185b69e4f00271d897435661e974f2f77`.
-The delivery result copies that tagged value exactly and performs no additional
-computation. The protected corpus retains exactly five distinct timestamp
-literal values across 18 occurrences and exactly seven structured-remote
+The repaired synthetic execution-receipt projection is exactly 1530 UTF-8
+bytes, the completed receipt is exactly 1620 UTF-8 bytes, and its independently
+recomputed tagged digest is the execution-receipt value recorded in the table
+above. The delivery result copies that tagged value exactly and performs no
+additional computation. The protected corpus retains exactly five distinct timestamp
+literal values across 20 occurrences and exactly seven structured-remote
 occurrences.
 
 ### SG-001 runtime-structure vectors

@@ -13,15 +13,20 @@ repairs as recorded at commit
 `9eac3e040a8d0f9c959eeb675eace795749e422a`.
 
 The two fourth-review repairs are recorded at commit
-`b972382fad27a4dda0a4dff945c94b711019ec45`. The fifth Codex review
-`PRR_kwDOThD5p88AAAABHivnYw` at that exact HEAD identified two validated P1
-findings requiring repair: retire administrative-lock transitions from
-contracts in thread `PRRT_kwDOThD5p86Uhp0v`, and require the final pre-action
-check to pass in thread `PRRT_kwDOThD5p86Uhp0x`. This working-tree revision
-records the proposed documentation-only repairs for those findings.
+`b972382fad27a4dda0a4dff945c94b711019ec45`, and the two fifth-review repairs
+are present at exact commit
+`a99e57773384c0af4a6531f38aa14bee3781f19d`. The sixth Codex review at that
+exact HEAD identified two validated P1 findings requiring repair: require
+valid immediately-before-action revalidation evidence to precede every
+execution-stage check for an attempted issued-contract receipt in thread
+`PRRT_kwDOThD5p86VKc3R`, and exclude Git administrative paths from portable
+repository-relative paths, patterns, ordinary scopes, and changed-path
+evidence in thread `PRRT_kwDOThD5p86VKc3X`. This working-tree revision records
+the proposed documentation-only repairs for those findings. Both sixth-review
+threads remain external GitHub records; no reply or resolution is claimed.
 
-The proposed repair awaits independent read-only audit, separate commit
-authorization, exact committed-head verification, push authorization,
+The proposed sixth-review repair awaits independent read-only audit, separate
+commit authorization, exact committed-head verification, push authorization,
 remote-head confirmation, GitHub evidence synchronization, re-review, and
 merge-readiness review. Implementation and merge remain external and
 unauthorized. No thread reply or resolution, PR-body update, review request,
@@ -172,7 +177,7 @@ future `model-implementation` owns executable codec, projection, hashing, and
 cross-artifact conformance; Phase 3 owns live remote and host facts; and Phase 4
 owns trusted provenance, authority, time, freshness, and evidence truth.
 
-## Fifth-review proposed repairs
+## Retained fifth-review repairs and sixth-review proposed repairs
 
 The fourth-review active-operation retirement remains unchanged. A
 `TaskContract` materializes nine baseline dimensions, and both
@@ -214,8 +219,44 @@ exact array, and other malformed reusable observation forms. These cases do
 not inflate the 21-case administrative-lock family; active-operation generic
 shape failures likewise remain outside its 21-case family.
 
+The sixth-review portable `repositoryRelativePath` profile first requires
+strict UTF-8 decoding and an already-NFC value; it never decodes permissively,
+normalizes, case-folds, aliases, or repairs input. After the existing POSIX
+relative-path checks, any component exactly equal to lower-case `.git` under
+case-sensitive equality is invalid at any depth. Required invalid vectors are
+`.git`, `.git/config`, `.git/hooks/pre-commit`,
+`.git/worktrees/example/HEAD`, `foo/.git`, `foo/.git/config`, and
+`nested/repository/.git/HEAD`. The deliberately similar `.gitignore`,
+`.gitmodules`, `.github`, `foo.git`, `dir/.gitignore`, and
+`dir/.github/workflow.yml` values remain valid when every other rule passes.
+
+The anchored pattern grammar retains segment-local `*` and `?` and
+complete-segment `**`, but each language is defined over the revised universe
+`U` of valid repository-relative paths. A literal exact `.git` component makes
+the pattern invalid, including `.git/**`, `.git/config`, `foo/.git/**`, and
+`foo/.git/config`. The broad pattern `**` remains valid but cannot match a
+reserved value because that value is outside `U`.
+
+This one rule applies to Domain and role-derived path scope, HostOverlay path
+ceilings and D10 inclusion, RoutingPolicy/static inclusion, TaskContract
+authorized and prohibited scopes, baseline and postcondition path entries, the
+five path-keyed transition branches, receipt `changedPaths`, and
+`scope-contained` verification. `modify` plus `**` cannot authorize
+`.git/config` or hooks. Git-administration capability tokens do not turn an
+administrative filesystem location into an ordinary path. A runtime-resolved
+administrative effect cannot be a successful `changedPaths` member and cannot
+be silently omitted; it makes `scope-contained` failed or indeterminate.
+
+Phase 3 resolves top-level `.git` indirection, linked and common Git
+directories, administrative paths outside the worktree root, symlink,
+junction, reparse-point and other aliases, case-folded, Windows 8.3, and
+Unicode-normalized aliases, registered-submodule administrative roots, and
+nested-repository administrative roots. Uncertainty fails closed, and portable
+governance never records the resolved host paths.
+
 For an issued-contract receipt, let `P` be every
-`pre-action-revalidation` check. Check sequence is the array position:
+`pre-action-revalidation` check and let `E` be every `execution` check. Check
+sequence is the array position:
 sequences are contiguous from zero, check IDs are unique, and the final
 applicable check is the unique greatest-sequence member of `P`. It is not
 selected by `observedAt`, serialization, iteration order, locale, or check ID.
@@ -226,20 +267,33 @@ and requires it—and every other passed member of `P`—to be strictly before
 may coexist with a later final pass. An earlier pass followed by a final failed
 or indeterminate check is invalid even when all passed checks are pre-expiry.
 
-A `not-attempted` receipt may omit pre-action checks and may retain failed or
-indeterminate denial evidence at or after expiry; any passed check must still
-be strictly pre-expiry. Receipt completion and later lifecycle stages may occur
-after expiry. `startedAt` is not proof of action freshness, no
-`finishedAt <= expiresAt` rule exists, and final-check selection adds no
+For each execution outcome in `{succeeded, failed, cancelled, indeterminate}`,
+an attempted receipt requires `count(P) >= 1`, `count(E) >= 1`, the
+greatest-sequence member of `P` to be passed and strictly pre-expiry, every
+passed member of `P` to be strictly pre-expiry, and
+`finalApplicablePreActionCheck.sequence < e.sequence` for every `e` in `E`.
+Any execution check before the final applicable pre-action check invalidates
+the receipt even if another execution check occurs later.
+
+A `not-attempted/not-performed` receipt may omit both `P` and `E` and may
+retain failed or indeterminate denial evidence at or after expiry; any passed
+pre-action check must still be strictly pre-expiry. Receipt completion and
+later lifecycle stages may occur after expiry. `startedAt` is not proof of
+action freshness, no `finishedAt <= expiresAt` rule exists, and final-check selection adds no
 timestamp chronology relation. The focused inventory is exactly eight positive
-and 25 negative classes.
+and 33 negative classes, while chronology remains exactly 12 relations. Each
+attempted positive has at least one execution check after the final valid
+pre-action check. The eight added negatives are four attempted outcomes with no
+execution check and the same four outcomes with an execution check before the
+final applicable pre-action check; at least one ordering vector has execution
+checks on both sides and still rejects universally.
 
 D5 now contains exactly 21 `3 × 7` Cartesian negatives. Removing the retired
 administrative-lock transition removes two TaskContract administrative-lock
 array rows, so the array-ordering matrix contains 52 rows while the reusable
 evidence union retains its identity and ordering rules.
 
-The fifth-review repaired invariant inventory is:
+The sixth-review proposed-repair invariant inventory is:
 
 ```text
 Schema resources = 11
@@ -257,7 +311,7 @@ timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
 chronology relations = 12
 focused pre-action positive classes = 8
-focused pre-action negative classes = 25
+focused pre-action negative classes = 33
 receipt/contract equalities = 8
 receipt-binding positive vectors = 5
 receipt-binding negative vectors = 18
@@ -267,11 +321,11 @@ receipt/delivery digest copies = 1
 numeric fields = 6
 ```
 
-The repaired synthetic receipt projection is 1355 UTF-8 bytes and its completed
-form is 1445 UTF-8 bytes. Its independently recomputed digest is
-`sha256:0bdca1267e2e9d983565587b03a8cb8185b69e4f00271d897435661e974f2f77`,
+The repaired synthetic receipt projection is 1530 UTF-8 bytes and its completed
+form is 1620 UTF-8 bytes. Its independently recomputed digest is
+`sha256:da362d27555ebf9c737b6bfcd7e31b12b3a7c7381280a6bba2b9965f0098f01e`,
 and the delivery result copies that value without a new computation. The
-protected corpus retains five distinct timestamp values across 18 occurrences
+protected corpus retains five distinct timestamp values across 20 occurrences
 and seven structured-remote occurrences. The universal twelve-step pipeline,
 all eleven digest selectors, ten profiles/computations, framing, separators,
 dependency graph, the other nine digest results, API/revision/version values,

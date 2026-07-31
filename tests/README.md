@@ -15,15 +15,20 @@ repairs as recorded at commit
 `9eac3e040a8d0f9c959eeb675eace795749e422a`.
 
 The two fourth-review repairs are recorded at commit
-`b972382fad27a4dda0a4dff945c94b711019ec45`. The fifth Codex review
-`PRR_kwDOThD5p88AAAABHivnYw` at that exact HEAD identified two validated P1
-findings requiring repair: retire administrative-lock transitions from
-contracts in thread `PRRT_kwDOThD5p86Uhp0v`, and require the final pre-action
-check to pass in thread `PRRT_kwDOThD5p86Uhp0x`. This working-tree revision
-records the proposed documentation-only repairs for those findings.
+`b972382fad27a4dda0a4dff945c94b711019ec45`, and the two fifth-review repairs
+are present at exact commit
+`a99e57773384c0af4a6531f38aa14bee3781f19d`. The sixth Codex review at that
+exact HEAD identified two validated P1 findings requiring repair: require
+valid immediately-before-action revalidation evidence to precede every
+execution-stage check for an attempted issued-contract receipt in thread
+`PRRT_kwDOThD5p86VKc3R`, and exclude Git administrative paths from portable
+repository-relative paths, patterns, ordinary scopes, and changed-path
+evidence in thread `PRRT_kwDOThD5p86VKc3X`. This working-tree revision records
+the proposed documentation-only repairs for those findings. Both sixth-review
+threads remain external GitHub records; no reply or resolution is claimed.
 
-The proposed repair awaits independent read-only audit, separate commit
-authorization, exact committed-head verification, push authorization,
+The proposed sixth-review repair awaits independent read-only audit, separate
+commit authorization, exact committed-head verification, push authorization,
 remote-head confirmation, GitHub evidence synchronization, re-review, and
 merge-readiness review. Implementation and merge remain external and
 unauthorized. No thread reply or resolution, PR-body update, review request,
@@ -455,8 +460,8 @@ Independent negative vectors MUST reject:
 Phase 1 owns lexical, calendar, leap-year, and instant-order checks without a
 trusted clock. Future `model-implementation` owns strict decoding and
 executable parser/comparison conformance. Phase 4 owns trusted time,
-authenticity, freshness, and event truth. The five existing protected values
-and all 18 occurrences after the golden-receipt repair remain byte-identical.
+authenticity, freshness, and event truth. After the golden-receipt repair, the
+protected corpus contains five distinct timestamp values across 20 occurrences.
 
 Future Phase 1 static and contract coverage MUST enforce all 12 chronology
 relations in the design record's [timestamp chronology
@@ -478,7 +483,8 @@ receipt starting before contract issuance, a delivery attempt before receipt
 completion, and equal or reversed issuance freshness.
 
 For one complete issued-contract receipt and referenced TaskContract pair, let
-`P` be every `pre-action-revalidation` check. Existing array validation first
+`P` be every `pre-action-revalidation` check and let `E` be every `execution`
+check. Existing array validation first
 requires every `sequence` to equal its array position, sequences contiguous
 from zero, and unique `checkId` values. When `P` is non-empty, the final
 applicable check is its unique greatest-sequence member—equivalently, the last
@@ -491,29 +497,41 @@ receipt remains non-authorizing evidence.
 
 Every `succeeded`, `failed`, `cancelled`, or `indeterminate` execution attempt
 requires `count(P) >= 1`, requires the final applicable check to have outcome
-`passed`, and requires that final check to be strictly before contract expiry.
+`passed`, requires that final check to be strictly before contract expiry, and
+requires `count(E) >= 1`.
 Every other passed member of `P` must also be strictly pre-expiry. Earlier
 failed or indeterminate checks may coexist with attempted execution only when a
 later final check passes before expiry. An earlier passed/pre-expiry check
 followed by a final failed or indeterminate check is invalid before
-receipt-digest acceptance.
+receipt-digest acceptance. For every `e` in `E`, tests require
+`finalApplicablePreActionCheck.sequence < e.sequence`. An execution check
+before the final applicable pre-action check invalidates the receipt even when
+another execution check occurs after it.
 
 The eight exact focused positive classes are:
 
-1. `succeeded` attempted execution with a final passed/pre-expiry check;
-2. `failed` attempted execution with a final passed/pre-expiry check;
-3. `cancelled` attempted execution with a final passed/pre-expiry check;
-4. `indeterminate` attempted execution with a final passed/pre-expiry check;
+1. `succeeded` attempted execution with a final passed/pre-expiry check and a
+   later execution check;
+2. `failed` attempted execution with a final passed/pre-expiry check and a
+   later execution check;
+3. `cancelled` attempted execution with a final passed/pre-expiry check and a
+   later execution check;
+4. `indeterminate` attempted execution with a final passed/pre-expiry check and
+   a later execution check;
 5. a final passed check exactly at the permitted issuance-side lower-bound
-   equality;
-6. a final passed check at the last valid whole second before expiry;
+   equality followed by an execution check;
+6. a final passed check at the last valid whole second before expiry followed
+   by an execution check;
 7. completion and later lifecycle stages after expiry following a valid final
-   passed/pre-expiry check; and
+   passed/pre-expiry check and later execution check; and
 8. earlier failed and/or indeterminate checks followed by a final
-   passed/pre-expiry check.
+   passed/pre-expiry check and then an execution check.
 
-The 25 exact focused negative classes are the existing 17 classes plus exactly
-eight mixed-result classes:
+Every attempted-execution positive contains at least one `execution` check
+after the final valid pre-action check.
+
+The 33 exact focused negative classes are the existing 25 classes plus exactly
+eight execution-presence and ordering classes:
 
 1. `succeeded` attempted execution with the required check missing;
 2. `failed` attempted execution with the required check missing;
@@ -550,30 +568,82 @@ eight mixed-result classes:
 24. `cancelled` execution with an earlier passed/pre-expiry check followed by
     a final indeterminate check; and
 25. `indeterminate` execution with an earlier passed/pre-expiry check followed
-    by a final indeterminate check.
+    by a final indeterminate check;
+26. `succeeded` attempted execution with no execution check;
+27. `failed` attempted execution with no execution check;
+28. `cancelled` attempted execution with no execution check;
+29. `indeterminate` attempted execution with no execution check;
+30. `succeeded` attempted execution with an execution check before the final
+    applicable pre-action check and another execution check after it;
+31. `failed` attempted execution with an execution check before the final
+    applicable pre-action check;
+32. `cancelled` attempted execution with an execution check before the final
+    applicable pre-action check; and
+33. `indeterminate` attempted execution with an execution check before the
+    final applicable pre-action check.
 
 Duplicate sequence, sequence gap, duplicate check ID, and other generic
 check-array failures remain in their existing families and do not inflate this
-25-class focused total.
+33-class focused total.
 
-A `not-attempted` receipt may have no pre-action check and may retain failed or
-indeterminate evidence at or after expiry; any passed check must still be
-strictly pre-expiry, but no final-passed requirement applies. Tests MUST NOT
+A `not-attempted/not-performed` receipt may have neither a pre-action check nor
+an execution check and may retain failed or indeterminate evidence at or after
+expiry; any passed pre-action check must still be strictly pre-expiry, but no
+final-passed or execution-check presence requirement applies. Tests MUST NOT
 require completion, sanitization, finalization, or delivery before expiry;
 infer freshness from `startedAt`; impose `finishedAt <= expiresAt`; add a new
 check kind; introduce a new timestamp or checkpoint field; require exactly one
-pre-action check, global check-type uniqueness, or an execution check; or treat
-final-check selection as a thirteenth chronology relation. Phase 1 checks
+pre-action check or global check-type uniqueness; or treat final-check selection
+or execution-check sequence ordering as a thirteenth chronology relation.
+Tests also MUST NOT require exactly one execution check or require execution
+checks to form one contiguous region. Phase 1 checks
 internal claims only. Phase 4 owns trusted time, authenticity, actual
 immediacy, evidence truth, and operational freshness.
 
 The universal pipeline, digest catalog, framing, separators, other nine digest
 results, and non-receipt golden bytes remain unchanged. The repaired successful
-receipt has one canonical passed pre-action check in both representations, a
-1355-byte projection, a 1445-byte completed value, and tagged digest
-`sha256:0bdca1267e2e9d983565587b03a8cb8185b69e4f00271d897435661e974f2f77`.
+receipt has one canonical passed pre-action check followed by the exact
+canonical passed execution check in both representations, a 1530-byte
+projection, a 1620-byte completed value, and tagged digest
+`sha256:da362d27555ebf9c737b6bfcd7e31b12b3a7c7381280a6bba2b9965f0098f01e`.
 The delivery result copies that value exactly rather than computing a new
 digest.
+
+### Portable repository-relative path coverage
+
+Future strict-decoder and static coverage MUST require strict UTF-8 and an
+already-NFC value before applying the POSIX relative-path grammar. It MUST
+reject, without normalization, case folding, aliasing, or repair, any exact
+case-sensitive `.git` component at any depth. Exact invalid path vectors are
+`.git`, `.git/config`, `.git/hooks/pre-commit`,
+`.git/worktrees/example/HEAD`, `foo/.git`, `foo/.git/config`, and
+`nested/repository/.git/HEAD`. Exact valid similar-name vectors are
+`.gitignore`, `.gitmodules`, `.github`, `foo.git`, `dir/.gitignore`, and
+`dir/.github/workflow.yml`.
+
+Pattern coverage retains anchored segment-local `*` and `?` plus
+complete-segment `**`, all over the revised valid path universe `U`. Exact
+invalid literal-component patterns are `.git/**`, `.git/config`,
+`foo/.git/**`, and `foo/.git/config`. `**` itself is valid and MUST be proved
+unable to match a reserved path because reserved paths are outside `U`.
+
+The vector matrix MUST apply the same rule to Domain and role-derived scope,
+HostOverlay ceilings and D10 automata inclusion, RoutingPolicy/static
+inclusion, TaskContract authorized and prohibited scopes, baseline and
+postcondition paths, all five path-keyed transition branches, receipt
+`changedPaths`, and `scope-contained` verification. `modify` plus `**` and
+Git-administration capability tokens MUST NOT authorize direct `.git/config`,
+hook, ref, or other administrative-path mutation. A runtime-resolved
+administrative effect cannot be reported as a successful ordinary changed path
+or silently omitted; `scope-contained` must be failed or indeterminate.
+
+Phase 3 vectors retain live resolution for top-level `.git` indirection,
+linked and common Git directories, administrative locations outside the
+worktree root, symlink, junction, reparse-point and other aliases, case-folded,
+Windows 8.3, and Unicode-normalized aliases, registered-submodule
+administrative roots, and nested-repository administrative roots. Each
+unresolved or aliased boundary fails closed, and portable expected values never
+contain the resolved host path.
 
 ### Canonical structured-remote coverage
 
@@ -745,8 +815,12 @@ Future Schema and static-contract coverage MUST implement every row of the
 design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
 Prior approval and third-review repair history remain recorded externally and
-at commit `9eac3e040a8d0f9c959eeb675eace795749e422a`. This section records design-only, non-executable coverage requirements for the fourth-review repair. Independent audit and later gate outcomes are external records; this test plan neither asserts their current state nor replaces those records. Matrix coverage remains planned: no validator, fixture,
-executable test, or Schema implementation exists, and the toolchain and
+at commit `9eac3e040a8d0f9c959eeb675eace795749e422a`. This section records design-only,
+non-executable coverage requirements for the retained fourth- and fifth-review
+repairs and the proposed sixth-review repairs. Independent audit and later gate
+outcomes are external records; this test plan neither asserts their current
+state nor replaces those records. Matrix coverage remains planned: no
+validator, fixture, executable test, or Schema implementation exists, and the toolchain and
 separately authorized implementation gates remain blocking.
 
 ### F-01–F-12 semantic-closure coverage
@@ -767,8 +841,10 @@ the design, while preserving its assigned phase and ownership boundary:
 - **D3:** exercise the sole eleven-step recursive leaf-only untracked/ignored
   inventory, complete ignore precedence and negation, submodule and nested-repo
   boundaries, `S(path)` order, require every repository-relative path to
-  satisfy the defined `repositoryRelativePath` profile, strict UTF-8, and
-  already-NFC checks, and cover every fail-closed observation class.
+  satisfy the revised `repositoryRelativePath` profile, strict UTF-8,
+  already-NFC, and exact `.git`-component rejection, cover the exact valid and
+  invalid similar-name vectors, and cover every fail-closed administrative-root
+  and alias observation class.
 - **D4:** reproduce the fixed raw regular, executable, and link-target byte
   digests without filters, decoding, normalization, or dereference, and reject
   unstable, unreadable, replaced, truncated, or unsupported objects.
@@ -796,7 +872,9 @@ the design, while preserving its assigned phase and ownership boundary:
   host transformation, or array reordering; Phase 2 alone resolves and routes.
 - **D10:** prove Project/role identity, exact capability equations, repository
   and remote inclusion, binding-name resolution, and path-language inclusion
-  with deterministic automata; reject widening and every unavailable proof;
+  with deterministic automata over revised `U`; reject each literal `.git`
+  component pattern, prove broad `**` excludes reserved paths, reject widening
+  and every unavailable proof;
   and prove HostOverlay, availability, branch, or lease state cannot make an
   incomplete selected role eligible.
 - **D11:** `schema-contracts` catalogs eleven digest field paths bound once to
@@ -825,7 +903,7 @@ approval, integration, and distinct-worktree gates. Phase 2 retains routing,
 Phase 3 retains live Git/branch/worktree/lease observation, and Phase 4 retains
 trusted replay, issuer provenance, authority, receipt truth, and delivery.
 
-The fifth-review repaired invariant inventory is exact:
+The sixth-review proposed-repair invariant inventory is exact:
 
 ```text
 Schema resources = 11
@@ -843,7 +921,7 @@ timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
 chronology relations = 12
 focused pre-action positive classes = 8
-focused pre-action negative classes = 25
+focused pre-action negative classes = 33
 receipt/contract equalities = 8
 receipt-binding positive vectors = 5
 receipt-binding negative vectors = 18
@@ -853,7 +931,7 @@ receipt/delivery digest copies = 1
 numeric fields = 6
 ```
 
-The protected corpus retains five distinct timestamp values across 18
+The protected corpus retains five distinct timestamp values across 20
 occurrences and seven structured-remote occurrences.
 
 The required future coverage includes, concisely:
@@ -888,7 +966,7 @@ The required future coverage includes, concisely:
   stage range exactly `0..0`, stage `0` valid, and stages `1` through `4`
   invalid.
 
-### Fifth-review operation and lock coverage
+### Retained fifth-review operation and lock coverage
 
 Active-operation positives cover a none-only TaskContract baseline, an optional
 none-only postcondition, all seven operation identities as non-authorizing live
@@ -940,7 +1018,9 @@ active-operation and administrative-lock postconditions are both none-only.
 Negative coverage MUST reject identical `from`/`to`, missing target keys,
 unknown transition types, both retired transition types, duplicate transition
 targets, duplicate postcondition types, non-empty active-operation or
-administrative-lock expectations, and a missing or repeated `scope-contained`.
+administrative-lock expectations, any exact `.git` component in a path-keyed
+value, a successful scope claim that omits an administrative effect, and a
+missing or repeated `scope-contained`.
 Uniqueness is established before digest projection or hashing.
 
 Receipt vectors MUST cover warning records with and without optional fields,
@@ -948,10 +1028,11 @@ all check types, contiguous warning/check sequences, unique check IDs, ordered
 reason-code sets, and every same-receipt `relatedCheckId` case independent of
 sequence position. Issued-contract vectors exercise successful,
 denied-before-action, failed, cancelled, and indeterminate outcomes, all 12
-chronology relations, all eight positive and 25 negative focused pre-action
-classes, greatest-sequence final-applicable selection, and no additional
-check-sequence chronology. Failed or indeterminate release without an unresolved
-warning rejects. Pre-contract-denial vectors cover every permitted
+chronology relations, all eight positive and 33 negative focused pre-action
+classes, greatest-sequence final-applicable selection, `count(P) >= 1`,
+`count(E) >= 1`, universal execution-after-final-pre-action ordering, and no
+additional timestamp chronology. Failed or indeterminate release without an
+unresolved warning rejects. Pre-contract-denial vectors cover every permitted
 checkpoint/acquisition-state pair, every unlisted pair, and all acquired-lease
 cleanup outcomes. Impossible execution, verification, release, lifecycle,
 warning, and attempted-execution freshness combinations reject
@@ -998,8 +1079,9 @@ pipeline:
 8. complete TaskContract digest verification;
 9. issued receipt/TaskContract field equality;
 10. cross-artifact chronology, greatest-sequence final-applicable pre-action
-    check selection, attempted-execution final-pass/pre-expiry enforcement, and
-    outcome consistency;
+    check selection, attempted-execution final-pass/pre-expiry enforcement,
+    execution-check presence and universal sequence ordering, and outcome
+    consistency;
 11. receipt digest verification; and
 12. delivery-result binding and chronology.
 
