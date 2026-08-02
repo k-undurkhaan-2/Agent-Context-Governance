@@ -26,23 +26,32 @@ branch/PR-head confirmation completed; and both sixth-review threads,
 `PRRT_kwDOThD5p86VKc3R` and `PRRT_kwDOThD5p86VKc3X`, received exactly one owner
 evidence reply and were resolved.
 
-The seventh Codex review, REST review `4828747866` and GraphQL review
-`PRR_kwDOThD5p88AAAABH9DYWg`, was submitted `2026-07-31T13:11:51Z` against
-exact head `37e3f373b012050ac424ea7d74c39396196d7da4` and produced exactly four
-validated findings in threads `PRRT_kwDOThD5p86VbJ8z`,
-`PRRT_kwDOThD5p86VbJ83`, `PRRT_kwDOThD5p86VbJ85`, and
-`PRRT_kwDOThD5p86VbJ89`. This working-tree revision records proposed
-documentation-only repairs for those four findings. All four seventh-review
-threads remain unresolved external records with no owner reply.
+The seventh-review documentation repair was committed at exact commit
+`529d9d535198b55b80aedf64141967e6bf66448f` after independent read-only
+candidate audit. The exact OpenPGP-signed committed head was independently
+verified; its single-ref non-force push and remote branch/PR-head confirmation
+completed; all four seventh-review threads received owner replies and were
+resolved; and the PR body was synchronized. The seventh top-level
+`@codex review` request is REST comment `5151809449` / GraphQL comment
+`IC_kwDOThD5p88AAAABMxJfqQ`.
 
-This candidate awaits independent read-only audit, separate commit
-authorization, exact committed-head verification, push authorization,
-remote/PR-head confirmation, GitHub evidence synchronization, re-review, and
-merge-readiness review. Schema implementation, model implementation,
-model-worktree creation, and merge remain external and unauthorized. No
-seventh-review thread reply or resolution, PR-body update, review request,
-Schema implementation, model implementation, or model-worktree action is
-claimed.
+The eighth Codex review, REST review `4834819015` and GraphQL review
+`PRR_kwDOThD5p88AAAABIC17xw`, was submitted `2026-08-01T14:21:32Z` against
+exact head `529d9d535198b55b80aedf64141967e6bf66448f` and produced exactly three
+findings in threads `PRRT_kwDOThD5p86VoslV`, `PRRT_kwDOThD5p86VoslY`, and
+`PRRT_kwDOThD5p86VoslZ`.
+This working-tree revision is an uncommitted eighth-review documentation-contract repair candidate for those three findings and claims no future candidate commit SHA.
+
+This candidate awaits separately authorized independent read-only candidate
+audit, commit authorization, exact committed-head verification, push
+authorization, remote/PR-head confirmation, replies and resolutions for the
+three eighth-review threads, PR-body synchronization, a fresh re-review,
+merge-readiness determination, and merge. Schema resource implementation,
+executable validators, fixtures, executable tests, production model
+implementation, model-worktree creation, runtime-authority activation,
+release, and merge remain external and unauthorized. No eighth-review thread
+reply or resolution, PR-body update, review request, Schema or model
+implementation, model-worktree action, release, or merge is claimed.
 
 All 11 resources remain `reserved-unpublished`; the validator/toolchain and
 Schema-before-model gates remain binding. The exact UUID-URN catalog reserves
@@ -126,8 +135,10 @@ non-digest target projection is:
 
 Both complete artifacts and the TaskContract derivation prerequisites validate
 before its cataloged digest is recomputed. All eight equalities, chronology,
-and outcome/release consistency validate before receipt-digest acceptance.
-Delivery binding and chronology validate only after receipt finalization. No
+phase-dependent check outcomes, final-P/E/V selection and binding,
+changed-path scope conformance, and outcome/release consistency validate before
+receipt-digest acceptance. Delivery binding and chronology validate only after
+receipt finalization. No
 new digest or `TaskContract.spec.taskContractDigest` field is introduced, and
 a mismatch is invalid rather than normalized, repaired, reclassified, or
 matched to another contract.
@@ -175,24 +186,27 @@ transport, host, effective port, ordered namespace, and repository tuple.
 by `J(remote)`; outer remote expectations remain keyed and ordered by only
 `remoteName`. HostOverlay narrowing uses exact validated membership without
 aliases or ignored fields. The design and test plan record all five positive
-and 18 negative receipt-binding vectors, ten positive and 24 negative timestamp
-vectors, ten positive and 20 negative focused post-execution-verification
-vectors, and 15 positive and 61 negative remote vectors.
+and 18 negative receipt/contract equality-binding vectors, ten positive and 24
+negative timestamp vectors, eight positive and 21 negative final-E vectors,
+ten positive and 20 negative focused post-execution-verification vectors, five
+positive and six dedicated negative changed-path scope vectors, and 15 positive
+and 61 negative remote vectors.
 
 These repairs apply the existing universal pipeline in this effective
 dependency order: strict bytes/tokens; timestamp and remote lexemes; Schema
 structure; local Phase 1 invariants; array and remote order; validated
 representation; digest projection/computation; complete TaskContract digest;
 receipt/contract equality; chronology, P/E/V presence and universal ordering,
-final-`P` freshness, final-`V` outcome binding, not-attempted `V` emptiness and
-outcome consistency; receipt digest; then delivery binding/chronology. They do
+final-`P` freshness, final-`E` and final-`V` outcome binding, changed-path scope
+conformance, not-attempted E/V emptiness and outcome consistency; receipt
+digest; then delivery binding/chronology. They do
 not replace or alter that protected pipeline.
 `schema-contracts` specifies the structural/static contract and vectors;
 future `model-implementation` owns executable codec, projection, hashing, and
 cross-artifact conformance; Phase 3 owns live remote and host facts; and Phase 4
 owns trusted provenance, authority, time, freshness, and evidence truth.
 
-## Retained prior-review repairs and seventh-review proposed repairs
+## Retained prior-review repairs and eighth-review repair candidate
 
 The fourth-review active-operation retirement remains unchanged. A
 `TaskContract` materializes nine baseline dimensions, and both
@@ -273,11 +287,18 @@ For an issued-contract receipt, let `P` be every
 `pre-action-revalidation` check, `E` every `execution` check, and `V` every
 `post-execution-verification` check. Check sequence is the array position:
 sequences are contiguous from zero and check IDs are unique. The final
-applicable pre-action check is the unique greatest-sequence member of `P`, and
-the final applicable verification check is the unique greatest-sequence member
-of `V`. Both selections use `sequence` only, never `observedAt`, outcome,
-serialization, iteration order, locale, or check ID. Earlier `V` outcomes may
-differ; the final greatest-sequence `V` controls the receipt-level outcome.
+applicable pre-action, execution, and verification checks are the unique
+greatest-sequence members of `P`, `E`, and `V`, respectively. Every selection
+uses `sequence` only, never `observedAt`, outcome, serialization, iteration
+order, locale, or check ID. Earlier E and V outcomes may differ; only the final
+greatest-sequence E and V members control their receipt-level outcomes.
+
+The single check `outcome` field has exactly two conditional branches. An
+`execution` check uses exactly `succeeded`, `failed`, `cancelled`, or
+`indeterminate`; every non-execution check uses exactly `passed`, `failed`, or
+`indeterminate`. Execution `passed`, non-execution `succeeded` or `cancelled`,
+and every unknown outcome are invalid. There is no second execution result,
+detail, mapping, or lossy cancellation field.
 
 Every `{succeeded, failed, cancelled, indeterminate}` execution attempt
 requires `count(P) >= 1`, `count(E) >= 1`, and `count(V) >= 1`. The final
@@ -286,7 +307,8 @@ passed `P` must also be strictly pre-expiry. For every `e` in `E`, the final
 applicable `P` has a lower sequence and an equal or earlier `observedAt`. For
 every `e` in `E` and every `v` in `V`, `e` has a lower sequence and an equal or
 earlier `observedAt`. The receipt `verificationOutcome` must equal the final
-applicable `V` outcome exactly. These universal rules mean one early or
+applicable `V` outcome exactly, and `executionOutcome` must equal the final
+applicable `E` outcome exactly. These universal rules mean one early or
 interleaved member invalidates the receipt even when a later member is valid.
 Whole-second timestamp equality is permitted.
 
@@ -297,37 +319,57 @@ by sequence:  final applicable P < every E < every V
 by timestamp: final applicable P <= every E <= every V
 ```
 
-A `not-attempted/not-performed` receipt may omit both `P` and `E`, but `V` must
-be empty; any stray verification check is invalid. It may retain failed or
-indeterminate pre-action denial evidence at or after expiry, while any passed
-pre-action check remains strictly pre-expiry. Receipt completion and later
-lifecycle stages may occur after expiry. `startedAt` is not proof of action
-freshness, no `finishedAt <= expiresAt` rule exists, and sequence selection
-adds no timestamp relation. The two new universal timestamp comparisons bring
-the chronology total to exactly 14.
+A `not-attempted/not-performed` receipt has both E and V empty; P is optional.
+It may retain failed or indeterminate pre-action denial evidence at or after
+expiry, while any passed pre-action check remains strictly pre-expiry. Any
+stray E or V is invalid. Receipt completion and later lifecycle stages may
+occur after expiry. `startedAt` is not proof of action freshness, no
+`finishedAt <= expiresAt` rule exists, sequence selection adds no timestamp
+relation, and there is no E-to-E timestamp monotonicity requirement. The two
+universal cross-type comparisons keep the chronology total exactly 14.
 
 The focused pre-action inventory remains exactly eight positive and 33 negative
-classes. The separate focused post-execution-verification family contains
-exactly ten positives: four attempted execution outcomes with `passed`; one
-`succeeded/failed`; one `succeeded/indeterminate`; E/V timestamp equality;
-multiple E before one V; mixed earlier V outcomes followed by final `passed`;
-and `not-attempted/not-performed` with V empty. Its exactly 20 negatives are
-four attempted outcomes with V missing; four with a V sequenced before an E,
-including one with a later valid V; one V interleaved between two E; one
-sequence-valid but timestamp-early V; one multiple-V case with an early
-verification timestamp; all six final-V/receipt-outcome mismatches, including
-an earlier matching V followed by a mismatching final V; and three
-not-attempted receipts with a stray passed, failed, or indeterminate V. Generic
-sequence gaps, duplicate sequences, duplicate check IDs, and malformed arrays
-remain outside this 10/20 family. D6 remains exactly 13 valid and 7 invalid
-receipt-level combinations.
+classes. The closed final-E family is exactly eight positive and 21 negative
+classes: four single-E exact matches; four multi-E exact matches covering every
+final outcome; the complete 12-cell top-level/final-E mismatch matrix; E absent
+for attempted execution; stray E for not-attempted execution; execution
+`passed`; P or V `succeeded`; P or V `cancelled`; and unknown outcomes in both
+conditional branches. The multi-E contradiction is one mismatch-matrix cell,
+not an added class. The E-absence class explicitly overlaps the four
+outcome-specific focused pre-action cases 26 through 29 and is counted once in
+the final-E predicate family.
+
+The separate focused post-execution-verification family remains exactly ten
+positive and 20 negative classes, including all final-V mismatch and stray-V
+cases. Generic sequence gaps, duplicate sequences, duplicate check IDs, and
+malformed arrays remain outside these named families. D6 remains exactly 13
+valid and 7 invalid receipt-level combinations; final-E and final-V binding are
+additional gates and do not change that table.
+
+For referenced TaskContract `C`, `A` is the union of
+`C.spec.authorizedScope.paths` languages and `Q` is the union of
+`C.spec.prohibitedScope.paths` languages. A writing receipt's successful scope
+claim requires every changed path to be in `A` and not in `Q`; prohibited
+membership overrides authorization. Passed verification also requires passed
+mandatory `scope-contained` evidence. One bad member invalidates the passed
+claim, requires failed or indeterminate verification, and forbids a succeeded
+lifecycle, while the offending path remains audit evidence. Empty writing
+results satisfy membership vacuously without waiving completeness or evidence.
+
+The focused scope family is exactly five positive and six dedicated negative
+classes: single and multiple authorized results; empty writing no-effect
+evidence; offending paths retained under failed and indeterminate verification;
+outside-A, A-and-Q, Q-only, one-bad-of-many, succeeded-lifecycle violation, and
+missing passed `scope-contained` evidence negatives. The unchanged D5
+non-writing/non-empty-changed-path invalid class is cross-referenced, not
+duplicated.
 
 D5 now contains exactly 21 `3 × 7` Cartesian negatives. Removing the retired
 administrative-lock transition removes two TaskContract administrative-lock
 array rows, so the array-ordering matrix contains 52 rows while the reusable
 evidence union retains its identity and ordering rules.
 
-The seventh-review proposed-repair invariant inventory is:
+The eighth-review repair-candidate invariant inventory is:
 
 ```text
 Schema resources = 11
@@ -340,28 +382,40 @@ mandatory SG-001 rows = 25
 D5 Cartesian negatives = 21
 active-operation regressions = 21
 administrative-lock regressions = 21
+check-outcome conditional branches = 2
+non-execution check-outcome values = 3
+execution check-outcome values = 4
+distinct check-outcome tokens = 5
 timestamp paths = 9
 timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
 chronology relations = 14
 focused pre-action positives = 8
 focused pre-action negatives = 33
+final-E exact-match positives = 4
+final-E multi-E positives = 4
+final-E total positives = 8
+final-E mismatch-matrix negatives = 12
+final-E total negatives = 21
 focused post-execution-verification positives = 10
 focused post-execution-verification negatives = 20
+changed-path scope positives = 5
+changed-path scope dedicated negatives = 6
+changed-path scope D5 cross-reference = 1 existing family, not additive
 D6 valid receipt-level combinations = 13
 D6 invalid receipt-level combinations = 7
 receipt/contract equalities = 8
-receipt-binding positives = 5
-receipt-binding negatives = 18
+receipt/contract equality-binding positives = 5
+receipt/contract equality-binding negatives = 18
 digest-bearing paths = 11
 digest computations = 10
 receipt/delivery digest copies = 1
 numeric fields = 6
 ```
 
-The repaired synthetic receipt projection is 1741 UTF-8 bytes and its completed
-form is 1831 UTF-8 bytes. Its independently recomputed digest is
-`sha256:95bb30141cd59f06c678ef685d754ee27ac9329af29050045836c7669530360d`,
+The repaired synthetic receipt projection is 1744 UTF-8 bytes and its completed
+form is 1834 UTF-8 bytes. Its independently recomputed digest is
+`sha256:7d7b613acc8f2e7cae920e77bf254989d6a021c36ed977030f8a49c046b83014`,
 and the delivery result copies that value without a new computation. The
 protected corpus retains five distinct timestamp values across 22 occurrences
 and seven structured-remote occurrences. The universal twelve-step pipeline,

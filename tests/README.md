@@ -28,23 +28,33 @@ branch/PR-head confirmation completed; and both sixth-review threads,
 `PRRT_kwDOThD5p86VKc3R` and `PRRT_kwDOThD5p86VKc3X`, received exactly one owner
 evidence reply and were resolved.
 
-The seventh Codex review, REST review `4828747866` and GraphQL review
-`PRR_kwDOThD5p88AAAABH9DYWg`, was submitted `2026-07-31T13:11:51Z` against
-exact head `37e3f373b012050ac424ea7d74c39396196d7da4` and produced exactly four
-validated findings in threads `PRRT_kwDOThD5p86VbJ8z`,
-`PRRT_kwDOThD5p86VbJ83`, `PRRT_kwDOThD5p86VbJ85`, and
-`PRRT_kwDOThD5p86VbJ89`. This working-tree revision records proposed
-documentation-only repairs for those four findings. All four seventh-review
-threads remain unresolved external records with no owner reply.
+The seventh-review documentation repair was committed at exact commit
+`529d9d535198b55b80aedf64141967e6bf66448f` after independent read-only
+candidate audit. The exact OpenPGP-signed committed head was independently
+verified; its single-ref non-force push and remote branch/PR-head confirmation
+completed; all four seventh-review threads received owner replies and were
+resolved; and the PR body was synchronized. The seventh top-level
+`@codex review` request is REST comment `5151809449` / GraphQL comment
+`IC_kwDOThD5p88AAAABMxJfqQ`.
 
-This candidate awaits independent read-only audit, separate commit
-authorization, exact committed-head verification, push authorization,
-remote/PR-head confirmation, GitHub evidence synchronization, re-review, and
-merge-readiness review. Schema implementation, model implementation,
-model-worktree creation, and merge remain external and unauthorized. No
-seventh-review thread reply or resolution, PR-body update, review request,
-Schema implementation, executable test, fixture, model implementation, or
-model-worktree action is claimed.
+The eighth Codex review, REST review `4834819015` and GraphQL review
+`PRR_kwDOThD5p88AAAABIC17xw`, was submitted `2026-08-01T14:21:32Z` against
+exact head `529d9d535198b55b80aedf64141967e6bf66448f` and produced exactly three
+findings in threads `PRRT_kwDOThD5p86VoslV`, `PRRT_kwDOThD5p86VoslY`, and
+`PRRT_kwDOThD5p86VoslZ`.
+This working-tree revision is an uncommitted eighth-review documentation-contract repair candidate for those three findings and claims no future candidate commit SHA.
+
+This candidate awaits separately authorized independent read-only candidate
+audit, commit authorization, exact committed-head verification, push
+authorization, remote/PR-head confirmation, replies and resolutions for the
+three eighth-review threads, PR-body synchronization, a fresh re-review,
+merge-readiness determination, and merge. Schema resource implementation,
+executable validators, fixtures, executable tests, production model
+implementation, model-worktree creation, runtime-authority activation,
+release, and merge remain external and unauthorized. No eighth-review thread
+reply or resolution, PR-body update, review request, Schema or model
+implementation, executable test, fixture, model-worktree action, release, or
+merge is claimed.
 
 All 11 resources remain `reserved-unpublished`; the validator/toolchain and
 Schema-before-model gates remain binding. No Schema implementation exists.
@@ -193,7 +203,9 @@ The required conformance order is:
 4. recompute `profile.digest.task-contract-v1` over its exact projection;
 5. compare digest, contract ID, task ID, complete target, and effective mode;
 6. apply chronology against the same contract;
-7. apply receipt outcome, release, non-writing, and remaining consistency;
+7. apply greatest-sequence final-P/E/V selection, phase-dependent check
+   outcomes, final-E and final-V outcome binding, changed-path scope binding,
+   receipt outcome, release, non-writing, and remaining consistency;
 8. only then compute and verify or accept the receipt digest; and
 9. only after receipt finalization validate delivery receipt-ID binding, exact
    finalized digest copy, and delivery chronology.
@@ -500,12 +512,20 @@ For one complete issued-contract receipt and referenced TaskContract pair, let
 `V` every `post-execution-verification` check. Existing array validation first
 requires every `sequence` to equal its array position, sequences contiguous
 from zero, and unique `checkId` values. When non-empty,
-`finalApplicablePreActionCheck` and `finalApplicableVerificationCheck` are the
-unique greatest-sequence members of `P` and `V`, respectively. Selection uses
-`sequence` only, never maximum `observedAt`, timestamp tie-breaking, outcome,
-locale, serialization, `checkId`, or implementation-specific iteration order.
-Earlier V outcomes may differ; the greatest-sequence V is final and controls
-the receipt-level verification outcome.
+`finalApplicablePreActionCheck`, `finalApplicableExecutionCheck`, and
+`finalApplicableVerificationCheck` are the unique greatest-sequence members of
+`P`, `E`, and `V`, respectively. Selection uses `sequence` only, never maximum
+`observedAt`, timestamp tie-breaking, outcome, locale, serialization,
+`checkId`, or implementation-specific iteration order. Earlier E or V outcomes
+may differ; the greatest-sequence members are final and control their
+receipt-level outcomes.
+
+The one check `outcome` field has exactly two closed conditional branches:
+`execution` uses `succeeded`, `failed`, `cancelled`, or `indeterminate`, while
+every non-execution check uses `passed`, `failed`, or `indeterminate`. Tests
+MUST reject execution `passed`, P or V `succeeded`, P or V `cancelled`, and any
+unknown outcome. They MUST NOT introduce a second execution result/detail field
+or map cancellation to another value.
 
 Every `succeeded`, `failed`, `cancelled`, or `indeterminate` execution attempt
 requires `count(P) >= 1`, `count(E) >= 1`, and `count(V) >= 1`. The final
@@ -516,6 +536,8 @@ tests require both
 `finalApplicablePreActionCheck.observedAt <= e.observedAt`. For every `e` in
 `E` and every `v` in `V`, tests require both `e.sequence < v.sequence` and
 `e.observedAt <= v.observedAt`. Finally,
+`executionOutcome == finalApplicableExecutionCheck.outcome` exactly over
+`succeeded`, `failed`, `cancelled`, and `indeterminate`, and
 `verificationOutcome == finalApplicableVerificationCheck.outcome` exactly over
 `passed`, `failed`, and `indeterminate`.
 
@@ -536,6 +558,8 @@ with any E by sequence or timestamp invalidates the receipt even when another
 later member is valid. Earlier failed or indeterminate P members may coexist
 with a later final passed/pre-expiry P; an earlier passed P followed by a final
 failed or indeterminate P remains invalid before receipt-digest acceptance.
+There is no E-to-E timestamp monotonicity relation; sequence alone selects the
+final E.
 
 The eight exact focused positive classes are:
 
@@ -615,6 +639,56 @@ Duplicate sequence, sequence gap, duplicate check ID, and other generic
 check-array failures remain in their existing families and do not inflate this
 33-class focused pre-action total.
 
+#### Focused final-execution-evidence vector family
+
+The exact eight positive classes are:
+
+1. final E `succeeded` exactly matching `executionOutcome: succeeded`;
+2. final E `failed` exactly matching `executionOutcome: failed`;
+3. final E `cancelled` exactly matching `executionOutcome: cancelled`;
+4. final E `indeterminate` exactly matching
+   `executionOutcome: indeterminate`;
+5. multiple E members with an earlier different outcome followed by final E
+   `succeeded` and a matching top-level outcome;
+6. multiple E members with an earlier different outcome followed by final E
+   `failed` and a matching top-level outcome;
+7. multiple E members with an earlier different outcome followed by final E
+   `cancelled` and a matching top-level outcome; and
+8. multiple E members with an earlier different outcome followed by final E
+   `indeterminate` and a matching top-level outcome.
+
+The complete 12-class mismatch matrix independently rejects each pairing of
+one top-level execution outcome with each of the other three final-E outcomes:
+
+| `executionOutcome` | Invalid final-E outcomes |
+| --- | --- |
+| `succeeded` | `failed`; `cancelled`; `indeterminate` |
+| `failed` | `succeeded`; `cancelled`; `indeterminate` |
+| `cancelled` | `succeeded`; `failed`; `indeterminate` |
+| `indeterminate` | `succeeded`; `failed`; `cancelled` |
+
+The `succeeded`/final-`failed` cell uses multiple E members with an earlier
+`succeeded` result. It proves the earlier matching result cannot override the
+contradictory final E and is counted once, not twice.
+
+The remaining nine negative classes are:
+
+13. attempted execution with E empty and therefore no final E because every
+    check is non-execution;
+14. `not-attempted/not-performed` with any E member;
+15. execution using outcome `passed`;
+16. P using outcome `succeeded`;
+17. V using outcome `succeeded`;
+18. P using outcome `cancelled`;
+19. V using outcome `cancelled`;
+20. execution using an unknown outcome; and
+21. a non-execution check using an unknown outcome.
+
+Case 13 explicitly overlaps focused pre-action negative cases 26 through 29:
+those four outcome-specific fixtures satisfy the one E-absence predicate class
+here. With that overlap stated, this family is exactly 8 positive and 21
+negative classes and no other class is double-counted.
+
 #### Focused post-execution-verification vector family
 
 This named family is separate from the focused pre-action family and from D6.
@@ -666,11 +740,10 @@ sequences, duplicate check IDs, and malformed check arrays remain outside this
 10/20 family. The focused pre-action inventory remains 8/33, and the unchanged
 D6 receipt-level table remains exactly 13 valid and 7 invalid combinations.
 
-A `not-attempted/not-performed` receipt may have neither a pre-action check nor
-an execution check and may retain failed or indeterminate evidence at or after
-expiry; any passed pre-action check must still be strictly pre-expiry, but no
-final-passed or execution-check presence requirement applies. Its V set must be
-empty, and every stray passed, failed, or indeterminate V is invalid. Tests MUST
+A `not-attempted/not-performed` receipt has E and V empty, while P is optional
+and may retain failed or indeterminate evidence at or after expiry; any passed
+pre-action check must still be strictly pre-expiry, but no final-passed
+pre-action requirement applies. Every stray E or V is invalid. Tests MUST
 NOT require completion, sanitization, finalization, or delivery before expiry;
 infer freshness from `startedAt`; impose `finishedAt <= expiresAt`; add a new
 check kind; introduce a new timestamp or checkpoint field; require exactly one
@@ -682,16 +755,22 @@ actual immediacy, evidence truth, and operational freshness.
 
 The universal pipeline, digest catalog, framing, separators, other nine digest
 results, and non-receipt golden bytes remain unchanged. The repaired successful
-receipt has canonical passed P sequence 0, E sequence 1, and this exact passed V
-sequence 2 in both representations:
+receipt has canonical passed P sequence 0, succeeded E sequence 1, and passed V
+sequence 2 in both representations. Its execution member is exactly:
+
+```json
+{"checkId":"check.execution","checkType":"execution","observedAt":"2000-01-01T00:00:02Z","outcome":"succeeded","profileId":"profile.validation.v1","reasonCodes":[],"sequence":1}
+```
+
+Its verification member is exactly:
 
 ```json
 {"checkId":"check.post-execution-verification","checkType":"post-execution-verification","observedAt":"2000-01-01T00:00:02Z","outcome":"passed","profileId":"profile.validation.v1","reasonCodes":[],"sequence":2}
 ```
 
-Its projection is exactly 1741 bytes, its completed value is exactly 1831
+Its projection is exactly 1744 bytes, its completed value is exactly 1834
 bytes, and its tagged digest is
-`sha256:95bb30141cd59f06c678ef685d754ee27ac9329af29050045836c7669530360d`.
+`sha256:7d7b613acc8f2e7cae920e77bf254989d6a021c36ed977030f8a49c046b83014`.
 The delivery result copies that value exactly rather than computing a new
 digest.
 
@@ -722,6 +801,41 @@ Git-administration capability tokens MUST NOT authorize direct `.git/config`,
 hook, ref, or other administrative-path mutation. A runtime-resolved
 administrative effect cannot be reported as a successful ordinary changed path
 or silently omitted; `scope-contained` must be failed or indeterminate.
+
+For a complete issued receipt and referenced TaskContract `C`, tests define `A`
+as the union of `C.spec.authorizedScope.paths` languages and `Q` as the union of
+`C.spec.prohibitedScope.paths` languages. For every changed path `x`, a passed
+writing scope claim requires `x` in `A` and `x` not in `Q`; prohibited
+membership overrides authorized membership. Passed verification also requires
+passed mandatory `scope-contained` evidence. One bad member invalidates the
+passed claim, requires failed or indeterminate verification, forbids a
+succeeded lifecycle, and remains in the receipt as audit evidence. Tests MUST
+reject silent dropping, sanitizing, normalizing, or rewriting of an offending
+path. Empty writing results satisfy membership vacuously but retain every
+completeness and evidence requirement.
+
+The five focused positive scope classes are exactly:
+
+1. one authorized, non-prohibited changed path;
+2. multiple changed paths, all authorized and non-prohibited;
+3. an empty writing result with complete passed no-effect evidence;
+4. offending paths retained with failed verification and a non-succeeded
+   lifecycle; and
+5. offending paths retained with indeterminate verification and a
+   non-succeeded lifecycle.
+
+The six dedicated negative scope classes are exactly:
+
+1. a valid ordinary path outside every authorized language with passed
+   verification;
+2. a path in both authorized and prohibited languages with passed verification;
+3. a prohibited-only path with passed verification;
+4. multiple paths with one unauthorized member and passed verification;
+5. any scope violation with `lifecycleOutcome: succeeded`; and
+6. passed verification without passed mandatory `scope-contained` evidence.
+
+The non-writing/non-empty-changed-path invalid case remains in D5. It is a
+required cross-reference but does not add a seventh dedicated scope negative.
 
 Phase 3 vectors retain live resolution for top-level `.git` indirection,
 linked and common Git directories, administrative locations outside the
@@ -903,7 +1017,7 @@ matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixturec
 Prior approval and third-review repair history remain recorded externally and
 at commit `9eac3e040a8d0f9c959eeb675eace795749e422a`. This section records design-only,
 non-executable coverage requirements for the retained prior-review repairs and
-the proposed seventh-review repairs. The current review status is stated above;
+the current eighth-review repair candidate. The current review status is stated above;
 this test plan neither proves nor replaces external audit, GitHub, or
 authorization records. Matrix coverage remains planned: no validator, fixture,
 executable test, or Schema implementation exists, and the toolchain and
@@ -937,10 +1051,12 @@ the design, while preserving its assigned phase and ownership boundary:
 - **D5:** require exactly empty transitions, baseline-equal state
   postconditions, no lease, and empty issued-receipt changed paths for all three
   non-writing rows; cover exactly 21 Cartesian negatives, `3 × 7`, across
-  the seven permitted transition branches.
+  the seven permitted transition branches; cross-reference, without
+  duplicating, the non-empty changed-path invalid case from scope coverage.
 - **D6:** enforce `verificationOutcome: not-performed` if and only if
   `executionOutcome: not-attempted`, cover every allowed pair and all seven
-  invalid pairs, and apply this gate before lifecycle precedence.
+  invalid pairs, then apply the separate final-E/final-V bindings and
+  not-attempted E/V-empty requirements before lifecycle precedence.
 - **D7:** bind each `from` directly to the complete nine-dimension
   baseline, apply only the seven unique permitted transitions simultaneously,
   reconstruct and validate one nine-dimension final composite with active
@@ -989,7 +1105,7 @@ approval, integration, and distinct-worktree gates. Phase 2 retains routing,
 Phase 3 retains live Git/branch/worktree/lease observation, and Phase 4 retains
 trusted replay, issuer provenance, authority, receipt truth, and delivery.
 
-The seventh-review proposed-repair invariant inventory is exact:
+The eighth-review repair-candidate invariant inventory is exact:
 
 ```text
 Schema resources = 11
@@ -1002,19 +1118,31 @@ mandatory SG-001 rows = 25
 D5 Cartesian negatives = 21
 active-operation regressions = 21
 administrative-lock regressions = 21
+check-outcome conditional branches = 2
+non-execution check-outcome values = 3
+execution check-outcome values = 4
+distinct check-outcome tokens = 5
 timestamp paths = 9
 timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
 chronology relations = 14
 focused pre-action positives = 8
 focused pre-action negatives = 33
+final-E exact-match positives = 4
+final-E multi-E positives = 4
+final-E total positives = 8
+final-E mismatch-matrix negatives = 12
+final-E total negatives = 21
 focused post-execution-verification positives = 10
 focused post-execution-verification negatives = 20
+changed-path scope positives = 5
+changed-path scope dedicated negatives = 6
+changed-path scope D5 cross-reference = 1 existing family, not additive
 D6 valid receipt-level combinations = 13
 D6 invalid receipt-level combinations = 7
 receipt/contract equalities = 8
-receipt-binding positives = 5
-receipt-binding negatives = 18
+receipt/contract equality-binding positives = 5
+receipt/contract equality-binding negatives = 18
 digest-bearing paths = 11
 digest computations = 10
 receipt/delivery digest copies = 1
@@ -1114,15 +1242,19 @@ missing or repeated `scope-contained`.
 Uniqueness is established before digest projection or hashing.
 
 Receipt vectors MUST cover warning records with and without optional fields,
-all check types, contiguous warning/check sequences, unique check IDs, ordered
-reason-code sets, and every same-receipt `relatedCheckId` case independent of
-sequence position. Issued-contract vectors exercise successful,
+all check types, the exact phase-dependent 4/3 outcome conditional, every
+invalid cross-phase and unknown outcome, contiguous warning/check sequences,
+unique check IDs, ordered reason-code sets, and every same-receipt
+`relatedCheckId` case independent of sequence position. Issued-contract vectors exercise successful,
 denied-before-action, failed, cancelled, and indeterminate outcomes, all 14
 chronology relations, all eight positive and 33 negative focused pre-action
-classes, all ten positive and 20 negative focused post-execution-verification
-classes, greatest-sequence final-P and final-V selection, `count(P) >= 1`,
+classes, all eight positive and 21 negative final-E classes, all ten positive
+and 20 negative focused post-execution-verification classes, all five positive
+and six dedicated negative changed-path scope classes plus the D5
+cross-reference, greatest-sequence final-P/E/V selection, `count(P) >= 1`,
 `count(E) >= 1`, `count(V) >= 1`, universal P/E/V ordering by sequence and
-timestamp, final-V outcome binding, and not-attempted V emptiness. Failed or
+timestamp, final-E and final-V outcome binding, changed-path scope conformance,
+and not-attempted E/V emptiness. Failed or
 indeterminate release without an
 unresolved warning rejects. Pre-contract-denial vectors cover every permitted
 checkpoint/acquisition-state pair, every unlisted pair, and all acquired-lease
@@ -1170,10 +1302,11 @@ pipeline:
 7. digest projection and digest computation where applicable;
 8. complete TaskContract digest verification;
 9. issued receipt/TaskContract field equality;
-10. cross-artifact chronology, greatest-sequence final-P and final-V
+10. cross-artifact chronology, greatest-sequence final-P, final-E, and final-V
     selection, attempted P/E/V presence, final-P pass/pre-expiry enforcement,
-    universal sequence and timestamp ordering, final-V outcome binding,
-    not-attempted V emptiness, and outcome consistency;
+    universal sequence and timestamp ordering, final-E and final-V outcome
+    binding, changed-path scope conformance, not-attempted E/V emptiness, and
+    outcome consistency;
 11. receipt digest verification; and
 12. delivery-result binding and chronology.
 
