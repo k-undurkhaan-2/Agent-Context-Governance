@@ -37,24 +37,48 @@ resolved; and the PR body was synchronized. The seventh top-level
 `@codex review` request is REST comment `5151809449` / GraphQL comment
 `IC_kwDOThD5p88AAAABMxJfqQ`.
 
-The eighth Codex review, REST review `4834819015` and GraphQL review
-`PRR_kwDOThD5p88AAAABIC17xw`, was submitted `2026-08-01T14:21:32Z` against
-exact head `529d9d535198b55b80aedf64141967e6bf66448f` and produced exactly three
-findings in threads `PRRT_kwDOThD5p86VoslV`, `PRRT_kwDOThD5p86VoslY`, and
-`PRRT_kwDOThD5p86VoslZ`.
-This working-tree revision is an uncommitted eighth-review documentation-contract repair candidate for those three findings and claims no future candidate commit SHA.
+The eighth-review repair for REST review `4834819015` / GraphQL review
+`PRR_kwDOThD5p88AAAABIC17xw` was committed at exact commit
+`fa0f3acde1e596c1377a680185375b7f333513d7`, whose sole parent is
+`529d9d535198b55b80aedf64141967e6bf66448f`, after its correctly bound
+three-file candidate completed independent read-only re-audit. The exact
+OpenPGP-signed committed content was verified, GitHub reports its signature as
+verified and valid, and its single-ref non-force push and remote branch,
+GitHub commit-object, REST PR-head, and GraphQL PR-head confirmations
+completed. All three eighth-review threads (`PRRT_kwDOThD5p86VoslV`,
+`PRRT_kwDOThD5p86VoslY`, and `PRRT_kwDOThD5p86VoslZ`) each received one owner
+evidence reply and were resolved, leaving 22 total / 22 resolved / 0
+unresolved threads, and the PR body was synchronized. The eighth exact
+top-level `@codex review` request is REST comment `5158492410` / GraphQL
+comment `IC_kwDOThD5p88AAAABM3hY-g`, created `2026-08-02T14:21:43Z` with
+exact body `@codex review`. The accepted provenance begins with that correctly
+bound independent re-audit, not the provenance-invalid cross-worktree
+implementation receipt.
 
-This candidate awaits separately authorized independent read-only candidate
-audit, commit authorization, exact committed-head verification, push
-authorization, remote/PR-head confirmation, replies and resolutions for the
-three eighth-review threads, PR-body synchronization, a fresh re-review,
-merge-readiness determination, and merge. Schema resource implementation,
-executable validators, fixtures, executable tests, production model
-implementation, model-worktree creation, runtime-authority activation,
-release, and merge remain external and unauthorized. No eighth-review thread
-reply or resolution, PR-body update, review request, Schema or model
-implementation, executable test, fixture, model-worktree action, release, or
-merge is claimed.
+The eighth exact top-level `@codex review` request is REST comment
+`5158492410` / GraphQL comment `IC_kwDOThD5p88AAAABM3hY-g`. It produced the
+ninth Codex review, REST review `4838766732` / GraphQL review
+`PRR_kwDOThD5p88AAAABIGm4jA`, submitted `2026-08-02T14:24:32Z` against exact
+commit `fa0f3acde1e596c1377a680185375b7f333513d7`. That review reported exactly
+one P2 status-synchronization finding in thread `PRRT_kwDOThD5p86VxzBP`,
+whose top-level comment is REST `3699333921` / GraphQL
+`PRRC_kwDOThD5p87cf1sh`.
+
+At the read-only `integration-control` triage snapshot taken after that review
+and before any ninth-review repair evidence was published, the PR contained
+eight exact top-level review requests, nine completed Codex reviews, and 23
+review threads: 22 resolved and one unresolved. The ninth-review thread had
+zero owner replies. These counts describe that named historical snapshot only;
+current branch, review, reply, resolution, PR-body, and merge state must be
+established from authoritative Git and GitHub records.
+
+The wording in this file records the completed eighth-review lineage and the
+ninth-review finding. It does not assert the audit, commit, committed-head
+content or signature verification, push, remote/PR-head, reply, resolution,
+PR-body, re-review, merge-readiness, or merge state of any repair after
+`fa0f3acde1e596c1377a680185375b7f333513d7`. No statement in this file grants
+authority for those actions, Schema or model implementation, model-worktree
+creation, runtime activation, release, or merge.
 
 All 11 resources remain `reserved-unpublished`; the validator/toolchain and
 Schema-before-model gates remain binding. No Schema implementation exists.
@@ -1009,15 +1033,15 @@ Planned negative coverage MUST include:
 
 Untracked and ignored path arrays MUST remain unique and canonically ordered by `S(path)`. Path arrays nested in postconditions MUST retain their applicable `S(path)` rule. This test-plan synchronization does not change the design record's [array-ordering contract](../docs/schema-contract-v1alpha1.md#11-complete-array-ordering-matrix).
 
-### SG-001 closure coverage
+### Current conformance coverage
 
 Future Schema and static-contract coverage MUST implement every row of the
 design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
 Prior approval and third-review repair history remain recorded externally and
 at commit `9eac3e040a8d0f9c959eeb675eace795749e422a`. This section records design-only,
-non-executable coverage requirements for the retained prior-review repairs and
-the current eighth-review repair candidate. The current review status is stated above;
+non-executable current conformance coverage requirements for the retained
+prior-review repairs. The current review status is stated above;
 this test plan neither proves nor replaces external audit, GitHub, or
 authorization records. Matrix coverage remains planned: no validator, fixture,
 executable test, or Schema implementation exists, and the toolchain and
@@ -1105,7 +1129,7 @@ approval, integration, and distinct-worktree gates. Phase 2 retains routing,
 Phase 3 retains live Git/branch/worktree/lease observation, and Phase 4 retains
 trusted replay, issuer provenance, authority, receipt truth, and delivery.
 
-The eighth-review repair-candidate invariant inventory is exact:
+The current invariant inventory is exact:
 
 ```text
 Schema resources = 11
