@@ -165,54 +165,46 @@ a generic duplicate-ID fault. The second P2 was that three normative digest-
 catalog rows used literal `||` inside GFM table cells and therefore parsed into
 extra cells.
 
-The resulting tenth-review repair is the exact reviewed baseline commit
-`ff002444ca10a71d1fcb5688ea6b258b3babe766`. The tenth exact top-level
-`@codex review` request produced the eleventh Codex review, REST review
-`4891197046` / GraphQL review `PRR_kwDOThD5p88AAAABI4m-dg`, submitted
-`2026-08-09T11:07:15Z` against that exact commit. It reported exactly two P1
-findings: lifecycle-start and issuance chronology in thread
-`PRRT_kwDOThD5p86XmfkO`, rooted at REST comment `3743561019` / GraphQL
-`PRRC_kwDOThD5p87fIjU7`; and issued-lease acquisition provenance in thread
-`PRRT_kwDOThD5p86XmfkR`, rooted at REST comment `3743561022` / GraphQL
-`PRRC_kwDOThD5p87fIjU-`.
-
-At the read-only pre-edit snapshot, the open unmerged PR had ten exact
-top-level `@codex review` requests, eleven completed Codex reviews, and 28
-threads: 26 resolved and exactly those two current unresolved threads. Each
-contained only its bot root and zero owner replies. The published PR body still
-said a fresh review against `ff002444...` was pending; this task does not
-update it.
-
 The repository owner selected `RECEIPT-START-SEMANTICS: RS-1` and
 `ISSUED-LEASE-EVIDENCE-BINDING: LB-2`. The first working-tree implementation
 attempt was later found invalid for acquisition provenance, bootstrap-operation
 conformance, and AI primary-owner accounting; its inherited dirty bytes were
-not retroactively authorized. This fresh non-reusable BR-1 task bound those
-exact pre-existing three-file bytes as untrusted input after its protected
-preflight, and the repository owner selected
-`ACQUISITION-PROVENANCE: AP-1`.
+not retroactively authorized. A fresh non-reusable BR-1 task bound those exact
+pre-existing three-file bytes as untrusted input after its protected preflight,
+and the repository owner selected `ACQUISITION-PROVENANCE: AP-1`.
 
-This current three-file revision documents the external acquisition-result
-source identity, its source-to-receipt exact digest copy, and the AI owner split
-while preserving the RS-1 complete-lifecycle start and issued-at brackets and
-the LB-2 root plus compact A/R/every-L references. It selects neither RS-2,
-LB-1, nor AP-2 and adds no retry epoch. It does not claim that this fresh
-remediation has been audited, committed, pushed, replied to, resolved, reflected
-in the PR body, re-reviewed, approved for merge, or merged. PR-body
-synchronization remains a later separate GitHub gate. Those later actions
-require separate current evidence and authorization, and this README grants no
-Schema, model, runtime, release, or merge authority.
+The Review-11 repair is recorded at exact commit
+`b1441d4b3886d382e265ec1a378d52f0d6f01bdc`. It defines the external
+acquisition-result source identity, requires the exact source-to-receipt digest
+copy, and records the atomic AI primary-owner split while preserving RS-1,
+LB-2, and AP-1. It selects neither RS-2, LB-1, nor AP-2 and adds no retry epoch.
 
-The latest independent final-candidate audit of the pre-repair three-file
-candidate reported exactly `P0 = 0`, `P1 = 0`, `material P2 = 2`, and `P3 = 0`.
-It confirmed the RS-1, LB-2, AP-1 source-identity, cross-phase `checkId`,
-digest-graph, golden, pre-contract-evidence (PCE), PG-1, and review-11 original
-P1 technical closures. Its only failures were primary-owner atomicity defects
-in AI-N21 and AI-N22. This accounting-only revision splits those existing
-predicates into atomic primary owners without changing normative semantics. It
-does not claim that this new repair passed independent audit, was committed or
-pushed, received owner replies or thread resolution, synchronized the PR body,
-requested review 12, or is merge-ready.
+The eleventh exact top-level `@codex review` request is REST issue comment
+`5239459561` / GraphQL issue comment `IC_kwDOThD5p88AAAABOEvO6Q`. It produced
+Review 12, REST review `4896227450` / GraphQL review
+`PRR_kwDOThD5p88AAAABI9aAeg`, submitted `2026-08-10T11:26:50Z` against exact
+reviewed commit `b1441d4b3886d382e265ec1a378d52f0d6f01bdc`. Review 12 reported
+three P1 findings: recovered pre-action failure in thread
+`PRRT_kwDOThD5p86X2S8z`, rooted at GraphQL comment
+`PRRC_kwDOThD5p87fdbj7`; issuance-checkpoint chronology in thread
+`PRRT_kwDOThD5p86X2S86`, rooted at GraphQL comment
+`PRRC_kwDOThD5p87fdbkD`; and sanitization/finalization in thread
+`PRRT_kwDOThD5p86X2S9A`, rooted at GraphQL comment
+`PRRC_kwDOThD5p87fdbkL`.
+
+Independent `integration-control` triage classified the first two findings as
+`VALID-P1` and the third as `VALID-P1` after repository-owner semantic
+resolution: the third finding was owner-choice-dependent, and the repository
+owner subsequently selected
+`SANITIZATION-FINALIZATION: APPLIED-TRUE`. This revision encodes all three
+repairs without reopening G-1, NR-2, F-1, GR-2, DP-1, FS-1, PG-1, FSAFE-1,
+RS-1, LB-2, or AP-1.
+
+The repository documents themselves do not establish the external audit,
+commit, push, thread-resolution, PR-body-synchronization, later-review, or
+merge state of the revision containing these repairs; those remain separate
+external gate records. This README grants no Schema or model implementation,
+model-worktree creation, runtime activation, release, or merge authority.
 
 All 11 resources remain `reserved-unpublished`; the validator/toolchain and
 Schema-before-model gates remain binding. The exact UUID-URN catalog reserves
@@ -344,7 +336,7 @@ matching:
 Future Schema uses `type: string`, that exact pattern, and asserted
 `format: date-time`. Phase 1 additionally enforces years `0001` through
 `9999`, Gregorian date and leap-year validity, all 24 primitive chronology
-relations, and all 28 displayed consequences. Lower-case delimiters, offsets,
+relations, and all 30 displayed consequences. Lower-case delimiters, offsets,
 fractions, leap seconds,
 `24:00:00`, whitespace, alternate spellings, and repair are forbidden. The
 profile applies to the three TaskContract timestamps, receipt `startedAt`,
@@ -355,12 +347,20 @@ the pre-contract origin's `preContractEvidence.observedAt`, and
 RS-1 defines receipt `startedAt` as the lower time boundary of the complete
 lifecycle evidence serialized in either origin. It is no later than every
 check, no later than denial `preContractEvidence`, and, for an issued receipt,
-no later than `freshness.issuedAt`. Lease-required issuance is bracketed by
-`R.observedAt <= freshness.issuedAt <= I.observedAt`; no-lease issuance is
-bracketed by `N.observedAt <= freshness.issuedAt <= I.observedAt`. Equality is
-allowed but never required. The strict sequence chains remain
-`G < A < R < I < P` and `G < N < I < P`; timestamps do not duplicate
-sequence edges.
+no later than `freshness.issuedAt`. For referenced contract C, lease-required
+issuance is bracketed by `R.observedAt <= C.issuanceCheckpoint.observedAt <=
+C.freshness.issuedAt <= I.observedAt`; no-lease issuance is bracketed by
+`N.observedAt <= C.issuanceCheckpoint.observedAt <= C.freshness.issuedAt <=
+I.observedAt`. Equality is allowed but never required. CH-P15/CH-N15 own the
+primitive R-to-checkpoint comparison and CH-P16/CH-N16 own the primitive
+N-to-checkpoint comparison. Direct R-to-issuedAt and N-to-issuedAt relations
+are derived through the existing checkpoint-to-issuedAt primitive. The Review-12
+lease and no-lease counterexamples keep both old direct relations and the
+checkpoint-to-issuedAt relation valid while placing the checkpoint before R or
+N; the former direct-only rule accepted them and the transferred CH-N15/CH-N16
+relations reject them. The strict
+sequence chains remain `G < A < R < I < P` and `G < N < I < P`; timestamps
+do not duplicate sequence edges.
 
 A structured remote remains the closed
 `{ transport, host, port?, namespace, repository }` record. Transport is
@@ -411,7 +411,7 @@ universal. N is a mandatory planned non-additive forbidden-type variant, so the
 postcondition-binding family remains 15/20. The design and test plan retain the
 existing 5/19 receipt-binding, 10/24 timestamp lexical, 8/21 final-E, 10/20
 verification, 5/6 scope, and 15/61 remote families, and record rebuilt 6/28
-acquisition/issuance, 9/6 cumulative-denial, 11/13 release/finalization, and
+acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, and
 24/24 primitive-chronology families under intended-owner and non-additive-
 variant rules.
 
@@ -428,13 +428,15 @@ bytes/tokens; timestamp and remote lexemes; Schema structure; local Phase 1
 invariants; array and remote order; validated representation; digest
 projection/computation; complete TaskContract digest; receipt/contract
 equality plus AP-1 source-profile/exact-copy and LB-2 root/reference/lease binding; the current 24
-primitive chronology checks and 28 displayed
+primitive chronology checks and 30 displayed
 consequences; final P/E/V, diagnostic finalG, per-type V, and finalL selection;
-every actual G passed; exact applicable A/R/N/I; cumulative denial all-member
-prerequisite/controller ordering and stop-boundary membership; R/N-to-issuedAt,
+every actual G and every attempted P passed; failed/indeterminate P same-lifecycle
+terminality with no later P/E/V and not-attempted/not-performed outcomes; exact
+applicable A/R/N/I; cumulative denial all-member
+prerequisite/controller ordering and stop-boundary membership; R/N-to-checkpoint, checkpoint-to-issuedAt, derived R/N-to-issuedAt,
 issuedAt-to-I, P/E/V,
 acquisition/release, non-F/sanitization, sanitization/F,
-and F/finish ordering; outcome, scope, terminal F, warning, and L-empty
+and F/finish ordering; mandatory `sanitization.applied == true`; outcome, scope, terminal F, warning, and L-empty
 consistency; receipt digest; then delivery binding/chronology. The byte-
 protected twelve-step design block remains unchanged in content and order; its
 historical count label does not replace the current normative inventory.
@@ -540,12 +542,18 @@ absent from that contract is invalid; unreferenced V remains general evidence
 and satisfies no obligation.
 
 Every attempted issued receipt requires P, E, V, and at least one `V(t)` for
-every required type. Final P is passed and strictly pre-expiry; every passed P
-is pre-expiry; final E and global final V exactly bind the two top-level
-outcomes; and passed verification requires every per-type final V passed. Every
-E follows final P and every V follows every E by strict sequence and non-
-decreasing timestamp. A `not-attempted/not-performed` receipt keeps E and V
-empty and may omit P.
+every required type. Every P in an attempted receipt is passed and strictly
+pre-expiry; final E and global final V exactly bind the two top-level outcomes;
+and passed verification requires every per-type final V passed. Every E follows
+final P and every V follows every E by strict sequence and non-decreasing
+timestamp. If any P is failed or indeterminate, that P is the final P, every
+earlier P is passed, no later P/E/V exists, E and V are empty, and the receipt
+uses `not-attempted/not-performed`. Applicable release evidence, sanitization, and terminal F remain required,
+and the lifecycle follows the existing denied/fail-closed and release-
+precedence semantics. Recovery requires a
+fresh task, contract, attempt, and receipt lifecycle; no retry epoch or recovery
+field is added. A `not-attempted/not-performed` receipt keeps E and V empty and
+may omit P.
 
 For every issued receipt, GTypes is exactly `intent-validation`,
 `project-domain-resolution`, `role-routing`, `host-binding`, and
@@ -647,6 +655,13 @@ final-L top-level mapping and warning, sanitization, and F. The first five rows
 record only their exact completed G prefix and controller-selected G failure;
 a passed prerequisite re-observation after any controller rejects.
 
+Every serialized receipt requires `sanitization.applied: true`. True means the
+selected sanitizer or evaluation completed; it does not mean a redaction
+occurred, so `redactionCount: 0` is valid. False is a well-formed Boolean but
+invalidates the receipt before passed terminal F, receipt-digest acceptance, or
+delivery binding. The wire member remains Boolean and no new field or branch is
+introduced.
+
 Let L be all lease-release checks and F all receipt-finalization checks. Every
 serialized receipt has exactly one passed terminal greatest-sequence F. F is a
 closed record with only `sequence`, `checkId`, `checkType`, `outcome`,
@@ -686,19 +701,27 @@ The six complete sequence paths remain lease-required attempted
 `G/A/R/I/P/E/V/L/F`; lease-required non-attempted `G/A/R/I/[P]/L/F`; no-lease
 attempted `G/N/I/P/E/V/F`; no-lease non-attempted `G/N/I/[P]/F`; acquired
 denial `Dpre/L/F`; and other denial `non-F/F`. The normative chronology
-displays 28 relations: 24 primitive/additive and four derived/non-additive
-(sanitization/finish, start/finish, denial-evidence/F, and non-F/F). Each
-primitive owns one planned CH positive and one planned reversal; equality and
-member variants are non-additive.
+displays 30 relations: 24 primitive/additive and six derived/non-additive
+(sanitization/finish, start/finish, denial-evidence/F, non-F/F, R/issuedAt,
+and N/issuedAt). CH15/16 retain their 24/24 IDs but their primitive ownership
+moves to R/checkpoint and N/checkpoint; the direct R/N-to-issuedAt relations are
+derived through checkpoint/issuedAt. Each primitive owns one planned CH
+positive and one planned reversal; equality and member variants are non-
+additive.
 
-The unchanged focused inventories remain pre-action 8/33, final-E 8/21,
+The focused inventories remain pre-action 8/37, final-E 8/21,
 post-execution verification 10/20, changed-path scope 5/6 plus one D5 cross-
 reference, D6 13/7, and postcondition binding 15/20. Rebuilding under the final
 owner choices yields acquisition/issuance 6/28, cumulative denial 9/6,
-release/finalization 11/13, and primitive chronology 24/24. AI plus RF contains
-58 planned primary predicates; the five focused families PB + AI + DP + RF +
-CH contain 156. Adding the separate 5/19 receipt/contract-binding family yields
-the clearly labeled expanded affected-family aggregate of 180.
+release/finalization 11/14, and primitive chronology 24/24. AI plus RF contains
+59 planned primary predicates; PB + AI + DP + RF contain 109 numbered primary
+definitions; the five focused families PB + AI + DP + RF + CH contain 157.
+Adding the separate 5/19 receipt/contract-binding family yields the clearly
+labeled expanded affected-family aggregate of 181. The four added pre-action
+negatives are outcome-specific succeeded, failed, cancelled, and indeterminate
+same-lifecycle recovery shapes with an earlier failed/indeterminate P, a later
+passed P, and execution; failed and indeterminate earlier-P values are mandatory
+non-additive variants.
 The six continuous DP negative owners are DP-N01 missing prerequisite, DP-N02
 denial-stage boundary violation, DP-N03 wrong controller/checkpoint/outcome,
 DP-N04 controller reference/binding mismatch, and DP-N05 acquired
@@ -719,7 +742,12 @@ wrong F ID, wrong F profile, non-empty F reasons, and their regex-valid
 secret-like F alternatives. Those RF-N12 forms are mandatory and non-additive.
 RF-N13 owns the universal issued every-L compact-reference violation against the
 same source/root identity, including an earlier bad L followed by a correctly
-bound finalL. AI-N19 owns conditional issued-root presence/absence; AI-N20
+bound finalL. RF-N14 uniquely owns an otherwise-valid serialized receipt with
+`sanitization.applied: false`; zero and positive redaction counts are mandatory
+non-additive variants, and its witness preserves an otherwise-correct wire F
+tuple, digest projection, and delivery-independent state; the false flag means
+that F is not accepted as valid. AI-N19 owns conditional issued-root
+presence/absence; AI-N20
 retains R compact-reference-to-root binding; AI-N21 owns only receipt/source
 task identity; AI-N22 owns exactly-one associated-source cardinality; and
 AI-N23 retains A compact-reference-to-root binding. AI-N24 owns source/root
@@ -737,7 +765,7 @@ other and jointly differ from the contract, so it is neither AI-N26 nor
 RF-N13.
 A non-F reserved-ID example is necessarily a duplicate of the mandatory F ID;
 generic check-ID uniqueness owns that derived, non-additive rejection, so it
-does not add or vary an RF primary. RF is therefore 11/13.
+does not add or vary an RF primary. RF is therefore 11/14.
 
 These are normative planned fixture classes. A planned primary ID is its
 intended `primaryOwner` for a future serialized fixture. Origin, outcome,
@@ -784,12 +812,12 @@ distinct check-outcome tokens = 5
 timestamp paths = 9
 timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
-normative displayed chronology relations = 28
+normative displayed chronology relations = 30
 primitive additive chronology relations = 24
 chronology positive primary classes = 24
 chronology reversal primary classes = 24
 focused pre-action positives = 8
-focused pre-action negatives = 33
+focused pre-action negatives = 37
 final-E exact-match positives = 4
 final-E multi-E positives = 4
 final-E total positives = 8
@@ -804,9 +832,10 @@ lease-acquisition-chain negatives = 28
 cumulative-denial-prerequisite positives = 9
 cumulative-denial-prerequisite negatives = 6
 lease-release/finalization positives = 11
-lease-release/finalization negatives = 13
-acquisition-plus-release focused primary classes = 58
-five focused-family primary classes = 156
+lease-release/finalization negatives = 14
+PB/AI/DP/RF numbered primary definitions = 109
+acquisition-plus-release focused primary classes = 59
+five focused-family primary classes = 157
 changed-path scope positives = 5
 changed-path scope dedicated negatives = 6
 changed-path scope D5 cross-reference = 1 existing family, not additive
@@ -816,7 +845,7 @@ receipt/contract equalities = 8
 receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
-expanded affected-family aggregate including receipt/contract binding = 180
+expanded affected-family aggregate including receipt/contract binding = 181
 digest-bearing paths = 14
 digest computations = 11
 digest exact-copy paths = 3
@@ -839,15 +868,16 @@ acquisition/issuance negatives = AI-N01..AI-N28 = 28
 cumulative-denial positives = DP-P01..DP-P09 = 9
 cumulative-denial negatives = DP-N01..DP-N06 = 6
 release/finalization positives = RF-P01..RF-P11 = 11
-release/finalization negatives = RF-N01..RF-N13 = 13
+release/finalization negatives = RF-N01..RF-N14 = 14
+PB/AI/DP/RF numbered primary definitions = 109
 primitive chronology witnesses = CH-P01..CH-P24 = 24
 primitive chronology reversals = CH-N01..CH-N24 = 24
-acquisition-plus-release primary classes = 58
-five focused families subtotal = 156
+acquisition-plus-release primary classes = 59
+five focused families subtotal = 157
 receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
-expanded affected-family aggregate = 180
+expanded affected-family aggregate = 181
 ```
 
 Each planned range is continuous. Each primary ID denotes the intended
