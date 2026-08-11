@@ -409,7 +409,7 @@ identifier grammar is unchanged,
 `profile.validation.v1` is not F-exclusive, and empty reason codes are not
 universal. N is a mandatory planned non-additive forbidden-type variant, so the
 postcondition-binding family remains 15/20. The design and test plan retain the
-existing 5/19 receipt-binding, 10/24 timestamp lexical, 8/21 final-E, 10/20
+existing 5/19 receipt-binding, 10/24 timestamp lexical, 8/22 final-E, 10/20
 verification, 5/6 scope, and 15/61 remote families, and record rebuilt 6/28
 acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, and
 24/24 primitive-chronology families under intended-owner and non-additive-
@@ -436,7 +436,7 @@ applicable A/R/N/I; cumulative denial all-member
 prerequisite/controller ordering and stop-boundary membership; R/N-to-checkpoint, checkpoint-to-issuedAt, derived R/N-to-issuedAt,
 issuedAt-to-I, P/E/V,
 acquisition/release, non-F/sanitization, sanitization/F,
-and F/finish ordering; mandatory `sanitization.applied == true`; outcome, scope, terminal F, warning, and L-empty
+and F/finish ordering; EF-1 execution terminality and final E/V/L binding; mandatory `sanitization.applied == true`; outcome, scope, terminal F, warning, and L-empty
 consistency; receipt digest; then delivery binding/chronology. The byte-
 protected twelve-step design block remains unchanged in content and order; its
 historical count label does not replace the current normative inventory.
@@ -543,17 +543,44 @@ and satisfies no obligation.
 
 Every attempted issued receipt requires P, E, V, and at least one `V(t)` for
 every required type. Every P in an attempted receipt is passed and strictly
-pre-expiry; final E and global final V exactly bind the two top-level outcomes;
-and passed verification requires every per-type final V passed. Every E follows
-final P and every V follows every E by strict sequence and non-decreasing
-timestamp. If any P is failed or indeterminate, that P is the final P, every
-earlier P is passed, no later P/E/V exists, E and V are empty, and the receipt
-uses `not-attempted/not-performed`. Applicable release evidence, sanitization, and terminal F remain required,
-and the lifecycle follows the existing denied/fail-closed and release-
-precedence semantics. Recovery requires a
-fresh task, contract, attempt, and receipt lifecycle; no retry epoch or recovery
-field is added. A `not-attempted/not-performed` receipt keeps E and V empty and
-may omit P.
+pre-expiry. Under `EXECUTION-FAILURE-TERMINALITY: EF-1`, every E strictly
+before final E is `succeeded`; any E with outcome `failed`, `cancelled`, or
+`indeterminate` is final E and has no later E in that lifecycle. Final E and
+global final V still exactly bind the two top-level outcomes, and passed
+verification requires every per-type final V passed. Every E follows final P
+and every V follows every E by strict sequence and non-decreasing timestamp.
+EF-1 introduces no E-to-E timestamp relation.
+
+If any P is failed or indeterminate, that P is the final P, every earlier P is
+passed, no later P/E/V exists, E and V are empty, and the receipt uses
+`not-attempted/not-performed`. Applicable release evidence, sanitization, and
+terminal F remain required, and the lifecycle follows the existing
+denied/fail-closed and release-precedence semantics. Recovery from P terminality
+requires a fresh task, contract, attempt, and receipt lifecycle.
+
+A final non-success E instead records attempted execution and terminates only
+further E. It retains its exact top-level `executionOutcome`, proceeds through
+required V, pre-release evidence, ownership-checked L when applicable,
+sanitization, F, receipt-digest validation, and delivery, and never authorizes
+a later E through release failure or any other terminal-processing result. A
+retry starts a fresh lifecycle and repeats task resolution, Project/Domain
+resolution, routing, HostOverlay binding, live Git/runtime inspection, lease
+acquisition when required, pre-issuance revalidation, trusted TaskContract
+issuance, and immediately-before-action P. No retry/recovery wire state,
+public field, digest, or chronology edge is added. A
+`not-attempted/not-performed` receipt keeps E and V empty and may omit P.
+
+The focused final-E family retains exactly eight positives: four single-E
+cases for final `succeeded`, `failed`, `cancelled`, and `indeterminate`, plus
+four multiple-E cases in which every earlier E is `succeeded` and the final E
+independently takes each of those four outcomes with a matching top-level
+`executionOutcome`. Its negatives are mechanically 12 final-E mismatch-matrix
+classes + 9 existing non-matrix classes + 1 EF-1 terminality class = 22. The
+new class rejects any `failed`, `cancelled`, or `indeterminate` E followed by
+any later E. Its `3 x 4 = 12` earlier-terminal/later-outcome combinations are
+mandatory non-additive value variants of that one primary predicate, with
+otherwise-valid P, E sequence/IDs/vocabulary, later-final top-level binding,
+V, scope, release, sanitization, F, digest, and cross-artifact binding.
 
 For every issued receipt, GTypes is exactly `intent-validation`,
 `project-domain-resolution`, `role-routing`, `host-binding`, and
@@ -709,7 +736,7 @@ derived through checkpoint/issuedAt. Each primitive owns one planned CH
 positive and one planned reversal; equality and member variants are non-
 additive.
 
-The focused inventories remain pre-action 8/37, final-E 8/21,
+The focused inventories remain pre-action 8/37, final-E 8/22,
 post-execution verification 10/20, changed-path scope 5/6 plus one D5 cross-
 reference, D6 13/7, and postcondition binding 15/20. Rebuilding under the final
 owner choices yields acquisition/issuance 6/28, cumulative denial 9/6,
@@ -822,7 +849,7 @@ final-E exact-match positives = 4
 final-E multi-E positives = 4
 final-E total positives = 8
 final-E mismatch-matrix negatives = 12
-final-E total negatives = 21
+final-E total negatives = 22
 focused post-execution-verification positives = 10
 focused post-execution-verification negatives = 20
 required-postcondition binding positives = 15

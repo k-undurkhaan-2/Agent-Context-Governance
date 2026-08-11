@@ -415,7 +415,7 @@ The required conformance order is:
    every-I/every-P, P/E/V, issued-pre-
    release/L, acquired-Dpre/L, evidence/L, every-non-F/sanitization,
    sanitization/F, and F/finish ordering; mandatory
-   `sanitization.applied == true`; final E/V/L bindings; scope,
+   `sanitization.applied == true`; EF-1 execution terminality and final E/V/L bindings; scope,
    universal singleton passed terminal F, warning, L-empty, receipt outcome,
    non-writing, and remaining consistency;
 9. only then compute and verify or accept the receipt digest; and
@@ -780,16 +780,33 @@ cannot repair a later failed or indeterminate finalV(t). The global final V
 continues to bind `verificationOutcome` and may be referenced or general.
 
 Every attempted receipt also requires P, E, and V. Every P in an attempted
-receipt is passed and strictly pre-expiry; every E follows final P and every V
-follows every E by strict sequence and non-decreasing timestamp. Final E binds
-`executionOutcome`; global final V binds `verificationOutcome`. Any failed or
-indeterminate P is the final P, has only passed earlier P members, forbids every
-later P/E/V, leaves E/V empty, and requires `not-attempted/not-performed`.
-Release and closure evidence remain applicable, and the lifecycle follows the
-existing denied/fail-closed and release-precedence semantics. Recovery requires
-a fresh task,
-contract, attempt, and receipt lifecycle. A not-attempted receipt keeps E and V
-empty and may omit P.
+receipt is passed and strictly pre-expiry. Under
+`EXECUTION-FAILURE-TERMINALITY: EF-1`, every E strictly before final E is
+`succeeded`; an E with outcome `failed`, `cancelled`, or `indeterminate` is
+final E and has no later E in that lifecycle. Every E follows final P and every
+V follows every E by strict sequence and non-decreasing timestamp. Final E
+still binds `executionOutcome`; global final V binds `verificationOutcome`.
+EF-1 adds no E-to-E timestamp ordering.
+
+Any failed or indeterminate P is the final P, has only passed earlier P
+members, forbids every later P/E/V, leaves E/V empty, and requires
+`not-attempted/not-performed`. Release and closure evidence remain applicable,
+and the lifecycle follows the existing denied/fail-closed and release-
+precedence semantics. Recovery from P terminality requires a fresh task,
+contract, attempt, and receipt lifecycle.
+
+A final non-success E is different: execution was attempted, so the matching
+`executionOutcome` remains `failed`, `cancelled`, or `indeterminate`; required
+V still follows all E, and terminal processing still covers pre-release
+evidence, ownership-checked L when applicable, sanitization, F, receipt-digest
+validation, and delivery. Release failure or any later processing result never
+permits another E in the same lifecycle. A retry requires a fresh lifecycle
+and repeats task resolution, Project/Domain resolution, routing, HostOverlay
+binding, live Git/runtime inspection, lease acquisition when required,
+pre-issuance revalidation, trusted TaskContract issuance, and immediately-
+before-action P. No retry/recovery wire state, public field, digest, or
+chronology edge is added. A not-attempted receipt keeps E and
+V empty and may omit P.
 
 GTypes is exactly `intent-validation`, `project-domain-resolution`,
 `role-routing`, `host-binding`, and `initial-preflight`. Every issued receipt
@@ -1058,19 +1075,21 @@ existing families and do not inflate this 37-class focused pre-action total.
 
 The exact eight positive classes are:
 
-1. final E `succeeded` exactly matching `executionOutcome: succeeded`;
-2. final E `failed` exactly matching `executionOutcome: failed`;
-3. final E `cancelled` exactly matching `executionOutcome: cancelled`;
-4. final E `indeterminate` exactly matching
+1. single final E `succeeded` exactly matching
+   `executionOutcome: succeeded`;
+2. single final E `failed` exactly matching `executionOutcome: failed`;
+3. single final E `cancelled` exactly matching
+   `executionOutcome: cancelled`;
+4. single final E `indeterminate` exactly matching
    `executionOutcome: indeterminate`;
-5. multiple E members with an earlier different outcome followed by final E
-   `succeeded` and a matching top-level outcome;
-6. multiple E members with an earlier different outcome followed by final E
-   `failed` and a matching top-level outcome;
-7. multiple E members with an earlier different outcome followed by final E
-   `cancelled` and a matching top-level outcome; and
-8. multiple E members with an earlier different outcome followed by final E
-   `indeterminate` and a matching top-level outcome.
+5. multiple E members with every earlier E `succeeded`, final E `succeeded`,
+   and a matching top-level outcome;
+6. multiple E members with every earlier E `succeeded`, final E `failed`, and
+   a matching top-level outcome;
+7. multiple E members with every earlier E `succeeded`, final E `cancelled`,
+   and a matching top-level outcome; and
+8. multiple E members with every earlier E `succeeded`, final E
+   `indeterminate`, and a matching top-level outcome.
 
 The complete 12-class mismatch matrix independently rejects each pairing of
 one top-level execution outcome with each of the other three final-E outcomes:
@@ -1099,10 +1118,44 @@ The remaining nine negative classes are:
 20. execution using an unknown outcome; and
 21. a non-execution check using an unknown outcome.
 
+One additional EF-1 primary negative is:
+
+22. execution terminality violation: an E with `failed`, `cancelled`, or
+    `indeterminate` outcome is followed by any later E member.
+
+The mandatory non-additive variants are the `3 x 4 = 12` Cartesian product of
+earlier terminal outcome (`failed`, `cancelled`, `indeterminate`) and later E
+outcome (`succeeded`, `failed`, `cancelled`, `indeterminate`). They remain one
+primary predicate, not twelve primary classes.
+
 Case 13 explicitly overlaps focused pre-action negative cases 26 through 29:
 those four planned outcome-specific variants satisfy the one E-absence
-predicate class here. With that overlap stated, this family is exactly 8 positive and 21
-negative classes and no other class is double-counted.
+predicate class here. The final-E recount is 12 mismatch-matrix classes + 9
+existing non-matrix classes + 1 EF-1 terminality class = 22. This family is
+exactly 8 positive and 22 negative classes and no other class is double-
+counted.
+
+Every EF-1 negative witness keeps P valid and passed; final-P ordering valid;
+E sequence contiguous; check IDs unique; outcome vocabulary valid; top-level
+`executionOutcome` equal to the later greatest-sequence E; V valid and after
+all E; scope valid; required L/release valid; `sanitization.applied: true`; F,
+digest, contract binding, and delivery-independent state otherwise valid. The
+only failure is a non-success E followed by a later E.
+
+Required adversarial replay cases are:
+
+- `EF-FAIL-RECOVER`: E9 `failed`, E10 `succeeded`, top-level `succeeded` ->
+  reject;
+- `EF-CANCEL-RECOVER`: E9 `cancelled`, E10 `failed`, top-level `failed` ->
+  reject;
+- `EF-INDET-REPEAT`: E9 `indeterminate`, E10 `indeterminate`, top-level
+  `indeterminate` -> reject;
+- `EF-VALID-SUCCESS-THEN-FAIL`: E9 `succeeded`, E10 `failed`, top-level
+  `failed` -> accept;
+- `EF-VALID-MULTI-SUCCESS`: E9 `succeeded`, E10 `succeeded`, top-level
+  `succeeded` -> accept; and
+- `EF-VALID-SINGLE-FAIL`: single E9 `failed`, matching top-level `failed`,
+  followed by valid V, applicable L, sanitization, and F -> accept.
 
 #### Focused post-execution-verification vector family
 
@@ -1898,7 +1951,7 @@ the design, while preserving its assigned phase and ownership boundary:
   duplicating, the non-empty changed-path invalid case from scope coverage.
 - **D6:** enforce `verificationOutcome: not-performed` if and only if
   `executionOutcome: not-attempted`, cover every allowed pair and all seven
-  invalid pairs, then apply final E/global V, per-type final V, and final L
+  invalid pairs, then apply EF-1 execution terminality, final E/global V, per-type final V, and final L
   bindings, finalG, exact applicable A/R/N/I, universal terminal F,
   L/finalL/warning, and not-attempted E/V plus no-release L-empty gates before
   lifecycle precedence.
@@ -1995,7 +2048,7 @@ final-E exact-match positives = 4
 final-E multi-E positives = 4
 final-E total positives = 8
 final-E mismatch-matrix negatives = 12
-final-E total negatives = 21
+final-E total negatives = 22
 focused post-execution-verification positives = 10
 focused post-execution-verification negatives = 20
 required-postcondition binding positives = 15
@@ -2163,10 +2216,10 @@ Receipt vectors cover warnings with and without optional fields, all 14 check
 types, the exact 4/3 outcome conditional, V-only closed references, contiguous
 sequences, unique IDs, ordered reason codes, and same-receipt warning links.
 Planned issued-contract vectors cover all outcomes, all 24 primitive chronology
-relations and 30 displayed consequences, the 8/37 pre-action, 8/21
+relations and 30 displayed consequences, the 8/37 pre-action, 8/22
 final-E, 10/20 verification, and 5/6 scope families, plus 15/20 postcondition-
 binding, rebuilt 6/28 acquisition/issuance, 9/6 cumulative-denial, and 11/14
-release/finalization families. They cover final P/E/V, per-type final V,
+release/finalization families. They cover EF-1 execution terminality, final P/E/V, per-type final V,
 diagnostic finalG and final L selection; every G and every attempted P passed;
 failed/indeterminate P same-lifecycle terminality with no later P/E/V and
 not-attempted/not-performed outcomes; exact applicable
@@ -2242,7 +2295,7 @@ pipeline:
     every-I/every-P,
     P/E/V, issued-pre-release/L, acquired-Dpre/L, evidence/L, every-non-F/
     sanitization, sanitization/F, and F/finish ordering; mandatory
-    `sanitization.applied == true`; final E/V/L binding;
+    `sanitization.applied == true`; EF-1 execution terminality and final E/V/L binding;
     scope, terminal F, warning, L-empty, and outcome consistency;
 11. receipt digest verification; and
 12. delivery-result binding and chronology.
