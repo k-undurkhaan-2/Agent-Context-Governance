@@ -1237,6 +1237,88 @@ static comparison uses `(platform, value)`; Phase 3 separately checks whether
 the selected lexical branch is compatible with the actual host and whether
 the path resolves to the intended host-local resource.
 
+#### Host-resource exclusivity
+
+`HOST-RESOURCE-EXCLUSIVITY` is an editorial label and `HX` is its focused
+planned-fixture prefix. Neither value is part of the wire or API surface.
+
+The exact Finding A predicates are:
+
+- **A1.** Across the complete `HostOverlay.spec.bindings` array, every
+  `worktreeId` is globally unique. A different `roleRef` does not permit reuse.
+- **A2.** Every already-validated exact `repositoryRoot` identity is globally
+  exclusive across distinct bindings. Static comparison is exact
+  `(platform, value)` equality only; it performs no filesystem resolution,
+  case folding, Unicode normalization, symlink, junction, reparse-point,
+  registration, or other alias resolution.
+- **A3.** In future Phase 3, every distinct binding MUST resolve to a distinct
+  canonical registered physical Git worktree.
+- **A4.** Future Phase 3 uncertainty about physical-worktree identity fails
+  closed, including alias, case, symlink, junction, reparse-point, and
+  registration ambiguity.
+
+The D8 binding remains the existing closed five-field record with exactly
+`roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and `remoteNames`.
+A1 and A2 are validity predicates only: they do not add, remove, or rename a
+field, change binding identity, or change the canonical `bindings` array
+ordering `(R(roleRef), S(worktreeId))`.
+
+For the Finding B comparator, an already-validated coordination-root identity
+`C` is a strict descendant of an already-validated binding `repositoryRoot`
+identity `W` exactly when all three conditions hold:
+
+1. `C` and `W` have the exact same validated platform and root identity;
+2. the components of `W` are an exact prefix of the components of `C`; and
+3. `C` has at least one additional component.
+
+The exact Finding B predicates are:
+
+- **B1.** `stateRoot` MUST NOT exactly equal any binding `repositoryRoot`.
+- **B2.** `stateRoot` MUST NOT be a strict descendant of any binding
+  `repositoryRoot`.
+- **B3.** `lockRoot` MUST NOT exactly equal any binding `repositoryRoot`.
+- **B4.** `lockRoot` MUST NOT be a strict descendant of any binding
+  `repositoryRoot`.
+- **B5.** In future Phase 3, neither coordination root may resolve equal to or
+  inside any actual bound registered worktree.
+- **B6.** Future live alias or containment uncertainty rejects, including case,
+  symlink, junction, reparse-point, canonicalization, and registration
+  ambiguity.
+
+The B predicates do not add a `stateRoot != lockRoot` rule. They also do not
+reject solely because a binding `repositoryRoot` is beneath `stateRoot` or
+beneath `lockRoot`. Only the coordination-root-equal-to-or-inside-bound-
+worktree direction is prohibited.
+
+The focused HX family contains exactly these primary planned vectors. Variants
+are mandatory but non-additive:
+
+| ID | Primary predicate |
+| --- | --- |
+| `HX-A-P01` | Distinct `worktreeId` and exact `repositoryRoot` identities across all bindings pass static validation. |
+| `HX-A-P02` | Future Phase 3 proves that every distinct binding resolves to a distinct canonical registered physical Git worktree. |
+| `HX-B-P01` | Both coordination roots are statically outside or siblings of every binding root; equal coordination roots and a worktree beneath a coordination root are non-additive valid variants. |
+| `HX-B-P02` | Future Phase 3 proves that both coordination roots resolve outside every actual bound registered worktree. |
+| `HX-A-N01` | A duplicate `worktreeId` rejects; reuse under a different `roleRef` is a non-additive variant. |
+| `HX-A-N02` | A duplicate already-validated exact `repositoryRoot` identity rejects. |
+| `HX-A-N03` | Lexically distinct binding roots that resolve to the same physical worktree reject in future Phase 3. |
+| `HX-A-N04` | Indeterminate physical-worktree distinctness rejects in future Phase 3. |
+| `HX-B-N01` | `stateRoot` exactly equals a binding `repositoryRoot`. |
+| `HX-B-N02` | `stateRoot` is a strict descendant of a binding `repositoryRoot`. |
+| `HX-B-N03` | `lockRoot` exactly equals a binding `repositoryRoot`. |
+| `HX-B-N04` | `lockRoot` is a strict descendant of a binding `repositoryRoot`. |
+| `HX-B-N05` | A lexically separate coordination root resolves equal to or inside an actual bound registered worktree in future Phase 3. |
+| `HX-B-N06` | Live alias or containment identity is indeterminate in future Phase 3. |
+
+HX is exactly 4 positive and 10 negative primary predicates. It is separately
+counted and does not revise any retained focused-family or regression total.
+
+WIRE/API SURFACE UNCHANGED: Review-13 A+B only shrinks the accepted
+`HostOverlay` set. It does not alter the API version, revision, resource kinds,
+JSON property names, HostOverlay binding fields, enums, reason codes, check
+types, transition types, postconditions, receipt outcomes, or digest fields.
+The digest graph remains 14 field paths, 11 computations, and 3 exact copies.
+
 Positive vectors cover complete branch and detached records with valid POSIX
 and drive-only Windows absolute paths. Negative vectors
 cover each missing field, every unknown field, duplicate or empty
@@ -5324,6 +5406,12 @@ vectors, one outer record per `remoteName`, non-empty nested accepted sets,
 and exact membership narrowing without normalization, aliasing, or field
 omission.
 
+Planned HostOverlay contract tests also exercise the separately counted HX
+family: exactly four positive and ten negative primary predicates covering
+global binding-ID and exact-root exclusivity, static coordination-root
+exclusion in only the prohibited direction, and future fail-closed canonical
+physical-worktree identity and containment. Variants are non-additive.
+
 ### Mandatory exhaustive SG-001 fixture/conformance matrix
 
 This matrix is mandatory future coverage, not a claim that fixtures or tests
@@ -5355,7 +5443,7 @@ and negative vector at its assigned owner.
 | D5 non-writing contracts | all three non-writing truth-table rows have exactly empty transitions, baseline-equal state postconditions, no lease identity, optional `lease-state: not-required`, and issued-receipt `changedPaths: []`; observed drift is evidence only | exactly 21 Cartesian negatives (`3 × 7`), pairing each non-writing row with each permitted transition branch; any drift-describing postcondition; lease identity/ownership; non-empty changed paths; test/build capability treated as a write override | Schema and Phase 1 static reject the closed contract and compare explicit postconditions with the immutable baseline; Phase 4 enforces empty changed paths and classifies drift as failed or indeterminate verification; the non-empty changed-path case is cross-referenced, not duplicated, by the focused scope family |
 | D6 execution/verification biconditional | exactly 13 pairs: `not-attempted/not-performed`; each of `succeeded`, `failed`, `cancelled`, and `indeterminate` with each of `passed`, `failed`, and `indeterminate` | exactly seven pairs: each attempted execution outcome with `not-performed`, plus `not-attempted` with `passed`, `failed`, or `indeterminate` | Phase 1 static applies the unchanged 13/7 biconditional, then the separate final-`E` and final-`V` bindings and not-attempted E/V-empty rules, before the existing lifecycle-precedence table; Phase 4 supplies evidence claims |
 | D7 simultaneous transition composition | complete nine-dimension materialized `B`; all seven `from` values bind directly to `B`; unique transitions apply simultaneously; one canonical nine-dimension `F` results regardless of wire order; active operations and administrative locks remain none; changed dimensions have exact `F` postconditions | baseline/from mismatch; either retired transition; sequential dependency; order-dependent result; non-none active-operation or administrative-lock final state; invalid final composite; missing or mismatched changed-dimension postcondition; drift asserted for an unchanged dimension; incomplete D2 or D3 value | Phase 1 compares, applies only seven transition types simultaneously, reconstructs all nine dimensions, and validates `F`; Phase 3 materializes live-dependent `B`; Phase 4 compares evidence with `F`, attributes transitions, and verifies scope/postconditions |
-| D8 closed HostOverlay binding | complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once | each missing field; every unknown field; empty, duplicate, or non-canonical remote names; unknown name; branch without `branchRef`; detached with `branchRef`; `expectedBranch`; each cached observed root/HEAD/branch/remote field | Schema closes the five-field record and ref branches; Phase 1 enforces binding identity, array canon, and name resolution; Phase 3 compares live canonical root, registration, ref, and every named remote |
+| D8 closed HostOverlay binding and host-resource exclusivity | complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once; all four HX positives | each missing field; every unknown field; empty, duplicate, or non-canonical remote names; unknown name; branch without `branchRef`; detached with `branchRef`; `expectedBranch`; each cached observed root/HEAD/branch/remote field; all ten HX negatives | Schema closes the unchanged five-field record and ref branches; Phase 1 enforces binding identity, unchanged array canon, name resolution, global `worktreeId` and exact-root exclusivity, and static coordination-root exclusion; Phase 3 compares live canonical root, registration, ref, and every named remote and fails closed on physical-worktree or containment ambiguity |
 | D9 RoutingPolicy projection equality and complete-set contract | all six required complete-set positive vectors; different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification | all twelve required complete-set negative vectors, including partial owner, no-fallthrough, same-target tie, collective-role union, split reuse, fallback failure, and TaskContract Domain/role/target mismatch; different IDs with equal `RuleProjection` JCS bytes; same-priority equal `MatchProjection` JCS bytes; non-canonical nested array | `schema-contracts` records projection equality, `Drule`/`Dresolved`/`Owned(R)` semantics, exact Phase 2 order, and vectors; executable projection/JCS comparison belongs to future `model-implementation`; Phase 2 alone resolves and routes the complete set, denies top-priority ambiguity or incomplete ownership, and never falls through or unions roles |
 | D10 HostOverlay narrowing proof and canonical structured remotes | exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; all 15 structured-remote positives; repository and remote subsets by exact validated `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**`; broad `**` remains valid but excludes reserved paths | all 61 independent structured-remote negatives; each of the nine exact narrowing rejection-code classes; literal `.git/**`, `.git/config`, `foo/.git/**`, and `foo/.git/config`; added capability or remote; role/project mismatch; `docs/**` outside the Project universe; unsupported syntax, compilation failure, resource exhaustion, or indeterminate emptiness; sample, alias, normalization, ignored field, or prefix heuristic offered as proof; any binding, free capacity, or lease offered to make an incomplete selected owner eligible | Schema enforces the closed record, path profiles, named host/repository profiles, namespace and port rules; Phase 1 rejects literal `.git` components and performs exact lexical, `J(remote)`, set/reference, membership, order, and automata checks relative to revised `U`; only after Phase 2 selects one role that owns all of `Dresolved` may Phase 3 compare the live remote and reject administrative aliases; HostOverlay and runtime state can narrow or deny but never widen routing eligibility |
 | D11 digest catalog and golden corpus | all fourteen digest field paths bind once to eleven computations and three exact-copy paths; every exact separator, raw payload, JCS payload, exclusion, completed source value, tagged hash, denial acquisition-copy equality, independent issued-acquisition source computation and receipt-root exact copy, and delivery-copy equality reproduces the recorded corpus | included-field mutation; excluded-field mishandling; self-digest inclusion; missing/changed separator byte; substituted profile; changed raw bytes; wrong JCS projection; mismatched copied denial-acquisition or receipt digest; missing/invalid source identity; wrong source projection or digest; mismatched receipt-root exact copy or source/root/A binding; a cycle, ambiguity, duplicate binding, or missing field path | `schema-contracts` specifies the acyclic catalog, framing, projection contract, and recorded corpus; future `model-implementation` reconstructs projections, emits JCS bytes, hashes, replays, and proves cross-runtime reproduction; Phase 3 supplies stable raw observations; Phase 4 performs trusted operational replay and exact-copy checks; every digest remains integrity-only |
@@ -5431,6 +5519,8 @@ digest-bearing paths = 14
 digest computations = 11
 digest exact-copy paths = 3
 numeric fields = 6
+host-resource-exclusivity positives = 4
+host-resource-exclusivity negatives = 10
 PG-1 distinct timestamp values = 5
 PG-1 timestamp occurrences = 38
 PG-1 structured-remote occurrences = 7

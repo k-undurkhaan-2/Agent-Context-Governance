@@ -446,6 +446,88 @@ cross-artifact conformance; Phase 3 owns live remote and host facts and produces
 the acquisition result/source identity; and Phase 4 owns trusted source/issuer
 provenance, lease ownership, authority, time, freshness, and evidence truth.
 
+## Review-13 host-resource exclusivity
+
+`HOST-RESOURCE-EXCLUSIVITY` is an editorial label and `HX` is its focused
+planned-fixture prefix. Neither value is part of the wire or API surface.
+
+The exact Finding A predicates are:
+
+- **A1.** Across the complete `HostOverlay.spec.bindings` array, every
+  `worktreeId` is globally unique. A different `roleRef` does not permit reuse.
+- **A2.** Every already-validated exact `repositoryRoot` identity is globally
+  exclusive across distinct bindings. Static comparison is exact
+  `(platform, value)` equality only; it performs no filesystem resolution,
+  case folding, Unicode normalization, symlink, junction, reparse-point,
+  registration, or other alias resolution.
+- **A3.** In future Phase 3, every distinct binding MUST resolve to a distinct
+  canonical registered physical Git worktree.
+- **A4.** Future Phase 3 uncertainty about physical-worktree identity fails
+  closed, including alias, case, symlink, junction, reparse-point, and
+  registration ambiguity.
+
+The D8 binding remains the existing closed five-field record with exactly
+`roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and `remoteNames`.
+A1 and A2 are validity predicates only: they do not add, remove, or rename a
+field, change binding identity, or change the canonical `bindings` array
+ordering `(R(roleRef), S(worktreeId))`.
+
+For the Finding B comparator, an already-validated coordination-root identity
+`C` is a strict descendant of an already-validated binding `repositoryRoot`
+identity `W` exactly when all three conditions hold:
+
+1. `C` and `W` have the exact same validated platform and root identity;
+2. the components of `W` are an exact prefix of the components of `C`; and
+3. `C` has at least one additional component.
+
+The exact Finding B predicates are:
+
+- **B1.** `stateRoot` MUST NOT exactly equal any binding `repositoryRoot`.
+- **B2.** `stateRoot` MUST NOT be a strict descendant of any binding
+  `repositoryRoot`.
+- **B3.** `lockRoot` MUST NOT exactly equal any binding `repositoryRoot`.
+- **B4.** `lockRoot` MUST NOT be a strict descendant of any binding
+  `repositoryRoot`.
+- **B5.** In future Phase 3, neither coordination root may resolve equal to or
+  inside any actual bound registered worktree.
+- **B6.** Future live alias or containment uncertainty rejects, including case,
+  symlink, junction, reparse-point, canonicalization, and registration
+  ambiguity.
+
+The B predicates do not add a `stateRoot != lockRoot` rule. They also do not
+reject solely because a binding `repositoryRoot` is beneath `stateRoot` or
+beneath `lockRoot`. Only the coordination-root-equal-to-or-inside-bound-
+worktree direction is prohibited.
+
+The focused HX family contains exactly these primary planned vectors. Variants
+are mandatory but non-additive:
+
+| ID | Primary predicate |
+| --- | --- |
+| `HX-A-P01` | Distinct `worktreeId` and exact `repositoryRoot` identities across all bindings pass static validation. |
+| `HX-A-P02` | Future Phase 3 proves that every distinct binding resolves to a distinct canonical registered physical Git worktree. |
+| `HX-B-P01` | Both coordination roots are statically outside or siblings of every binding root; equal coordination roots and a worktree beneath a coordination root are non-additive valid variants. |
+| `HX-B-P02` | Future Phase 3 proves that both coordination roots resolve outside every actual bound registered worktree. |
+| `HX-A-N01` | A duplicate `worktreeId` rejects; reuse under a different `roleRef` is a non-additive variant. |
+| `HX-A-N02` | A duplicate already-validated exact `repositoryRoot` identity rejects. |
+| `HX-A-N03` | Lexically distinct binding roots that resolve to the same physical worktree reject in future Phase 3. |
+| `HX-A-N04` | Indeterminate physical-worktree distinctness rejects in future Phase 3. |
+| `HX-B-N01` | `stateRoot` exactly equals a binding `repositoryRoot`. |
+| `HX-B-N02` | `stateRoot` is a strict descendant of a binding `repositoryRoot`. |
+| `HX-B-N03` | `lockRoot` exactly equals a binding `repositoryRoot`. |
+| `HX-B-N04` | `lockRoot` is a strict descendant of a binding `repositoryRoot`. |
+| `HX-B-N05` | A lexically separate coordination root resolves equal to or inside an actual bound registered worktree in future Phase 3. |
+| `HX-B-N06` | Live alias or containment identity is indeterminate in future Phase 3. |
+
+HX is exactly 4 positive and 10 negative primary predicates. It is separately
+counted and does not revise any retained focused-family or regression total.
+
+WIRE/API SURFACE UNCHANGED: Review-13 A+B only shrinks the accepted
+`HostOverlay` set. It does not alter the API version, revision, resource kinds,
+JSON property names, HostOverlay binding fields, enums, reason codes, check
+types, transition types, postconditions, receipt outcomes, or digest fields.
+The digest graph remains 14 field paths, 11 computations, and 3 exact copies.
+
 ## Current contract summary
 
 The fourth-review active-operation retirement remains unchanged. A
@@ -877,6 +959,8 @@ digest-bearing paths = 14
 digest computations = 11
 digest exact-copy paths = 3
 numeric fields = 6
+host-resource-exclusivity positives = 4
+host-resource-exclusivity negatives = 10
 PG-1 distinct timestamp values = 5
 PG-1 timestamp occurrences = 38
 PG-1 structured-remote occurrences = 7
