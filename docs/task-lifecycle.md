@@ -26,6 +26,19 @@ An unreleased, malformed, ambiguous, stale, or otherwise unresolved lease remain
 
 Four checkpoints remain distinct: initial live preflight; post-acquisition, pre-contract-issuance revalidation, or immediate pre-issuance revalidation when no lease is required; post-contract, immediately-before-action revalidation; and post-execution verification.
 
+At the initial binding/preflight checkpoint, the pre-contract-issuance
+checkpoint, and the immediately-before-action checkpoint, the complete
+same-host proof used at that checkpoint MUST derive from one coherent trusted
+configuration validation snapshot. If configuration authority reports,
+detects, or cannot exclude a relevant configuration-state change while that
+proof is being formed, the complete current proof is invalid, the gate does
+not pass, and no partial result becomes eligibility evidence. A later attempt
+or checkpoint MAY use a newer coherent snapshot, but complete-set eligibility
+MUST be independently re-established and MUST NOT be inherited from an earlier
+snapshot. If the selected binding disappears, changes identity, loses
+eligibility, becomes conflicting, or becomes physically ambiguous under the
+later snapshot, the gate denies and MUST NOT automatically rebind the task.
+
 ## 1. Receive task intent
 
 Task intent is untrusted input describing the requested outcome, requested mode, proposed scope, and caller-provided constraints before governance resolution. It MUST NOT grant authority.
@@ -58,13 +71,25 @@ After exactly one `Project` and the complete `Domain` set are resolved, the cont
 
 ## 4. Resolve one `HostOverlay` binding
 
-The selected logical role is bound to a repository worktree on the current host through a local `HostOverlay`.
+The selected logical role is bound to a repository worktree on the current host through a local `HostOverlay`. Before treating any binding as statically eligible, the control plane MUST establish the [complete same-host overlay set](configuration-model.md#hostoverlay) from a trusted closed configuration inventory.
 
+- For the initial binding/preflight checkpoint, target `hostId` selection,
+  complete same-host membership and completeness proof, the exact contents and
+  individual validation of every participating overlay, binding-union
+  construction, and set-wide static injectivity MUST all derive from that
+  checkpoint's one coherent trusted configuration validation snapshot.
 - The concrete `HostOverlay` MUST remain outside the target worktree and portable customer governance. Real host paths and other machine-local details MUST appear only in that local layer.
 - A host overlay MAY narrow customer permissions but MUST NOT widen them.
+- Every configured overlay with the same `hostId` MUST participate across all Projects; a task, caller, adapter, Project, or selected overlay MUST NOT omit another same-host overlay.
+- Every overlay in the complete set MUST validate individually before the union of all bindings is checked for host-wide `worktreeId` uniqueness and exclusivity of every already-validated exact `(platform, repositoryRoot.value)` identity. Distinct overlay identifiers do not waive those checks.
+- An incomplete same-host inventory, a cross-resource duplicate, or any ambiguity MUST deny eligibility. One individually valid overlay cannot establish host-wide isolation.
 - The binding MUST identify one repository root and its expected branch-or-detached condition without exposing secrets.
 - A missing, duplicate, malformed, stale, or policy-incompatible binding MUST deny implementation.
 - A binding to a repository or worktree inconsistent with the resolved `Project` or uniquely routed role MUST deny implementation.
+
+The complete-set comparison is control context only. It does not create a
+serialized collection, change the selected `HostOverlay`, or alter a
+configuration digest.
 
 ## 5. Initial live preflight
 
@@ -78,10 +103,21 @@ Inspection MUST evaluate all checks required by policy, including:
 - tracked, staged, modified, untracked, and ignored state as required by policy;
 - in-progress Git operations and Git administrative locks;
 - worktree registration and association;
+- canonical registered physical-worktree identity for every binding in the
+  current checkpoint's snapshot-bound complete same-host overlay set;
 - configured remote identity when policy requires it; and
 - current role binding and runtime coordination state.
 
 Any missing observation, command failure, unexpected repository root, branch or revision mismatch, prohibited dirty state, active operation, invalid registration, role mismatch, or ambiguous runtime result MUST deny implementation.
+
+Future Phase 3 preflight MUST prove that distinct bindings across the complete
+same-host overlay set resolve to distinct canonical registered physical Git
+worktrees. Case or Unicode identity, filesystem aliases, symlinks, junctions,
+reparse points, Windows 8.3 aliases, `.git` indirection, linked-worktree
+registration, common-Git-directory relationships, conflicting registrations,
+inaccessible canonicalization, or other unresolved physical-identity ambiguity
+fails closed. Equal path strings on different hosts are not rejected solely for
+that equality.
 
 The framework MUST NOT repair a mismatch automatically. In particular, it MUST NOT switch or create branches, stash, reset, clean, restore files, fetch, pull, merge, rebase, break leases or locks, or repair Git state.
 
@@ -103,6 +139,12 @@ Successful acquisition does not cure a wrong role, invalid host binding, or Git-
 After lease acquisition, or immediately before contract issuance for a task that requires no lease, the control plane MUST re-observe all authorization-sensitive runtime Git observations and runtime coordination state.
 
 - The `Project`, complete `Domain` set, `WorktreeRole`, host binding, Git state, pre-execution scope authorization, mode, and effective permissions MUST still match the proposed contract.
+- This checkpoint MUST obtain or prove its own coherent trusted configuration
+  validation snapshot and, from that snapshot alone, re-establish complete
+  same-host membership, exact participating resource contents, individual
+  validity, binding-union logical and exact injectivity, and live canonical
+  registered physical-worktree injectivity. An earlier checkpoint's
+  complete-set result is not proof for this checkpoint.
 - A write task MUST prove that it still owns the same valid lease.
 - Customer governance and the host overlay MUST be re-evaluated if either may have changed.
 - Any change, uncertainty, expiration, or mismatch MUST prevent contract issuance.
@@ -157,6 +199,14 @@ An execution adapter translates the agent-neutral contract into a product-specif
 
 - The adapter MUST validate the contract's version, trusted provenance, freshness, target, mode, contract scope, and write permission before acting.
 - Post-contract, immediately before any governed action, the execution path MUST revalidate the applicable contract, policy, runtime Git observations, runtime coordination state, contract scope, and lease ownership when required. This checkpoint applies to plan-only actions as well as writes. Drift or an unavailable observation MUST stop execution.
+- That immediately-before-action checkpoint MUST obtain or prove its own
+  coherent trusted configuration validation snapshot and, from that snapshot
+  alone, re-establish complete same-host inventory coverage, exact
+  participating resource contents and individual validity, set-wide static
+  injectivity, and canonical registered physical-worktree injectivity for the
+  bindings that supplied the target. An earlier checkpoint's complete-set
+  result is not proof for this checkpoint. Missing or ambiguous proof MUST
+  stop execution.
 - The adapter MUST refuse a missing, unsupported, expired, altered, or mismatched contract.
 - The adapter MUST NOT infer additional authority from agent instructions, Markdown, environment defaults, earlier receipts, or its own capabilities.
 - Governed plan-only execution requires a valid bounded contract but MUST NOT produce repository writes or acquire a write lease.
@@ -213,7 +263,7 @@ After finalization, terminal processing MUST attempt to persist or deliver the r
 | Point | Required response |
 | --- | --- |
 | Intent is incomplete, contradictory, or requests prohibited material | Deny before resolution; apply safe defaults and do not implement. |
-| `Project`, non-empty `Domain` set, covering `WorktreeRole`, or host binding is missing, multiple, stale, or mismatched | Deny; split independently where appropriate, but do not guess or route to a merely free worktree. |
+| `Project`, non-empty `Domain` set, covering `WorktreeRole`, complete same-host overlay set, or host binding is missing, incomplete, multiple, stale, ambiguous, non-injective, or mismatched | Deny; split independently where appropriate, but do not guess, omit an overlay, silently rebind, or route to a merely free worktree. |
 | Runtime Git observations or runtime coordination inspection fails or differs from expected state | Deny; report the mismatch and do not repair it automatically. |
 | Write permission is absent or restricted | Keep `mode: plan-only` and `allowWrite: false`; do not acquire a write lease. |
 | A required write lease is unavailable or uncertain | Deny; do not wait by holding partial authority, steal the lease, or break a lock. |

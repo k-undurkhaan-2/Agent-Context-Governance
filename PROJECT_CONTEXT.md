@@ -29,6 +29,24 @@ mechanism, or cryptographic authorization. Phase 1 activation is not
 operational-governance activation, and the first Schema or model artifact
 requires a later, separately authorized implementation task.
 
+### Review-14 A control-governance decision
+
+The repository owner selected exactly:
+
+```text
+A-REGISTRY-SCOPE-01 = OPTION-A
+```
+
+Review 14 identified cross-overlay worktree exclusivity as a P1 finding. The
+owner selected comparison of every configured `HostOverlay` for one `hostId`
+across all Projects, using a trusted closed host-local configuration inventory.
+This candidate changes only control governance. It does not fully close
+Review-14 A: the normative Schema-contract mirror and A-family fixture/test-plan
+coverage remain pending in a separate, later-authorized `schema-contracts`
+task and worktree. Review-14 B and Review-14 C remain unresolved. No merge,
+Schema implementation, model-worktree creation, or model implementation
+authority follows from this decision or candidate.
+
 Phase 1 scope is exactly:
 
 - public JSON Schema definitions under `schemas/v1alpha1/`;
@@ -74,8 +92,11 @@ supported-version, type, format, enum, range, and required-property checks;
 object-local invariants; deterministic decoding; canonical serialization;
 Schema/model conformance; closed-bundle ID and reference integrity; and static
 restriction or model invariants that do not calculate an operational result or
-require task intent, host bindings, Git state, lease state, or runtime
-decisions.
+require task intent, task-specific host-binding resolution, Git state, lease
+state, or runtime decisions. Phase 1 static integrity may validate each
+`HostOverlay` individually and then validate cross-resource binding
+injectivity over an already-established complete same-host overlay set; it
+does not select a concrete binding or prove a physical worktree identity.
 
 Phase 1 MUST NOT execute task-intent resolution, actual `Project` or `Domain`
 resolution, `RoutingPolicy` evaluation, role selection, split-versus-deny
@@ -129,6 +150,13 @@ implementation roles. `schema-contracts` and `model-implementation`
 implementation tasks MUST use distinct worktrees and MUST NOT be assigned to,
 implemented in, or allowed to write through the same worktree.
 
+For the owner-selected Review-14 A semantics, `integration-control` owns the
+trusted closed inventory boundary, the same-host collection boundary, set-wide
+gate sequencing, fail-closed handling when completeness is unavailable, and
+integration/review gating. A later separately authorized `schema-contracts`
+task owns the normative Schema mirror and A-family fixtures. This candidate
+grants no authority to `model-implementation`.
+
 Logical worktree roles are portable governance concepts. Concrete local paths
 are host-local and MUST NOT be committed. Branch creation, worktree creation or
 binding, committing, merging, and pushing remain separately authorized
@@ -166,6 +194,12 @@ Customer governance is the customer's portable, machine-readable policy for proj
 ### `HostOverlay`
 
 `HostOverlay` is a local, non-portable configuration kind that binds portable identifiers to host resources and MAY impose additional restrictions. It MUST NOT widen permissions granted by customer governance.
+
+One individually valid overlay is not host-wide isolation evidence. Before one
+of its bindings is eligible, the control plane must establish the
+[complete same-host overlay set](docs/configuration-model.md#hostoverlay),
+validate every member, and validate binding injectivity across their union,
+including across Project boundaries. Incomplete or ambiguous inventory denies.
 
 ### `RoutingPolicy`
 
@@ -224,7 +258,9 @@ Future write authorization MUST require all applicable controls to agree:
 
 1. Customer governance permits the requested operation for exactly one resolved `Project` and a non-empty deterministic `Domain` set.
 2. Exactly one selected `WorktreeRole` owns every `Domain` in that set.
-3. The `HostOverlay` successfully binds one target and does not deny or widen the request.
+3. The complete same-host overlay set is known and valid, its binding union is
+   injective, and the selected `HostOverlay` successfully binds one target
+   without denying or widening the request.
 4. Fresh runtime Git observations and runtime coordination state match the immutable expected baseline and applicable restrictions without ambiguity.
 5. The current write task has effective `allowWrite: true`, atomically acquires the worktree's task-owned write lease, and proves continued ownership.
 6. Trusted framework logic issued or validated a fresh `TaskContract` that binds the same `Domain` set and permits the requested action and scope.

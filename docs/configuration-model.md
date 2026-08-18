@@ -12,10 +12,12 @@ requires a later, separately authorized implementation task.
 
 This document defines the responsibilities, authority classes, and relationships
 of the planned configuration objects. It is not a finished field specification
-and does not define JSON Schemas, exact property names, serialization layouts,
-or a committed configuration instance. The semantic minimum bindings defined
-below are mandatory future requirements even though their serialization is
-deferred.
+and does not independently define JSON Schemas, introduce property names or
+serialization layouts, or create a committed configuration instance.
+References below to already-selected names and shapes mirror the existing
+design and do not make this document the wire/API source of truth. The semantic
+minimum bindings defined below are mandatory future requirements even where
+their serialization is deferred.
 
 The initial public configuration API version is
 `contextctl.dev/v1alpha1`. Future Schema files will live under
@@ -144,6 +146,105 @@ or write permission that customer governance does not allow. A missing,
 malformed, stale, mismatched, or ambiguous required binding denies
 implementation.
 
+A **trusted configuration validation snapshot** is one checkpoint-local,
+internally coherent, read-only view of the trusted closed configuration
+inventory supplied by configuration authority. The complete same-host
+`HostOverlay` membership and every resource value used by one validation proof
+MUST derive from that view. Configuration authority MAY establish consistency
+through an immutable snapshot or read view, a transactionally consistent read,
+an authority-native configuration revision, or an equivalent trusted state
+identity, provided it proves both complete same-host membership and the exact
+contents of every participating resource belong to one coherent configuration
+state. If no such coherent view can be established, validation fails closed.
+This is a non-wire control-plane concept, not a new API resource, field,
+serialized collection, `GovernanceBundle` member, `TaskContract` field, or
+digest input.
+
+The **complete same-host overlay set** means the complete trusted
+`HostOverlay` configuration set for one `hostId`. Configuration authority MUST
+supply a closed trusted configuration inventory, and the set for a target
+`hostId` MUST contain every configured `HostOverlay` whose `spec.hostId`
+matches exactly, across every `projectRef`. Project boundaries do not partition
+worktree exclusivity. A caller, task, adapter, Project, selected overlay, or
+individual resource identifier cannot omit another configured same-host
+overlay. If completeness cannot be established, validation fails closed.
+
+Before any binding from that set is exposed as a statically eligible input,
+one validation checkpoint follows this order:
+
+1. acquire or prove one trusted configuration validation snapshot for that
+   checkpoint;
+2. from that same snapshot, obtain the trusted closed configuration inventory;
+3. apply the target `hostId` selection to that same snapshot and select every
+   configured `HostOverlay` whose `spec.hostId` matches exactly;
+4. from that same snapshot, prove that the complete same-host overlay set is
+   complete;
+5. validate every selected `HostOverlay` exactly as represented in that same
+   snapshot;
+6. form the binding union only from those same snapshot-bound resource values;
+7. over that union, validate host-wide `worktreeId` uniqueness and exclusivity
+   of every already-validated exact `(platform, repositoryRoot.value)`
+   identity; and
+8. only then expose bindings from the set as statically eligible inputs for
+   that checkpoint.
+
+Step 7 compares every binding in every set member. Across that union, every
+`worktreeId` MUST be globally unique within the host, and every
+already-validated exact `(platform, repositoryRoot.value)` identity MUST be
+globally exclusive within the host. Different `HostOverlay.metadata.id` values
+do not waive either rule. One individually valid overlay is therefore
+insufficient when another same-host configured overlay is unaccounted for.
+Equal host-local path strings on different `hostId` values are not required to
+be globally exclusive solely because their strings compare equal.
+
+If configuration authority reports, detects, or cannot exclude a relevant
+configuration-state change while one checkpoint-local proof is being formed,
+the complete proof is invalid, the gate does not pass, and no partial result
+becomes eligibility evidence. Membership, resource contents, individual
+validation, or union predicates from incompatible snapshots MUST NOT be
+composed into one result. A later validation attempt MAY begin from a new
+trusted configuration validation snapshot; the control plane MUST NOT
+reconcile the change automatically or continue from whichever resources were
+already validated. An implementation MAY reuse a result only when it can prove
+that result is bound to the exact unchanged resource and configuration state
+of the current checkpoint. Unproven reuse fails closed.
+
+Snapshot scope is one validation or revalidation checkpoint, not the complete
+task lifecycle. Each checkpoint MUST obtain or prove its own coherent trusted
+configuration validation snapshot. A later checkpoint MAY observe a newer
+legitimate configuration state, but an earlier result does not prove the later
+checkpoint: complete same-host membership, participating resource validation,
+binding-union injectivity, and, where Phase 3 applies, canonical physical
+injectivity MUST be established again. If the selected binding disappears,
+changes identity, loses eligibility, becomes conflicting, or becomes
+physically ambiguous, the later gate denies and MUST NOT automatically rebind
+the task to another worktree.
+
+The complete same-host overlay set is validation and control-plane comparison
+context only; it is not a serialized resource or collection and introduces no
+new field, enum, ordering rule, or digest input. `HostOverlay` remains
+host-local and outside the portable `GovernanceBundle`. The existing
+`configurationDigest` projection remains the closed
+`{governanceBundle, hostOverlay}` shape: the host-wide completeness and
+injectivity gate is an acceptance prerequisite, not another digest member.
+
+Future Phase 3 MUST prove at live checkpoints relevant to binding, contract
+issuance, and action that every distinct binding across the complete same-host
+set derived from that checkpoint's coherent trusted configuration validation
+snapshot resolves to a distinct canonical registered physical Git worktree.
+Case behavior, Unicode identity, filesystem aliases, symlinks, junctions,
+reparse points, Windows 8.3 aliases, `.git` indirection, linked-worktree
+registration, common-Git-directory relationships, conflicting registrations,
+inaccessible canonicalization, or any other unresolved physical identity
+ambiguity fails closed. The control plane MUST NOT repair, normalize, rebind,
+switch branches, or delete a worktree to convert uncertainty into authority.
+
+`integration-control` owns the trusted inventory definition, set-wide gate
+sequencing, fail-closed completeness rule, and integration review. A later,
+separately authorized `schema-contracts` task owns the normative Schema mirror
+and A-family fixtures. This control requirement grants no model implementation
+authority.
+
 ### `RoutingPolicy`
 
 After exactly one `Project` and the complete `Domain` set have been resolved,
@@ -270,10 +371,12 @@ configuration/model integrity validation. That boundary includes:
 - model/Schema representation conformance;
 - ID uniqueness inside a closed synthetic or loaded governance bundle;
 - reference shape and reference existence checks inside that closed bundle;
+- individual `HostOverlay` validation followed by cross-resource binding
+  injectivity over an already-established complete same-host overlay set;
 - static restriction-shape checks that do not calculate an operational
   authorization result; and
-- static model invariants that do not require task intent, host bindings, Git
-  state, lease state, or runtime decisions.
+- static model invariants that do not require task intent, task-specific
+  host-binding resolution, Git state, lease state, or runtime decisions.
 
 Phase 1 MUST NOT execute broader operational semantics. It MUST NOT match task
 intent to a `Project`; resolve an affected `Domain` set from a task; evaluate

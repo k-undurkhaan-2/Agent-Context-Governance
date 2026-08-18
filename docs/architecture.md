@@ -55,7 +55,11 @@ constraints, object-local invariants, deterministic decoding, canonical
 serialization, representation conformance, ID uniqueness and reference checks
 inside a closed synthetic or loaded bundle, and static restriction or model
 invariants that do not calculate an operational result or require task intent,
-host bindings, Git state, lease state, or runtime decisions.
+task-specific host-binding resolution, Git state, lease state, or runtime
+decisions. It also includes individual `HostOverlay` validation followed by
+cross-resource binding-injectivity validation over an already-established
+complete same-host overlay set; that validation does not select a target or
+prove live physical identity.
 
 Phase 1 MUST NOT match task intent to a `Project`, resolve a task's `Domain`
 set, evaluate `RoutingPolicy` for an actual task, select a role, decide split
@@ -154,6 +158,43 @@ customer permissions and `HostOverlay` restrictions, requesting live runtime
 observations, coordinating write leases, and arranging trusted issuance or
 validation of a bounded `TaskContract`.
 
+For each validation or revalidation checkpoint, configuration authority MUST
+provide one trusted configuration validation snapshot: an internally coherent,
+read-only view of the trusted closed configuration inventory for that
+checkpoint. It MAY establish that view through an immutable snapshot or read
+view, a transactionally consistent read, an authority-native configuration
+revision, or an equivalent trusted state identity; no storage technology is
+required. The mechanism MUST prove that both complete same-host membership and
+the exact contents of every participating resource belong to one coherent
+configuration state.
+
+The control plane MUST consume that single view as one atomic or consistent
+proof boundary for target `hostId` selection, complete same-host enumeration,
+completeness, individual resource validation, binding-union construction,
+set-wide injectivity, and resulting static eligibility. If snapshot consistency
+cannot be established or a relevant configuration change occurs while the
+proof is formed, the current gate fails closed and no partial result becomes
+eligibility evidence. A later checkpoint MAY use a newer coherent snapshot,
+but evidence from incompatible snapshots MUST NOT be composed into one
+eligibility result.
+
+From that checkpoint's snapshot, before exposing a host binding as statically
+eligible, the control plane MUST obtain the [complete same-host overlay
+set](configuration-model.md#hostoverlay). Every configured `HostOverlay` for
+the target `hostId`, exactly as represented in that snapshot, participates
+across all `projectRef` values. After each overlay validates individually,
+Phase 1 static validation MUST validate the union of those snapshot-bound
+bindings for host-wide `worktreeId` uniqueness and exclusivity of each
+already-validated exact `(platform, repositoryRoot.value)` identity. Project
+boundaries, distinct overlay IDs, task input, and adapter selection cannot
+partition or narrow this comparison; incomplete evidence fails closed.
+
+`integration-control` owns the inventory boundary, set-wide gate sequencing,
+fail-closed completeness rule, and integration review. The complete same-host
+overlay set is control-plane comparison context, not a serialized resource.
+Each `HostOverlay` remains host-local and outside portable customer governance,
+and it may bind or narrow authority but never widen it.
+
 The control plane MUST distinguish a request from authorization. Task intent is
 untrusted input describing the requested outcome, requested mode, proposed
 scope, and caller-provided constraints before governance resolution. Task
@@ -170,6 +211,19 @@ submodule state, active Git operations, Git administrative locks, and other
 required filesystem facts. Runtime coordination supplies task state, lease
 records, lease-store synchronization, ownership records, release outcomes, and
 lease-store locks through separate ports.
+
+At future Phase 3 checkpoints relevant to binding, contract issuance, and
+action, runtime inspection MUST prove that every distinct binding across the
+complete same-host overlay set derived from that checkpoint's coherent trusted
+configuration validation snapshot still resolves to a distinct canonical
+registered physical Git worktree. Case and Unicode identity, filesystem
+aliases, symlinks, junctions, reparse points, Windows 8.3 aliases, `.git`
+indirection, linked-worktree registration, common-Git-directory relationships,
+conflicting registrations, inaccessible canonicalization, and every other
+unresolved physical-identity ambiguity fail closed. Equal path strings on
+different hosts are not globally exclusive merely because their spelling is
+equal. Runtime inspection does not repair, normalize, rebind, switch branches,
+or delete worktrees to manufacture a passing identity proof.
 
 Candidate expected state comes from validated governance, resolved untrusted
 task intent, and host-local bindings. Contract expected state is an immutable
@@ -347,7 +401,9 @@ The intended control flow is:
 2. Resolve exactly one `Project`.
 3. Resolve a non-empty deterministic `Domain` set.
 4. Use `RoutingPolicy` to select exactly one `WorktreeRole` covering every resolved `Domain`.
-5. Resolve one local `HostOverlay` binding.
+5. From one coherent checkpoint-local trusted configuration validation
+   snapshot, establish the complete same-host overlay set, pass individual and
+   set-wide static gates, and then resolve one local `HostOverlay` binding.
 6. Perform initial live preflight.
 7. Atomically acquire the task-owned write lease when required.
 8. Re-read runtime Git observations and runtime coordination state.

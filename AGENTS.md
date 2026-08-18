@@ -60,6 +60,24 @@ distinct worktrees. They MUST NOT be assigned to, implemented in, or allowed to
 write through the same worktree. A free Schema worktree cannot be reused as the
 model worktree.
 
+For host-binding governance, `integration-control` owns the trusted inventory
+boundary and set-wide acceptance sequencing for the
+[complete same-host overlay set](docs/configuration-model.md#hostoverlay). One
+individually valid `HostOverlay` is not an isolation proof. Every configured
+overlay for the same `hostId` participates across all `projectRef` values, and
+neither a task, caller, adapter, Project, nor selected overlay may omit another
+same-host overlay. An incomplete inventory fails closed.
+
+Only after every overlay is individually valid may Phase 1 statically compare
+the union of their bindings and require host-wide `worktreeId` uniqueness and
+exclusivity of each already-validated exact `(platform,
+repositoryRoot.value)` identity. Different overlay identifiers do not waive
+those requirements. Future Phase 3 must separately and freshly prove that the
+same distinct bindings resolve to distinct canonical registered physical Git
+worktrees; uncertainty denies execution. These are explanatory control-plane
+requirements, not authority supplied by this document or a replacement for the
+Schema-before-model sequence and distinct-worktree rules.
+
 ### Required Schema-before-model sequence
 
 1. Phase 1 activation is committed to `main`.

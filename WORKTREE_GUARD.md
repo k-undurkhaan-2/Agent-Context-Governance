@@ -76,12 +76,16 @@ tests, and bounded static configuration/model integrity checks.
 Phase 1 MAY validate structure, supported API versions, object-local
 invariants, deterministic decoding and serialization, Schema/model
 representation conformance, closed-bundle ID and reference integrity, and
-static restrictions that do not calculate an operational result. It MUST NOT
-execute task-intent or Project/Domain resolution, `RoutingPolicy`, role
-selection, split-versus-deny decisions, host binding, operational
-authorization, live Git inspection, leases, trusted contract authority, or
-runtime receipt generation. Those responsibilities remain in Phases 2 through
-4; the CLI and adapters remain Phases 5 and 6.
+static restrictions that do not calculate an operational result. That static
+boundary includes individual `HostOverlay` validation followed by
+cross-resource binding-injectivity validation over an already-established
+complete same-host overlay set; it does not select a binding for a task.
+Phase 1 MUST NOT execute task-intent or Project/Domain resolution,
+`RoutingPolicy`, role selection, split-versus-deny decisions, operational
+host-binding selection, operational authorization, live Git inspection,
+leases, trusted contract authority, or runtime receipt generation. Those
+responsibilities remain in Phases 2 through 4; the CLI and adapters remain
+Phases 5 and 6.
 
 The planned logical roles are:
 
@@ -199,6 +203,52 @@ The guard MUST inspect the common repository's live worktree registration. The c
 
 Registration proves repository membership only. It does not prove that a worktree's role owns the complete required `Domain` set or that the worktree is available for writing.
 
+### Host binding inventory and injectivity
+
+At each applicable validation or revalidation checkpoint, future governed
+preflight MUST acquire or prove one
+[trusted configuration validation
+snapshot](docs/configuration-model.md#hostoverlay): one checkpoint-local,
+internally coherent, read-only view supplied by configuration authority. From
+that same snapshot, the guard MUST establish the
+[complete same-host overlay set](docs/configuration-model.md#hostoverlay) from
+a trusted closed configuration inventory. It MUST include every configured
+`HostOverlay` with the target `hostId` across all `projectRef` values. A task,
+caller, adapter, Project, selected overlay, or distinct overlay identifier MUST
+NOT narrow that comparison set. Missing a same-host configured overlay,
+incomplete enumeration, or inability to establish completeness MUST fail
+closed.
+
+Every overlay exactly as represented in that same snapshot MUST first pass its
+own structural and static checks. The guard then treats the union of those same
+snapshot-bound bindings as one comparison domain: every `worktreeId` MUST be
+globally unique within the host, and every already-validated exact `(platform,
+repositoryRoot.value)` identity MUST be exclusive within the host. A
+cross-resource duplicate denies eligibility. Equal host-local path strings on
+different `hostId` values are outside this exclusivity domain and are not
+rejected solely for that equality.
+
+If configuration authority reports, detects, or cannot exclude a relevant
+configuration-state change while the set-wide proof is being formed, the
+entire current gate is invalid and does not pass; no partial result becomes
+eligibility evidence. The guard MUST NOT accept membership, resource contents,
+already-validated members, or union predicates from an incompatible
+configuration state as proof for the current snapshot. A later attempt MAY
+start with a new coherent snapshot, but the guard MUST NOT reconcile the
+change, continue from partial results, repair state, or automatically rebind
+the task. Unproven snapshot-bound result reuse fails closed.
+
+At future Phase 3 live checkpoints relevant to binding, contract issuance, and
+action, every distinct binding in the complete same-host set derived from that
+checkpoint's coherent snapshot MUST still resolve to a distinct canonical
+registered physical Git worktree. Case or Unicode identity, filesystem aliases,
+symlinks, junctions, reparse points, Windows 8.3 aliases, `.git` indirection,
+linked-worktree registration, common-Git-directory relationships, conflicting
+registrations, inaccessible canonicalization, or any other unresolved
+physical-identity ambiguity MUST fail closed. The guard MUST NOT repair,
+normalize, rebind, switch branches, delete a worktree, or otherwise transform
+an uncertain observation into authority.
+
 ### 7. Worktree role ownership
 
 In the future operational path, task resolution MUST produce exactly one `Project` and a non-empty deterministic set of `Domain` identifiers. After that resolution, `RoutingPolicy` MUST select exactly one `WorktreeRole` that owns every resolved `Domain`, and the `HostOverlay` MUST bind that role to one canonical local worktree without widening the mapping. The guard MUST compare the complete domain set and required role with the selected worktree's declared role. Role MUST NOT be inferred from path, branch, availability, lease state, or historical use. The `TaskContract` MUST bind the same complete set.
@@ -217,9 +267,21 @@ Release MUST target only the lease identified by the acquisition result and prov
 
 For the future operational path, four checkpoints are distinct: (1) initial live preflight; (2) post-acquisition, pre-contract-issuance revalidation, or immediate pre-issuance revalidation when no lease is required; (3) post-contract, immediately-before-action revalidation, including contract scope validation; and (4) post-execution scope and state verification. Only successful checkpoint-two revalidation MAY allow trusted `TaskContract` issuance or validation. Relevant checks MUST also run at later policy-defined boundaries. If live state changes after observation, the observation is stale and MUST be repeated. A pre-operational bootstrap task instead uses the external authorization and bootstrap preflight above and MUST NOT pretend that a `TaskContract` or lease was issued.
 
+At the initial binding/preflight checkpoint and at checkpoints two and three,
+the complete same-host membership, resource validation, binding union, static
+injectivity, and applicable Phase 3 physical-injectivity proof MUST be derived
+from one coherent trusted configuration validation snapshot for that
+checkpoint. Each later checkpoint MUST obtain or prove its own snapshot and MAY
+observe a newer legitimate configuration state, but it MUST NOT inherit
+complete-set eligibility from an earlier snapshot. It MUST re-establish the
+applicable complete proof. If the selected binding disappears, changes
+identity, loses eligibility, becomes conflicting, or becomes physically
+ambiguous, the later gate denies and MUST NOT automatically select another
+worktree.
+
 The guard MUST stop implementation and return a denial when any of the following is true:
 
-- for an ordinary governed task, structured governance, resolved intent, or the `HostOverlay` binding is absent, invalid, stale, ambiguous, inconsistent, or not applicable to the target, or an execution checkpoint lacks a valid applicable `TaskContract`;
+- for an ordinary governed task, structured governance, resolved intent, the complete same-host overlay set, or the selected `HostOverlay` binding is absent, invalid, incomplete, stale, ambiguous, inconsistent, or not applicable to the target, or an execution checkpoint lacks a valid applicable `TaskContract`;
 - the task proposes `mode: plan-only` with `allowWrite: true`; a plan-only action attempts a write; a proposed write lacks effective `allowWrite: true`; or any requested operation or scope exceeds applicable authorization;
 - the target worktree or expected branch-or-detached condition is missing or non-unique;
 - any applicable repository-root, branch, `HEAD`, dirty-state, active-operation, or registration check fails, or an ordinary governed task fails role-ownership or lease checks;
