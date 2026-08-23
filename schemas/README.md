@@ -453,18 +453,54 @@ planned-fixture prefix. Neither value is part of the wire or API surface.
 
 The exact Finding A predicates are:
 
-- **A1.** Across the complete `HostOverlay.spec.bindings` array, every
-  `worktreeId` is globally unique. A different `roleRef` does not permit reuse.
-- **A2.** Every already-validated exact `repositoryRoot` identity is globally
-  exclusive across distinct bindings. Static comparison is exact
-  `(platform, value)` equality only; it performs no filesystem resolution,
-  case folding, Unicode normalization, symlink, junction, reparse-point,
-  registration, or other alias resolution.
-- **A3.** In future Phase 3, every distinct binding MUST resolve to a distinct
-  canonical registered physical Git worktree.
+For one Phase 1 validation or revalidation checkpoint and exactly one target
+`hostId`, the comparison authority is the complete trusted configuration set
+of every configured `HostOverlay` whose `spec.hostId` matches exactly, across
+all `projectRef` values. Complete membership and every participating resource's
+exact contents MUST derive from one trusted configuration validation snapshot:
+a checkpoint-local, internally coherent, read-only view of a trusted closed
+configuration inventory. A task, caller, adapter, selected Project,
+`projectRef`, selected overlay, `HostOverlay.metadata.id`, resource ID, role,
+active-only filter, or other convenient subset MUST NOT narrow that set.
+
+Each participating `HostOverlay` MUST first be individually structurally and
+semantically valid exactly as represented in that same snapshot. Only then does
+Phase 1 form one comparison domain by taking the union of every participating
+`spec.bindings` array. The exact Finding A predicates over that complete binding
+union are:
+
+- **A1.** Across every two distinct bindings in the complete same-host union,
+  `worktreeId` values MUST differ. A different `HostOverlay` resource,
+  `projectRef`, `roleRef`, or other resource identity does not permit reuse.
+- **A2.** Across every two distinct bindings in that union, the
+  already-validated exact `(platform, repositoryRoot.value)` identities MUST
+  differ. Static comparison is exact equality only; it performs no filesystem
+  resolution, case folding, Unicode normalization, symlink, junction,
+  reparse-point, registration, or other alias resolution.
+- **A3.** In future Phase 3, every distinct binding in the checkpoint's
+  complete same-host set MUST resolve to a distinct canonical registered
+  physical Git worktree.
 - **A4.** Future Phase 3 uncertainty about physical-worktree identity fails
-  closed, including alias, case, symlink, junction, reparse-point, and
-  registration ambiguity.
+  closed, including case or Unicode identity, symlink, junction, reparse-point,
+  Windows 8.3, `.git` indirection, linked-worktree registration,
+  common-Git-directory, conflicting-registration, canonicalization, or other
+  alias ambiguity.
+
+Equal lexical `repositoryRoot.value` strings under different `hostId` values
+are outside one same-host comparison domain and are not rejected solely for
+that equality. If complete trusted same-host membership cannot be established,
+or any participating resource or contents are missing, ambiguous, or untrusted,
+the complete-set proof fails closed. Membership, exact contents, individual
+validation, union construction, and injectivity MUST NOT be composed across
+incompatible snapshots; a relevant mid-proof configuration change invalidates
+the complete proof. At every lifecycle checkpoint where control governance
+requires the proof, that checkpoint independently re-establishes it from one
+coherent snapshot; an earlier checkpoint's result is not later proof.
+
+Phase 1 owns only these deterministic same-host logical and exact comparisons.
+Phase 3 owns live canonical registered physical-worktree identity and ambiguity.
+Validation rejects; it does not normalize, relocate, delete, repair, switch,
+rebind, or clean a repository or worktree.
 
 The D8 binding remains the existing closed five-field record with exactly
 `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and `remoteNames`.
@@ -504,14 +540,18 @@ are mandatory but non-additive:
 
 | ID | Primary predicate |
 | --- | --- |
-| `HX-A-P01` | Distinct `worktreeId` and exact `repositoryRoot` identities across all bindings pass static validation. |
-| `HX-A-P02` | Future Phase 3 proves that every distinct binding resolves to a distinct canonical registered physical Git worktree. |
+| `HX-A-P01` | A complete trusted same-host set containing at least two individually valid `HostOverlay` resources, including a different-`projectRef` variant, has distinct `worktreeId` and exact `(platform, repositoryRoot.value)` identities across its snapshot-bound binding union and passes Phase 1 exclusivity. |
+| `HX-A-P02` | Future Phase 3 proves that every distinct binding across the checkpoint's complete same-host set resolves to a distinct canonical registered physical Git worktree. |
+| `HX-A-P03` | Complete sets for different `hostId` values may contain lexically equal `repositoryRoot.value` strings without rejection solely for that cross-host equality. |
 | `HX-B-P01` | Both coordination roots are statically outside or siblings of every binding root; equal coordination roots and a worktree beneath a coordination root are non-additive valid variants. |
 | `HX-B-P02` | Future Phase 3 proves that both coordination roots resolve outside every actual bound registered worktree. |
-| `HX-A-N01` | A duplicate `worktreeId` rejects; reuse under a different `roleRef` is a non-additive variant. |
-| `HX-A-N02` | A duplicate already-validated exact `repositoryRoot` identity rejects. |
-| `HX-A-N03` | Lexically distinct binding roots that resolve to the same physical worktree reject in future Phase 3. |
-| `HX-A-N04` | Indeterminate physical-worktree distinctness rejects in future Phase 3. |
+| `HX-A-N01` | Distinct `HostOverlay` resources for the same host reuse one `worktreeId`; different `projectRef` and `roleRef` values are mandatory non-additive variants, and the complete union rejects. |
+| `HX-A-N02` | Distinct same-host resources with distinct IDs, Projects, roles, or `worktreeId` values reuse one already-validated exact `(platform, repositoryRoot.value)` identity, and the complete union rejects. |
+| `HX-A-N03` | Lexically distinct same-host binding roots that resolve to the same physical worktree reject in future Phase 3. |
+| `HX-A-N04` | Indeterminate same-host physical-worktree distinctness rejects in future Phase 3. |
+| `HX-A-N05` | A caller or other input supplies only a proper subset of the configured trusted same-host overlays; incomplete membership rejects. |
+| `HX-A-N06` | A participating same-host resource or its exact contents are missing, ambiguous, or untrusted, so the complete-set proof rejects. |
+| `HX-A-N07` | Membership from one configuration state is combined with contents, individual validation, union construction, or injectivity from an incompatible state; the mixed-snapshot proof rejects. |
 | `HX-B-N01` | `stateRoot` exactly equals a binding `repositoryRoot`. |
 | `HX-B-N02` | `stateRoot` is a strict descendant of a binding `repositoryRoot`. |
 | `HX-B-N03` | `lockRoot` exactly equals a binding `repositoryRoot`. |
@@ -519,14 +559,19 @@ are mandatory but non-additive:
 | `HX-B-N05` | A lexically separate coordination root resolves equal to or inside an actual bound registered worktree in future Phase 3. |
 | `HX-B-N06` | Live alias or containment identity is indeterminate in future Phase 3. |
 
-HX is exactly 4 positive and 10 negative primary predicates. It is separately
+HX is exactly 5 positive and 13 negative primary predicates. It is separately
 counted and does not revise any retained focused-family or regression total.
 
-WIRE/API SURFACE UNCHANGED: Review-13 A+B only shrinks the accepted
-`HostOverlay` set. It does not alter the API version, revision, resource kinds,
-JSON property names, HostOverlay binding fields, enums, reason codes, check
-types, transition types, postconditions, receipt outcomes, or digest fields.
-The digest graph remains 14 field paths, 11 computations, and 3 exact copies.
+WIRE/API SURFACE UNCHANGED: Review-13 A+B and the Review-14 A complete-set
+closure only shrink accepted `HostOverlay` configurations. They do not alter
+the API version, revision, resource kinds, JSON property names, HostOverlay
+binding fields, enums, reason codes, check types, transition types,
+postconditions, receipt outcomes, or digest fields. The complete same-host set
+and snapshot are trusted validator/control-plane comparison context, not a
+serialized resource, field, collection, `GovernanceBundle` member,
+`TaskContract` field, or digest input. The existing `configurationDigest`
+projection remains the closed `{governanceBundle, hostOverlay}` shape. The
+digest graph remains 14 field paths, 11 computations, and 3 exact copies.
 
 ## Current contract summary
 
@@ -959,8 +1004,8 @@ digest-bearing paths = 14
 digest computations = 11
 digest exact-copy paths = 3
 numeric fields = 6
-host-resource-exclusivity positives = 4
-host-resource-exclusivity negatives = 10
+host-resource-exclusivity positives = 5
+host-resource-exclusivity negatives = 13
 PG-1 distinct timestamp values = 5
 PG-1 timestamp occurrences = 38
 PG-1 structured-remote occurrences = 7
