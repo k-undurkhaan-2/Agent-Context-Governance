@@ -318,7 +318,7 @@ TaskContract derivation prerequisites validate before their cataloged digests
 are accepted. All eight duplicated-claim equalities, AP-1 source-profile and
 exact-copy chain, root/A/R/every-L references, source/root/contract lease-ID
 equality, chronology, phase-dependent check outcomes, final-P/E/V selection and
-binding, changed-path scope conformance, and outcome/release consistency
+binding, path-and-operation scope conformance, and outcome/release consistency
 validate before receipt-digest acceptance. Delivery binding and chronology
 validate only after receipt finalization. No TaskContract acquisition-digest
 field, new TaskContract or ExecutionReceipt digest profile, or
@@ -594,6 +594,43 @@ none-only and are not newly mandatory. Simultaneous composition applies the
 seven transitions while reconstructing one final nine-dimension composite in
 which both active operations and administrative locks remain none.
 
+For a writing TaskContract `C`, the design-only mirror defines
+`M = {create, modify, delete}`,
+`Acap = set(C.spec.authorizedScope.capabilities)`, and
+`Qcap = set(C.spec.prohibitedScope.capabilities)`. Existing rules keep the two
+capability sets disjoint; the complete capability vocabulary remains exactly
+13. Only after simultaneous D7 composition produces a valid final composite
+`F`, every ordinary path is projected from complete `B` and `F` as absent,
+present with exact known ordinary-file identity, or present with opaque
+ordinary-file identity. Absent-to-present contributes `create`,
+present-to-absent contributes `delete`, known unequal present-to-present
+contributes `modify`, known equal and absent-to-absent contribute nothing, and
+opaque or equality-unprovable present-to-present conservatively contributes
+possible `modify`. Opacity alone does not reject when `modify` is authorized
+and not prohibited.
+
+`Oplan(B,F)` is the least-upper-bound union, across every ordinary path, of
+every ordinary mutation capability possible in a B/F-consistent effect. The
+operation is not inferred from a transition branch name. Ref, HEAD, index, and
+outer-repository submodule transitions contribute no ordinary-file mutation;
+tracked, untracked, and ignored contributions use complete B/F path state. For
+tracked `P = {clean, modified, type-changed}` and `D = deleted`, `P -> D` is
+delete, `D -> P` is create, known changed `P -> P` is modify, proven equal
+`P -> P` is no-op, and equality-unprovable `P -> P` is possible modify.
+`entryPresence.state` alone is insufficient. Untracked/ignored
+absent-to-present is create, present-to-absent is delete, and opaque
+present-to-present is possible modify; a classification transfer alone is not
+create+delete when the same leaf remains present. A rename-equivalent old/new
+pair requires both delete and create.
+
+A valid writing contract requires exactly `Oplan(B,F) ⊆ Acap` and
+`Oplan(B,F) ∩ Qcap = ∅`. This is a non-wire D7 extension: the
+seven transition branches, eleven postconditions, D6, D8, D10, D12, API,
+resource shapes, capability tokens, and digest graph remain unchanged. SG-001
+remains 25 rows; only its existing Permitted transitions, Required
+postconditions, D7 simultaneous transition composition, and Receipt
+outcomes/scope rows cross-reference this closure.
+
 A non-empty active operation or administrative lock at initial or pre-issuance
 revalidation denies before a contract exists. At post-contract
 immediately-before-action revalidation it permits no protected action and any
@@ -865,7 +902,8 @@ additive.
 
 The focused inventories remain pre-action 8/37, final-E 8/22,
 post-execution verification 10/20, changed-path scope 5/6 plus one D5 cross-
-reference, D6 13/7, and postcondition binding 15/20. Rebuilding under the final
+reference, ordinary-capability closure 3/8, D6 13/7, and postcondition binding
+15/20. Rebuilding under the final
 owner choices yields acquisition/issuance 6/28, cumulative denial 9/6,
 release/finalization 11/14, and primitive chronology 24/24. AI plus RF contains
 59 planned primary predicates; PB + AI + DP + RF contain 109 numbered primary
@@ -930,15 +968,39 @@ manifest have not been implemented, so documentation consistency does not
 claim payload existence or future manifest uniqueness verification.
 For referenced TaskContract `C`, `Apath` is the union of
 `C.spec.authorizedScope.paths` languages and `Qpath` is the union of
-`C.spec.prohibitedScope.paths` languages. A writing receipt's successful scope
-claim requires every changed path in `Apath` and not in `Qpath`, with prohibited
-membership overriding authorization. Passed verification also requires passed,
-exactly referenced `finalV("scope-contained")`. One bad member requires failed
-or indeterminate verification and forbids a succeeded lifecycle while the path
-remains evidence. Empty writing results satisfy membership vacuously without
-waiving completeness or evidence. The scope inventory remains exactly 5/6,
-and the D5 non-writing/non-empty changed-path invalid class remains a non-
-additive cross-reference.
+`C.spec.prohibitedScope.paths` languages. `Oexec` is non-wire evidence notation
+for the union of every attributable actual ordinary execution-effect
+capability, including transient and restored create/delete/modify effects and
+both sides of a rename-equivalent delete/create. A writing receipt's successful
+scope claim requires every actual ordinary effect path in `Apath` and not in
+`Qpath`, `Oexec ⊆ Acap`, and `Oexec ∩ Qcap = ∅`, with path
+or capability prohibition overriding authorization. Passed verification also
+requires passed, exactly referenced `finalV("scope-contained")`; the stronger
+predicate applies to that selected V without changing global V or per-type
+`finalV(t)` selection or recovery semantics.
+
+One bad path or operation requires failed or indeterminate verification,
+forbids a succeeded lifecycle, and remains in existing path/effect evidence.
+Ambiguous effect attribution cannot become successful no-op evidence. Empty
+writing results are vacuous only under complete no-effect evidence. For every
+non-writing contract, transitions, changed paths, and the ordinary operation
+set remain empty; execute-tests/build does not widen mutation. The changed-path
+scope inventory remains exactly 5/6 with the D5 cross-reference, while the
+separate non-wire `ORDINARY-CAPABILITY-CLOSURE` family is exactly 3/8.
+
+The OC primary IDs mirror the design exactly: `OC-P01`, `OC-P02`, and
+`OC-P03` are authorized, non-prohibited create, modify, and delete;
+`OC-N01..OC-N03` omit the respective operation from `Acap`;
+`OC-N04..OC-N06` place the respective operation in `Qcap`; `OC-N07` is a
+valid-path multi-path composite missing at least one implied operation; and
+`OC-N08` is a net-valid contract whose actual execution performs an
+unauthorized transient/restored operation on an authorized path. Mandatory
+non-additive variants cover untracked and ignored create/delete, tracked
+`D -> P`, `P -> D`, and changed `P -> P`, known no-op,
+ref/head/index/submodule ordinary no-op, opaque same-present with modify
+authorized/absent/prohibited, all three operations across distinct paths, and
+rename delete/create with both tokens required. OC does not reuse HX IDs or add
+wire state, a reason code, a capability, a transition, or runtime collection.
 D5 now contains exactly 21 `3 × 7` Cartesian negatives. Removing the retired
 administrative-lock transition removes two TaskContract administrative-lock
 array rows, so the array-ordering matrix contains 52 rows while the reusable
@@ -993,6 +1055,9 @@ five focused-family primary classes = 157
 changed-path scope positives = 5
 changed-path scope dedicated negatives = 6
 changed-path scope D5 cross-reference = 1 existing family, not additive
+ordinary-capability-closure positives = 3
+ordinary-capability-closure negatives = 8
+ordinary-capability-closure primary classes = 11
 D6 valid receipt-level combinations = 13
 D6 invalid receipt-level combinations = 7
 receipt/contract equalities = 8
@@ -1034,6 +1099,9 @@ receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
 expanded affected-family aggregate = 181
+ordinary-capability-closure positives = OC-P01..OC-P03 = 3
+ordinary-capability-closure negatives = OC-N01..OC-N08 = 8
+ordinary-capability-closure primary classes = 11
 ```
 
 Each planned range is continuous. Each primary ID denotes the intended

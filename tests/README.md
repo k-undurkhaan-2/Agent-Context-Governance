@@ -1824,19 +1824,31 @@ administrative effect cannot be reported as a successful ordinary changed path
 or silently omitted; `scope-contained` must be failed or indeterminate.
 
 For a complete issued receipt and referenced TaskContract `C`, tests define
-`Apath` as the union of `C.spec.authorizedScope.paths` languages and `Qpath` as
-the union of `C.spec.prohibitedScope.paths` languages. For every changed path
-`x`, a passed writing scope claim requires `x` in `Apath` and `x` not in
-`Qpath`; prohibited membership overrides authorized membership. Passed
-verification also requires passed, exactly referenced
-`finalV("scope-contained")`. One bad member invalidates the passed claim,
-requires failed or indeterminate verification, forbids a succeeded lifecycle,
-and remains in the receipt as audit evidence. Tests MUST
-reject silent dropping, sanitizing, normalizing, or rewriting of an offending
-path. Empty writing results satisfy membership vacuously but retain every
-completeness and evidence requirement.
+`M = {create, modify, delete}`,
+`Acap = set(C.spec.authorizedScope.capabilities)`,
+`Qcap = set(C.spec.prohibitedScope.capabilities)`, `Apath` as the union of
+`C.spec.authorizedScope.paths` languages, and `Qpath` as the union of
+`C.spec.prohibitedScope.paths` languages. `Oexec` is the non-wire union of every
+attributable actual ordinary execution-effect capability, including transient
+and restored effects and both delete-old/create-new sides of a rename.
 
-The five focused positive scope classes are exactly:
+A passed writing scope claim requires every actual ordinary effect path `x` in
+`Apath` and not in `Qpath`, `Oexec ⊆ Acap`, and
+`Oexec ∩ Qcap = ∅`; path or capability prohibition overrides
+authorization. Passed verification also requires passed, exactly referenced
+`finalV("scope-contained")`. The stronger B predicate applies to the selected
+scope V but MUST NOT change global greatest-sequence V, per-type `finalV(t)`,
+or later-passed-V recovery semantics.
+
+One bad path or operation invalidates the passed claim, requires failed or
+indeterminate verification, forbids a succeeded lifecycle, and remains in the
+existing receipt/check evidence. Tests MUST reject silent dropping,
+sanitizing, normalizing, or rewriting of an offending path or effect.
+Attribution ambiguity cannot pass as a no-op. Empty writing results satisfy the
+set predicates vacuously only with complete no-effect evidence.
+
+The five focused positive changed-path scope classes remain exactly, with valid
+operation-capability containment as non-additive background:
 
 1. one authorized, non-prohibited changed path;
 2. multiple changed paths, all authorized and non-prohibited;
@@ -1846,7 +1858,8 @@ The five focused positive scope classes are exactly:
 5. offending paths retained with indeterminate verification and a
    non-succeeded lifecycle.
 
-The six dedicated negative scope classes are exactly:
+The six dedicated negative changed-path scope classes remain exactly, with
+otherwise-valid operation-capability evidence:
 
 1. a valid ordinary path outside every authorized language with passed
    verification;
@@ -1859,6 +1872,51 @@ The six dedicated negative scope classes are exactly:
 
 The non-writing/non-empty-changed-path invalid case remains in D5. It is a
 required cross-reference but does not add a seventh dedicated scope negative.
+
+#### `ORDINARY-CAPABILITY-CLOSURE` coverage
+
+For writing contracts, tests derive the ordinary path projection only after
+the complete simultaneous D7 final composite `F` is valid. Each path projects
+as absent, present with exact known ordinary-file identity, or present with
+opaque ordinary-file identity. Absent-to-present is create,
+present-to-absent is delete, known unequal present-to-present is modify, known
+equal and absent-to-absent are no-op, and equality-unprovable present-to-present
+is conservative possible modify. `Oplan(B,F)` is the least-upper-bound union
+over every B/F-consistent ordinary effect and must satisfy both
+`Oplan(B,F) ⊆ Acap` and `Oplan(B,F) ∩ Qcap = ∅`.
+
+The exact three positive and eight negative primary owners are:
+
+| Primary ID | Required planned vector |
+| --- | --- |
+| `OC-P01` | authorized, non-prohibited create |
+| `OC-P02` | authorized, non-prohibited modify |
+| `OC-P03` | authorized, non-prohibited delete |
+| `OC-N01` | create implied but absent from `Acap` |
+| `OC-N02` | modify implied but absent from `Acap` |
+| `OC-N03` | delete implied but absent from `Acap` |
+| `OC-N04` | create implied and present in `Qcap` |
+| `OC-N05` | modify implied and present in `Qcap` |
+| `OC-N06` | delete implied and present in `Qcap` |
+| `OC-N07` | valid-path multi-path B/F composite with at least one implied operation absent from `Acap` |
+| `OC-N08` | net-valid B/F state but an actual unauthorized transient/restored operation on an authorized path |
+
+Mandatory non-additive variants cover untracked create/delete; ignored
+create/delete; tracked `D -> P` create, `P -> D` delete, and changed `P -> P`
+modify; a known ordinary no-op; ref/head/index/submodule ordinary no-op; opaque
+same-present with modify authorized, absent, and prohibited; create+modify+delete
+across distinct paths with all three authorized; and rename-equivalent
+delete-old/create-new with both tokens required. Ref, HEAD, index, and
+outer-repository submodule transitions contribute no ordinary-file operation;
+tracked/untracked/ignored classifications derive only from complete B/F path
+state, and classification transfer alone is not create+delete when the leaf
+remains present. `entryPresence.state` alone is insufficient.
+
+The family remains exactly OC 3/8/11 and reuses no HX ID. It adds no wire field,
+enum, reason, capability token, transition, uncertainty member, digest input, or
+runtime collector. For `allowWrite: false`, transitions, changed paths, and the
+ordinary operation set remain empty, and execute-tests/build does not widen
+ordinary mutation.
 
 Phase 3 vectors retain live resolution for top-level `.git` indirection,
 linked and common Git directories, administrative locations outside the
@@ -2037,6 +2095,10 @@ Untracked and ignored path arrays MUST remain unique and canonically ordered by 
 Future Schema and static-contract coverage MUST implement every row of the
 design record's [mandatory exhaustive fixture/conformance
 matrix](../docs/schema-contract-v1alpha1.md#mandatory-exhaustive-sg-001-fixtureconformance-matrix).
+The row count remains exactly 25. Review-14 B extends only the existing
+Permitted transitions, Required postconditions, D7 simultaneous transition
+composition, and Receipt outcomes/scope rows; OC is cross-referenced and does
+not add a matrix row.
 Prior approval and third-review repair history remain recorded externally and
 at commit `9eac3e040a8d0f9c959eeb675eace795749e422a`. This section records design-only,
 non-executable current conformance coverage requirements for the retained
@@ -2072,8 +2134,9 @@ the design, while preserving its assigned phase and ownership boundary:
   digests without filters, decoding, normalization, or dereference, and reject
   unstable, unreadable, replaced, truncated, or unsupported objects.
 - **D5:** require exactly empty transitions, baseline-equal state
-  postconditions, no lease, and empty issued-receipt changed paths for all three
-  non-writing rows; cover exactly 21 Cartesian negatives, `3 × 7`, across
+  postconditions, no lease, empty issued-receipt changed paths, and an empty
+  ordinary operation set for all three non-writing rows; cover exactly 21
+  Cartesian negatives, `3 × 7`, across
   the seven permitted transition branches; cross-reference, without
   duplicating, the non-empty changed-path invalid case from scope coverage.
 - **D6:** enforce `verificationOutcome: not-performed` if and only if
@@ -2087,7 +2150,9 @@ the design, while preserving its assigned phase and ownership boundary:
   reconstruct and validate one nine-dimension final composite with active
   operations and administrative locks both still none, require exact
   changed-dimension postconditions, and allow only none-valued active-operation
-  and administrative-lock postconditions.
+  and administrative-lock postconditions; only after `F` is valid, derive the
+  complete ordinary B/F projection and conservative `Oplan(B,F)`, then require
+  `Oplan(B,F) ⊆ Acap` and `Oplan(B,F) ∩ Qcap = ∅`.
 - **D8:** require exactly the unchanged five closed HostOverlay binding fields,
   canonical non-empty `remoteNames`, exact ref-branch conditions, name
   resolution, rejection of `expectedBranch` or any cached observation field,
@@ -2199,6 +2264,9 @@ five focused-family primary classes = 157
 changed-path scope positives = 5
 changed-path scope dedicated negatives = 6
 changed-path scope D5 cross-reference = 1 existing family, not additive
+ordinary-capability-closure positives = 3
+ordinary-capability-closure negatives = 8
+ordinary-capability-closure primary classes = 11
 D6 valid receipt-level combinations = 13
 D6 invalid receipt-level combinations = 7
 receipt/contract equalities = 8
@@ -2240,6 +2308,9 @@ receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
 expanded affected-family aggregate = 181
+ordinary-capability-closure positives = OC-P01..OC-P03 = 3
+ordinary-capability-closure negatives = OC-N01..OC-N08 = 8
+ordinary-capability-closure primary classes = 11
 ```
 
 Each planned range is continuous. Each primary ID is the intended
@@ -2340,12 +2411,18 @@ existing `L(lock)` identity and ordering rules.
 Every one of the seven permitted-transition branches and all eleven
 required-postcondition branches requires positive coverage. The optional
 active-operation and administrative-lock postconditions are both none-only.
+The transition vectors cross-reference ordinary B/F projection and the OC
+family: ref/head/index/submodule ordinary no-op, tracked/untracked/ignored
+create/modify/delete classification, opaque same-present conservatism, and both
+`Oplan(B,F)` capability predicates. Successful `scope-contained` coverage has
+both path and operation-capability containment.
 Negative coverage MUST reject identical `from`/`to`, missing target keys,
 unknown transition types, both retired transition types, duplicate transition
 targets, duplicate postcondition types, non-empty active-operation or
 administrative-lock expectations, any exact `.git` component in a path-keyed
-value, a successful scope claim that omits an administrative effect, and a
-missing or repeated `scope-contained`.
+value, a successful scope claim that omits an administrative effect or lacks
+path or operation-capability containment, and a missing or repeated
+`scope-contained`.
 Uniqueness is established before digest projection or hashing.
 
 Receipt vectors cover warnings with and without optional fields, all 14 check
@@ -2353,7 +2430,7 @@ types, the exact 4/3 outcome conditional, V-only closed references, contiguous
 sequences, unique IDs, ordered reason codes, and same-receipt warning links.
 Planned issued-contract vectors cover all outcomes, all 24 primitive chronology
 relations and 30 displayed consequences, the 8/37 pre-action, 8/22
-final-E, 10/20 verification, and 5/6 scope families, plus 15/20 postcondition-
+final-E, 10/20 verification, 5/6 changed-path scope, and 3/8 OC families, plus 15/20 postcondition-
 binding, rebuilt 6/28 acquisition/issuance, 9/6 cumulative-denial, and 11/14
 release/finalization families. They cover EF-1 execution terminality, final P/E/V, per-type final V,
 diagnostic finalG and final L selection; every G and every attempted P passed;
@@ -2432,7 +2509,7 @@ pipeline:
     P/E/V, issued-pre-release/L, acquired-Dpre/L, evidence/L, every-non-F/
     sanitization, sanitization/F, and F/finish ordering; mandatory
     `sanitization.applied == true`; EF-1 execution terminality and final E/V/L binding;
-    scope, terminal F, warning, L-empty, and outcome consistency;
+    path-and-operation scope, terminal F, warning, L-empty, and outcome consistency;
 11. receipt digest verification; and
 12. delivery-result binding and chronology.
 

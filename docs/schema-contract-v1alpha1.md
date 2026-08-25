@@ -1997,7 +1997,12 @@ transition per `(type, path)`. Targets must be strictly ordered by
 `T(transition)`. Target uniqueness is validated before hashing;
 `J(transition)` is permitted only as a deterministic diagnostic tie-breaker
 after that validation. A transition grants no authority outside the contract
-scope, and actual transition attribution remains Phase 4 verification.
+scope. For ordinary-file mutation-capability closure, an operation is never
+inferred solely from the transition branch name: `ref-state`, `head-state`,
+`index-entry`, and `submodule-entry` contribute no ordinary-file mutation,
+while `tracked-entry`, `untracked-path`, and `ignored-path` are interpreted from
+the complete baseline/final path state defined below. Actual transition and
+execution-effect attribution remains Phase 4 verification.
 
 Each of the five path-keyed transition targets must be a valid
 `repositoryRelativePath`; any exact `.git` component rejects the contract. A
@@ -2042,8 +2047,9 @@ closed branch, branch-specific cardinality, sole path identity, uniqueness,
 inventory, cross-dimension, and ordering rules defined for the baseline.
 Every nested path therefore uses the revised valid path universe and rejects
 an exact `.git` component. `scope-contained` verifies actual ordinary effects
-against that same universe: a runtime-resolved Git administrative effect makes
-the postcondition failed or indeterminate and may not be silently omitted.
+against both the path and operation-capability predicates defined below: a
+runtime-resolved Git administrative effect makes the postcondition failed or
+indeterminate and may not be silently omitted.
 Postcondition type uniqueness is validated before hashing.
 `J(postcondition)` is diagnostic-only after type uniqueness; a duplicated or
 conflicting type is invalid.
@@ -2104,6 +2110,86 @@ restrictions, D2 checkout/observation rules, the invariant that active
 operations and administrative locks are each exactly `none`,
 and every other baseline cross-dimension invariant.
 
+##### Ordinary operation-capability closure
+
+For the writing TaskContract `C`, define only as normative static-contract
+notation:
+
+```text
+M = {create, modify, delete}
+Acap = set(C.spec.authorizedScope.capabilities)
+Qcap = set(C.spec.prohibitedScope.capabilities)
+```
+
+The existing scope rules keep `Acap` and `Qcap` disjoint. `M` uses three
+existing members of the unchanged 13-member capability vocabulary; it adds no
+wire member, helper object, reason code, or transition branch.
+
+For every ordinary repository path, project the complete `B` and valid `F`
+into exactly the information needed for ordinary-file operation
+classification: `absent`, `present(exact known ordinary-file identity)`, or
+`present(opaque ordinary-file identity)`. The per-path conservative operation
+contribution is:
+
+| Ordinary `B` projection | Ordinary `F` projection | Contribution |
+| --- | --- | --- |
+| `absent` | `present` | `{create}` |
+| `present` | `absent` | `{delete}` |
+| known `present` | known unequal `present` | `{modify}` |
+| known `present` | known equal `present` | empty |
+| `absent` | `absent` | empty |
+| `present` with either identity opaque or equality otherwise unprovable | `present` | conservative possible `{modify}` |
+
+Opaque present-to-present state is therefore not a proven no-op and requires
+`modify`; opacity alone does not reject the contract when `modify` is
+authorized and not prohibited.
+
+Define `Oplan(B,F)` as the union across all ordinary paths of every member of
+`M` that can occur in any effect consistent with that path's complete `B` and
+`F` projections. It is the conservative least upper bound, not a branch-name
+lookup. The seven transition branches remain unchanged and are treated as
+follows:
+
+- `ref-state` and `head-state` contribute no ordinary-file mutation;
+- `index-entry` contributes no ordinary-file mutation in this ordinary-file
+  model;
+- `submodule-entry` contributes no outer-repository ordinary-file mutation;
+  and
+- `tracked-entry`, `untracked-path`, and `ignored-path` derive their
+  contributions from complete `B`/`F` path state.
+
+For tracked ordinary state, let `P` be `clean`, `modified`, or `type-changed`,
+and let `D` be `deleted`. `P -> D` contributes `delete`; `D -> P` contributes
+`create`; `P -> P` with known mode or content change contributes `modify`;
+proven equal mode and content contributes nothing; and equality-unprovable
+`P -> P` contributes possible `modify`. A tracked `deleted` value projects to
+ordinary absence, so `deleted -> modified` is `create` and
+`modified -> deleted` is `delete`. `entryPresence.state` alone is insufficient:
+a tracked entry that becomes absent from that inventory may leave the same
+ordinary leaf represented as untracked or ignored, or may leave no leaf.
+
+Untracked and ignored absent-to-present state contributes `create`, and
+present-to-absent contributes `delete`. Those inventories do not carry complete
+mode/content identity, so a leaf present before and after whose equality cannot
+be proved contributes possible `modify`. A classification transfer alone does
+not imply `create` plus `delete` when the same ordinary leaf remains present.
+A rename-equivalent effect at two paths contributes `delete` for the old path
+and `create` for the new path.
+
+Only after the complete `F` passes every existing cross-dimension invariant, a
+valid writing contract requires exactly:
+
+```text
+Oplan(B,F) ⊆ Acap
+and
+Oplan(B,F) ∩ Qcap = ∅
+```
+
+All operations implied across all paths are required; authorization for only
+one side of a rename-equivalent delete/create pair is insufficient. These
+predicates extend D7 only. They do not alter D6, D8, D10, D12, the seven
+transition shapes, or any digest projection.
+
 Every dimension changed by at least one of the seven permitted transitions
 requires its matching postcondition from the table, and that postcondition's
 `expected` value equals the corresponding canonical projection of `F`. A
@@ -2113,10 +2199,11 @@ or administrative-lock postcondition is none-only. `scope-contained` and
 `lease-state` retain their independent mandatory rules.
 
 Phase 1 owns explicit closed-data comparison, simultaneous application,
-canonical reconstruction, and static final-composite validation. Phase 3 owns
-HEAD/live/object/index/filesystem materialization before issuance. Phase 4
-compares final evidence with `F`, attributes transitions, and verifies scope
-and postconditions.
+canonical reconstruction, static final-composite validation, `Oplan(B,F)`
+derivation over available closed data, and the two operation-capability
+predicates. Phase 3 owns HEAD/live/object/index/filesystem materialization
+before issuance. Phase 4 compares final evidence with `F`, attributes
+transitions and actual effects, and verifies scope and postconditions.
 
 Positive vectors include independent simultaneous changes among the seven
 permitted targets whose order does not affect the same valid nine-dimension
@@ -2175,10 +2262,10 @@ a successful ordinary member, cannot be omitted while claiming successful
 `scope-contained` verification, and instead requires failed or indeterminate
 scope evidence.
 
-#### Issued-receipt changed-path scope binding
+#### Issued-receipt path-and-operation scope binding
 
 For a complete `issued-contract` receipt and its referenced TaskContract `C`,
-define the two exact path languages:
+reuse `M`, `Acap`, and `Qcap` above and define the two exact path languages:
 
 ```text
 Apath =
@@ -2190,35 +2277,63 @@ Qpath =
 
 `Qpath` is deliberately used here so it cannot be confused with the pre-action
 check set `P` below. Both unions use the existing anchored path-pattern grammar
-over the existing valid repository-relative-path universe. For every
-`x` in `ExecutionReceipt.spec.changedPaths`, successful scope conformance is
-exactly:
+over the existing valid repository-relative-path universe.
+
+Define non-wire evidence notation `Oexec` as the union of every attributable
+actual ordinary execution-effect capability in `M`. It includes transient and
+restored effects, including a temporary create followed by delete, a temporary
+delete followed by restoration, a temporary modify followed by restoration,
+and both `delete` and `create` for a rename-equivalent old/new path pair.
+`Oplan(B,F)` alone is insufficient because a net-valid final composite does not
+erase actual intermediate effects. This design requirement does not implement
+runtime collection or add an `ExecutionReceipt` field.
+
+For a writing contract, successful `scope-contained` conformance requires
+exactly both path containment and operation-capability containment:
 
 ```text
-x is in Apath
+for every actual ordinary effect path x:
+  x is in Apath
+  and
+  x is not in Qpath
+
 and
-x is not in Qpath
+
+Oexec ⊆ Acap
+and
+Oexec ∩ Qcap = ∅
 ```
 
-Prohibited membership overrides authorized membership. For a writing contract,
-`verificationOutcome: passed` requires every changed-path member to satisfy
-both predicates and requires `finalV("scope-contained").outcome == "passed"`
-through an exact `postconditionRef` to the contract's mandatory obligation.
-All members must pass; one unauthorized or
-prohibited member invalidates the passed claim. When any member violates the
-predicate, `verificationOutcome` is `failed` or `indeterminate`,
-`lifecycleOutcome` is not `succeeded`, and the receipt retains every offending
-path that was observed. Validators and evidence producers do not drop,
-sanitize, normalize, rewrite, or otherwise hide an offending path.
+Path or capability prohibition overrides authorization. A
+`verificationOutcome: passed` writing receipt requires both compound
+predicates and requires
+`finalV("scope-contained").outcome == "passed"` through an exact
+`postconditionRef` to the contract's mandatory obligation. The stronger B
+predicate applies to the already-selected `finalV("scope-contained")`; it does
+not change global greatest-sequence V selection, per-type `finalV(t)` selection,
+or later-passed-V recovery semantics.
 
-For a writing contract, an empty `changedPaths` array satisfies membership
-vacuously. It does not waive any completeness, postcondition, or verification-
-evidence requirement and does not create a non-empty result rule. For a
-non-writing contract, the existing D5 invariant remains the sole rule:
-`changedPaths` is exactly empty. This subsection does not duplicate or widen
-that requirement.
+One unauthorized or prohibited path or operation invalidates a passed claim.
+`verificationOutcome` is then `failed` or `indeterminate` according to the
+available evidence, `lifecycleOutcome` is not `succeeded`, and every offending
+observed path and effect remains in the existing receipt/check evidence.
+Validators and evidence producers do not drop, sanitize, normalize, rewrite,
+or otherwise hide an offending observation. If attribution cannot establish
+whether an ordinary mutation occurred, ambiguity is not successful no-op
+evidence; existing fail-closed semantics require failed or indeterminate
+verification. No serialized uncertainty field is added.
 
-The five focused positive changed-path scope classes are exactly:
+For a writing contract, empty `changedPaths` and empty `Oexec` satisfy the two
+set predicates vacuously only when complete evidence establishes no actual
+ordinary effect. They do not waive any completeness, postcondition, attribution,
+or verification-evidence requirement. For every `allowWrite: false` contract,
+the existing D5 invariant remains unchanged: `permittedTransitions`,
+`changedPaths`, and the ordinary operation set are all exactly empty. An
+`execute-tests` or build capability does not widen ordinary-file mutation.
+
+The five focused positive changed-path scope classes remain exactly the
+following path-predicate owners, each with operation-capability containment
+satisfied as mandatory non-additive background:
 
 1. one changed path in `Apath` and not in `Qpath`, with passed verification
    and passed `finalV("scope-contained")` referenced evidence;
@@ -2231,7 +2346,9 @@ The five focused positive changed-path scope classes are exactly:
 5. one or more out-of-scope paths retained under indeterminate verification
    and a non-succeeded lifecycle.
 
-The six dedicated negative changed-path scope classes are exactly:
+The six dedicated negative changed-path scope classes remain exactly the
+following path-predicate owners, each with otherwise-valid
+operation-capability evidence:
 
 1. a valid ordinary path outside every language in `Apath` with passed
    verification;
@@ -2245,6 +2362,33 @@ The six dedicated negative changed-path scope classes are exactly:
 A non-writing receipt with non-empty `changedPaths` remains an additional
 required invalid class in the existing D5 family. It is cross-referenced here
 but is not counted again in the focused 5/6 scope family.
+
+The non-wire editorial family `ORDINARY-CAPABILITY-CLOSURE` has prefix `OC`
+and exactly these three positive and eight negative primary predicates:
+
+| Primary ID | Exact planned predicate |
+| --- | --- |
+| `OC-P01` | a B/F-consistent `create` with `create` authorized and not prohibited |
+| `OC-P02` | a B/F-consistent or actual `modify` with `modify` authorized and not prohibited |
+| `OC-P03` | a B/F-consistent `delete` with `delete` authorized and not prohibited |
+| `OC-N01` | `create` is in `Oplan(B,F)` but absent from `Acap` |
+| `OC-N02` | `modify` is in `Oplan(B,F)` but absent from `Acap` |
+| `OC-N03` | `delete` is in `Oplan(B,F)` but absent from `Acap` |
+| `OC-N04` | `create` is in `Oplan(B,F)` and in `Qcap` |
+| `OC-N05` | `modify` is in `Oplan(B,F)` and in `Qcap` |
+| `OC-N06` | `delete` is in `Oplan(B,F)` and in `Qcap` |
+| `OC-N07` | a multi-path B/F composite uses valid paths but at least one implied ordinary operation is absent from `Acap` |
+| `OC-N08` | net B/F effects pass contract closure, but an actual transient or restored operation on an authorized path makes `Oexec` exceed or intersect capability scope |
+
+Mandatory non-additive OC variants cover untracked create/delete, ignored
+create/delete, tracked `D -> P` create, tracked `P -> D` delete, tracked
+`P -> changed-P` modify, a known ordinary no-op, ref/head/index/submodule
+ordinary no-op, opaque present-to-present with `modify` authorized, absent, and
+prohibited, create+modify+delete across distinct paths with all three
+authorized, and rename-equivalent delete-old/create-new with both capabilities
+required. These variants do not increase 3/8. OC identifiers do not reuse the
+separate HX family, and OC adds no wire field, enum, reason code, capability
+token, transition, digest member, or runtime implementation.
 
 `spec.origin` is exactly one of these closed branches:
 
@@ -4200,7 +4344,7 @@ of the unique greatest-sequence member of `V`. Every non-final E must be
 final E may independently be `succeeded`, `failed`, `cancelled`, or
 `indeterminate`. A `not-attempted/not-performed` receipt requires both E and V
 to be empty. These rules do not change the D6 table. Only after D6, EF-1,
-final-`E` and final-`V` binding, changed-path scope conformance, and the other
+final-`E` and final-`V` binding, path-and-operation scope conformance, and the other
 P/E/V checks succeed is the existing lifecycle-precedence table below applied;
 its precedence is otherwise unchanged.
 
@@ -4222,9 +4366,10 @@ If none of rows 1 through 8 matches, an issued-contract receipt has
 `lifecycleOutcome: succeeded` if and only if `executionOutcome` is
 `succeeded`, `verificationOutcome` is `passed`, `releaseOutcome` is
 `succeeded` or `not-required`, `unresolvedCoordinationWarnings` is empty, and a
-writing contract's complete `changedPaths` set satisfies the `Apath`/`Qpath`
-predicate with passed, exactly referenced `finalV("scope-contained")`
-evidence. If the component outcomes have the successful values but unresolved coordination warnings are non-empty,
+writing contract's every actual ordinary effect path satisfies the
+`Apath`/`Qpath` predicate, `Oexec` satisfies both `Acap`/`Qcap` predicates, and
+passed, exactly referenced `finalV("scope-contained")` evidence exists. If the
+component outcomes have the successful values but unresolved coordination warnings are non-empty,
 the required lifecycle outcome is `indeterminate`, never `succeeded`. A scope
 violation makes a passed verification claim invalid and independently forbids
 a succeeded lifecycle.
@@ -4236,12 +4381,13 @@ Additional issued-contract consistency rules are:
 - `executionOutcome: not-attempted` requires
   `verificationOutcome: not-performed`;
 - `lifecycleOutcome: succeeded` forbids unresolved coordination warnings;
-- `verificationOutcome: passed` on a writing contract requires every changed
-  path to be in `Apath` and not in `Qpath` and requires passed, exactly
-  referenced `finalV("scope-contained")` evidence;
-- any changed-path scope violation requires failed or indeterminate
-  verification, forbids `lifecycleOutcome: succeeded`, and remains retained as
-  audit evidence;
+- `verificationOutcome: passed` on a writing contract requires every actual
+  ordinary effect path to be in `Apath` and not in `Qpath`, requires
+  `Oexec ⊆ Acap` and `Oexec ∩ Qcap = ∅`, and requires
+  passed, exactly referenced `finalV("scope-contained")` evidence;
+- any path or operation-capability scope violation requires failed or
+  indeterminate verification, forbids `lifecycleOutcome: succeeded`, and
+  remains retained as audit evidence;
 - `releaseOutcome` of `failed` or `indeterminate` requires the unresolved
   warning bound exactly to `finalL.checkId`;
 - `releaseOutcome: not-required` is required if and only if the referenced
@@ -4319,7 +4465,7 @@ for, alteration of, or second normative pipeline:
     N/issuedAt, issuedAt/I, every-I/every-P,
     P/E/V, issued-pre-release/L, acquired-Dpre/L, evidence/L, every-non-F/
     sanitization, sanitization/F, and F/finish ordering; EF-1 execution terminality and final-E/V/L binding;
-    changed-path scope; terminal F, warning, L-empty, and outcome consistency;
+    path-and-operation scope; terminal F, warning, L-empty, and outcome consistency;
 11. receipt digest verification; and
 12. delivery-result binding and chronology.
 
@@ -5269,7 +5415,7 @@ A later selected validator and parser must provide all of the following:
   later P/E/V and not-attempted/not-performed outcomes, universal final-`P`-
   before-every-`E` and every-`E`-before-every-`V` ordering by sequence and
   timestamp, attempted-execution freshness, EF-1 execution terminality, final-`E` and final-`V` outcome
-  binding, not-attempted E/V emptiness, changed-path scope conformance, mandatory
+  binding, not-attempted E/V emptiness, path-and-operation scope conformance, mandatory
   `sanitization.applied == true`, receipt outcome consistency, and closed-bundle
   validation;
 - reproducible exact direct dependencies plus a transitive lock or verified hashes;
@@ -5431,7 +5577,7 @@ five positive and 19 independent negative binding vectors above. It then applies
 displayed consequences; complete all-passed pre-action freshness and failed/indeterminate-P same-lifecycle terminality; greatest-sequence
 final P/E/V, per-type final V, diagnostic finalG, and final L selection; every
 actual G passed; the 4/3 check-outcome vocabularies; the revised 8/37 pre-
-action, 8/22 final-E, 10/20 verification, and 5/6 scope families; the re-
+action, 8/22 final-E, 10/20 verification, 5/6 changed-path scope, and 3/8 OC families; the re-
 audited 15/20 postcondition-binding and rebuilt 6/28 acquisition/issuance, 9/6
 cumulative-denial, and 11/14 release/finalization planned families; mandatory `sanitization.applied == true`; exact
 applicable passed A/R/N/I; the issued root, compact A/R/every-L references,
@@ -5480,16 +5626,16 @@ and negative vector at its assigned owner.
 | Submodules / D2 orthogonal state | `none`; absent/unavailable; uninitialized/unavailable; initialized/observed with each of all eight Boolean triples; initialized checkout ID equal to and different from `recordedObjectId` | absent/observed; uninitialized/observed; initialized/unavailable; missing or branch-inapplicable `checkedOutObjectId`; fields on unavailable; each missing observed Boolean; unknown field; `indeterminate`; superseded `worktreeState`; `recordedObjectId` mismatch; missing mode-`160000` inventory path; tracked/submodule collision | Schema enforces the closed checkout and observation unions; Phase 1 static enforces all pairings, explicit gitlink equality, coverage, and disjointness; Phase 3 live denies inconclusive initialized observation with one of the four D2 reason codes; Phase 4 transitions and postconditions reuse the complete checkout/observation value |
 | Active operations | TaskContract baseline `none`; optional none-only postcondition; all seven `merge`, `rebase`, `cherry-pick`, `revert`, `bisect`, `sequencer`, and `apply-mailbox` identities as non-authorizing observations; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence | exactly 21 legacy contract regressions: seven single-operation exact baselines, seven retired active-operation transitions, and seven single-operation exact postconditions; separately, the generic observation-shape family covers duplicate, unknown, non-canonical, and empty-exact arrays | Schema enforces the reusable observation/evidence union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy contract cases and separately validates generic observation shape; Phase 3 live observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence |
 | Administrative locks | none-only TaskContract baseline and postcondition; all seven `index`, `packed-refs`, `shallow`, `config`, `head`, `ref`, and `other` branches as reusable observations/evidence; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence | exactly 21 legacy-contract regressions: seven non-empty single-lock baselines, seven retired transitions, and seven non-empty single-lock postconditions; separately, duplicate identity, missing or forbidden branch identifiers, unknown branch, non-canonical order, empty exact, and other malformed reusable observations | Schema enforces the reusable closed union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy cases and separately validates `L(lock)` identity/order; Phase 3 observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence |
-| Permitted transitions | one positive vector for each of exactly seven branches: `ref-state`, `head-state`, `index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, and `submodule-entry`, with every path-keyed branch in the revised valid universe | identical `from` and `to`; duplicate target; unknown type; missing target key; branch-inapplicable key; invalid target comparator; any exact `.git` component; the retired `active-operation` and `administrative-lock` branches | Schema enforces seven closed branches and the path profile; Phase 1 static enforces exact inequality, target uniqueness, the normative `T(transition)` comparator, reserved-path rejection, and retired-branch rejection; Phase 3 live observes Git transitions; Phase 4 evidence attributes only authorized ordinary-path transitions |
-| Required postconditions | one positive vector for each of eleven branches; optional `active-operations` and `administrative-locks` each expect `none`; path-keyed expected state uses the revised valid universe | missing or repeated `scope-contained`; duplicate type; `scope-contained` containing `expected`; state branch missing `expected`; reserved `.git`-component path; successful scope claim that omits an administrative effect; each forbidden single-operation active or administrative-lock expectation; malformed reusable observation condition; invalid lease-state truth-table combination | Schema enforces eleven closed branches, both none-only expectations, and valid paths; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 resolves administrative locations; Phase 4 requires an administrative effect to make `scope-contained` failed or indeterminate and verifies every postcondition |
+| Permitted transitions | one positive vector for each of exactly seven branches: `ref-state`, `head-state`, `index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, and `submodule-entry`, with every path-keyed branch in the revised valid universe; ordinary operation-capability cases cross-reference OC without adding a branch | identical `from` and `to`; duplicate target; unknown type; missing target key; branch-inapplicable key; invalid target comparator; any exact `.git` component; the retired `active-operation` and `administrative-lock` branches; OC negatives are cross-referenced rather than duplicated | Schema enforces seven closed branches and the path profile; Phase 1 static enforces exact inequality, target uniqueness, the normative `T(transition)` comparator, reserved-path rejection, retired-branch rejection, and the D7 `Oplan(B,F)` capability closure; Phase 3 live observes Git transitions; Phase 4 evidence attributes only authorized ordinary-path transitions |
+| Required postconditions | one positive vector for each of eleven branches; optional `active-operations` and `administrative-locks` each expect `none`; path-keyed expected state uses the revised valid universe; successful writing `scope-contained` evidence has both path and operation-capability containment | missing or repeated `scope-contained`; duplicate type; `scope-contained` containing `expected`; state branch missing `expected`; reserved `.git`-component path; successful scope claim that omits an administrative effect or lacks path or operation-capability containment as a non-additive OC cross-reference; each forbidden single-operation active or administrative-lock expectation; malformed reusable observation condition; invalid lease-state truth-table combination | Schema enforces eleven closed branches, both none-only expectations, and valid paths; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 resolves administrative locations; Phase 4 requires an administrative, path-scope, or operation-capability violation to make `scope-contained` failed or indeterminate and verifies every postcondition |
 | Warnings and checks | warning without optional fields; warning with summary only; warning with an earlier or later `relatedCheckId`; check without optional summaries; every one of 14 check types with its permitted outcomes; F with exactly its seven closed fields and reserved identity tuple; ordinary non-F generic IDs; general V without `postconditionRef`; referenced V for each of all eleven required-postcondition types | warning or check sequence gap/duplicate; duplicate `checkId`; dangling or cross-receipt `relatedCheckId`; invalid reason-code order; unknown check type/outcome; execution using `passed`; non-execution using `succeeded` or `cancelled`; F with either summary, any other free-form/payload member, or any non-reserved tuple value; non-F duplicating the reserved F ID under generic check-ID uniqueness; `postconditionRef` on each of the other thirteen check types; malformed/unknown reference; valid type absent from the bound contract | Schema enforces closed record shapes, the F-implies-exact-tuple specialization, 14 check types, exact 4/3 outcome conditional, and the V-only closed reference object; Phase 1 enforces sequences, globally unique IDs and the derived non-F reserved-ID exclusion, reason-code order, same-receipt warning references, complete-contract postcondition reference resolution, and per-type greatest-sequence selection; Phase 4 produces and sanitizes evidence |
-| Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks | every existing origin/outcome and 5/19 binding vector; ten timestamp-positive lexical classes; all 24 primitive chronology positives and 30 displayed relations; 8/37 pre-action, 8/22 final-E, 10/20 verification, 15/20 postcondition-binding, 6/28 acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, and 5/6 scope planned families; both origins and complete artifact pairs | every existing binding/acquisition/outcome negative; 24 timestamp lexical/calendar negatives; each of 24 primitive chronology relations reversed; all focused-family negatives under their non-additive overlap rules; missing G type or any failed/indeterminate G; missing/duplicate/non-passed or wrong-path A/R/N/I; missing, forbidden, malformed, digest-invalid, or misbound issued root or compact A/R/every-L reference; mismatched contract/root lease IDs; missing denial prerequisite; denial-stage boundary Variant A or B; wrong controller/checkpoint/outcome; controller reference/binding mismatch; earlier non-passed same-type controller history; acquired evidence-reference/identity mismatch; applicable G/A or G/N, R/N-to-checkpoint, checkpoint-to-issuedAt, derived R/N-to-issuedAt, issuedAt-to-I, and every-I/every-P faults; an EF-1 terminality violation with a non-success E followed by a later E; acquired-Dpre/L faults; non-F/sanitization, sanitization/F, or F/finish reversals; missing/misordered/mismapped L/F; forbidden F content; primitive F exact-tuple violation; derived generic non-F duplicate-ID rejection; wrong final-L warning binding; all six scope negatives plus the D5 cross-reference | Schema enforces origin/union, conditional denial and issued-acquisition references, closed F shape, and F-implies-exact-tuple specialization; Phase 1 verifies complete contract binding, 24 primitive chronology comparisons and all 30 displayed consequences, every actual G passed, every attempted P passed, failed/indeterminate P same-lifecycle terminality with no later P/E/V and not-attempted/not-performed outcomes, every non-final E succeeded with any non-success E final, exact applicable A/R/N/I, AP-1 source/profile/copy chain, LB-2 root/A/R/every-L references, and source/root/contract lease equality, controller identity/equalities and first-failure history, every actual prerequisite before the controller, the complete ordinary-stage stop boundary, acquired A/lease/digest identity, P/E/V, release/finalization and sanitization order, mandatory `sanitization.applied == true`, scope, terminal exact-tuple F, warning linkage, and L-empty rules before receipt digest/delivery; Phase 3 supplies acquisition/release facts; Phase 4 owns provenance, trusted time, authority, freshness, scope/evidence truth, and terminalization |
+| Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks | every existing origin/outcome and 5/19 binding vector; ten timestamp-positive lexical classes; all 24 primitive chronology positives and 30 displayed relations; 8/37 pre-action, 8/22 final-E, 10/20 verification, 15/20 postcondition-binding, 6/28 acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, 5/6 changed-path scope, and OC 3/8 planned families; both origins and complete artifact pairs | every existing binding/acquisition/outcome negative; 24 timestamp lexical/calendar negatives; each of 24 primitive chronology relations reversed; all focused-family negatives under their non-additive overlap rules; missing G type or any failed/indeterminate G; missing/duplicate/non-passed or wrong-path A/R/N/I; missing, forbidden, malformed, digest-invalid, or misbound issued root or compact A/R/every-L reference; mismatched contract/root lease IDs; missing denial prerequisite; denial-stage boundary Variant A or B; wrong controller/checkpoint/outcome; controller reference/binding mismatch; earlier non-passed same-type controller history; acquired evidence-reference/identity mismatch; applicable G/A or G/N, R/N-to-checkpoint, checkpoint-to-issuedAt, derived R/N-to-issuedAt, issuedAt-to-I, and every-I/every-P faults; an EF-1 terminality violation with a non-success E followed by a later E; acquired-Dpre/L faults; non-F/sanitization, sanitization/F, or F/finish reversals; missing/misordered/mismapped L/F; forbidden F content; primitive F exact-tuple violation; derived generic non-F duplicate-ID rejection; wrong final-L warning binding; all six changed-path scope negatives plus the D5 cross-reference and all eight OC negatives under their non-additive overlap rules | Schema enforces origin/union, conditional denial and issued-acquisition references, closed F shape, and F-implies-exact-tuple specialization; Phase 1 verifies complete contract binding, 24 primitive chronology comparisons and all 30 displayed consequences, every actual G passed, every attempted P passed, failed/indeterminate P same-lifecycle terminality with no later P/E/V and not-attempted/not-performed outcomes, every non-final E succeeded with any non-success E final, exact applicable A/R/N/I, AP-1 source/profile/copy chain, LB-2 root/A/R/every-L references, and source/root/contract lease equality, controller identity/equalities and first-failure history, every actual prerequisite before the controller, the complete ordinary-stage stop boundary, acquired A/lease/digest identity, P/E/V, release/finalization and sanitization order, mandatory `sanitization.applied == true`, path containment, `Oexec` capability containment, terminal exact-tuple F, warning linkage, and L-empty rules before receipt digest/delivery; Phase 3 supplies acquisition/release facts; Phase 4 owns provenance, trusted time, authority, freshness, actual-effect attribution, scope/evidence truth, and terminalization |
 | TaskContract truth table | each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition | requested plan-only with effective implementation; effective plan-only with `allowWrite: true`; `allowWrite: false` with `leaseRequired: true`; `allowWrite: true` with `leaseRequired: false`; `leaseId` present while no lease is required; `leaseId` absent while required; `owned` postcondition while no lease is required; `not-required` postcondition while a lease is required | Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions |
 | D1 validated canonical instance representation | strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation | generic decoded object; missing or stale proof component; proof rebound to another value; mutable value; representation asserted as a public kind, production typed model, transferable authority, TaskContract, or runtime artifact | `schema-contracts` specifies the representation contract and records its vectors; future `model-implementation` implements and tests decoding, construction, provenance binding, typed round trips, serialization, and Schema/model conformance; Phase 4 owns trusted operational replay and authenticity |
 | D4 raw worktree-content digest | exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation | filtered or EOL-converted bytes; decoded or Unicode-normalized text; dereferenced symlink; unreadable, replaced, raced, truncated, length-inconsistent, or lossy observation; directory, gitlink, or unsupported type | Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile |
 | D5 non-writing contracts | all three non-writing truth-table rows have exactly empty transitions, baseline-equal state postconditions, no lease identity, optional `lease-state: not-required`, and issued-receipt `changedPaths: []`; observed drift is evidence only | exactly 21 Cartesian negatives (`3 × 7`), pairing each non-writing row with each permitted transition branch; any drift-describing postcondition; lease identity/ownership; non-empty changed paths; test/build capability treated as a write override | Schema and Phase 1 static reject the closed contract and compare explicit postconditions with the immutable baseline; Phase 4 enforces empty changed paths and classifies drift as failed or indeterminate verification; the non-empty changed-path case is cross-referenced, not duplicated, by the focused scope family |
 | D6 execution/verification biconditional | exactly 13 pairs: `not-attempted/not-performed`; each of `succeeded`, `failed`, `cancelled`, and `indeterminate` with each of `passed`, `failed`, and `indeterminate` | exactly seven pairs: each attempted execution outcome with `not-performed`, plus `not-attempted` with `passed`, `failed`, or `indeterminate` | Phase 1 static applies the unchanged 13/7 biconditional, then the separate final-`E` and final-`V` bindings and not-attempted E/V-empty rules, before the existing lifecycle-precedence table; Phase 4 supplies evidence claims |
-| D7 simultaneous transition composition | complete nine-dimension materialized `B`; all seven `from` values bind directly to `B`; unique transitions apply simultaneously; one canonical nine-dimension `F` results regardless of wire order; active operations and administrative locks remain none; changed dimensions have exact `F` postconditions | baseline/from mismatch; either retired transition; sequential dependency; order-dependent result; non-none active-operation or administrative-lock final state; invalid final composite; missing or mismatched changed-dimension postcondition; drift asserted for an unchanged dimension; incomplete D2 or D3 value | Phase 1 compares, applies only seven transition types simultaneously, reconstructs all nine dimensions, and validates `F`; Phase 3 materializes live-dependent `B`; Phase 4 compares evidence with `F`, attributes transitions, and verifies scope/postconditions |
+| D7 simultaneous transition composition | complete nine-dimension materialized `B`; all seven `from` values bind directly to `B`; unique transitions apply simultaneously; one canonical nine-dimension `F` results regardless of wire order; active operations and administrative locks remain none; changed dimensions have exact `F` postconditions; after valid `F`, ordinary B/F projection derives conservative `Oplan(B,F)` and satisfies both `Oplan(B,F) ⊆ Acap` and `Oplan(B,F) ∩ Qcap = ∅` | baseline/from mismatch; either retired transition; sequential dependency; order-dependent result; non-none active-operation or administrative-lock final state; invalid final composite; missing or mismatched changed-dimension postcondition; drift asserted for an unchanged dimension; incomplete D2 or D3 value; missing or prohibited operation capability as cross-referenced to OC | Phase 1 compares, applies only seven transition types simultaneously, reconstructs and validates all nine dimensions, then derives `Oplan(B,F)` and checks both capability predicates; Phase 3 materializes live-dependent `B`; Phase 4 compares evidence with `F`, attributes transitions and actual effects, and verifies scope/postconditions |
 | D8 closed HostOverlay binding and host-resource exclusivity | complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once; one coherent snapshot proves the complete trusted same-host overlay set, every member validates individually, and all five HX positives pass | each missing field; every unknown field; empty, duplicate, or non-canonical remote names; unknown name; branch without `branchRef`; detached with `branchRef`; `expectedBranch`; each cached observed root/HEAD/branch/remote field; incomplete, missing, ambiguous, untrusted, or mixed-snapshot same-host evidence; all thirteen HX negatives | Schema closes the unchanged five-field record and ref branches; Phase 1 enforces binding identity, unchanged array canon, name resolution, individual resource validity followed by complete snapshot-bound same-host union `worktreeId` and exact-root injectivity, fail-closed completeness and coherence, and static coordination-root exclusion; Phase 3 compares live canonical root, registration, ref, and every named remote and fails closed on physical-worktree or containment ambiguity |
 | D9 RoutingPolicy projection equality and complete-set contract | all six required complete-set positive vectors; different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification | all twelve required complete-set negative vectors, including partial owner, no-fallthrough, same-target tie, collective-role union, split reuse, fallback failure, and TaskContract Domain/role/target mismatch; different IDs with equal `RuleProjection` JCS bytes; same-priority equal `MatchProjection` JCS bytes; non-canonical nested array | `schema-contracts` records projection equality, `Drule`/`Dresolved`/`Owned(R)` semantics, exact Phase 2 order, and vectors; executable projection/JCS comparison belongs to future `model-implementation`; Phase 2 alone resolves and routes the complete set, denies top-priority ambiguity or incomplete ownership, and never falls through or unions roles |
 | D10 HostOverlay narrowing proof and canonical structured remotes | exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; all 15 structured-remote positives; repository and remote subsets by exact validated `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**`; broad `**` remains valid but excludes reserved paths | all 61 independent structured-remote negatives; each of the nine exact narrowing rejection-code classes; literal `.git/**`, `.git/config`, `foo/.git/**`, and `foo/.git/config`; added capability or remote; role/project mismatch; `docs/**` outside the Project universe; unsupported syntax, compilation failure, resource exhaustion, or indeterminate emptiness; sample, alias, normalization, ignored field, or prefix heuristic offered as proof; any binding, free capacity, or lease offered to make an incomplete selected owner eligible | Schema enforces the closed record, path profiles, named host/repository profiles, namespace and port rules; Phase 1 rejects literal `.git` components and performs exact lexical, `J(remote)`, set/reference, membership, order, and automata checks relative to revised `U`; only after Phase 2 selects one role that owns all of `Dresolved` may Phase 3 compare the live remote and reject administrative aliases; HostOverlay and runtime state can narrow or deny but never widen routing eligibility |
@@ -5555,6 +5701,9 @@ five focused-family primary classes = 157
 changed-path scope positives = 5
 changed-path scope dedicated negatives = 6
 changed-path scope D5 cross-reference = 1 existing family, not additive
+ordinary-capability-closure positives = 3
+ordinary-capability-closure negatives = 8
+ordinary-capability-closure primary classes = 11
 D6 valid receipt-level combinations = 13
 D6 invalid receipt-level combinations = 7
 receipt/contract equalities = 8
@@ -5596,6 +5745,9 @@ receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
 expanded affected-family aggregate = 181
+ordinary-capability-closure positives = OC-P01..OC-P03 = 3
+ordinary-capability-closure negatives = OC-N01..OC-N08 = 8
+ordinary-capability-closure primary classes = 11
 ```
 
 Each inclusive planned-ID range is continuous. Each primary predicate has one
@@ -5710,7 +5862,7 @@ checkpoint/issuedAt, derived R/issuedAt and N/issuedAt, issuedAt/I, every-I/ever
 issued-pre-release/L, acquired-Dpre/L, evidence/L, every-non-F/sanitization,
 sanitization/F, and F/finish ordering; mandatory `sanitization.applied == true`; greatest-sequence final P/E/V,
 diagnostic finalG, per-type final V, and final L selection; phase-dependent
-outcomes; EF-1 execution terminality and final-E/V/L binding; changed-path scope; not-attempted E/V emptiness;
+outcomes; EF-1 execution terminality and final-E/V/L binding; path-and-operation scope; not-attempted E/V emptiness;
 L emptiness on every no-release path; universal singleton terminal passed F;
 and exact final-L warning linkage. Warning and check arrays preserve contiguous
 evidence sequence. These remain requirements for future executable coverage,
