@@ -406,7 +406,8 @@ The required conformance order is:
 7. apply all 24 primitive chronology comparisons and verify all 30 displayed
    consequences against the same contract and receipt;
 8. apply final P/E/V, per-type final V, diagnostic finalG, and final L
-   selection; every actual G and every attempted P passed; terminate the same
+   selection; C-UNIVERSAL-PASS for every passed verification; every actual G
+   and every attempted P passed; terminate the same
    lifecycle on any failed/indeterminate P with no later P/E/V and
    not-attempted/not-performed outcomes; exact applicable A/R/N/I; cumulative
    denial prerequisites and future-stage exclusions; per-type reference
@@ -901,10 +902,14 @@ presence.
 
 After complete contract digest/equality binding, tests define V(t) for each
 required type t as the referenced subset and select `finalV(t)` by greatest
-sequence. Every attempted receipt has at least one V(t) for every required type;
-passed verification requires every finalV(t) passed. An earlier passed member
-cannot repair a later failed or indeterminate finalV(t). The global final V
-continues to bind `verificationOutcome` and may be referenced or general.
+sequence. Every attempted receipt has at least one V(t) for every required
+type; passed verification requires every V passed and every finalV(t) passed.
+An earlier passed member cannot repair a later failed or indeterminate
+finalV(t), and an earlier non-passed V(t) cannot be erased by a later passed
+finalV(t) to regain passed top-level verification. The global final V continues
+to bind `verificationOutcome` and may be referenced or general. Mixed outcomes
+remain valid on non-passed histories when that final V matches the top-level
+non-passed outcome; later V collection remains permitted.
 
 Every attempted receipt also requires P, E, and V. Every P in an attempted
 receipt is passed and strictly pre-expiry. Under
@@ -1297,8 +1302,8 @@ The exact ten non-overlapping positive classes are:
 6. `succeeded/indeterminate` with final V `indeterminate`;
 7. valid E/V timestamp equality at whole-second precision;
 8. multiple E members, all preceding one V by sequence and timestamp;
-9. multiple V members after all E members, with an earlier failed or
-   indeterminate V followed by a final passed V; and
+9. multiple V members after all E members, every V outcome `passed`, with the
+   final V `passed` and top-level verification `passed`; and
 10. `not-attempted/not-performed` with V empty.
 
 The exact twenty non-overlapping negative classes are:
@@ -1319,9 +1324,15 @@ The exact twenty non-overlapping negative classes are:
 12. final V `passed` with receipt `verificationOutcome: failed`, including an
     earlier V with outcome `failed` that matches the receipt;
 13. final V `passed` with receipt `verificationOutcome: indeterminate`;
-14. final V `failed` with receipt `verificationOutcome: passed`;
+14. final V `failed` with receipt `verificationOutcome: passed`; its mandatory
+    non-additive C variant has an earlier unreferenced failed V, a later final
+    passed V, and top-level verification `passed`, with every unrelated
+    predicate valid;
 15. final V `failed` with receipt `verificationOutcome: indeterminate`;
-16. final V `indeterminate` with receipt `verificationOutcome: passed`;
+16. final V `indeterminate` with receipt `verificationOutcome: passed`; its
+    mandatory non-additive C variant has an earlier unreferenced indeterminate
+    V, a later final passed V, and top-level verification `passed`, with every
+    unrelated predicate valid;
 17. final V `indeterminate` with receipt `verificationOutcome: failed`;
 18. `not-attempted/not-performed` with one stray V whose outcome is `passed`;
 19. `not-attempted/not-performed` with one stray V whose outcome is `failed`;
@@ -1332,15 +1343,19 @@ The exact twenty non-overlapping negative classes are:
 Except when the primary fault belongs to the dedicated postcondition-binding
 family, every planned attempted-issued class in this 10/20 family requires
 referenced V evidence for every required type, and every passed-verification
-positive requires each per-type final V passed. Those are prerequisites, not added cases. Class 10
-keeps V empty and therefore contains no reference. The exact 10/20 total is
-unchanged.
+positive requires every V outcome passed and each per-type final V passed.
+Those are prerequisites, not added cases. Class 10 keeps V empty and therefore
+contains no reference. The exact 10/20 total is unchanged.
 
 Case 12 proves greatest-sequence final selection because the earlier V matches
 the receipt and the later final V does not. Generic sequence gaps, duplicate
 sequences, duplicate check IDs, and malformed check arrays remain outside this
 10/20 family. The focused pre-action inventory remains 8/37, and the unchanged
 D6 receipt-level table remains exactly 13 valid and 7 invalid combinations.
+
+The mandatory class-14 and class-16 recovery variants use an unreferenced
+earlier bad V. Referenced same-type recovery variants belong only to PB-N19 and
+PB-N20, preserving non-additive unique primary ownership.
 
 #### Focused required-postcondition verification-binding vector family
 
@@ -1358,14 +1373,18 @@ The exact fifteen positive classes are:
 10. **PB-P10:** passed referenced final V for `administrative-locks`;
 11. **PB-P11:** passed referenced final V for `lease-state`;
 12. **PB-P12:** one referenced V serving as both per-type and global final V;
-13. **PB-P13:** earlier failed/indeterminate same-type V followed by passed finalV(t);
+13. **PB-P13:** multiple same-type V members, every member passed, with the
+    greatest-sequence member preserved as finalV(t) under passed top-level
+    verification;
 14. **PB-P14:** complete per-type passed evidence followed by a matching unreferenced global
     final V; and
 15. **PB-P15:** all eleven type-unique obligations, each with passed finalV(t), under passed
     receipt verification.
 
 Classes 2 through 11 also include mandatory scope evidence but do not count it
-again. The exact twenty negative classes are:
+again. Every passed-verification PB positive, including PB-P14 and PB-P15,
+also requires every V outcome passed as a non-additive prerequisite. The exact
+twenty negative classes are:
 
 1. **PB-N01:** reference on `intent-validation`;
 2. **PB-N02:** reference on `project-domain-resolution`;
@@ -1385,9 +1404,18 @@ again. The exact twenty negative classes are:
 16. **PB-N16:** missing scope V(t) while another referenced type passes;
 17. **PB-N17:** missing any other required V(t) while scope passes;
 18. **PB-N18:** unreferenced general V offered as sole evidence for an obligation;
-19. **PB-N19:** earlier passed V(t), failed finalV(t), and passed top-level verification; and
-20. **PB-N20:** earlier passed V(t), indeterminate finalV(t), and passed top-level
-    verification.
+19. **PB-N19:** failed same-type V history under passed verification, with both
+    mandatory non-additive variants: earlier passed V(t) followed by failed
+    finalV(t), and earlier failed V(t) followed by a later passed finalV(t); and
+20. **PB-N20:** indeterminate same-type V history under passed verification,
+    with both mandatory non-additive variants: earlier passed V(t) followed by
+    indeterminate finalV(t), and earlier indeterminate V(t) followed by a later
+    passed finalV(t).
+
+Every PB-N19 and PB-N20 witness keeps all other required types present and
+valid. Their recovery variants use a referenced same-type bad V(t), while
+global classes 14 and 16 use an unreferenced earlier bad V; no witness gains a
+second primary owner or a new primary ID.
 
 `pre-issuance-revalidation` is a mandatory planned non-additive check-type
 variant of the same non-V reference rejection predicate. Its future fixture
@@ -1836,9 +1864,11 @@ A passed writing scope claim requires every actual ordinary effect path `x` in
 `Apath` and not in `Qpath`, `Oexec ⊆ Acap`, and
 `Oexec ∩ Qcap = ∅`; path or capability prohibition overrides
 authorization. Passed verification also requires passed, exactly referenced
-`finalV("scope-contained")`. The stronger B predicate applies to the selected
-scope V but MUST NOT change global greatest-sequence V, per-type `finalV(t)`,
-or later-passed-V recovery semantics.
+`finalV("scope-contained")`. The B path and operation-capability predicates
+remain unchanged and govern whether that selected scope V satisfies B.
+C-UNIVERSAL-PASS independently governs whether the complete V history may
+culminate in top-level passed verification and does not redefine a B
+operation-capability predicate or either greatest-sequence selection.
 
 One bad path or operation invalidates the passed claim, requires failed or
 indeterminate verification, forbids a succeeded lifecycle, and remains in the
@@ -2433,7 +2463,8 @@ relations and 30 displayed consequences, the 8/37 pre-action, 8/22
 final-E, 10/20 verification, 5/6 changed-path scope, and 3/8 OC families, plus 15/20 postcondition-
 binding, rebuilt 6/28 acquisition/issuance, 9/6 cumulative-denial, and 11/14
 release/finalization families. They cover EF-1 execution terminality, final P/E/V, per-type final V,
-diagnostic finalG and final L selection; every G and every attempted P passed;
+diagnostic finalG and final L selection; C-UNIVERSAL-PASS for every passed
+verification; every G and every attempted P passed;
 failed/indeterminate P same-lifecycle terminality with no later P/E/V and
 not-attempted/not-performed outcomes; exact applicable
 A/R/N/I; one source-profile-valid AP-1 identity, exact source-to-root digest
@@ -2498,7 +2529,8 @@ pipeline:
    root/reference/lease binding;
 10. all 24 primitive chronology comparisons and all 30 displayed consequences;
     final P/E/V, per-type final V, diagnostic finalG, and finalL selection;
-    attempted P/E/V and per-type reference presence; final-P freshness; every
+    C-UNIVERSAL-PASS for every passed verification; attempted P/E/V and
+    per-type reference presence; final-P freshness; every
     actual G and every attempted P passed; failed/indeterminate P same-lifecycle
     terminality with no later P/E/V and not-attempted/not-performed outcomes;
     exact applicable A/R/N/I; cumulative denial all-member
@@ -2681,7 +2713,8 @@ The active acceptance matrix MUST independently exercise:
   projection, 234-byte completed source identity, and receipt-root exact-copy
   vector; and the RS-1 issued no-lease golden, including all recorded exact
   bytes and digests and independent Python/Node/PowerShell replay;
-- multiple V(t) members with passed greatest-sequence finalV(t), and multiple L
+- multiple V(t) members with every same-type member and every V passed, with
+  the greatest-sequence member retained as passed finalV(t), and multiple L
   members with passed greatest-sequence finalL;
 - execution failed with verification/release passed and F, and verification
   failed with release passed and F; and

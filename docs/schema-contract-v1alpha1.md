@@ -2308,10 +2308,12 @@ Path or capability prohibition overrides authorization. A
 `verificationOutcome: passed` writing receipt requires both compound
 predicates and requires
 `finalV("scope-contained").outcome == "passed"` through an exact
-`postconditionRef` to the contract's mandatory obligation. The stronger B
-predicate applies to the already-selected `finalV("scope-contained")`; it does
-not change global greatest-sequence V selection, per-type `finalV(t)` selection,
-or later-passed-V recovery semantics.
+`postconditionRef` to the contract's mandatory obligation. The B path and
+operation-capability predicates remain unchanged and govern whether the
+already-selected `finalV("scope-contained")` satisfies B. C-UNIVERSAL-PASS
+independently governs whether the complete V history may culminate in top-level
+passed verification; it changes neither global greatest-sequence V selection,
+per-type `finalV(t)` selection, nor any B operation-capability predicate.
 
 One unauthorized or prohibited path or operation invalidates a passed claim.
 `verificationOutcome` is then `failed` or `indeterminate` according to the
@@ -3085,8 +3087,8 @@ validated checks array. Selection again uses `sequence` only under the existing
 contiguous-sequence and unique-check-ID prerequisites. It does not use maximum
 `observedAt`, timestamp tie-breaking, outcome, locale, serialization,
 `checkId`, or iteration order. Earlier verification checks may have different
-outcomes; the unique greatest-sequence member is final and controls the
-receipt-level verification outcome.
+outcomes on a non-passed receipt; the unique greatest-sequence member remains
+final and controls the receipt-level verification outcome.
 
 Phase 1 static conformance requires:
 
@@ -3115,6 +3117,9 @@ if attempted:
       e.sequence < v.sequence
       e.observedAt <= v.observedAt
   verificationOutcome == finalApplicableVerificationCheck.outcome
+  if verificationOutcome == "passed":
+    for every v in V:
+      v.outcome == "passed"
 
 if executionOutcome == "not-attempted":
   count(E) == 0
@@ -3129,6 +3134,16 @@ if any p in P has outcome "failed" or "indeterminate":
   count(E) == 0
   count(V) == 0
 ```
+
+C-UNIVERSAL-PASS does not terminalize V collection: a failed or indeterminate
+V may be followed by later V evidence. It imposes no failed-versus-indeterminate
+severity precedence and does not require identical V outcomes on non-passed
+receipts; the greatest-sequence member still binds the matching non-passed
+top-level outcome. Once any V in one lifecycle is non-passed, that lifecycle
+cannot regain passed verification or a succeeded lifecycle. A successful retry
+or reverification requires a fresh lifecycle under fresh applicable
+authorization, without adding retry or verification epochs, recovery IDs,
+counters, kinds, check fields, or receipt fields.
 
 The expiry boundary is strict. Equality at expiry and any later passed check
 are invalid, including in a `not-attempted` receipt. Every P in an attempted
@@ -3241,10 +3256,14 @@ another contract, or a reference evaluated before contract binding is invalid.
 
 Every attempted issued-contract receipt requires `count(V(t)) >= 1` for every
 required type `t`. If `verificationOutcome == passed`, every `finalV(t)` must
-have outcome `passed`. Greatest-sequence selection is per type: an earlier
-passed `V(t)` cannot repair a later failed or indeterminate `finalV(t)`, while a
-later passed member becomes the final evidence for that type. An unreferenced
-member of `V` remains valid general evidence but satisfies no `t`.
+have outcome `passed`; independently, C-UNIVERSAL-PASS requires every member of
+V to have outcome `passed`. Greatest-sequence selection is per type: an earlier
+passed `V(t)` cannot repair a later failed or indeterminate `finalV(t)`. A later
+passed member remains the final evidence for that type, but cannot restore
+passed top-level verification if any earlier V, including a `V(t)`, was
+non-passed. No redundant all-`V(t)` predicate is introduced because `V(t)` is a
+subset of V. An unreferenced member of V remains valid general evidence,
+participates in C-UNIVERSAL-PASS, and satisfies no `t`.
 
 The existing unique greatest-sequence member of all `V` remains
 `finalApplicableVerificationCheck` and still controls the receipt-level
@@ -3792,8 +3811,8 @@ The ten required non-overlapping positive classes are exactly:
 6. `succeeded/indeterminate` with the final `V` outcome `indeterminate`;
 7. valid `E`/`V` timestamp equality at whole-second precision;
 8. multiple `E` members, all preceding one `V` by sequence and timestamp;
-9. multiple `V` members after all `E` members, with an earlier `failed` or
-   `indeterminate` `V` followed by a final `passed` `V`; and
+9. multiple `V` members after all `E` members, every V outcome `passed`, with
+   the final V `passed` and `verificationOutcome: passed`; and
 10. `not-attempted/not-performed` with `V` empty.
 
 The twenty required non-overlapping negative classes are exactly:
@@ -3814,9 +3833,15 @@ The twenty required non-overlapping negative classes are exactly:
 12. final `V` `passed` with receipt `verificationOutcome: failed`, including an
     earlier `V` with outcome `failed` that matches the receipt;
 13. final `V` `passed` with receipt `verificationOutcome: indeterminate`;
-14. final `V` `failed` with receipt `verificationOutcome: passed`;
+14. final `V` `failed` with receipt `verificationOutcome: passed`; its
+    mandatory non-additive C variant has an earlier unreferenced failed V, a
+    later final passed V, and `verificationOutcome: passed`, with every
+    unrelated predicate valid;
 15. final `V` `failed` with receipt `verificationOutcome: indeterminate`;
-16. final `V` `indeterminate` with receipt `verificationOutcome: passed`;
+16. final `V` `indeterminate` with receipt `verificationOutcome: passed`; its
+    mandatory non-additive C variant has an earlier unreferenced indeterminate
+    V, a later final passed V, and `verificationOutcome: passed`, with every
+    unrelated predicate valid;
 17. final `V` `indeterminate` with receipt `verificationOutcome: failed`;
 18. `not-attempted/not-performed` with one stray `V` whose outcome is `passed`;
 19. `not-attempted/not-performed` with one stray `V` whose outcome is `failed`;
@@ -3826,16 +3851,21 @@ The twenty required non-overlapping negative classes are exactly:
 
 Except when a future fixture's primary fault belongs to the dedicated
 postcondition-binding family, every planned attempted-issued class in this
-10/20 family requires referenced V evidence for every required contract type, and
-every passed-verification positive has each per-type `finalV(t)` passed. Those
-are prerequisites, not additional cases. Class 10 keeps V empty and therefore
-contains no reference. This integration preserves the exact 10/20 total.
+10/20 family requires referenced V evidence for every required contract type,
+and every passed-verification positive has every V outcome passed and each
+per-type `finalV(t)` passed. Those are prerequisites, not additional cases.
+Class 10 keeps V empty and therefore contains no reference. This integration
+preserves the exact 10/20 total.
 
 Case 12 proves greatest-sequence final selection because an earlier `V` matches
 the receipt while the later final `V` does not. Generic sequence gaps,
 duplicate sequences, duplicate check IDs, and malformed check arrays remain
 outside this 10/20 family. The focused pre-action family remains 8/37, and D6
 remains 13 valid and 7 invalid receipt-level combinations.
+
+The mandatory class-14 and class-16 recovery variants use an unreferenced
+earlier bad V. Referenced same-type recovery variants belong only to PB-N19 and
+PB-N20, so the variants are non-additive and retain unique primary ownership.
 
 #### Focused required-postcondition verification-binding vectors
 
@@ -3855,8 +3885,9 @@ equality. Its fifteen positive classes are exactly:
 10. **PB-P10:** `administrative-locks` with a passed referenced final `V(t)`;
 11. **PB-P11:** `lease-state` with a passed referenced final `V(t)`;
 12. **PB-P12:** one referenced V that is both `finalV(t)` and the global final applicable V;
-13. **PB-P13:** multiple same-type V members with an earlier failed or indeterminate member
-    followed by a passed `finalV(t)`;
+13. **PB-P13:** multiple same-type V members, every member passed, with the
+    greatest-sequence member preserved as `finalV(t)` under passed top-level
+    verification;
 14. **PB-P14:** complete passed per-type evidence followed by an unreferenced general V that
     remains the matching global final applicable V; and
 15. **PB-P15:** one contract containing all eleven type-unique obligations, each with one
@@ -3864,7 +3895,9 @@ equality. Its fifteen positive classes are exactly:
 
 Classes 2 through 11 include the separately mandatory `scope-contained`
 obligation and its passed final evidence; that companion coverage is not counted
-again. The twenty negative classes are exactly:
+again. Every passed-verification PB positive, including PB-P14 and PB-P15,
+also requires every V outcome passed; this is a non-additive prerequisite. The
+twenty negative classes are exactly:
 
 1. **PB-N01:** `postconditionRef` on `intent-validation`;
 2. **PB-N02:** `postconditionRef` on `project-domain-resolution`;
@@ -3886,10 +3919,19 @@ again. The twenty negative classes are exactly:
 17. **PB-N17:** any other required type with no V of that type while `scope-contained`
     passes;
 18. **PB-N18:** an unreferenced general V offered as the sole evidence for a required type;
-19. **PB-N19:** an earlier passed `V(t)` followed by a failed `finalV(t)` while the receipt
-    claims passed verification; and
-20. **PB-N20:** an earlier passed `V(t)` followed by an indeterminate `finalV(t)` while the
-    receipt claims passed verification.
+19. **PB-N19:** failed same-type V history under passed verification, with both
+    mandatory non-additive order variants: an earlier passed `V(t)` followed by
+    a failed `finalV(t)`, and an earlier failed `V(t)` followed by a later
+    passed `finalV(t)`; and
+20. **PB-N20:** indeterminate same-type V history under passed verification,
+    with both mandatory non-additive order variants: an earlier passed `V(t)`
+    followed by an indeterminate `finalV(t)`, and an earlier indeterminate
+    `V(t)` followed by a later passed `finalV(t)`.
+
+Every PB-N19 and PB-N20 witness keeps every other required type present and
+valid. Their recovery variants use a referenced same-type bad `V(t)`, while
+global classes 14 and 16 use an unreferenced earlier bad V; no witness gains a
+second primary owner or a new primary ID.
 
 `pre-issuance-revalidation` is a mandatory planned non-additive check-type
 variant of the same non-V `postconditionRef` rejection predicate; its future
@@ -4340,13 +4382,17 @@ For every attempted `issued-contract` receipt, the additional final-evidence
 bindings require `executionOutcome` to equal the outcome of the unique
 greatest-sequence member of `E` and `verificationOutcome` to equal the outcome
 of the unique greatest-sequence member of `V`. Every non-final E must be
-`succeeded`; earlier V outcomes may differ and do not control the receipt. A
-final E may independently be `succeeded`, `failed`, `cancelled`, or
+`succeeded`; earlier V outcomes may differ on mixed non-passed histories, but
+when `verificationOutcome` is `passed`, C-UNIVERSAL-PASS requires every V
+outcome to be `passed`. A final E may independently be `succeeded`, `failed`, `cancelled`, or
 `indeterminate`. A `not-attempted/not-performed` receipt requires both E and V
-to be empty. These rules do not change the D6 table. Only after D6, EF-1,
-final-`E` and final-`V` binding, path-and-operation scope conformance, and the other
-P/E/V checks succeed is the existing lifecycle-precedence table below applied;
-its precedence is otherwise unchanged.
+to be empty. These rules do not change the D6 table. C-UNIVERSAL-PASS is
+evaluated after final-V binding and before lifecycle precedence,
+successful-lifecycle derivation, and receipt-digest acceptance; it adds no D6
+pair and rewrites no precedence. Only after D6, EF-1, final-`E` and final-`V`
+binding, path-and-operation scope conformance, and the other P/E/V checks
+succeed is the existing lifecycle-precedence table below applied; its
+precedence is otherwise unchanged.
 
 For an `issued-contract` receipt, Phase 1 static consistency applies the first
 matching row in this exact precedence order:
@@ -4456,7 +4502,8 @@ for, alteration of, or second normative pipeline:
    A/R/every-L reference, and contract/root lease-ID binding;
 10. all 24 primitive chronology comparisons and all 30 displayed consequences;
     final-applicable P/E/V, per-type `finalV(t)`, diagnostic finalG, and finalL
-    selection; attempted P/E/V presence and postcondition references; every
+    selection; C-UNIVERSAL-PASS for every passed verification; attempted P/E/V
+    presence and postcondition references; every
     actual G passed; every attempted P passed; a failed or indeterminate P
     terminates the same lifecycle, forbids every later P/E/V, and requires
     not-attempted/not-performed outcomes; exact applicable A/R/N/I; cumulative
@@ -5629,7 +5676,7 @@ and negative vector at its assigned owner.
 | Permitted transitions | one positive vector for each of exactly seven branches: `ref-state`, `head-state`, `index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, and `submodule-entry`, with every path-keyed branch in the revised valid universe; ordinary operation-capability cases cross-reference OC without adding a branch | identical `from` and `to`; duplicate target; unknown type; missing target key; branch-inapplicable key; invalid target comparator; any exact `.git` component; the retired `active-operation` and `administrative-lock` branches; OC negatives are cross-referenced rather than duplicated | Schema enforces seven closed branches and the path profile; Phase 1 static enforces exact inequality, target uniqueness, the normative `T(transition)` comparator, reserved-path rejection, retired-branch rejection, and the D7 `Oplan(B,F)` capability closure; Phase 3 live observes Git transitions; Phase 4 evidence attributes only authorized ordinary-path transitions |
 | Required postconditions | one positive vector for each of eleven branches; optional `active-operations` and `administrative-locks` each expect `none`; path-keyed expected state uses the revised valid universe; successful writing `scope-contained` evidence has both path and operation-capability containment | missing or repeated `scope-contained`; duplicate type; `scope-contained` containing `expected`; state branch missing `expected`; reserved `.git`-component path; successful scope claim that omits an administrative effect or lacks path or operation-capability containment as a non-additive OC cross-reference; each forbidden single-operation active or administrative-lock expectation; malformed reusable observation condition; invalid lease-state truth-table combination | Schema enforces eleven closed branches, both none-only expectations, and valid paths; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 resolves administrative locations; Phase 4 requires an administrative, path-scope, or operation-capability violation to make `scope-contained` failed or indeterminate and verifies every postcondition |
 | Warnings and checks | warning without optional fields; warning with summary only; warning with an earlier or later `relatedCheckId`; check without optional summaries; every one of 14 check types with its permitted outcomes; F with exactly its seven closed fields and reserved identity tuple; ordinary non-F generic IDs; general V without `postconditionRef`; referenced V for each of all eleven required-postcondition types | warning or check sequence gap/duplicate; duplicate `checkId`; dangling or cross-receipt `relatedCheckId`; invalid reason-code order; unknown check type/outcome; execution using `passed`; non-execution using `succeeded` or `cancelled`; F with either summary, any other free-form/payload member, or any non-reserved tuple value; non-F duplicating the reserved F ID under generic check-ID uniqueness; `postconditionRef` on each of the other thirteen check types; malformed/unknown reference; valid type absent from the bound contract | Schema enforces closed record shapes, the F-implies-exact-tuple specialization, 14 check types, exact 4/3 outcome conditional, and the V-only closed reference object; Phase 1 enforces sequences, globally unique IDs and the derived non-F reserved-ID exclusion, reason-code order, same-receipt warning references, complete-contract postcondition reference resolution, and per-type greatest-sequence selection; Phase 4 produces and sanitizes evidence |
-| Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks | every existing origin/outcome and 5/19 binding vector; ten timestamp-positive lexical classes; all 24 primitive chronology positives and 30 displayed relations; 8/37 pre-action, 8/22 final-E, 10/20 verification, 15/20 postcondition-binding, 6/28 acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, 5/6 changed-path scope, and OC 3/8 planned families; both origins and complete artifact pairs | every existing binding/acquisition/outcome negative; 24 timestamp lexical/calendar negatives; each of 24 primitive chronology relations reversed; all focused-family negatives under their non-additive overlap rules; missing G type or any failed/indeterminate G; missing/duplicate/non-passed or wrong-path A/R/N/I; missing, forbidden, malformed, digest-invalid, or misbound issued root or compact A/R/every-L reference; mismatched contract/root lease IDs; missing denial prerequisite; denial-stage boundary Variant A or B; wrong controller/checkpoint/outcome; controller reference/binding mismatch; earlier non-passed same-type controller history; acquired evidence-reference/identity mismatch; applicable G/A or G/N, R/N-to-checkpoint, checkpoint-to-issuedAt, derived R/N-to-issuedAt, issuedAt-to-I, and every-I/every-P faults; an EF-1 terminality violation with a non-success E followed by a later E; acquired-Dpre/L faults; non-F/sanitization, sanitization/F, or F/finish reversals; missing/misordered/mismapped L/F; forbidden F content; primitive F exact-tuple violation; derived generic non-F duplicate-ID rejection; wrong final-L warning binding; all six changed-path scope negatives plus the D5 cross-reference and all eight OC negatives under their non-additive overlap rules | Schema enforces origin/union, conditional denial and issued-acquisition references, closed F shape, and F-implies-exact-tuple specialization; Phase 1 verifies complete contract binding, 24 primitive chronology comparisons and all 30 displayed consequences, every actual G passed, every attempted P passed, failed/indeterminate P same-lifecycle terminality with no later P/E/V and not-attempted/not-performed outcomes, every non-final E succeeded with any non-success E final, exact applicable A/R/N/I, AP-1 source/profile/copy chain, LB-2 root/A/R/every-L references, and source/root/contract lease equality, controller identity/equalities and first-failure history, every actual prerequisite before the controller, the complete ordinary-stage stop boundary, acquired A/lease/digest identity, P/E/V, release/finalization and sanitization order, mandatory `sanitization.applied == true`, path containment, `Oexec` capability containment, terminal exact-tuple F, warning linkage, and L-empty rules before receipt digest/delivery; Phase 3 supplies acquisition/release facts; Phase 4 owns provenance, trusted time, authority, freshness, actual-effect attribution, scope/evidence truth, and terminalization |
+| Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks | every existing origin/outcome and 5/19 binding vector; ten timestamp-positive lexical classes; all 24 primitive chronology positives and 30 displayed relations; 8/37 pre-action, 8/22 final-E, 10/20 verification, 15/20 postcondition-binding, 6/28 acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, 5/6 changed-path scope, and OC 3/8 planned families; passed-verification positives have every V passed, including all-passed multiple-global-V and same-type V histories; both origins and complete artifact pairs | every existing binding/acquisition/outcome negative; 24 timestamp lexical/calendar negatives; each of 24 primitive chronology relations reversed; all focused-family negatives under their non-additive overlap rules; passed verification after an earlier unreferenced failed or indeterminate V and a later passed global final V as global class-14/class-16 variants; passed verification after an earlier referenced failed or indeterminate `V(t)` and a later passed `finalV(t)` as PB-N19/PB-N20 variants; missing G type or any failed/indeterminate G; missing/duplicate/non-passed or wrong-path A/R/N/I; missing, forbidden, malformed, digest-invalid, or misbound issued root or compact A/R/every-L reference; mismatched contract/root lease IDs; missing denial prerequisite; denial-stage boundary Variant A or B; wrong controller/checkpoint/outcome; controller reference/binding mismatch; earlier non-passed same-type controller history; acquired evidence-reference/identity mismatch; applicable G/A or G/N, R/N-to-checkpoint, checkpoint-to-issuedAt, derived R/N-to-issuedAt, issuedAt-to-I, and every-I/every-P faults; an EF-1 terminality violation with a non-success E followed by a later E; acquired-Dpre/L faults; non-F/sanitization, sanitization/F, or F/finish reversals; missing/misordered/mismapped L/F; forbidden F content; primitive F exact-tuple violation; derived generic non-F duplicate-ID rejection; wrong final-L warning binding; all six changed-path scope negatives plus the D5 cross-reference and all eight OC negatives under their non-additive overlap rules | Schema enforces origin/union, conditional denial and issued-acquisition references, closed F shape, and F-implies-exact-tuple specialization; Phase 1 verifies complete contract binding, 24 primitive chronology comparisons and all 30 displayed consequences, every actual G passed, every attempted P passed, C-UNIVERSAL-PASS requiring every V passed when `verificationOutcome` is passed after final-V selection/binding and before lifecycle-success derivation and receipt-digest acceptance without terminalizing V or changing mixed non-passed greatest-sequence diagnosis, failed/indeterminate P same-lifecycle terminality with no later P/E/V and not-attempted/not-performed outcomes, every non-final E succeeded with any non-success E final, exact applicable A/R/N/I, AP-1 source/profile/copy chain, LB-2 root/A/R/every-L references, and source/root/contract lease equality, controller identity/equalities and first-failure history, every actual prerequisite before the controller, the complete ordinary-stage stop boundary, acquired A/lease/digest identity, P/E/V, release/finalization and sanitization order, mandatory `sanitization.applied == true`, path containment, `Oexec` capability containment, terminal exact-tuple F, warning linkage, and L-empty rules before receipt digest/delivery; Phase 3 supplies acquisition/release facts; Phase 4 owns provenance, trusted time, authority, freshness, actual-effect attribution, scope/evidence truth, and terminalization |
 | TaskContract truth table | each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition | requested plan-only with effective implementation; effective plan-only with `allowWrite: true`; `allowWrite: false` with `leaseRequired: true`; `allowWrite: true` with `leaseRequired: false`; `leaseId` present while no lease is required; `leaseId` absent while required; `owned` postcondition while no lease is required; `not-required` postcondition while a lease is required | Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions |
 | D1 validated canonical instance representation | strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation | generic decoded object; missing or stale proof component; proof rebound to another value; mutable value; representation asserted as a public kind, production typed model, transferable authority, TaskContract, or runtime artifact | `schema-contracts` specifies the representation contract and records its vectors; future `model-implementation` implements and tests decoding, construction, provenance binding, typed round trips, serialization, and Schema/model conformance; Phase 4 owns trusted operational replay and authenticity |
 | D4 raw worktree-content digest | exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation | filtered or EOL-converted bytes; decoded or Unicode-normalized text; dereferenced symlink; unreadable, replaced, raced, truncated, length-inconsistent, or lossy observation; directory, gitlink, or unsupported type | Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile |

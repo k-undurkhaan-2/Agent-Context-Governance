@@ -711,9 +711,15 @@ pre-expiry. Under `EXECUTION-FAILURE-TERMINALITY: EF-1`, every E strictly
 before final E is `succeeded`; any E with outcome `failed`, `cancelled`, or
 `indeterminate` is final E and has no later E in that lifecycle. Final E and
 global final V still exactly bind the two top-level outcomes, and passed
-verification requires every per-type final V passed. Every E follows final P
-and every V follows every E by strict sequence and non-decreasing timestamp.
-EF-1 introduces no E-to-E timestamp relation.
+verification requires every V outcome passed and every per-type final V
+passed. Mixed V outcomes remain valid on non-passed histories when global
+final V matches the top-level non-passed outcome. A non-passed V does not
+terminate later V evidence or impose severity precedence, but it prevents the
+same lifecycle from regaining passed verification or success; successful
+reverification requires a fresh lifecycle under fresh applicable
+authorization, without new retry or verification wire state. Every E follows
+final P and every V follows every E by strict sequence and non-decreasing
+timestamp. EF-1 introduces no E-to-E timestamp relation.
 
 If any P is failed or indeterminate, that P is the final P, every earlier P is
 passed, no later P/E/V exists, E and V are empty, and the receipt uses
@@ -975,9 +981,12 @@ both sides of a rename-equivalent delete/create. A writing receipt's successful
 scope claim requires every actual ordinary effect path in `Apath` and not in
 `Qpath`, `Oexec ⊆ Acap`, and `Oexec ∩ Qcap = ∅`, with path
 or capability prohibition overriding authorization. Passed verification also
-requires passed, exactly referenced `finalV("scope-contained")`; the stronger
-predicate applies to that selected V without changing global V or per-type
-`finalV(t)` selection or recovery semantics.
+requires passed, exactly referenced `finalV("scope-contained")`. The B path and
+operation-capability predicates remain unchanged and govern whether that
+selected scope V satisfies B. C-UNIVERSAL-PASS independently governs whether
+the complete V history may culminate in top-level passed verification and does
+not redefine a B operation-capability predicate or either greatest-sequence
+selection.
 
 One bad path or operation requires failed or indeterminate verification,
 forbids a succeeded lifecycle, and remains in existing path/effect evidence.
