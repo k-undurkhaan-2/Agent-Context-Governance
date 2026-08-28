@@ -290,6 +290,18 @@ published Schema resource or supported instance contract was changed.
 The current closed vocabulary is exactly `not-required`, `not-attempted`,
 `not-acquired`, `indeterminate`, and `acquired`.
 
+### Pre-publication ordinary-operation-evidence carrier
+
+The owner-selected Review-15 A2 repair adds
+`ExecutionReceipt.spec.ordinaryOperationEvidence` as a material
+pre-publication wire-shape design change. All resources remain
+`reserved-unpublished`; no published Schema resource or supported instance
+contract is changed by this design repair. The immediate design retains
+`apiVersion: contextctl.dev/v1alpha1`, schema-set revision `v1alpha1-r1`, and
+`receiptVersion: "1"`. Compatibility, publication, and final version
+confirmation remain an `integration-control` publication/release gate; this
+document neither makes that decision nor claims publication.
+
 ## 5. Common envelope
 
 Each of the seven object kinds has this closed top-level shape:
@@ -2227,7 +2239,10 @@ remain outside the target worktree.
 
 ### `ExecutionReceipt`
 
-`metadata.id` is the receipt ID and is narrowed to a canonical lower-case UUID. The common required `spec` fields are:
+`metadata.id` is the receipt ID and is narrowed to a canonical lower-case UUID.
+The closed `spec` inventory has exactly 17 fields represented by 16 data rows
+below because `startedAt` and `finishedAt` share one row. Conditional rules
+below determine when the lease root and ordinary-operation carrier are present.
 
 | Field | Design |
 | --- | --- |
@@ -2242,6 +2257,7 @@ remain outside the target worktree.
 | `unresolvedCoordinationWarnings` | Append-only sequenced sanitized warnings |
 | `checks` | Append-only sequenced check evidence with expected/observed sanitized summaries and reason codes |
 | `changedPaths` | Canonical repository-relative path set |
+| `ordinaryOperationEvidence` | Conditional A2 carrier: a canonical array of closed per-path records containing exactly required `path` and `operations` members |
 | `reasonCodes` | Canonical reason-code set |
 | `sanitization` | Closed required `profileId`, `applied`, `redactionCount`, and `completedAt` record |
 | `receiptDigest` | `profile.digest.execution-receipt-v1` over the complete `ExecutionReceipt` resource excluding only `spec.receiptDigest`, exactly as cataloged in section 10 |
@@ -2279,26 +2295,115 @@ Qpath =
 check set `P` below. Both unions use the existing anchored path-pattern grammar
 over the existing valid repository-relative-path universe.
 
-Define non-wire evidence notation `Oexec` as the union of every attributable
-actual ordinary execution-effect capability in `M`. It includes transient and
-restored effects, including a temporary create followed by delete, a temporary
-delete followed by restoration, a temporary modify followed by restoration,
-and both `delete` and `create` for a rename-equivalent old/new path pair.
-`Oplan(B,F)` alone is insufficient because a net-valid final composite does not
-erase actual intermediate effects. This design requirement does not implement
-runtime collection or add an `ExecutionReceipt` field.
+Define the attempted-outcome and carrier-presence predicates:
+
+```text
+Attempted(e) :=
+  e in {succeeded, failed, cancelled, indeterminate}
+
+CarrierRequired(R,C) :=
+  R.spec.origin.type == "issued-contract"
+  and C.spec.allowWrite == true
+  and Attempted(R.spec.executionOutcome)
+```
+
+`ExecutionReceipt.spec.ordinaryOperationEvidence` is present if and only if
+`CarrierRequired(R,C)`. It is therefore required for every issued writing
+attempt, including failed, cancelled, and indeterminate execution, and is
+forbidden for pre-contract denials, every `allowWrite: false` or plan-only
+contract, and an issued writing contract whose execution is `not-attempted`.
+Later release failure changes neither presence nor contents. A writing attempt
+with complete evidence of zero attributable ordinary effects has exactly the
+one canonical representation `ordinaryOperationEvidence: []`.
+
+When present, the carrier is an array of zero or more closed
+`OrdinaryOperationEvidenceRecord` values. Each record contains exactly two
+required members and permits no additional member:
+
+```text
+OrdinaryOperationEvidenceRecord:
+  path: repositoryRelativePath
+  operations: non-empty canonical set of create | modify | delete
+```
+
+The `path` member reuses the existing `repositoryRelativePath` profile without
+normalization, case folding, or repair, including strict UTF-8, already-NFC
+text, the 1-through-4096-scalar limit, POSIX separators, and rejection of an
+exact lower-case `.git` component at any depth. Outer records are strictly
+increasing by `S(record.path)`; duplicate paths and non-canonical input order
+are invalid. Each `operations` array has one through three distinct members,
+is strictly increasing by `S(operation-token)`, and therefore has the complete
+possible order `create`, `delete`, `modify`. Empty arrays, duplicate tokens,
+unknown tokens, and non-canonical input order are invalid and are never
+silently sorted.
+
+For each unique path, `operations` is the set union of every attributable
+ordinary operation on that path during the attempt. Repetition, reversal, and
+return to baseline do not erase a member: modify then restore is
+`["modify"]`; create then modify is `["create","modify"]`; delete then
+recreate and create then delete are both `["create","delete"]`; repeated
+modify is `["modify"]`. A rename-equivalent effect records
+`["delete"]` on the old path and `["create"]` on the new path. There is no
+`rename`, `move`, `copy`, `replace`, `touch`, `unknown`, or other operation
+token and no sequence, timestamp, artifact, digest, or external-reference
+member.
+
+Define the durable reconstruction:
+
+```text
+EvidencePaths :=
+  {record.path | record in R.spec.ordinaryOperationEvidence}
+
+for every p in EvidencePaths:
+  OexecByPath[p] :=
+    set(record.operations)
+    for the unique record whose path == p
+
+Oexec :=
+  the union over every OexecByPath[p]
+```
+
+`Oexec` is reconstructed only from this carrier, never from `changedPaths`,
+final repository state, summaries, `profileId`, `reasonCodes`, or human
+interpretation. `ordinaryOperationEvidence` is the durable serialized
+representation of the complete attributable ordinary-operation set known for
+the attempt. It retains transient effects, restored effects, effects whose
+final state equals baseline, multiple operation types on one path, and both
+sides of a rename-equivalent effect. `Oplan(B,F)` remains separately necessary
+for contract closure but is insufficient to recover actual intermediate
+effects.
+
+Every attributable ordinary-effect path must be present in the carrier, and
+the exact cross-artifact relationship is:
+
+```text
+EvidencePaths ⊆ set(R.spec.changedPaths)
+```
+
+The reverse inclusion is not required. Every carrier path therefore also
+appears in `changedPaths`, including transient or restored paths; an extra
+`changedPaths` member does not invent an operation. If such an extra path is
+independently known to carry an ordinary effect, omitting it from the carrier
+violates evidence completeness.
 
 For a writing contract, successful `scope-contained` conformance requires
 exactly both path containment and operation-capability containment:
 
 ```text
-for every actual ordinary effect path x:
+for every x in set(R.spec.changedPaths):
+  x is in Apath
+  and
+  x is not in Qpath
+
+for every x in EvidencePaths:
   x is in Apath
   and
   x is not in Qpath
 
 and
 
+EvidencePaths ⊆ set(R.spec.changedPaths)
+and
 Oexec ⊆ Acap
 and
 Oexec ∩ Qcap = ∅
@@ -2318,20 +2423,45 @@ per-type `finalV(t)` selection, nor any B operation-capability predicate.
 One unauthorized or prohibited path or operation invalidates a passed claim.
 `verificationOutcome` is then `failed` or `indeterminate` according to the
 available evidence, `lifecycleOutcome` is not `succeeded`, and every offending
-observed path and effect remains in the existing receipt/check evidence.
+observed path and effect remains in `changedPaths` and
+`ordinaryOperationEvidence`.
 Validators and evidence producers do not drop, sanitize, normalize, rewrite,
 or otherwise hide an offending observation. If attribution cannot establish
-whether an ordinary mutation occurred, ambiguity is not successful no-op
-evidence; existing fail-closed semantics require failed or indeterminate
-verification. No serialized uncertainty field is added.
+whether an ordinary mutation occurred or whether attribution is complete,
+every known attributable operation is still included, ambiguity is not
+successful no-op evidence, and verification is indeterminate. Phase 1 validates
+the serialized carrier and its static bindings; Phase 4 owns runtime
+attribution truth and completeness. A receipt digest protects the serialized
+evidence from mutation but does not prove the truth of omitted history.
 
-For a writing contract, empty `changedPaths` and empty `Oexec` satisfy the two
-set predicates vacuously only when complete evidence establishes no actual
-ordinary effect. They do not waive any completeness, postcondition, attribution,
-or verification-evidence requirement. For every `allowWrite: false` contract,
-the existing D5 invariant remains unchanged: `permittedTransitions`,
-`changedPaths`, and the ordinary operation set are all exactly empty. An
-`execute-tests` or build capability does not widen ordinary-file mutation.
+The fail-closed carrier classifications are:
+
+| Condition | Required classification |
+| --- | --- |
+| Required carrier missing, or carrier present where forbidden | Invalid receipt before receipt-digest acceptance |
+| Required carrier is `[]` with complete zero-effect evidence | Valid representation |
+| `[]` omits a known attributable operation | Evidence-conformance invalid; a failed outcome does not cure omission |
+| `[]` while attribution is unresolved | Structurally valid representation, but scope verification is indeterminate and cannot pass |
+| Empty `operations`, duplicate path or operation, non-canonical outer or nested order, invalid path, exact `.git` component, unknown operation, or unknown record member | Structurally invalid |
+| Carrier path absent from `changedPaths` | Invalid cross-artifact binding |
+| Extra `changedPaths` member with no independently known ordinary effect | Allowed by the one-way subset and does not invent an operation |
+| Carrier path outside `Apath`, in `Qpath`, `Oexec` not a subset of `Acap`, or non-empty `Oexec ∩ Qcap` | Structurally valid evidence, but `scope-contained` fails |
+| Effect occurrence or completeness cannot be established | Include every known attributable operation; verification is indeterminate |
+| Malformed or statically invalid carrier with a matching receipt digest | Invalid; hashing cannot cure an earlier validation failure |
+
+For every `allowWrite: false` contract, the existing D5 invariant remains
+unchanged: `permittedTransitions`, `changedPaths`, and the ordinary operation
+set are exactly empty, while the carrier is forbidden. An `execute-tests` or
+build capability does not widen ordinary-file mutation.
+
+The existing `profile.digest.execution-receipt-v1` rule covers the complete
+finalized `ExecutionReceipt` except only `spec.receiptDigest`.
+`ordinaryOperationEvidence` is therefore automatically part of the existing
+receipt-digest preimage whenever present. No new digest profile, operation-
+evidence digest, external artifact, dependency-graph node, computation, or
+exact-copy relation is added; the graph remains 14 field paths, 11
+computations, and 3 exact copies. Structural and static carrier failures reject
+before valid receipt-digest acceptance.
 
 The five focused positive changed-path scope classes remain exactly the
 following path-predicate owners, each with operation-capability containment
@@ -2341,8 +2471,8 @@ satisfied as mandatory non-additive background:
    and passed `finalV("scope-contained")` referenced evidence;
 2. multiple changed paths, every one in `Apath` and not in `Qpath`, with passed
    verification and passed `finalV("scope-contained")` referenced evidence;
-3. an empty writing result with complete passed no-effect verification
-   evidence;
+3. an empty writing result with required `ordinaryOperationEvidence: []` and
+   complete passed no-effect verification evidence;
 4. one or more out-of-scope paths retained under failed verification and a
    non-succeeded lifecycle; and
 5. one or more out-of-scope paths retained under indeterminate verification
@@ -2365,7 +2495,7 @@ A non-writing receipt with non-empty `changedPaths` remains an additional
 required invalid class in the existing D5 family. It is cross-referenced here
 but is not counted again in the focused 5/6 scope family.
 
-The non-wire editorial family `ORDINARY-CAPABILITY-CLOSURE` has prefix `OC`
+The editorial family `ORDINARY-CAPABILITY-CLOSURE` has prefix `OC`
 and exactly these three positive and eight negative primary predicates:
 
 | Primary ID | Exact planned predicate |
@@ -2391,6 +2521,44 @@ authorized, and rename-equivalent delete-old/create-new with both capabilities
 required. These variants do not increase 3/8. OC identifiers do not reuse the
 separate HX family, and OC adds no wire field, enum, reason code, capability
 token, transition, digest member, or runtime implementation.
+
+The separate focused `OPERATION-EVIDENCE` family has prefix `OE`, exactly ten
+positive primary owners, and exactly eleven negative primary owners:
+
+| Primary ID | Exact planned predicate |
+| --- | --- |
+| `OE-P01` | one carrier path with `["modify"]` |
+| `OE-P02` | one carrier path with `["create"]` |
+| `OE-P03` | one carrier path with `["delete"]` |
+| `OE-P04` | one carrier path with `["create","modify"]` |
+| `OE-P05` | one carrier path with `["create","delete"]` |
+| `OE-P06` | multiple carrier records in canonical path order |
+| `OE-P07` | transient modify followed by restoration retains `["modify"]` |
+| `OE-P08` | transient create/delete followed by restoration retains `["create","delete"]` |
+| `OE-P09` | rename-equivalent old path has `["delete"]` and new path has `["create"]` |
+| `OE-P10` | complete carrier satisfies `EvidencePaths ⊆ changedPaths`, both path predicates, and permitted reconstructed `Oexec` |
+| `OE-N01` | required carrier is missing |
+| `OE-N02` | carrier is present where forbidden |
+| `OE-N03` | duplicate carrier path |
+| `OE-N04` | empty `operations` |
+| `OE-N05` | duplicate operation token |
+| `OE-N06` | non-canonical outer-record order |
+| `OE-N07` | non-canonical operation order |
+| `OE-N08` | unknown operation token |
+| `OE-N09` | known attributable operation is omitted |
+| `OE-N10` | carrier path is absent from `changedPaths` |
+| `OE-N11` | ambiguous or unresolved attribution is represented as a passed successful no-op |
+
+OE is exactly 10/11/21 and is not merged into OC. Invalid paths and reserved
+`.git` components remain D3/path-profile owned; unauthorized or prohibited
+paths remain changed-path-scope owned; modify-only transient create/delete
+forms remain OC-N08 variants; rename missing create or delete authority remains
+an OC-N07 rename variant with the corresponding existing operation-capability
+fault; and malformed-carrier digest-acceptance forms remain non-additive
+validation-order variants of the corresponding OE structural owner. No
+duplicate ownership changes any frozen aggregate. The existing expanded
+prior-family aggregate of 181 excludes the separately tracked OC and OE
+families and remains 181; no new combined aggregate is defined.
 
 `spec.origin` is exactly one of these closed branches:
 
@@ -4492,14 +4660,18 @@ for, alteration of, or second normative pipeline:
 
 1. strict byte/token decoding prerequisites;
 2. timestamp and structured-remote lexical validation;
-3. JSON Schema structural validation;
-4. local Phase 1 static invariants;
-5. canonical-array and remote-order validation;
+3. JSON Schema structural validation, including present-carrier shape,
+   closed records, operation enum/non-emptiness, and path profiles;
+4. local Phase 1 static invariants, including carrier duplicate rejection;
+5. canonical-array and remote-order validation, including carrier-record and
+   nested-operation order;
 6. validated canonical representation construction;
 7. digest projection and digest computation where applicable;
 8. complete TaskContract digest verification;
 9. issued receipt/TaskContract field equality plus LB-2 root digest,
-   A/R/every-L reference, and contract/root lease-ID binding;
+   A/R/every-L reference, and contract/root lease-ID binding; then A2
+   conditional carrier presence, `EvidencePaths ⊆ changedPaths`,
+   `OexecByPath`/`Oexec` reconstruction, and carrier path/capability binding;
 10. all 24 primitive chronology comparisons and all 30 displayed consequences;
     final-applicable P/E/V, per-type `finalV(t)`, diagnostic finalG, and finalL
     selection; C-UNIVERSAL-PASS for every passed verification; attempted P/E/V
@@ -4512,9 +4684,21 @@ for, alteration of, or second normative pipeline:
     N/issuedAt, issuedAt/I, every-I/every-P,
     P/E/V, issued-pre-release/L, acquired-Dpre/L, evidence/L, every-non-F/
     sanitization, sanitization/F, and F/finish ordering; EF-1 execution terminality and final-E/V/L binding;
-    path-and-operation scope; terminal F, warning, L-empty, and outcome consistency;
+    path-and-operation scope and existing outcome consistency; terminal F,
+    warning, and L-empty consistency;
 11. receipt digest verification; and
 12. delivery-result binding and chronology.
+
+Within those existing stages, carrier processing is strictly decoding and
+lexical prerequisites; present-carrier structural validation; record
+closedness; operation-enum validation; non-empty operations; path validation;
+duplicate rejection; canonical record and operation ordering; cross-artifact
+conditional presence; `EvidencePaths ⊆ changedPaths`;
+`OexecByPath`/`Oexec` reconstruction; path containment; operation-capability
+containment; existing outcome consistency; and unchanged C-UNIVERSAL-PASS.
+Only then may existing stage 11 accept the receipt digest. This synchronization
+adds no thirteenth pipeline stage and does not alter the protected section-10
+twelve-step block.
 
 ## ExpectedBaseline inventory and cross-dimension consistency
 
@@ -5379,15 +5563,18 @@ Comparators and identity functions are defined as follows:
 | `ExecutionReceipt.checks` | Append-only evidence order | `sequence`; `S(checkId)` is independently unique | `sequence` equals array position and is contiguous from 0 |
 | `ExecutionReceipt.checks[].reasonCodes` | Set-like | `S(code)` | `S(code)` |
 | `ExecutionReceipt.changedPaths` | Set-like | `S(path)` | `S(path)` |
+| `ExecutionReceipt.spec.ordinaryOperationEvidence` | Set-like; zero or more records when conditionally required | `S(record.path)` | `S(record.path)` |
+| `ExecutionReceipt.spec.ordinaryOperationEvidence[].operations` | Set-like, non-empty; one through three operation tokens | `S(operation token)` | `S(operation token)`, yielding exactly `create`, `delete`, `modify` |
 | `ExecutionReceipt.reasonCodes` | Set-like | `S(code)` | `S(code)` |
 | `ReceiptDeliveryResult.reasonCodes` | Set-like | `S(code)` | `S(code)` |
 | `GovernanceBundle.domains` | Set-like | `S(metadata.id)` | `S(metadata.id)` |
 | `GovernanceBundle.worktreeRoles` | Set-like | `S(metadata.id)` | `S(metadata.id)` |
 
-The final matrix contains 52 data rows, counted from the table above. It covers
+The final matrix contains 54 data rows, counted from the table above. It covers
 every instance array in the `v1alpha1-r1` contract design. Relative to the
-54-row prior baseline, the two removed rows are the now-impossible
-TaskContract administrative-lock exact arrays under
+54-row prior baseline, the two now-impossible TaskContract administrative-lock
+exact rows remain removed and the two A2 ordinary-operation-evidence rows are
+added. The removed rows are
 `expectedBaseline.administrativeLocks.locks` and
 `requiredPostconditions[type="administrative-locks"].expected.locks`. The
 reusable active-operation and administrative-lock observation/evidence unions
@@ -5676,7 +5863,7 @@ and negative vector at its assigned owner.
 | Permitted transitions | one positive vector for each of exactly seven branches: `ref-state`, `head-state`, `index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, and `submodule-entry`, with every path-keyed branch in the revised valid universe; ordinary operation-capability cases cross-reference OC without adding a branch | identical `from` and `to`; duplicate target; unknown type; missing target key; branch-inapplicable key; invalid target comparator; any exact `.git` component; the retired `active-operation` and `administrative-lock` branches; OC negatives are cross-referenced rather than duplicated | Schema enforces seven closed branches and the path profile; Phase 1 static enforces exact inequality, target uniqueness, the normative `T(transition)` comparator, reserved-path rejection, retired-branch rejection, and the D7 `Oplan(B,F)` capability closure; Phase 3 live observes Git transitions; Phase 4 evidence attributes only authorized ordinary-path transitions |
 | Required postconditions | one positive vector for each of eleven branches; optional `active-operations` and `administrative-locks` each expect `none`; path-keyed expected state uses the revised valid universe; successful writing `scope-contained` evidence has both path and operation-capability containment | missing or repeated `scope-contained`; duplicate type; `scope-contained` containing `expected`; state branch missing `expected`; reserved `.git`-component path; successful scope claim that omits an administrative effect or lacks path or operation-capability containment as a non-additive OC cross-reference; each forbidden single-operation active or administrative-lock expectation; malformed reusable observation condition; invalid lease-state truth-table combination | Schema enforces eleven closed branches, both none-only expectations, and valid paths; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 resolves administrative locations; Phase 4 requires an administrative, path-scope, or operation-capability violation to make `scope-contained` failed or indeterminate and verifies every postcondition |
 | Warnings and checks | warning without optional fields; warning with summary only; warning with an earlier or later `relatedCheckId`; check without optional summaries; every one of 14 check types with its permitted outcomes; F with exactly its seven closed fields and reserved identity tuple; ordinary non-F generic IDs; general V without `postconditionRef`; referenced V for each of all eleven required-postcondition types | warning or check sequence gap/duplicate; duplicate `checkId`; dangling or cross-receipt `relatedCheckId`; invalid reason-code order; unknown check type/outcome; execution using `passed`; non-execution using `succeeded` or `cancelled`; F with either summary, any other free-form/payload member, or any non-reserved tuple value; non-F duplicating the reserved F ID under generic check-ID uniqueness; `postconditionRef` on each of the other thirteen check types; malformed/unknown reference; valid type absent from the bound contract | Schema enforces closed record shapes, the F-implies-exact-tuple specialization, 14 check types, exact 4/3 outcome conditional, and the V-only closed reference object; Phase 1 enforces sequences, globally unique IDs and the derived non-F reserved-ID exclusion, reason-code order, same-receipt warning references, complete-contract postcondition reference resolution, and per-type greatest-sequence selection; Phase 4 produces and sanitizes evidence |
-| Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks | every existing origin/outcome and 5/19 binding vector; ten timestamp-positive lexical classes; all 24 primitive chronology positives and 30 displayed relations; 8/37 pre-action, 8/22 final-E, 10/20 verification, 15/20 postcondition-binding, 6/28 acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, 5/6 changed-path scope, and OC 3/8 planned families; passed-verification positives have every V passed, including all-passed multiple-global-V and same-type V histories; both origins and complete artifact pairs | every existing binding/acquisition/outcome negative; 24 timestamp lexical/calendar negatives; each of 24 primitive chronology relations reversed; all focused-family negatives under their non-additive overlap rules; passed verification after an earlier unreferenced failed or indeterminate V and a later passed global final V as global class-14/class-16 variants; passed verification after an earlier referenced failed or indeterminate `V(t)` and a later passed `finalV(t)` as PB-N19/PB-N20 variants; missing G type or any failed/indeterminate G; missing/duplicate/non-passed or wrong-path A/R/N/I; missing, forbidden, malformed, digest-invalid, or misbound issued root or compact A/R/every-L reference; mismatched contract/root lease IDs; missing denial prerequisite; denial-stage boundary Variant A or B; wrong controller/checkpoint/outcome; controller reference/binding mismatch; earlier non-passed same-type controller history; acquired evidence-reference/identity mismatch; applicable G/A or G/N, R/N-to-checkpoint, checkpoint-to-issuedAt, derived R/N-to-issuedAt, issuedAt-to-I, and every-I/every-P faults; an EF-1 terminality violation with a non-success E followed by a later E; acquired-Dpre/L faults; non-F/sanitization, sanitization/F, or F/finish reversals; missing/misordered/mismapped L/F; forbidden F content; primitive F exact-tuple violation; derived generic non-F duplicate-ID rejection; wrong final-L warning binding; all six changed-path scope negatives plus the D5 cross-reference and all eight OC negatives under their non-additive overlap rules | Schema enforces origin/union, conditional denial and issued-acquisition references, closed F shape, and F-implies-exact-tuple specialization; Phase 1 verifies complete contract binding, 24 primitive chronology comparisons and all 30 displayed consequences, every actual G passed, every attempted P passed, C-UNIVERSAL-PASS requiring every V passed when `verificationOutcome` is passed after final-V selection/binding and before lifecycle-success derivation and receipt-digest acceptance without terminalizing V or changing mixed non-passed greatest-sequence diagnosis, failed/indeterminate P same-lifecycle terminality with no later P/E/V and not-attempted/not-performed outcomes, every non-final E succeeded with any non-success E final, exact applicable A/R/N/I, AP-1 source/profile/copy chain, LB-2 root/A/R/every-L references, and source/root/contract lease equality, controller identity/equalities and first-failure history, every actual prerequisite before the controller, the complete ordinary-stage stop boundary, acquired A/lease/digest identity, P/E/V, release/finalization and sanitization order, mandatory `sanitization.applied == true`, path containment, `Oexec` capability containment, terminal exact-tuple F, warning linkage, and L-empty rules before receipt digest/delivery; Phase 3 supplies acquisition/release facts; Phase 4 owns provenance, trusted time, authority, freshness, actual-effect attribution, scope/evidence truth, and terminalization |
+| Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks | every existing origin/outcome and 5/19 binding vector; ten timestamp-positive lexical classes; all 24 primitive chronology positives and 30 displayed relations; 8/37 pre-action, 8/22 final-E, 10/20 verification, 15/20 postcondition-binding, 6/28 acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, 5/6 changed-path scope, OC 3/8, and OE 10/11 planned families; passed-verification positives have every V passed, including all-passed multiple-global-V and same-type V histories; both origins and complete artifact pairs | every existing binding/acquisition/outcome negative; 24 timestamp lexical/calendar negatives; each of 24 primitive chronology relations reversed; all focused-family negatives under their non-additive overlap rules, including all eleven OE negatives; passed verification after an earlier unreferenced failed or indeterminate V and a later passed global final V as global class-14/class-16 variants; passed verification after an earlier referenced failed or indeterminate `V(t)` and a later passed `finalV(t)` as PB-N19/PB-N20 variants; missing G type or any failed/indeterminate G; missing/duplicate/non-passed or wrong-path A/R/N/I; missing, forbidden, malformed, digest-invalid, or misbound issued root or compact A/R/every-L reference; mismatched contract/root lease IDs; missing denial prerequisite; denial-stage boundary Variant A or B; wrong controller/checkpoint/outcome; controller reference/binding mismatch; earlier non-passed same-type controller history; acquired evidence-reference/identity mismatch; applicable G/A or G/N, R/N-to-checkpoint, checkpoint-to-issuedAt, derived R/N-to-issuedAt, issuedAt-to-I, and every-I/every-P faults; an EF-1 terminality violation with a non-success E followed by a later E; acquired-Dpre/L faults; non-F/sanitization, sanitization/F, or F/finish reversals; missing/misordered/mismapped L/F; forbidden F content; primitive F exact-tuple violation; derived generic non-F duplicate-ID rejection; wrong final-L warning binding; all six changed-path scope negatives plus the D5 cross-reference and all eight OC negatives under their non-additive overlap rules | Schema enforces origin/union, conditional denial and issued-acquisition references, closed F shape, F-implies-exact-tuple specialization, and the closed A2 carrier record/operation shapes; Phase 1 verifies complete contract binding, A2 iff presence, carrier paths/operations/duplicates/order, `EvidencePaths ⊆ changedPaths`, `OexecByPath`/`Oexec` reconstruction, carrier path and operation-capability containment, 24 primitive chronology comparisons and all 30 displayed consequences, every actual G passed, every attempted P passed, C-UNIVERSAL-PASS requiring every V passed when `verificationOutcome` is passed after final-V selection/binding and before lifecycle-success derivation and receipt-digest acceptance without terminalizing V or changing mixed non-passed greatest-sequence diagnosis, failed/indeterminate P same-lifecycle terminality with no later P/E/V and not-attempted/not-performed outcomes, every non-final E succeeded with any non-success E final, exact applicable A/R/N/I, AP-1 source/profile/copy chain, LB-2 root/A/R/every-L references, and source/root/contract lease equality, controller identity/equalities and first-failure history, every actual prerequisite before the controller, the complete ordinary-stage stop boundary, acquired A/lease/digest identity, P/E/V, release/finalization and sanitization order, mandatory `sanitization.applied == true`, terminal exact-tuple F, warning linkage, and L-empty rules before receipt digest/delivery; Phase 3 supplies acquisition/release facts; Phase 4 owns provenance, trusted time, authority, freshness, actual-effect attribution and completeness, scope/evidence truth, and terminalization |
 | TaskContract truth table | each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition | requested plan-only with effective implementation; effective plan-only with `allowWrite: true`; `allowWrite: false` with `leaseRequired: true`; `allowWrite: true` with `leaseRequired: false`; `leaseId` present while no lease is required; `leaseId` absent while required; `owned` postcondition while no lease is required; `not-required` postcondition while a lease is required | Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions |
 | D1 validated canonical instance representation | strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation | generic decoded object; missing or stale proof component; proof rebound to another value; mutable value; representation asserted as a public kind, production typed model, transferable authority, TaskContract, or runtime artifact | `schema-contracts` specifies the representation contract and records its vectors; future `model-implementation` implements and tests decoding, construction, provenance binding, typed round trips, serialization, and Schema/model conformance; Phase 4 owns trusted operational replay and authenticity |
 | D4 raw worktree-content digest | exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation | filtered or EOL-converted bytes; decoded or Unicode-normalized text; dereferenced symlink; unreadable, replaced, raced, truncated, length-inconsistent, or lossy observation; directory, gitlink, or unsupported type | Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile |
@@ -5709,7 +5896,9 @@ permitted-transition branches = 7
 required-postcondition branches = 11
 check types = 14
 denial checkpoints = 9
-array-ordering matrix rows = 52
+ExecutionReceipt spec fields = 17
+ExecutionReceipt field-table rows = 16
+array-ordering matrix rows = 54
 mandatory SG-001 rows = 25
 D5 Cartesian negatives = 21
 active-operation regressions = 21
@@ -5751,6 +5940,9 @@ changed-path scope D5 cross-reference = 1 existing family, not additive
 ordinary-capability-closure positives = 3
 ordinary-capability-closure negatives = 8
 ordinary-capability-closure primary classes = 11
+operation-evidence positives = 10
+operation-evidence negatives = 11
+operation-evidence primary classes = 21
 D6 valid receipt-level combinations = 13
 D6 invalid receipt-level combinations = 7
 receipt/contract equalities = 8
@@ -5795,6 +5987,9 @@ expanded affected-family aggregate = 181
 ordinary-capability-closure positives = OC-P01..OC-P03 = 3
 ordinary-capability-closure negatives = OC-N01..OC-N08 = 8
 ordinary-capability-closure primary classes = 11
+operation-evidence positives = OE-P01..OE-P10 = 10
+operation-evidence negatives = OE-N01..OE-N11 = 11
+operation-evidence primary classes = 21
 ```
 
 Each inclusive planned-ID range is continuous. Each primary predicate has one
