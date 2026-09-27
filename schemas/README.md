@@ -301,10 +301,17 @@ from the three non-digest source members. The receipt-root digest is an exact
 copy of that validated source value. A lease-required issued receipt requires
 one associated source and exact receipt/source `taskId`, source/root/A
 `checkId`, source/root/contract `leaseId`, source-to-root digest copy, and
-A/R/every-L compact-reference bindings. I and every other check type forbid the
-compact reference. No-lease, denial, and indeterminate-acquisition paths forbid
-the AP-1 source/root/reference chain; acquired denial retains its unchanged
-origin/reference/profile/projection/digest/example chain.
+A/R/every-L compact-reference bindings. On that issued path, every other check
+forbids the compact reference. Every denial forbids the AP-1 source and issued
+root; acquired-denial every L instead requires the existing compact
+`leaseAcquisitionRef: {checkId}` bound to
+`preContractEvidence.acquisitionEvidenceRef.checkId`. Acquired-denial A,
+R/controller, G, N, I, P, E, V, F, and every other non-L check forbid it.
+No-lease issued receipts and non-acquired denials (including indeterminate
+acquisition) forbid compact references everywhere and keep L empty; no-lease
+issued A/R are also empty. F always forbids the reference. The denial-origin
+and structured acquisition-reference member sets and their isolated digest
+profiles remain unchanged; the containing receipt's conditional presence changes.
 
 Phase 1 defines source shape, digest profile, equality/copy relationships, and
 static conformance. Phase 3 produces the acquisition result and stable source
@@ -828,7 +835,11 @@ optional check prose. An acquired denial additionally requires the closed
 non-acquired state forbids it. The reference selects the exact same-receipt
 singleton passed A required by the matrix, and its lease ID and digest equal
 the acquired origin exactly. It cannot reference another A, failed A, non-A,
-lease, digest, or receipt and contains no issued-contract field. The exact
+lease, digest, or receipt and contains no issued-contract field. Every
+acquired-denial L additionally carries exactly
+`leaseAcquisitionRef: {checkId: preContractEvidence.acquisitionEvidenceRef.checkId}`;
+the existing A/lease/digest bindings therefore bind every release check to the
+acquired identity. No issued root or AP-1 source is created. The exact
 cumulative prefixes and stop boundaries are:
 
 | Checkpoint | `Prereq(r)`: every actual member passed and before controller | Controller | Unreached `O` types empty everywhere | Acquisition binding | Only post-controller checks |
@@ -840,15 +851,16 @@ cumulative prefixes and stop boundaries are:
 | initial preflight | intent, project/domain, routing, host | greatest preflight, failed/indeterminate | N, A, R, I, P, E, V | `not-required` or `not-attempted`; no acquired reference | F only; L empty |
 | N pre-issuance | all five G types | greatest N, failed/indeterminate | A, R, I, P, E, V | exactly `not-required`; no lease identity or acquired reference | F only; L empty |
 | lease acquisition | all five G types | greatest A, failed/indeterminate | N, R, I, P, E, V | `not-acquired` or `indeterminate`; no stable identity or acquired reference | F only; L empty |
-| acquired R | all five G types plus singleton passed referenced A | greatest R, failed/indeterminate | N, I, P, E, V | exactly `acquired`; exact A/lease/digest binding | one or more L, then F; `controller < every L < F` |
-| contract issuance | no-lease: all five G plus singleton passed N; acquired: all five G plus singleton passed A/R | greatest I, failed/indeterminate | no-lease: A, R, P, E, V; acquired: N, P, E, V | no-lease: `not-required`, no reference; acquired: exact A/lease/digest reference | no-lease: F only, L empty; acquired: one or more L, then F |
+| acquired R | all five G types plus singleton passed referenced A | greatest R, failed/indeterminate | N, I, P, E, V | exactly `acquired`; exact A/lease/digest binding | one or more L, each compact-ref bound to `acquisitionEvidenceRef.checkId`, then F; `controller < every L < F` |
+| contract issuance | no-lease: all five G plus singleton passed N; acquired: all five G plus singleton passed A/R | greatest I, failed/indeterminate | no-lease: A, R, P, E, V; acquired: N, P, E, V | no-lease: `not-required`, no reference; acquired: exact A/lease/digest reference | no-lease: F only, L empty; acquired: one or more L, each compact-ref bound to `acquisitionEvidenceRef.checkId`, then F |
 
 Every row also requires the exact structured controller binding,
 `changedPaths: []`, and one passed terminal F. The N row cannot be represented
 by R. Its earlier passed N observations may exist only before the controller;
 the controller-selected greatest N is failed/indeterminate and no later pass
 preserves that denial. The acquired-R row requires the exact acquired
-reference/origin/A binding, no I/P/E/V, at least one post-controller L, exact
+reference/origin/A binding, no I/P/E/V, at least one post-controller L with
+every L's compact reference bound to `acquisitionEvidenceRef.checkId`, exact
 final-L top-level mapping and warning, sanitization, and F. The first five rows
 record only their exact completed G prefix and controller-selected G failure;
 a passed prerequisite re-observation after any controller rejects.
@@ -910,8 +922,13 @@ Failed or indeterminate finalL requires a warning bound exactly to finalL.
 On a lease-required issued receipt, every L—not only finalL—has a compact
 reference whose `checkId` equals the issued root, source identity, and singleton A. The
 singleton R carries the same reference. One bad earlier L remains invalid even
-when finalL is correctly bound. An acquired denial forbids the AP-1 source, issued root, and compact
-references and retains only its unchanged origin/evidence binding.
+when finalL is correctly bound. An acquired denial forbids the AP-1 source and
+issued root, but requires every L's compact `checkId` to equal
+`preContractEvidence.acquisitionEvidenceRef.checkId`. That structured
+reference selects singleton passed A and exact-binds the origin's lease ID and
+acquisition-result digest. All acquired-denial non-L checks, including A and
+R/controller, forbid the compact reference. Phase 1 checks static identity
+relationships; Phase 3/4 retain actual acquisition/release and provenance truth.
 Acquired denials also require `preContractEvidence <= every L`; every L is a
 non-F member and therefore no later than sanitization. No-release paths keep L
 empty but retain sanitization and passed F, including indeterminate acquisition
@@ -961,9 +978,16 @@ with `expectedSummary`, `observedSummary`, both, unknown payload, and other
 free-form/payload variants. RF-N12 owns only primitive exact-F-tuple faults:
 wrong F ID, wrong F profile, non-empty F reasons, and their regex-valid
 secret-like F alternatives. Those RF-N12 forms are mandatory and non-additive.
-RF-N13 owns the universal issued every-L compact-reference violation against the
-same source/root identity, including an earlier bad L followed by a correctly
-bound finalL. RF-N14 uniquely owns an otherwise-valid serialized receipt with
+RF-P06 requires every acquired-denial L to carry the correct compact reference
+as a valid cleanup prerequisite. RF-N13 owns the universal release-required
+every-L acquisition-reference violation: issued L binds to source/root/A;
+acquired-denial L binds to `preContractEvidence.acquisitionEvidenceRef.checkId`.
+Both origins are non-additive variants. Missing or wrong only-L references,
+an earlier bad L followed by correct finalL, correct earlier L followed by bad
+finalL, and one bad non-adjacent member in a multiple-L history reject. An
+acquired-denial reference to controller R or another same-receipt check instead
+of A is a wrong-ID variant. All unrelated predicates remain valid to isolate
+RF-N13; no new primary is added. RF-N14 uniquely owns an otherwise-valid serialized receipt with
 `sanitization.applied: false`; zero and positive redaction counts are mandatory
 non-additive variants, and its witness preserves an otherwise-correct wire F
 tuple, digest projection, and delivery-independent state; the false flag means
@@ -1316,6 +1340,19 @@ precedes its exact receipt-root copy, LB-2 bindings, and containing receipt
 digest. Framing, the other ten computation profiles/results, the three copy
 semantics, API/revision/version values, resource IDs, filenames, UUID URNs, and
 `reserved-unpublished` statuses remain unchanged.
+This pre-publication repair changes the wire conditional-presence contract
+using existing `leaseAcquisitionRef`; it does not change the wire member set,
+add an enum, check type, origin, capability, reason-code requirement, digest
+selector, computation, or exact-copy path, or change an API/receipt version.
+The compact L reference is covered by the containing
+`profile.digest.execution-receipt-v1` projection, so a full acquired-denial
+receipt and its dependent digest/delivery copy would be AFFECTED. The current
+three-file corpus has no exact full acquired-denial receipt or receipt
+projection golden. The isolated pre-contract-evidence and denial-acquisition
+profiles, AP-1 source/root vectors, issued no-lease receipt and delivery golden,
+and PG-1 broad-region bytes/counts/hashes are UNAFFECTED. The digest graph
+remains 14 paths / 11 computations / 3 exact copies and introduces no cycle.
+
 This section records design-only requirements and planned vectors. It creates
 no Schema, fixture, validator, executable test, model, codec, runtime behavior,
 or authority. The current review status is stated above; this README neither
