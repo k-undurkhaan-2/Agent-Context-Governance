@@ -285,20 +285,22 @@ Tests MUST prove that future governed adapter execution, including plan-only exe
 
 ### Issued-contract receipt and TaskContract binding coverage
 
-Future `ExecutionReceipt` contract coverage MUST exercise both closed
-receipt-origin branches and conditional contract fields. Pre-contract vectors
-cover denial before and after acquisition, require acquisition binding only for
-a proven acquired lease, require applicable cleanup or indeterminate release
-evidence, and reject both fabricated contract binding and successful-execution
-claims. Policy-required pre-contract receipts remain optional unless later
-policy requires them.
+#### Issued-contract receipt and referenced TaskContract binding
 
-For `origin.type: issued-contract`, coverage retains origin `contractId`,
-`contractDigest`, `resolvedTarget`, and `effectiveMode`; receipt-level
-`taskId`; and the complete referenced TaskContract's `metadata.id`,
-`spec.taskId`, `spec.projectRef`, `spec.domainRefs`,
-`spec.target.worktreeRoleRef`, `spec.target.worktreeId`, and
-`spec.effectiveMode`. It MUST enforce all eight equalities:
+The closed `issued-contract` origin retains exactly `contractId`,
+`contractDigest`, `resolvedTarget`, and `effectiveMode`, together with the
+receipt-level `ExecutionReceipt.spec.taskId`. Conformance uses the complete
+referenced TaskContract fields `metadata.id`, `spec.taskId`,
+`spec.projectRef`, `spec.domainRefs`, `spec.target.worktreeRoleRef`,
+`spec.target.worktreeId`, and `spec.effectiveMode`. It does not invent
+`TaskContract.spec.taskContractDigest`. Instead, the complete TaskContract
+digest is recomputed with `profile.digest.task-contract-v1` over the exact
+validated complete TaskContract projection already defined in the digest
+catalog, including its existing derivation binding.
+
+When `receipt.spec.origin.type == issued-contract` and the receipt is validated
+with its complete referenced TaskContract, Phase 1 static conformance requires
+all eight equalities:
 
 ```text
 receipt.spec.origin.contractId
@@ -326,53 +328,26 @@ receipt.spec.origin.effectiveMode
   == contract.spec.effectiveMode
 ```
 
-LB-2 retains a separate lease-required cross-artifact predicate:
+LB-2 adds one independent cross-artifact lease predicate after those eight
+duplicated-claim equalities. It is not a ninth duplicated origin field:
 
 ```text
-receipt.spec.leaseAcquisitionEvidence.leaseId
-  == LeaseAcquisitionResultIdentity.leaseId
-  == contract.spec.leaseId
+if contract.spec.leaseRequired == true:
+  receipt.spec.acquisitionBinding.leaseId
+    == LeaseAcquisitionResultIdentity.leaseId
+    == contract.spec.leaseId
 ```
 
-The receipt root remains a closed exact
-`{checkId, leaseId, acquisitionResultDigest}` record. AP-1 separately defines
-the non-public closed source identity:
+The referenced contract's local truth table already requires exactly one
+`leaseId` on that branch. The receipt root and associated source are separately
+required, source-profile validated, and proven equal before this comparison.
+The independent receipt/contract-binding fault remains a contract `leaseId`
+that differs from the already-bound source/root lease. When
+`contract.spec.leaseRequired == false`, the contract `leaseId`, receipt root,
+and associated source are all absent, so no fabricated null or sentinel
+equality is introduced.
 
-```text
-{
-  taskId,
-  checkId,
-  leaseId,
-  acquisitionResultDigest
-}
-```
-
-It is not an eighth public kind, portable governance, a TaskContract or receipt
-field, a second full object embedded in the receipt, or runtime implementation.
-Tests recompute `profile.digest.issued-lease-acquisition-v1` only for this
-source over closed `{taskId, leaseAcquisitionEvidence:{checkId,leaseId}}` and
-require the receipt-root digest to copy the valid source digest exactly. They
-then require receipt/source `taskId`, source/root/A `checkId`, and
-source/root/contract `leaseId` equality plus the exact compact
-`leaseAcquisitionRef: {checkId}` on singleton passed A, singleton passed R,
-and every L. I and every other check type forbid the compact reference.
-Every denial forbids the AP-1 source and issued root. Acquired-denial every L
-instead requires the existing compact reference bound to
-`preContractEvidence.acquisitionEvidenceRef.checkId`; every non-L check on
-that path forbids it. No-lease issued receipts and non-acquired denials,
-including indeterminate acquisition, forbid compact references everywhere and
-keep L empty. The denial-origin and structured acquisition-reference member
-sets and their isolated projections/digests remain unchanged, while the
-containing receipt's conditional-presence contract changes.
-
-Phase 1 owns shape, digest-profile, copy/equality, and static-conformance
-expectations. Phase 3 produces the acquisition result and stable identity.
-Phase 4 validates trusted source provenance, ownership, and evidence truth and
-supplies the associated identity during issued-receipt validation/finalization.
-Static binding does not prove acquisition, authenticity, current ownership, or
-release.
-
-The exact non-digest target projection under test is:
+The exact non-digest `resolvedTarget` projection is:
 
 ```text
 {
@@ -383,94 +358,16 @@ The exact non-digest target projection under test is:
 }
 ```
 
-Equality is exact post-validation canonical equality. Object references compare
-as complete closed objects. Domain arrays require the same canonical length,
-members, order, and byte-equivalent canonical member representations; omission,
-addition, substitution, reordering, and partial resolution are invalid. Tests
-MUST NOT introduce another digest or a fictitious
-`TaskContract.spec.taskContractDigest`, or compare other nonduplicated
-`requestedMode`, `allowWrite`, scope, `contractVersion`,
-freshness, or expected baseline.
+Equality is exact post-validation canonical equality. Object-reference equality
+is exact equality of the complete closed reference objects. For `domainRefs`,
+both arrays have the same canonical length, the same complete Domain-reference
+members, the same member order, and byte-equivalent canonical member
+representations. A receipt may not omit, add, substitute, or reorder a Domain
+or use a partial resolved set.
 
-The required conformance order is:
+The unified AP-1 Source/binding block supplies the acquisition profile and copy rules on both stable-acquired origins. It preserves all eight comparisons above and additionally compares issued binding.leaseId with C.spec.leaseId. No equality is invented for unduplicated contract fields. Validation follows the Preparation → Static acceptance → Receipt digest → optional Delivery pair DAG below. Constructing selectors never implies acceptance; all cross-artifact predicates must pass before receipt digest acceptance.
 
-1. strictly decode and structurally validate the complete receipt and complete
-   referenced TaskContract under the selected Schema revision and, for a
-   lease-required issued path, the associated closed non-public
-   `LeaseAcquisitionResultIdentity`;
-2. apply both public artifacts' local Phase 1 and canonical-array checks plus
-   the source identity's closed-shape/member-profile checks;
-3. validate the complete contract and derivation prerequisites;
-4. recompute `profile.digest.task-contract-v1` over its exact projection;
-5. compare digest, contract ID, task ID, complete target, and effective mode;
-6. validate LB-2 root presence/absence; require the AP-1 source when applicable;
-   recompute and validate the source digest; bind receipt/source task ID,
-   source/root/A check ID, and source/root/contract lease ID; require the root
-   digest to copy the valid source digest exactly; and bind A/R/every-L compact
-   references;
-7. apply all 25 primitive chronology comparisons and verify all 31 displayed
-   consequences, including every ordered L pair, against the same contract and
-   receipt;
-8. only then apply final P/E/V, per-type final V, diagnostic finalG, and
-   sequence-only final L
-   selection; C-UNIVERSAL-PASS for every passed verification; every actual G
-   and every attempted P passed; terminate the same
-   lifecycle on any failed/indeterminate P with no later P/E/V and
-   not-attempted/not-performed outcomes; exact applicable A/R/N/I; cumulative
-   denial prerequisites and future-stage exclusions; per-type reference
-   coverage; G/A, G/N, A/R, R/checkpoint, N/checkpoint, checkpoint/issuedAt,
-   derived R/issuedAt and N/issuedAt, issuedAt/I,
-   every-I/every-P, P/E/V, issued-pre-
-   release/L, acquired-Dpre/L, evidence/L, every-non-F/sanitization,
-   sanitization/F, and F/finish ordering; mandatory
-   `sanitization.applied == true`; EF-1 execution terminality and final E/V/L bindings; scope,
-   universal singleton passed terminal F, warning, L-empty, receipt outcome,
-   non-writing, and remaining consistency;
-9. only then compute and verify or accept the receipt digest; and
-10. only after receipt finalization validate delivery receipt-ID binding, exact
-    finalized digest copy, and delivery chronology.
-Positive vectors MUST cover:
-
-1. a matching plan-only contract/receipt pair;
-2. a matching lease-required implementation-mode pair with one valid AP-1
-   source, source-profile-valid digest, exact source-to-root digest copy,
-   source/root/A identity, A/R/every-L references, and
-   source/root/contract lease-ID equality;
-3. a matching multi-Domain pair proving complete ordered equality;
-4. exact Project, role, worktree, task, contract, digest, and mode equality; and
-5. a valid pair followed by a correctly bound delivery result.
-
-Independent negative vectors MUST alter and reject:
-
-1. `contractId`;
-2. `contractDigest`;
-3. receipt-level `taskId`;
-4. `resolvedTarget.projectRef`;
-5. `resolvedTarget.worktreeRoleRef`;
-6. `resolvedTarget.worktreeId`;
-7. one omitted Domain;
-8. one added Domain;
-9. one substituted Domain;
-10. non-canonical or reordered Domains;
-11. `effectiveMode`;
-12. a correct contract digest with incorrect duplicated claims;
-13. matching duplicated claims with a wrong contract digest;
-14. matching duplicated claims with another complete contract's digest;
-15. matching contract ID with another contract body;
-16. receipt-digest acceptance before cross-artifact equality;
-17. reinterpretation of the mismatch as `pre-contract-denial`;
-18. delivery bound to another receipt ID or digest; and
-19. an otherwise-valid lease-required pair whose issued root `leaseId`
-    differs from `contract.spec.leaseId`.
-
-Every negative rejects before receipt-digest acceptance; validators neither
-repair nor switch contracts. `schema-contracts` specifies this static contract
-and its expected vectors. Future `model-implementation` owns strict decoding,
-projection, hashing, exact-copy, and executable cross-artifact tests. Phase 3
-produces the acquisition result/source identity. Phase 4 owns trusted source and
-issuer provenance, lease ownership, authenticity, current authority and
-preconditions, and evidence truth. Static binding and digest equality alone
-grant no authority.
+Receipt/contract comparisons have current owners RC01..RC09 in the independent ledger below. Matching plan-only, lease-required, multi-Domain, all-identity, and delivery-pair cases remain mandatory variants. Domain omission/addition/substitution and wrong complete-contract body/digest cases remain negative variants; array disorder belongs to canonicality. Cross-artifact mismatches reject before receipt digest acceptance and cannot be reinterpreted as denials or repaired by switching contracts. Phase 3 produces acquisition evidence; Phase 4 validates trusted provenance, ownership, event truth, and authority. Static source/contract binding proves only integrity and equality.
 
 ### Complete resolved-Domain routing coverage
 
@@ -763,7 +660,7 @@ and snapshot are trusted validator/control-plane comparison context, not a
 serialized resource, field, collection, `GovernanceBundle` member,
 `TaskContract` field, or digest input. The existing `configurationDigest`
 projection remains the closed `{governanceBundle, hostOverlay}` shape. The
-digest graph remains 14 field paths, 11 computations, and 3 exact copies.
+digest graph is now 12 field paths, 10 computations, and 2 exact copies under Option B.
 
 ### Canonical timestamp and chronology coverage
 
@@ -848,83 +745,100 @@ Phase 1 owns lexical, calendar, leap-year, and instant-order checks without a
 trusted clock. Future `model-implementation` owns strict decoding and
 executable parser/comparison conformance. Phase 4 owns trusted time,
 authenticity, freshness, and event truth. The mechanically recounted PG-1 broad
-region contains five distinct timestamp values across 38 occurrences; its full
+region contains eight distinct timestamp values across 192 occurrences; its full
 remote and digest counts are mirrored below.
 
-Future Phase 1 static and contract coverage MUST enforce all 25 primitive
-chronology relations and verify all 31 displayed consequences in the design
-record's [timestamp chronology
-section](../docs/schema-contract-v1alpha1.md#timestamp-chronology). Equality
-remains permitted at every earlier allowed boundary. The existing
-`freshness.issuedAt < freshness.expiresAt` and every-passed-P-before-expiry
-relations remain the only strict timestamp relations.
+#### Timestamp chronology
 
-The planned chronology ledger assigns `CH-P01..CH-P25` and
-`CH-N01..CH-N25` to the 25 primitive relations. CH15 now owns R/checkpoint and
-CH16 owns N/checkpoint; their positive and reversal IDs do not change. The direct
-R/issuedAt and N/issuedAt relations are derived through the existing
-checkpoint/issuedAt primitive. Each primitive owns one planned positive witness
-and one independent reversal predicate. Strict progression, equality, receipt-
-origin, empty/populated-array, universal-member, and later-valid-member forms are
-mandatory non-additive variants. The six displayed transitive relations:
-sanitization/finish, start/finish, denial-evidence/F, non-F/F, R/issuedAt, and
-N/issuedAt, are derived/non-additive and own no reversal class. The Review-12
-lease and no-lease counterexamples keep both old direct relations and
-checkpoint/issuedAt valid while placing the checkpoint before R or N; the old
-direct-only rule accepted them and CH-N15/CH-N16 now reject them. Executable
-fixtures
-and a fixture manifest have not been implemented.
+The complete graph below uses validated whole-second UTC instants.
+Checkpoint abbreviates C.spec.issuanceCheckpoint.observedAt. Start, finish,
+sanitization, and all named checks belong to the same receipt; issuedAt and
+expiresAt belong to the same fully bound C. Exactly two relations are strict:
+issuedAt<expiresAt and every passed P<expiresAt. Sequence and timestamp
+graphs are separate; no sequence edge supplies an unstated timestamp edge.
 
-**CH-P25 — non-decreasing L timestamp by sequence** owns one positive
-chronology primary. For every release-required receipt and all distinct `li`,
-`lj` in L, the already-validated timestamp instants MUST satisfy:
+The current ledger is rebuilt from all lifecycle paths, mandatory non-F
+membership, controller/evidence exact equality, and the full issuance bracket.
+It has 31 displayed relations: 20 independent primitive predicate families and
+11 derived/non-additive relations. Current IDs are continuous CH01..CH20,
+with one positive CH-Pnn and one independent negative CH-Nnn per row.
+Historical review IDs retain their historical meaning.
 
-```text
-li.sequence < lj.sequence => li.observedAt <= lj.observedAt
-```
+| Current owner pair | Context | Primitive relation | Isolating negative assignment |
+| --- | --- | --- | --- |
+| CH-P01 / CH-N01 | TaskContract checkpoint | `checkpoint <= issuedAt` | TaskContract alone; checkpoint 2, issuedAt 1, expiry 3. |
+| CH-P02 / CH-N02 | TaskContract freshness | `issuedAt < expiresAt` | TaskContract alone; checkpoint 0, issuedAt 1, expiry 1. |
+| CH-P03 / CH-N03 | Every receipt check q | `startedAt <= q.observedAt` | G1-denial; start 2, controller/evidence 1, sanitization 3, F/finish 4. |
+| CH-P04 / CH-N04 | Every non-F check q | `q.observedAt <= sanitization.completedAt` | No-lease issued, no P/E/V; I 2, sanitization 1, F/finish 3, other times 0. |
+| CH-P05 / CH-N05 | Every passed P, issued | `P.observedAt < expiresAt` | No-lease issued; checkpoint/issuedAt 0, expiry 1, I 0, passed P 1, E/V empty, closure 2. |
+| CH-P06 / CH-N06 | Attempted issued, every E | `finalP.observedAt <= E.observedAt` | P 2, one E 1, every V 3, expiry 9; prefix 0, closure 4. |
+| CH-P07 / CH-N07 | Attempted issued, every E/V pair | `E.observedAt <= V.observedAt` | P 0, E 2, V 1, expiry 9; prefix 0, closure 3. |
+| CH-P08 / CH-N08 | Every stable-acquired path, every G | `G.observedAt <= A.observedAt` | Acquired R-denial: one G 2, other G 0, A 1, every R/controller/evidence 3, every L 4, closure 5; keep every G<A by sequence. Issued lease and acquired I are non-additive variants. |
+| CH-P09 / CH-N09 | Issued no-lease, every G | `G.observedAt <= N.observedAt` | One G 2, N 1, checkpoint/issuedAt/I 3, closure 4. |
+| CH-P10 / CH-N10 | Every stable-acquired path, every R | `A.observedAt <= R.observedAt` | Acquired R-denial; A 2, earlier passed R 1, controller/evidence R 3, L 4, closure 5; sequence A<R<R. |
+| CH-P11 / CH-N11 | Issued lease | `R.observedAt <= checkpoint` | A 0, R 2, checkpoint 1, issuedAt/I 3, L 4, closure 5. |
+| CH-P12 / CH-N12 | Issued no-lease | `N.observedAt <= checkpoint` | G 0, N 2, checkpoint 1, issuedAt/I 3, closure 4. |
+| CH-P13 / CH-N13 | Issued, singleton I | `issuedAt <= I.observedAt` | Prefix/checkpoint 0, issuedAt 2, I 1, no P/E/V, expiry 9, closure 3. |
+| CH-P14 / CH-N14 | Issued, every P | `I.observedAt <= P.observedAt` | Prefix/issuedAt 0, I 2, P 1, expiry 9, no E/V, closure 3. |
+| CH-P15 / CH-N15 | Issued lease, every pre-release q / every L | `q.observedAt <= L.observedAt` | Prefix/issuedAt 0, I 2, L 1, no P/E/V, closure 3. |
+| CH-P16 / CH-N16 | Acquired denial, every Dpre / every L | `Dpre.observedAt <= L.observedAt` | Acquired R-denial: every G 0, A 1, every R/controller/evidence 3, every L 2, closure 4; G→A→R sequence/time and pairwise L times remain valid. |
+| CH-P17 / CH-N17 | Every receipt | `sanitization.completedAt <= F.observedAt` | Non-F 0, sanitization 2, F 1, finish 3. |
+| CH-P18 / CH-N18 | Every receipt | `F.observedAt <= finishedAt` | Non-F/sanitization 0, F 2, finish 1. |
+| CH-P19 / CH-N19 | Existing delivery pair only | `finishedAt <= attemptedAt` | Valid receipt finish 2, delivery attempt 1. |
+| CH-P20 / CH-N20 | Every release-required path; every ordered pair L1<L2 | `L1.observedAt <= L2.observedAt` | Pre-release 0, L1 2, L2 1, sanitization/F/finish 3. |
 
-The rule applies to every ordered pair, including non-adjacent L members, on
-both lease-required `issued-contract` receipts and acquired pre-contract
-denials. Its canonical witness has two increasing-sequence L members with a
-strictly later second timestamp. Mandatory non-additive variants include two L
-with equal `observedAt`; two L with a later second `observedAt`; three or more L
-satisfying every ordered-pair comparison; both release-required origins; and an
-earlier failed or indeterminate L followed by final passed L. `finalL` remains
-the unique greatest-sequence L; timestamps are never its selector or tie-breaker.
+The assignments are offsets in whole seconds from the synthetic epoch
+2000-01-01T00:00:00Z. Unspecified start/prefix times are 0, omitted suffixes
+are legitimately not-attempted, and unspecified expiry is 9. Complete the
+applicable valid lifecycle, preserve outcomes/identities/sequence, set remaining
+closure times to the stated closure, and recompute dependent digests.
+Each row reverses only that independent timestamp family. Derived displays may
+also fail and are attributed to the same owner. Positive counterparts restore
+the target comparison to equality (or one second separation for strict rows).
+Origin, repeated-member, non-adjacent-member, and later-correct-member cases
+are mandatory non-additive variants. In CH08, keep every G before A by sequence,
+put an earlier G at second 2, a later same-type G at 0, and A at 1; the later
+valid timestamp cannot hide the earlier violation. Equality G.time=A.time
+remains valid. In CH10 the earlier passed R witnesses
+universality while the controlling R remains after A in both time and sequence.
 
-For the RF-P04 release/finalization witness, `primaryOwner = RF-P04` remains
-unchanged and CH-P25 supplies the chronology prerequisite. The same fixture
-MUST NOT count as two additive primaries. Each CH-P25-specific chronology
-variant remains non-additive under CH-P25.
+| Display | Derived relation | Proof from the complete graph |
+| --- | --- | --- |
+| 21 | startedAt <= sanitization | Every valid path has at least one non-F check; CH03 then CH04. |
+| 22 | sanitization <= finishedAt | CH17 then CH18. |
+| 23 | startedAt <= finishedAt | Display 21 then CH17 then CH18. |
+| 24 | startedAt <= denial evidence | Evidence time equals its required controller time; CH03. |
+| 25 | denial evidence <= sanitization | Controller is non-F; exact equality then CH04. |
+| 26 | denial evidence <= F | Display 25 then CH17. |
+| 27 | startedAt <= issuedAt | Required R or N has CH03 lower bound; CH11 or CH12 then CH01. |
+| 28 | denial evidence <= every L | Controller belongs to Dpre; exact equality then CH16. |
+| 29 | every non-F <= F | CH04 then CH17. |
+| 30 | issued R <= issuedAt | CH11 then CH01. |
+| 31 | issued N <= issuedAt | CH12 then CH01. |
 
-**CH-N25 — L timestamp inversion by sequence** owns one negative chronology
-primary: `li.sequence < lj.sequence` with `li.observedAt > lj.observedAt` is
-invalid. Mandatory non-additive variants cover a two-member inversion; an
-inversion involving an earlier non-final L; an inversion immediately before
-`finalL`; three or more L with a violating ordered pair, including a non-adjacent
-pair; and both issued-contract and acquired-denial release-required origins.
-Earlier failed and indeterminate L followed by passed `finalL`, and other
-otherwise-valid release outcome permutations, remain non-additive variants.
-Every unrelated predicate, finalL/top-level outcome mapping, and warning rule
-must remain valid so that CH-N25 is the intended owner; no RF primary owns the
-inversion.
+The superseded ledger's CH03, CH06, CH07, CH08, and CH20 are therefore
+derived/non-additive (displays 21, 24, 25, 27, and 28 respectively); they have
+no current independent reversal owner. The unified stable-acquired every-G→A
+relation is independently primitive CH08, and A→every-R is independently
+primitive CH10. Generalizing lifecycle applicability adds origin variants,
+not new owners on top of their issued-path predicates.
 
-The Review-15B counterexample is invalid: failed L1 at sequence 3 and `12:05`
-followed by passed L2 at sequence 4 and `12:04` violates CH-N25. Sequence-only
-`finalL = L2` cannot rescue it. Using the same synthetic UTC date and valid
-whole-second timestamp spelling, L2 at `12:05` or `12:06` instead satisfies
-CH-P25 and remains valid provided every other contract requirement passes.
-These are planned semantic witnesses, not implemented fixture files or tests.
+For a mechanical independence check, expand each universal family into edges
+on a legal lifecycle, identify controller/evidence nodes by their equality,
+remove one candidate family, and compute transitive reachability of all
+remaining primitive edges, carrying strictness through any strict edge.
+The table supplies a satisfying assignment for the remaining graph plus the
+candidate's reversal. Displayed consequences are verified by closure, never
+counted again. Conditional operands must exist on the chosen lifecycle;
+vacuous omitted-event comparisons are not fabricated witnesses.
 
-The chronology inventory counts ordering between distinct lifecycle events.
-Exact timestamp equality used only to bind two representations of one evidence
-identity is not chronology. Thus
-`preContractEvidence.observedAt == controller.observedAt` has DP-owned
-equality-positive coverage, a DP-N04-owned mismatch, and no displayed,
-primitive/additive, or derived/non-additive CH count. Tests apply the same
-binding-family classification to receipt/contract exact equality, digest
-copies, denial acquisition lease-ID/digest equality, LB-2 root/reference and
-contract lease-ID equality, and `controllerCheckId`.
+There is no global adjacent-check timestamp order, no E-to-E, G-to-G, or
+R-to-R timestamp monotonicity. CH20 alone orders same-type L timestamps by
+sequence, universally over every ordered pair. finalL is constructed by
+sequence during preparation, then tested against chronology and outcomes.
+Failed L→passed finalL and indeterminate L→passed finalL remain valid when
+all pairwise times and bindings pass. Completion, sanitization, F, and
+delivery need not precede contract expiry.
 
 For one complete issued-contract receipt and referenced TaskContract pair, let
 P be every pre-action-revalidation check, E every execution check, and V every
@@ -939,21 +853,144 @@ closed `postconditionRef: {type}` uses the exact eleven required-postcondition
 types and is allowed only on V; the other thirteen types, including N, forbid
 it. General V may omit it but cannot satisfy a named obligation.
 
-The separate compact `leaseAcquisitionRef` is a closed exact `{checkId}`
-object. A lease-required issued receipt requires it on singleton A, singleton
-R, and every L, naming the receipt-level issued root and singleton A under
-unchanged AP-1/LB-2 rules. An acquired denial requires it on every L only,
-exactly `{checkId: preContractEvidence.acquisitionEvidenceRef.checkId}`.
-Tests accept that acquired-denial L placement and reject it on A,
-R/controller, G, N, I, P, E, V, F, and every other non-L check, wherever
-otherwise permitted. Every other denial (`not-required`, `not-attempted`,
-`not-acquired`, or `indeterminate`, where applicable) keeps L empty and
-forbids it everywhere. No-lease issued receipts keep A/R/L empty and forbid
-it everywhere. F always forbids it. Tests also reject an unknown member, a
-`leaseId` or digest inside the compact object, missing issued A or R reference,
-and any bad L reference even when finalL is correct. Forbidden placement and
-malformed compact shape retain generic ownership; RF-N13 owns missing/wrong L
-binding on either release-required origin.
+#### Unified stable acquisition binding — OPTION_B
+
+This is a material pre-publication structural design change. All eleven
+resources remain `reserved-unpublished`; `contextctl.dev/v1alpha1`,
+`v1alpha1-r1`, and receipt version `1` remain unchanged pending the existing
+integration-control publication gate. No backward compatibility with the
+superseded unpublished dual representation is claimed.
+
+Let C be the same complete, validated, digest-bound TaskContract on an issued
+path; let X be `ExecutionReceipt.spec.acquisitionBinding`; and let Source
+be the associated non-public `LeaseAcquisitionResultIdentity`.
+The receipt has one closed optional binding, with exactly these required fields:
+
+```text
+acquisitionBinding = {
+  checkId: checkIdentifier,
+  leaseId: canonical UUID,
+  acquisitionResultDigest: tagged digest
+}
+```
+
+The stable-acquired condition is exactly
+`(origin.type == issued-contract AND C.spec.leaseRequired == true) OR
+(origin.type == pre-contract-denial AND origin.leaseAcquisition.state == acquired)`.
+X is required iff that condition holds and is otherwise forbidden.
+Exactly one associated Source is required iff that same condition holds;
+every other path forbids both X and Source. Missing X cannot remove the
+independently required Source. Source is closed and contains exactly
+`{taskId, checkId, leaseId, acquisitionResultDigest}`, with the same UUID,
+checkIdentifier, and tagged-digest profiles as the corresponding receipt fields.
+It is not an eighth public kind, a TaskContract field, portable governance,
+a second full object embedded in a receipt, or authorization input.
+It remains outside portable governance. Phase 3 produces it; Phase 4 checks
+trusted provenance, ownership, and event truth. Static checks establish
+integrity and equality only.
+
+The one origin-independent profile is
+`profile.digest.lease-acquisition-identity-v1`. Its closed projection is
+bijectively formed from Source's three non-digest members:
+
+```text
+{
+  taskId: Source.taskId,
+  acquisitionBinding: {
+    checkId: Source.checkId,
+    leaseId: Source.leaseId
+  }
+}
+```
+
+The source digest excludes `acquisitionResultDigest` and is the tagged
+SHA-256 of `separator(profile) || UTF8(JCS(projection))`.
+The binding digest is an exact copy, never a second computation.
+The complete unified AP-1 summary is:
+
+```text
+exactly one Source when X is present
+Source.taskId == receipt.spec.taskId
+Source.checkId == X.checkId
+Source.leaseId == X.leaseId
+Source.acquisitionResultDigest == recomputed source-profile digest
+X.acquisitionResultDigest == Source.acquisitionResultDigest
+count(A) == 1 and A.outcome == passed
+X.checkId == A.checkId
+A.leaseAcquisitionRef == {checkId: X.checkId}
+for every R: R.leaseAcquisitionRef == {checkId: X.checkId}
+for every L: L.leaseAcquisitionRef == {checkId: X.checkId}
+issued only: X.leaseId == C.spec.leaseId
+for every g in G: g.sequence < A.sequence
+for every g in G: g.observedAt <= A.observedAt
+for every R: A.sequence < R.sequence
+for every R: A.observedAt <= R.observedAt
+```
+
+G is every same-receipt checks[] member whose checkType is intent-validation,
+project-domain-resolution, role-routing, host-binding, or initial-preflight.
+A, R, and L are the same receipt's lease-acquisition,
+post-acquisition-revalidation, and lease-release subsets. After cardinality,
+outcome, and X.checkId equality validate, A denotes the unique passed
+state-creating acquisition identified by X.checkId. Whenever X exists,
+every actual G, including every repeated passed observation, MUST precede A
+by sequence and be no later than A by timestamp. Presence and passed outcomes
+for all five G types remain required by the applicable issued/denial branch.
+The unified stable-acquired prefix is every G < A < every R by sequence and
+every G <= A <= every R by time. It applies to issued lease-required receipts,
+acquired R denials, and acquired I denials; an origin change cannot remove it.
+R quantifies the
+issued singleton, an acquired-denial controller, every earlier passed R before
+that controller, and the passed R prerequisite of acquired issuance denial.
+L quantifies every release attempt, including earlier unsuccessful members.
+A correctly bound controller or finalL cannot hide a bad earlier member.
+
+The compact reference is closed `{checkId}` only. On stable-acquired paths it
+is required exactly on A, every R, and every L; G, N, I, P, E, V, and F forbid
+it. On all other paths it is forbidden everywhere. No compact reference
+contains a lease ID or digest. Existing source/binding/contract equalities and
+all eight issued receipt/contract comparisons remain mandatory.
+
+Direct references on I/P/E/V are unnecessary by prerequisite closure.
+On issued paths, A/R bind X, X.leaseId equals C.leaseId, I records issuance of
+that same complete C, and P/E/V operate under that same validated C.
+On acquired I denial, A and every R bind X and I is reached only after that
+valid acquired prefix. I inherits the subject through those prerequisites.
+This argument introduces no new reference placement or retry epoch.
+
+`origin.leaseAcquisition` on a denial is a closed state-only record in every
+branch, including acquired. Its sole member is `state`, one of
+`not-required`, `not-attempted`, `not-acquired`, `indeterminate`, or
+`acquired`. It never contains checkId, leaseId, or acquisitionResultDigest.
+Stable identity is carried only by receipt-level X. A denial's
+`preContractEvidence` is closed with exactly `observedAt`,
+`evidenceDigest`, `controllerCheckId`, non-empty canonical `reasonCodes`,
+and bounded `sanitizedSummary`. It contains no acquisition identity copy.
+
+The canonical pre-contract-evidence projection is the closed object
+`{taskId, denialCheckpoint, preContractEvidence}`, where the last member is the evidence record with only evidenceDigest removed,
+with exactly one additional `acquisitionBinding` member iff the denial state
+is acquired. That member is the complete validated receipt-level X, including
+its copied source digest. In all other states the member is absent, never
+null, an empty object, or a default. The profile remains
+`profile.digest.pre-contract-evidence-v1`. The complete receipt digest
+continues to cover the complete receipt excluding only `spec.receiptDigest`,
+including X and all A/R/L references whenever present.
+
+| Lifecycle | X / Source | A/R/L compact references |
+| --- | --- | --- |
+| Issued lease-required | required / exactly one | A, singleton R, every L |
+| Issued no-lease | forbidden / zero | forbidden everywhere |
+| Acquired denial | required / exactly one | A, every R, every L |
+| Denial not-required | forbidden / zero | forbidden everywhere |
+| Denial not-attempted | forbidden / zero | forbidden everywhere |
+| Denial not-acquired | forbidden / zero | forbidden everywhere |
+| Denial indeterminate | forbidden / zero | forbidden everywhere |
+
+The seven cells are exhaustive. Indeterminate acquisition has no stable
+identity and no L; it retains the blocking warning and indeterminate release
+and lifecycle outcomes. The other three non-acquired states have no L and
+releaseOutcome not-required.
 
 After complete contract digest/equality binding, tests define V(t) for each
 required type t as the referenced subset and select `finalV(t)` by greatest
@@ -1003,181 +1040,343 @@ a greatest-sequence diagnostic only; same-receipt recovery is forbidden.
 Repeated G is positive coverage only when all members are passed. Every issued
 receipt has exactly one passed I.
 
-Lease-required issuance has singleton passed A/R, N empty, and
-`every G < A < R < I < every P`. No-lease issuance has A/R empty, singleton
+Lease-required issuance specializes the unified stable-acquired prefix:
+singleton passed A/R, N empty, and `every G < A < R < I < every P`. No-lease issuance has A/R empty, singleton
 passed N, no lease identity, and `every G < N < I < every P`. Attempted paths
 retain final P < every E < every V; non-attempted paths keep E/V empty and may
 omit P. Every actual G participates in ordering.
 
-The lease-required path also requires one valid AP-1 source, source-profile
-digest validation, exact source-to-root digest copy, source/root/A identity,
-compact A/R references, source/root/contract lease-ID equality, and the RS-1
-timestamp bracket `R <= issuanceCheckpoint <= issuedAt <= I`. The no-lease
-path forbids the source, root, and all compact references, requires
-`releaseOutcome: not-required`, and uses
-`N <= issuanceCheckpoint <= issuedAt <= I`. An indeterminate acquisition cannot create a stable
-source, issued root, or issued contract; it remains a pre-contract denial with
-no stable lease identity.
+#### Cumulative pre-contract-denial prerequisites
 
-DP-1 planned coverage uses the exact cumulative denial prefixes, structured
-bindings, and controller stop boundary. Every one of the nine positive
-checkpoint forms requires
-`preContractEvidence.controllerCheckId` to resolve to exactly one same-receipt
-check. The checkpoint-to-type mapping is exact and identity-valued across the
-nine closed checkpoint tokens. The controller MUST be the unique greatest-
-sequence member of that type, have failed/indeterminate outcome, exactly equal
-`observedAt` and canonical `reasonCodes`, have only passed earlier same-type
-members, and occupy the matrix-required position. The controller is therefore
-both the first non-passed and final same-type observation. This rule applies to
-all nine checkpoint types. Tests reject `failed -> failed`, `failed ->
-indeterminate`, `indeterminate -> failed`, `indeterminate ->
-indeterminate`, `failed -> passed`, and `indeterminate -> passed`. They
-accept `passed -> failed`, `passed -> indeterminate`, `passed -> passed ->
-failed`, and `passed -> passed -> indeterminate` when the remaining
-cumulative conditions hold. Recovery requires a new task, attempt, and
-lifecycle, with no retry epoch. Successful issued-path A/R/N/I cardinalities
-remain separate. `sanitizedSummary` is an explanatory derivative only; it is
-not controller identity and has no equality requirement with optional check
-prose.
+Use G1..G5 for intent-validation, project-domain-resolution, role-routing,
+host-binding, and initial-preflight in that order; N for
+pre-issuance-revalidation; A for lease-acquisition; R for
+post-acquisition-revalidation; I for contract-issuance; P/E/V for
+pre-action-revalidation/execution/post-execution-verification; L for
+lease-release; and F for receipt-finalization. Each abbreviation denotes its
+complete same-receipt type subset, not merely its selected final member.
+The controller candidate is the greatest-sequence check whose type equals
+denialCheckpoint. Selection is pure preparation, not acceptance.
 
-Let `O` be exactly the twelve ordinary lifecycle-stage check types:
-`intent-validation`, `project-domain-resolution`, `role-routing`,
-`host-binding`, `initial-preflight`, `pre-issuance-revalidation`,
-`lease-acquisition`, `post-acquisition-revalidation`,
-`contract-issuance`, P, E, and V. L and F are outside `O`. For each row,
-tests require every actual member of `Prereq(r)` to be passed with
-`sequence < controller.sequence`, not merely an existing, greatest, final,
-or selected member. Only prerequisite and controller ordinary types may occur;
-every unreached ordinary type is empty; and no ordinary check may occur after
-the controller. Only required acquired-path L and universal F may follow, with
-`controller < every L < F`; all other rows keep L empty and allow only F.
-These checks compare sequence only and add no timestamp relation.
+For each denial the required controllerCheckId resolves exactly to that
+candidate; its outcome is failed or indeterminate, its observedAt equals
+preContractEvidence.observedAt, and its canonical reasonCodes exactly equal
+the evidence's non-empty reasonCodes. sanitizedSummary is explanatory only
+and need not equal optional check prose.
 
-If and only if the origin acquisition state is `acquired`,
-`preContractEvidence` also requires the closed
-`acquisitionEvidenceRef {checkId, leaseId, acquisitionResultDigest}`. It
-selects the exact same-receipt singleton passed A required by the matrix, and
-its lease ID and digest equal the acquired origin exactly. Every non-acquired
-state forbids the reference, and it contains no issued-contract field.
+| Controller family | Allowed denial history | Required interpretation |
+| --- | --- | --- |
+| Repeatable observations: G1..G5, N, R | zero or more passed members, then one failed/indeterminate greatest controller | first non-passed is final; no later recovery |
+| State-creating A | exactly one failed/indeterminate A | no earlier passed A; no implicit retry epoch |
+| State-creating I | exactly one failed/indeterminate I | no earlier passed I; no implicit retry epoch |
 
-| Checkpoint | `Prereq(r)`: every actual member passed and before controller | Controller | Unreached `O` types empty everywhere | Acquisition binding | Only post-controller checks |
-| --- | --- | --- | --- | --- | --- |
-| intent | empty | greatest intent, failed/indeterminate | project/domain, routing, host, preflight, N, A, R, I, P, E, V | `not-required` or `not-attempted`; no acquired reference | F only; L empty |
-| project/domain | intent | greatest project/domain, failed/indeterminate | routing, host, preflight, N, A, R, I, P, E, V | `not-required` or `not-attempted`; no acquired reference | F only; L empty |
-| role routing | intent, project/domain | greatest routing, failed/indeterminate | host, preflight, N, A, R, I, P, E, V | `not-required` or `not-attempted`; no acquired reference | F only; L empty |
-| host binding | intent, project/domain, routing | greatest host, failed/indeterminate | preflight, N, A, R, I, P, E, V | `not-required` or `not-attempted`; no acquired reference | F only; L empty |
-| initial preflight | intent, project/domain, routing, host | greatest preflight, failed/indeterminate | N, A, R, I, P, E, V | `not-required` or `not-attempted`; no acquired reference | F only; L empty |
-| N pre-issuance | all five G types | greatest N, failed/indeterminate | A, R, I, P, E, V | exactly `not-required`; no lease identity or acquired reference | F only; L empty |
-| lease acquisition | all five G types | greatest A, failed/indeterminate | N, R, I, P, E, V | `not-acquired` or `indeterminate`; no stable identity or acquired reference | F only; L empty |
-| acquired R | all five G types plus singleton passed referenced A | greatest R, failed/indeterminate | N, I, P, E, V | exactly `acquired`; exact A/lease/digest binding | one or more L, each compact-ref bound to `acquisitionEvidenceRef.checkId`, then F; `controller < every L < F` |
-| contract issuance | no-lease: all five G plus singleton passed N; acquired: all five G plus singleton passed A/R | greatest I, failed/indeterminate | no-lease: A, R, P, E, V; acquired: N, P, E, V | no-lease: `not-required`, no reference; acquired: exact A/lease/digest reference | no-lease: F only, L empty; acquired: one or more L, each compact-ref bound to `acquisitionEvidenceRef.checkId`, then F |
+A passed A creates acquisition state. Later denial must use acquired R or
+acquired I lifecycle; it cannot erase successful acquisition into not-acquired
+or indeterminate. At an A denial, failed means conclusive no ownership and
+maps exactly to not-acquired; indeterminate maps exactly to indeterminate.
+A passed I means a contract exists, so subsequent evidence cannot fabricate
+a pre-contract-denial origin. The four histories passed-A→failed-A,
+passed-A→indeterminate-A, passed-I→failed-I, and passed-I→indeterminate-I
+are rejected by the state-creating cardinality rule even when their final
+controller, outcome, digests, and cleanup claims look plausible.
 
-Every denial has `changedPaths: []`, sanitization, and terminal passed F. Tests
-MUST independently reject the six DP primary classes: a missing completed
-prerequisite; a denial-stage boundary violation; a wrong controller/checkpoint/
-outcome; a controller reference/binding mismatch; and an acquired-reference/
-identity mismatch; plus a non-passed same-type observation before the
-controller. DP-N02 owns both Variant A, unreached future-stage evidence
-anywhere, and Variant B, a prerequisite re-observation or other ordinary check
-after the controller, under one row-level predicate and without a new primary
-or timestamp relation. Mandatory non-additive variants include missing/unknown
-controller ID, wrong type, earlier same-type or non-greatest member, later pass,
-timestamp mismatch, reason-code mismatch/reorder/extra/missing, check reorder,
-missing acquired reference, reference on a non-acquired state, wrong or
-non-passed A, non-A, lease mismatch, and digest mismatch. DP-N06 remains only
-the four failed/indeterminate-to-failed/indeterminate same-type histories;
-`failed -> passed` and `indeterminate -> passed` remain DP-N03, and the
-documented passed histories remain accepted. N denial cannot be encoded as R.
-Acquired-R denial cannot omit G/A, fabricate I/P/E/V, or skip required
-ownership-checked post-controller L cleanup.
+Let O be exactly G1..G5, N, A, R, I, P, E, V. For the selected row:
+every listed prerequisite type is present; every actual prerequisite member
+is passed and precedes the controller by sequence; only prerequisite types
+and the controlling ordinary type may occur; no ordinary member follows the
+controller. All unlisted ordinary types are empty everywhere. Repeated
+prerequisite G observations are allowed only when all pass and precede the
+controller. On either acquired-denial row they MUST additionally satisfy the
+unified every-G-before-A sequence and timestamp predicates; preceding the
+controller alone is insufficient. Acquired A is always singleton; prerequisite N or R before an I
+denial is singleton passed. Earlier same-type controller observations are
+allowed only for the repeatable family and must all pass.
 
-Every serialized receipt requires `sanitization.applied: true`. True means the
-selected sanitizer or evaluation completed; it does not mean a redaction
-occurred, so `redactionCount: 0` is valid. False is structurally Boolean but
-invalidates the receipt before passed terminal F, receipt-digest acceptance, or
-delivery binding. No new wire field or branch is introduced.
+| Denial checkpoint / controlling type | Required passed prerequisites | State | Cleanup |
+| --- | --- | --- | --- |
+| intent-validation | none | not-required or not-attempted | L empty; F |
+| project-domain-resolution | G1 | not-required or not-attempted | L empty; F |
+| role-routing | G1, G2 | not-required or not-attempted | L empty; F |
+| host-binding | G1, G2, G3 | not-required or not-attempted | L empty; F |
+| initial-preflight | G1, G2, G3, G4 | not-required or not-attempted | L empty; F |
+| pre-issuance-revalidation | all G | not-required | L empty; F |
+| lease-acquisition | all G | failed→not-acquired; indeterminate→indeterminate | L empty; F; indeterminate warning when applicable |
+| post-acquisition-revalidation | all G, singleton A; every G < A < every R | acquired | one or more L; F |
+| contract-issuance, no-lease | all G, singleton N | not-required | L empty; F |
+| contract-issuance, acquired | all G, singleton A, singleton R; every G < A < R < I controller | acquired | one or more L; F |
 
-Every serialized receipt has exactly one passed terminal F. A positive F
-contains exactly `sequence`, `checkId`, `checkType`, `outcome`,
-`observedAt`, `profileId`, and `reasonCodes`; tests MUST reject
-`expectedSummary`, `observedSummary`, both, `postconditionRef`,
-`leaseAcquisitionRef`, or any
-other summary, detail, payload, free-form, or unknown member. Its exact tuple is
-`checkId: check.receipt-finalization`,
-`profileId: profile.validation.v1`, `reasonCodes: []`, and passed outcome.
-The primitive rule is F implies that exact tuple. Every receipt's mandatory
-single F plus global check-ID uniqueness makes non-F use of the reserved ID a
-derived generic duplicate-ID rejection, not an RF-N12 variant. Generic
-`checkIdentifier` syntax is unchanged, the validation profile is not
-F-exclusive, and empty reason codes are not universal. Every non-F check
-precedes F by sequence and is no later than sanitization; every denial's
-`preContractEvidence` is no later than sanitization; sanitization is no later
-than F; and F is no later than `finishedAt`. Whole-second equality is
-permitted. F is finalization completion after sanitization, not proof of digest
-insertion, delivery, lifecycle success, or release success.
+These ten rows cover nine checkpoints and both issuance-denial branches;
+all other checkpoint/state pairs are forbidden by the closed origin union.
+Every row has executionOutcome not-attempted, verificationOutcome
+not-performed, changedPaths empty, ordinaryOperationEvidence absent,
+sanitization.applied true, and exactly one passed terminal F.
+Every release-required row uses the unified X/Source/A/every-R/every-L
+binding and universal every-G-before-A and A-before-every-R sequence and
+timestamp rules.
+Every Dpre member (all non-L/non-F checks) precedes every L, every L precedes
+F, and all non-F evidence is no later than sanitization, then F, then finish.
+Controller/evidence timestamp equality is an identity predicate; its implied
+chronology consequences receive no extra owner.
 
-For post-sanitization F evidence, textual identity is safe-by-construction only
-when its complete semantic value domain is protocol-closed.
-Lexical validity alone is insufficient. A producer alternative satisfying
-generic grammar is invalid, including
-`check.c-users-alice.secrets.api-key-abcd1234`,
-`profile.synthetic.secret.sk-live-abcdef123456`, and
-`reason.synthetic.secret.token-abcdef123456`. Coverage targets arbitrary
-post-sanitization text, host/operator or path-like material, secret-like
-strings, and diagnostic prose; it does not claim information-theoretic
-covert-channel elimination.
+G/N/R histories passed*→failed/indeterminate remain valid under the table.
+Any earlier non-passed observation rejects. A/I never use this repeat rule.
+Failed or indeterminate L followed by passed finalL remains valid with correct
+binding, chronology, final-L outcome mapping, and warnings; release retries
+do not authorize acquisition or issuance retries.
 
-A lease-required issued receipt or acquired denial requires L, finalL mapping,
-every applicable pre-release/Dpre check before every L, every L no later than
-sanitization, and exact warning binding for failed/indeterminate finalL. Every
-no-release path keeps L empty but still sanitizes and records F. Indeterminate
-acquisition retains no stable identity, its warning and indeterminate outcomes,
-and F.
 
-For a lease-required issued receipt, every L carries the same compact root
-reference as A and R. This is universal over all L and not a finalL-only rule.
-An acquired denial requires every L's compact reference to name
-`preContractEvidence.acquisitionEvidenceRef.checkId`, which already selects
-singleton passed A and exact-binds the origin's lease ID and acquisition-result
-digest. The issued root and AP-1 source remain forbidden, as do compact
-references on every acquired-denial non-L check. Phase 1 checks these static
-relationships only; Phase 3/4 retain actual acquisition/release, ownership,
-provenance, and evidence truth.
+#### Lease-acquisition evidence chain
 
-The six complete evidence paths are:
+GTypes is exactly intent-validation, project-domain-resolution, role-routing,
+host-binding, and initial-preflight. Every issued receipt contains at least
+one check of each G type and every actual G is passed. Repeated G is permitted
+only when all pass; finalG is diagnostic only and cannot erase an earlier
+failure. Every issued receipt contains exactly one passed I.
+
+For lease-required issued receipts, A and R are singleton passed, N is empty,
+and the unified X and exactly one Source are mandatory. For no-lease issued
+receipts, N is singleton passed, A/R/L/X/Source are absent. In both branches
+all eight receipt/C equalities and the complete C digest must validate.
 
 ```text
-lease required, attempted:
-  every G < A < R < I < every P < every E < every V < every L < F
+unified stable-acquired prefix, sequence:
+  every G < A < every R
+unified stable-acquired prefix, time:
+  every G <= A <= every R
 
-lease required, not attempted:
-  every G < A < R < I < optional P < every L < F
+issued lease-required suffix, sequence:
+  singleton R < I < every P
+issued lease-required suffix, time:
+  R <= C.issuanceCheckpoint.observedAt
+  C.issuanceCheckpoint.observedAt <= C.freshness.issuedAt <= I <= every P
+issued no-lease, sequence:
+  every G < N < I < every P
+issued no-lease, time:
+  every G <= N <= C.issuanceCheckpoint.observedAt
+  C.issuanceCheckpoint.observedAt <= C.freshness.issuedAt <= I <= every P
+```
+
+Sequence comparisons are strict. Each listed timestamp edge permits equality.
+Every actual G and every actual P participates. The stable-acquired prefix is
+origin-independent; the issued suffixes and no-lease branch apply to both
+attempted and not-attempted issued receipts. A not-attempted receipt may omit P
+and has E/V empty; I and the required G/A/R or G/N prefix remain mandatory.
+Attempted receipts additionally require finalP < every E < every V by sequence,
+finalP <= every E <= every V by time, every P passed and strictly before expiry,
+and the unchanged EF-1 and C-UNIVERSAL-PASS outcome rules.
+
+The unified acquisition block applies identically to acquired denials:
+Source task/check/lease equality, source recomputation, X exact digest copy,
+X.checkId=A.checkId, and every A/R/L reference are mandatory before digest
+acceptance. The issued branch additionally compares X.leaseId=C.leaseId.
+No-lease issuance cannot invent acquisition evidence. Static integrity is not
+trusted provenance, event truth, current lease ownership, or authorization.
+
+
+F is closed with exactly sequence, checkId, checkType, outcome, observedAt, profileId, and reasonCodes. It requires checkId check.receipt-finalization, profileId profile.validation.v1, outcome passed, and reasonCodes []. F forbids every summary, postconditionRef, leaseAcquisitionRef, payload, and unknown member. Check IDs are receipt-wide unique. Duplicate exact F therefore also violates generic check-ID uniqueness. Sanitization.applied must be true.
+
+#### Lease release and receipt finalization evidence
+
+For any receipt, define:
+
+```text
+L = every checks[] member where checkType == "lease-release"
+F = every checks[] member where checkType == "receipt-finalization"
+
+releaseRequired =
+  issued-contract with referenced C where C.spec.leaseRequired == true
+  or pre-contract-denial where leaseAcquisition.state == "acquired"
+```
+
+For every pre-contract denial, additionally define:
+
+```text
+Dpre =
+  every checks[] member whose checkType is neither
+  "lease-release" nor "receipt-finalization"
+```
+
+Every actually serialized `ExecutionReceipt`—issued-contract or pre-contract
+denial, lease or no-lease, attempted or not-attempted, and acquired,
+non-acquired, or indeterminate—contains exactly one F. Its outcome is
+`passed`, and it is the unique terminal greatest-sequence member of the
+entire checks array:
+
+```text
+count(F) == 1
+F.outcome == "passed"
+
+for every non-F check q:
+  q.sequence < F.sequence
+  q.observedAt <= sanitization.completedAt
+
+sanitization.completedAt <= F.observedAt
+F.observedAt <= finishedAt
+
+for every pre-contract-denial receipt:
+  preContractEvidence.observedAt <= sanitization.completedAt
+```
+
+The existing `startedAt` lower bounds remain applicable. Thus every non-F
+check and every denial's `preContractEvidence` is no later than sanitization;
+sanitization completes no later than F; and F is no later than `finishedAt`.
+Whole-second equality is allowed at each of these non-freshness boundaries. In
+particular, every denial has the direct chain
+`preContractEvidence.observedAt <= sanitization.completedAt <= F.observedAt`
+even when L is empty. An acquired denial additionally retains
+`preContractEvidence <= every L`, `Dpre <= every L`, and, through the universal
+non-F rule, `every L <= sanitization`; that L-to-sanitization instance is
+non-additive rather than a separate chronology primitive.
+
+F is the finalization completion gate recorded only after sanitization. It
+means exactly that the lifecycle evidence and known release outcome in the
+receipt projection have been sanitized and closed for receipt finalization. It
+does not mean that `receiptDigest` has already been inserted, that F proves
+itself hashed, that delivery occurred, that the lifecycle succeeded, or that
+lease release succeeded.
+
+The digest pipeline is unchanged and ordered exactly as follows: produce all
+lifecycle evidence; establish `releaseOutcome`; complete sanitization; record
+the passed terminal F; freeze the complete projection excluding only
+`spec.receiptDigest`; apply JCS, framing, and SHA-256; insert the digest; then
+require delivery to copy it exactly. F is evidence inside the projection, not
+a self-hash, delivery marker, release proof, or digest-insertion proof.
+
+When L is non-empty, `finalL` is the unique greatest-sequence member of L.
+Every release-required receipt has `count(L) >= 1`. Every L precedes F by
+strict sequence and non-decreasing timestamp. No check may occur after F.
+
+For every release-required receipt and every pair of distinct members `l1` and
+`l2` in L, Phase 1 applies this rule to their already-validated
+`canonicalUtcTimestamp` instants:
+
+```text
+if l1.sequence < l2.sequence:
+  instant(l1.observedAt) <= instant(l2.observedAt)
+```
+
+The comparison is universal over all ordered pairs, not only adjacent L
+members. Whole-second equality is allowed. It applies identically to a lease-
+required issued receipt and an acquired pre-contract denial. `finalL` remains
+selected only by greatest sequence; timestamps are neither a selector nor a
+tie-breaker. This rule adds no E-to-E or global check-timestamp monotonicity.
+
+On both stable-acquired origins, every L requires leaseAcquisitionRef == {checkId: acquisitionBinding.checkId}. Source, binding, A, every R, and every L identify the same acquisition. Earlier failed/indeterminate L members remain subject to the same universal binding. A correctly bound finalL cannot hide an earlier mismatch. Indeterminate acquisition has no stable binding, Source, compact reference, or L.
+
+For an issued-contract receipt, the actual pre-release set is every present
+check whose type is in this exact closed eleven-type set:
+
+```text
+intent-validation
+project-domain-resolution
+role-routing
+host-binding
+initial-preflight
+lease-acquisition
+post-acquisition-revalidation
+contract-issuance
+pre-action-revalidation
+execution
+post-execution-verification
+```
+
+This set definition does not require every type to be present; it closes which
+present checks are pre-release. Every actual pre-release check has a lower
+sequence than every l in L and an equal or earlier `observedAt`.
+
+For an acquired pre-contract denial, every d in Dpre has a lower sequence than
+every l in L and an equal or earlier `observedAt`. The derived
+`preContractEvidence.observedAt <= l.observedAt` relation also holds for every
+l. Consequently release cannot begin and then be followed by host binding,
+initial preflight, revalidation, contract-issuance evidence, or any other
+non-L/F check. No nonexistent TaskContract is required, and the existing
+denial-path E/V and changed-path empty-set rules remain unchanged.
+
+For every release-required receipt, `releaseOutcome` is bound exactly to
+`finalL`: final `passed` maps only to
+`succeeded`, final `failed` maps only to `failed`, and final `indeterminate`
+maps only to `indeterminate`. An acquisition result, an earlier release check,
+or a general verification check cannot substitute for `finalL`. Receipt
+finalization therefore follows recorded release evidence rather than merely
+following a copied top-level release claim.
+
+If `finalL` is `failed` or `indeterminate`, at least one unresolved coordination
+warning must have `relatedCheckId` exactly equal to `finalL.checkId`; a warning
+bound only to an earlier release check is insufficient. An earlier failed or
+indeterminate L followed by a final passed L is valid only when every ordered L
+pair also satisfies the non-decreasing timestamp rule. It then produces
+`releaseOutcome: succeeded` and does not require a warning solely because of
+the earlier member. Existing lifecycle rules still prevent a succeeded
+lifecycle when any unresolved coordination warning remains.
+
+On every no-release path L is empty but the universal singleton passed terminal
+F remains required. A no-lease issued receipt has
+`releaseOutcome: not-required`, no associated Source, receipt-level acquisitionBinding, or compact reference, and
+no compact lease-acquisition reference on any check. Pre-contract denials in `not-required`,
+`not-attempted`, or `not-acquired` acquisition state also have L empty and
+`releaseOutcome: not-required`. An `indeterminate` acquisition has no stable
+lease identity, keeps L empty, requires both release and lifecycle outcomes
+`indeterminate`, retains its required unresolved warning, and still ends in
+passed F because F records evidence closure rather than acquisition or release
+success. Any L on one of these paths is invalid. Future policy may decide
+whether to emit a pre-contract-denial receipt; once one is serialized, F is
+mandatory.
+
+The complete evidence chains below specialize the unified stable-acquired
+prefix where X exists; their origin variants do not add primary owners:
+
+```text
+lease required, attempted, by sequence:
+  every G < A < R < I < every P
+  final applicable P < every E < every V
+  every actual pre-release check < every L < F
+
+lease required, not attempted, by sequence:
+  every G < A < R < I < every present P
   E == empty and V == empty
+  every actual pre-release check < every L < F
 
-no lease, attempted:
-  every G < N < I < every P < every E < every V < F
+no lease, attempted, by sequence:
+  every G < N < I < every P
+  final applicable P < every E < every V < F
   A == empty and R == empty and L == empty
 
-no lease, not attempted:
-  every G < N < I < optional P < F
-  E == empty and V == empty and A == empty and R == empty and L == empty
+no lease, not attempted, by sequence:
+  every G < N < I < every present P < F
+  E == empty and V == empty
+  A == empty and R == empty and L == empty
 
-acquired pre-contract denial:
+acquired R denial, by sequence:
+  every G < A < every R; greatest R is the denial controller
   every Dpre < every L < F
-  preContractEvidence <= every L <= sanitization <= F by timestamp
 
-other pre-contract denial:
+acquired I denial, by sequence:
+  every G < A < every R < singleton I controller
+  every Dpre < every L < F
+
+both acquired-denial branches, by time:
+  every G <= A <= every R
+  every Dpre <= every L; preContractEvidence <= every L
+
+every other pre-contract denial, by sequence:
   every non-F check < F
-  preContractEvidence <= sanitization <= F by timestamp
   L == empty
 ```
 
-All non-F checks are no later than sanitization, sanitization is no later than
-F, and F is no later than finish. Every release-required receipt additionally
-requires `li.sequence < lj.sequence => li.observedAt <= lj.observedAt` for all
-ordered L pairs, with equality allowed and sequence-only finalL selection.
-There is no E-to-E or global check-timestamp monotonicity. The complete
-displayed/primitive/derived chronology counts are 31/25/6.
+For every listed lifecycle path, all non-F evidence is no later than
+sanitization, sanitization is no later than F, and F is no later than
+`finishedAt`. Every pre-contract denial consequently orders
+`preContractEvidence` no later than sanitization. Acquired denials additionally
+order `preContractEvidence` and every Dpre member no later than every L; every
+L is then covered by the universal non-F-to-sanitization relation.
+
+Greatest-sequence selections and strict sequence comparisons are
+sequence/outcome consistency invariants and do not themselves add timestamp
+relations; the explicit pairwise L rule is independent of `finalL` selection.
+The detailed chronology inventory below displays 31 normative relations,
+classifies 20 as primitive/additive, and marks eleven transitive consequences
+derived/non-additive.
+
 The eight exact focused positive classes are:
 
 1. `succeeded` attempted execution with a final passed/pre-expiry check and a
@@ -1417,400 +1616,162 @@ sequences, duplicate check IDs, and malformed check arrays remain outside this
 D6 receipt-level table remains exactly 13 valid and 7 invalid combinations.
 
 The mandatory class-14 and class-16 recovery variants use an unreferenced
-earlier bad V. Referenced same-type recovery variants belong only to PB-N19 and
-PB-N20, preserving non-additive unique primary ownership.
+earlier bad V. Referenced same-type recovery variants belong only to the C-UNIVERSAL-PASS owner, preserving non-additive unique ownership.
 
-#### Focused required-postcondition verification-binding vector family
+#### Current independent owner ledger
 
-The exact fifteen positive classes are:
+This ledger replaces current PB/AI/DP/RF/RC primary numbering; historical
+review records and their IDs remain historical. Every row below is one
+conditional logical invariant and has exactly one positive owner PREFIX-Pnn
+and one negative owner PREFIX-Nnn. The row's negative is a constructive
+isolating recipe. Positive counterparts restore that row with otherwise-valid
+inputs. Distinct positive specimens use distinct synthetic receipt IDs and
+are counted once, never once per predicate they happen to satisfy.
 
-1. **PB-P01:** passed referenced final V for `scope-contained`;
-2. **PB-P02:** passed referenced final V for `ref-state`;
-3. **PB-P03:** passed referenced final V for `head-state`;
-4. **PB-P04:** passed referenced final V for `index-state`;
-5. **PB-P05:** passed referenced final V for `tracked-state`;
-6. **PB-P06:** passed referenced final V for `untracked-state`;
-7. **PB-P07:** passed referenced final V for `ignored-state`;
-8. **PB-P08:** passed referenced final V for `submodule-state`;
-9. **PB-P09:** passed referenced final V for `active-operations`;
-10. **PB-P10:** passed referenced final V for `administrative-locks`;
-11. **PB-P11:** passed referenced final V for `lease-state`;
-12. **PB-P12:** one referenced V serving as both per-type and global final V;
-13. **PB-P13:** multiple same-type V members, every member passed, with the
-    greatest-sequence member preserved as finalV(t) under passed top-level
-    verification;
-14. **PB-P14:** complete per-type passed evidence followed by a matching unreferenced global
-    final V; and
-15. **PB-P15:** all eleven type-unique obligations, each with passed finalV(t), under passed
-    receipt verification.
+Shape predicates are evaluated before predicates needing shaped operands;
+presence/cardinality predicates precede singleton identity/outcome/sequence
+operands. An unavailable operand rejects at its presence owner, not a second
+invented mismatch. This is validation dependency, not permission to accept
+missing data. For each negative, preserve all unrelated independent predicates,
+recompute valid prerequisite digests and every dependent evidence/receipt digest,
+and preserve delivery copies when present. Claimed-invalid source computation
+and claimed-invalid exact-copy cases are the explicit exception at their target
+edge. A digest side effect is never counted as another primary.
 
-Classes 2 through 11 also include mandatory scope evidence but do not count it
-again. Every passed-verification PB positive, including PB-P14 and PB-P15,
-also requires every V outcome passed as a non-additive prerequisite. The exact
-twenty negative classes are:
+Families distinguish shape, presence/cardinality, identity equality, sequence,
+timestamp, outcome, digest computation/copy, scope, and finalization.
+Generic array/lexical/closed-union faults keep their existing structural owner.
+Forbidden compact-reference placement is one generic shape predicate;
+its G/N/I/P/E/V/F and non-stable-path manifestations are variants.
+The closed denial checkpoint/state union remains mandatory independently of
+its outcome-to-state rule. The complete chronology graph and its CH owners
+are specified separately.
 
-1. **PB-N01:** reference on `intent-validation`;
-2. **PB-N02:** reference on `project-domain-resolution`;
-3. **PB-N03:** reference on `role-routing`;
-4. **PB-N04:** reference on `host-binding`;
-5. **PB-N05:** reference on `initial-preflight`;
-6. **PB-N06:** reference on `lease-acquisition`;
-7. **PB-N07:** reference on `post-acquisition-revalidation`;
-8. **PB-N08:** reference on `contract-issuance`;
-9. **PB-N09:** reference on `pre-action-revalidation`;
-10. **PB-N10:** reference on `execution`;
-11. **PB-N11:** reference on `lease-release`;
-12. **PB-N12:** reference on `receipt-finalization`;
-13. **PB-N13:** missing `type` or an extra reference-object member;
-14. **PB-N14:** type outside the exact eleven-value enum;
-15. **PB-N15:** valid enum type absent from the bound contract;
-16. **PB-N16:** missing scope V(t) while another referenced type passes;
-17. **PB-N17:** missing any other required V(t) while scope passes;
-18. **PB-N18:** unreferenced general V offered as sole evidence for an obligation;
-19. **PB-N19:** failed same-type V history under passed verification, with both
-    mandatory non-additive variants: earlier passed V(t) followed by failed
-    finalV(t), and earlier failed V(t) followed by a later passed finalV(t); and
-20. **PB-N20:** indeterminate same-type V history under passed verification,
-    with both mandatory non-additive variants: earlier passed V(t) followed by
-    indeterminate finalV(t), and earlier indeterminate V(t) followed by a later
-    passed finalV(t).
+| PB current owner pair | Family | Required predicate | Isolating negative recipe |
+| --- | --- | --- | --- |
+| PB-P01 / PB-N01 | shape | postconditionRef occurs only on V | Put an otherwise closed valid reference on one non-V check; all thirteen non-V types are variants. |
+| PB-P02 / PB-N02 | shape | postconditionRef has exactly required type | Use one extra member or omit type on V; lexical enum/membership checks require a shaped operand. |
+| PB-P03 / PB-N03 | shape | postconditionRef.type is in the eleven-token enum | Use one unknown type on V; closed-contract membership is tested only for well-shaped references. |
+| PB-P04 / PB-N04 | identity equality | Every well-shaped V reference names a required type in the same C | Use an allowed enum type absent from C, retaining evidence for every actually required type. |
+| PB-P05 / PB-N05 | presence/cardinality | Every required type has at least one V(t) on an attempted receipt | Keep general V and all other obligations, but omit the named type; scope-contained and all ten optional types are variants. |
 
-Every PB-N19 and PB-N20 witness keeps all other required types present and
-valid. Their recovery variants use a referenced same-type bad V(t), while
-global classes 14 and 16 use an unreferenced earlier bad V; no witness gains a
-second primary owner or a new primary ID.
+| AI current owner pair | Family | Required predicate | Isolating negative recipe |
+| --- | --- | --- | --- |
+| AI-P01 / AI-N01 | presence/cardinality | Every issued G type is present | Omit one G type from a no-lease issued prefix. |
+| AI-P02 / AI-N02 | outcome | Every issued G is passed | One G fails; a later passed same-type G is a variant, never recovery. |
+| AI-P03 / AI-N03 | presence/cardinality | Stable-acquired paths have exactly one A | Omit A or add a distinct-ID A; identity/sequence checks require the singleton operand. |
+| AI-P04 / AI-N04 | outcome | The stable-acquired singleton A is passed | Change its outcome only; controller A denials are outside this predicate. |
+| AI-P05 / AI-N05 | presence/cardinality | Issued lease-required R is singleton | Omit R or add a distinct-ID passed R; acquired denial R history is not constrained by this issued-only predicate. |
+| AI-P06 / AI-N06 | presence/cardinality | Issued no-lease N is singleton | Omit N or add a distinct-ID passed N. |
+| AI-P07 / AI-N07 | presence/cardinality | Issued I is singleton | Omit I or add a distinct-ID passed I; denial I is DP11-owned. |
+| AI-P08 / AI-N08 | outcome | Issued singleton R/N/I is passed | Change one applicable singleton outcome; all type/outcome forms are variants. |
+| AI-P09 / AI-N09 | presence/cardinality | Issued lease path forbids N; issued no-lease path forbids A/R | Add a wrong-path check without a forbidden compact reference; binding presence is evaluated from C. |
+| AI-P10 / AI-N10 | sequence | Every G precedes A on every stable-acquired path, or N on issued no-lease paths | Move one G after A/N but before every R, I, denial controller, L, and F that is present; preserve valid timestamps. Issued lease, acquired R, acquired I, and no-lease N are non-additive variants. |
+| AI-P11 / AI-N11 | sequence | Stable singleton A precedes every R | Acquired R denial: put an earlier passed R before A and keep the controlling R after A; all timestamps equal. |
+| AI-P12 / AI-N12 | sequence | Issued applicable R/N precedes I | Swap the two checks, keeping timestamps equal and G/A before both. |
+| AI-P13 / AI-N13 | sequence | Every issued I precedes every P | Put an earlier P before I and later P after it; keep E/V empty and times equal. |
+| AI-P14 / AI-N14 | presence/cardinality | X is present iff the stable-acquired condition holds | Omit X with Source retained, or add X on a non-stable path; binding operands are otherwise gated. |
+| AI-P15 / AI-N15 | presence/cardinality | Source count is one iff stable-acquired, otherwise zero | Supply zero or two eligible Sources on a stable path, or one on a non-stable path. |
+| AI-P16 / AI-N16 | identity equality | Source.taskId equals receipt.taskId | Change Source.taskId, recompute its digest and exact binding copy; keep receipt/C task equality. |
+| AI-P17 / AI-N17 | identity equality | Source.checkId equals X.checkId | Change Source.checkId; keep X=A and every ref=X; recompute Source and descendant digests. |
+| AI-P18 / AI-N18 | identity equality | Source.leaseId equals X.leaseId | Change Source.leaseId; keep issued X=C.leaseId and every check binding; recompute descendants. |
+| AI-P19 / AI-N19 | digest computation/copy | Source digest matches its closed source-profile computation | Use a different valid tagged Source digest and copy it exactly into X; rehash descendants. |
+| AI-P20 / AI-N20 | digest computation/copy | X digest copies the validated Source digest exactly | Keep valid Source, use a different well-shaped X digest, and rehash descendants. |
+| AI-P21 / AI-N21 | identity equality | X.checkId equals the singleton A.checkId | Source and X agree; rename A only, preserving the self-reference value X and all other references. |
+| AI-P22 / AI-N22 | identity equality | A compact reference equals {checkId:X.checkId} | Omit or alter A's compact reference; Source/X/A IDs themselves remain equal. |
+| AI-P23 / AI-N23 | identity equality | Every R compact reference equals {checkId:X.checkId} | Alter an earlier passed R only, retaining a correctly bound controlling R; issued R and acquired I prerequisite R are variants. |
 
-`pre-issuance-revalidation` is a mandatory planned non-additive check-type
-variant of the same non-V reference rejection predicate. Its future fixture
-must be fully serialized, but no such fixture exists yet. It does not create a
-twenty-first primary class. The 14-token plan covers the one V-permitted type
-and all thirteen V-forbidden types while the family remains exactly 15/20.
+| DP current owner pair | Family | Required predicate | Isolating negative recipe |
+| --- | --- | --- | --- |
+| DP-P01 / DP-N01 | presence/cardinality | Every denial prerequisite type exists | Remove one required G/N/R stage; stable A presence remains AI03-owned. |
+| DP-P02 / DP-N02 | outcome | Every denial prerequisite observation G/N/R is passed | Fail a prerequisite G while keeping the controller and its same-type history valid. |
+| DP-P03 / DP-N03 | scope | Only row-prerequisite and controller ordinary types occur | Add unreached P before the controller with all other boundaries valid. |
+| DP-P04 / DP-N04 | sequence | Every ordinary prerequisite member precedes the controller | No-acquisition G5 denial: move one repeated passed prerequisite G1 after the controller but before F; all times remain valid. |
+| DP-P05 / DP-N05 | identity equality | controllerCheckId names the greatest mapped-type candidate | Name a different same-receipt check; candidate type/outcome/time/reasons stay valid. |
+| DP-P06 / DP-N06 | outcome | The mapped-type controller candidate is failed or indeterminate | Use passed R as the candidate, with otherwise-valid acquired origin and cleanup. |
+| DP-P07 / DP-N07 | identity equality | Evidence.observedAt equals controller.observedAt | Change only evidence time within all remaining chronology bounds and rehash evidence. |
+| DP-P08 / DP-N08 | identity equality | Evidence.reasonCodes exactly equal controller.reasonCodes | Use another non-empty canonical reason array; summaries remain unconstrained derivatives. |
+| DP-P09 / DP-N09 | outcome | Every earlier G/N/R controller-family observation is passed | Use failed or indeterminate earlier same-type observation then failed/indeterminate controller. |
+| DP-P10 / DP-N10 | presence/cardinality | A-denial has exactly one A | Insert earlier passed A before single failed/indeterminate A controller; no X or Source. |
+| DP-P11 / DP-N11 | presence/cardinality | I-denial has exactly one I | Insert earlier passed I before failed/indeterminate I controller, with valid N or acquired A/R prefix. |
+| DP-P12 / DP-N12 | presence/cardinality | An I-denial's prerequisite N/R has at most one member | Duplicate the passed prerequisite N or R with a distinct ID; all refs/times remain valid. |
+| DP-P13 / DP-N13 | outcome | A-denial outcome maps failed→not-acquired and indeterminate→indeterminate | Swap the two permitted states, adapting release/lifecycle/warning claims to that state; only the causal state mapping fails. |
 
-Duplicate contract types, contract/digest mismatch, global final-V mismatch,
-and stray not-attempted V remain in their existing families. A future multi-
-predicate fixture is intended to be assigned to its lowest-numbered primary
-class and reused only non-additively. This planned family is exactly 15/20.
+| RF current owner pair | Family | Required predicate | Isolating negative recipe |
+| --- | --- | --- | --- |
+| RF-P01 / RF-N01 | presence/cardinality | Release-required paths have at least one L | Remove every L; finalL-dependent checks are gated, not separately counted. |
+| RF-P02 / RF-N02 | presence/cardinality | No-release paths have no L | Add unreferenced L to a no-lease receipt, preserving not-required release and F. |
+| RF-P03 / RF-N03 | outcome | releaseOutcome equals the finalL mapping | Change top-level release outcome and its lifecycle consequences, retaining valid warnings. |
+| RF-P04 / RF-N04 | presence/cardinality | Every serialized receipt has at least one F | Remove F; maximum-one is derived from exact F ID and check-ID uniqueness. |
+| RF-P05 / RF-N05 | outcome | The singleton F is passed | Use failed or indeterminate F with its exact identity tuple. |
+| RF-P06 / RF-N06 | finalization | F uses exact reserved checkId/profileId/empty reasonCodes | Change one identity member to a valid alternative; F outcome remains passed. |
+| RF-P07 / RF-N07 | shape | F forbids generic-check summary fields | Add expectedSummary or observedSummary; unknown fields remain generic-owned, postconditionRef is PB01-owned, and compact placement is generic-owned. |
+| RF-P08 / RF-N08 | sequence | F is terminal | Put one otherwise-permitted non-F check after F with valid timestamps. |
+| RF-P09 / RF-N09 | sequence | Every issued pre-release check precedes every L | Put an L before I while retaining G/A/R/I order and terminal F. |
+| RF-P10 / RF-N10 | sequence | Every acquired-denial Dpre precedes every L | Put L before the controller but after all prerequisites; all times equal. |
+| RF-P11 / RF-N11 | identity equality | Failed/indeterminate finalL has an exactly related warning | Retain only a warning naming an earlier valid check, not finalL. |
+| RF-P12 / RF-N12 | identity equality | Every L compact reference equals {checkId:X.checkId} | Alter an earlier L only; finalL remains correctly bound. Both stable origins are variants. |
+| RF-P13 / RF-N13 | finalization | sanitization.applied is true | Use false with otherwise-valid times, exact F tuple, zero or positive redactionCount, and rehashed receipt. |
+| RF-P14 / RF-N14 | presence/cardinality | Indeterminate acquisition retains an unresolved coordination warning | Use an indeterminate A-denial with empty warnings and otherwise-correct indeterminate outcomes. |
 
-#### Focused lease-acquisition evidence-chain vectors
+| RC current owner pair | Family | Required predicate | Isolating negative recipe |
+| --- | --- | --- | --- |
+| RC-P01 / RC-N01 | identity equality | receipt.contractId equals C.metadata.id | Use another valid receipt-origin contract ID. |
+| RC-P02 / RC-N02 | digest computation/copy | receipt.contractDigest equals the complete C digest | Use another tagged digest; keep all duplicated non-digest claims equal. |
+| RC-P03 / RC-N03 | identity equality | receipt.taskId equals C.spec.taskId | Use another receipt task UUID and a consistently matching Source when applicable. |
+| RC-P04 / RC-N04 | identity equality | receipt target projectRef equals C.spec.projectRef | Use another canonical Project reference. |
+| RC-P05 / RC-N05 | identity equality | receipt target worktreeRoleRef equals C target role | Use another canonical role reference. |
+| RC-P06 / RC-N06 | identity equality | receipt target worktreeId equals C target worktree | Use another logical worktree ID. |
+| RC-P07 / RC-N07 | identity equality | receipt domainRefs equal the entire canonical C Domain set | Omit, add, or substitute a Domain while keeping canonical array order. |
+| RC-P08 / RC-N08 | identity equality | receipt effectiveMode equals C.spec.effectiveMode | Use the other valid mode without altering C. |
+| RC-P09 / RC-N09 | identity equality | Issued X.leaseId equals C.spec.leaseId | Source and X agree on another lease, with valid source digest and exact copy; C remains unchanged. |
 
-These vectors define normative planned fixture classes. `primaryOwner` denotes
-the intended attribution for a future serialized fixture; the primary ID named
-below is also its intended owner. Executable fixtures and a fixture manifest
-have not been implemented. This documentation establishes identifiers,
-predicates, and planned boundaries only; it does not establish that serialized
-payloads exist or that future manifest ownership uniqueness has already been
-mechanically verified.
+The original detailed coverage is retained as mandatory non-additive variants:
+all eleven required-postcondition types; referenced/global finalV coincidence;
+multiple all-passed V(t); a later general V; all eleven obligations together;
+every forbidden non-V reference placement; all nine denial checkpoints with
+both I branches; all issued lease/no-lease attempted/not-attempted paths; all
+five G types; failed/indeterminate controller values; all finalL outcomes;
+every repeated/early-bad/final-good reference case; and all receipt/C Domain
+omission/addition/substitution forms. Array reordering is generic canonicality,
+not a second RC Domain-identity primary.
 
-The six planned positive primary predicates are exactly:
+Referenced failed/indeterminate V under passed top-level verification is an
+instance of the existing C-UNIVERSAL-PASS predicate, shared with general V,
+not an additional PB primary. The verification-family owner retains it.
+Duplicate F with an exact F tuple necessarily duplicates its reserved check ID;
+generic check-ID uniqueness owns that rejection. No independent duplicate-F
+primary exists. Source→A equality follows Source→X→A; acquired identity is
+AI-owned on both origins and is not counted again under DP. Controller→L
+sequence is the Dpre→L instance, owned only by RF10. Evidence→L time is
+derived CH display 28. Missing or wrong A/R/L compact references are AI22,
+AI23, and RF12 respectively. A valid source/X pair on the wrong issued lease
+is RC09, not AI18.
 
-1. **AI-P01 — complete all-passed GTypes:** every issued path has all five G
-   types and every actual G passed, with lease/no-lease variants;
-2. **AI-P02 — repeated all-passed G:** one G type appears more than once and
-   every member is passed, with each of the five types as a non-additive
-   variant;
-3. **AI-P03 — lease-required attempted:** complete
-   `G/A/R/I/P/E/V/L/F` issued chain with one profile-valid associated Source,
-   exact source-to-root digest copy, source/root/A identity, compact A/R
-   references, and every L bound to that same identity;
-4. **AI-P04 — lease-required non-attempted:** complete
-   `G/A/R/I/[P]/L/F` chain with E and V empty and the same
-   Source/root/A/R/every-L binding;
-5. **AI-P05 — no-lease attempted:** complete `G/N/I/P/E/V/F` chain with A,
-   R, and L empty; and
-6. **AI-P06 — no-lease non-attempted:** complete `G/N/I/[P]/F` chain with E,
-   V, A, R, and L empty.
+AI10 owns the one conditional G-prefix sequence predicate: its A branch now
+covers every stable-acquired origin, while its issued no-lease N branch is
+unchanged. The acquired R and I forms add variants, not independent owners.
+Without AI10, G5 may follow A while still preceding every R/controller/L/F;
+valid times and every remaining sequence family permit that construction.
+CH08 likewise owns every G<=A timestamp comparison on all stable-acquired
+origins. Without CH08, G5 at second 2, A at 1, and every R at 3 satisfy the
+remaining graph. Thus neither edge is derived; both reuse existing owners.
+CH16 remains independently necessary: controller/evidence at 3 and L at 2
+violates only Dpre<=L while G at 0 and A at 1 satisfy the repaired prefix.
+The complete row inventory therefore remains 20 primitive timestamp families,
+11 derived displays, and the existing 23 AI families, with no added primary.
 
-The twenty-eight planned negative primary predicates are exactly:
+The five focused families have PB 5/5, AI 23/23, DP 13/13, RF 14/14,
+and CH 20/20 positive/negative owners. The subtotal is
+2*(5+23+13+14+20)=150. RC is 9/9, so the expanded aggregate is 168.
+PB+AI+DP+RF has 110 numbered owner definitions; AI+RF has 74.
+Scope/ordinary-capability/operation-evidence coverage remains separate,
+with its existing 5/6 plus D5 cross-reference, OC 3/8, and OE 10/11
+case inventories. Those unchanged case inventories are not added to the
+independent five-family subtotal. These are documented conformance owners,
+not a claim that executable Schema/model tests or a fixture manifest exist.
 
-1. **AI-N01 — missing mandatory G type:** each omitted type is a non-additive
-   variant;
-2. **AI-N02 — any G non-passed:** failed and indeterminate outcomes, every G
-   type, and an earlier bad G followed by a later passed same-type G are
-   non-additive variants of the all-G-passed violation;
-3. **AI-N03 — missing A** on a lease-required issued receipt;
-4. **AI-N04 — duplicate A**;
-5. **AI-N05 — missing R** on a lease-required issued receipt;
-6. **AI-N06 — duplicate R**;
-7. **AI-N07 — missing N** on a no-lease issued receipt;
-8. **AI-N08 — duplicate N**;
-9. **AI-N09 — missing universal I**, with both issued path variants;
-10. **AI-N10 — duplicate I**, with both issued path variants;
-11. **AI-N11 — non-passed singleton A/R/N/I:** each applicable type and both
-    failed and indeterminate outcomes are non-additive variants;
-12. **AI-N12 — N on a lease-required path**;
-13. **AI-N13 — R on a no-lease path**;
-14. **AI-N14 — A on a no-lease path**;
-15. **AI-N15 — G after the applicable A/N boundary:** both paths and all five
-    G types are non-additive one-bad-member variants;
-16. **AI-N16 — A after R** by sequence;
-17. **AI-N17 — applicable R/N after I** by sequence;
-18. **AI-N18 — I after an earlier P** by sequence, including a later valid P
-    that cannot repair the universal violation;
-19. **AI-N19 — conditional issued-root presence/absence violation:** the root
-    is missing on a lease-required issued receipt or present on a no-lease
-    issued receipt or pre-contract denial;
-20. **AI-N20 — R acquisition-reference mismatch:** singleton passed R lacks the
-    compact reference or names a `checkId` different from the issued root and
-    singleton passed A;
-21. **AI-N21 — receipt/source task-identity mismatch (`primaryOwner:
-    AI-N21`):** `ExecutionReceipt.spec.taskId` differs from the associated
-    `LeaseAcquisitionResultIdentity.taskId`; different valid UUID values are
-    mandatory non-additive variants;
-22. **AI-N22 — associated-source cardinality violation (`primaryOwner:
-    AI-N22`):** a lease-required issued receipt does not have exactly one
-    associated `LeaseAcquisitionResultIdentity`; missing source and multiple
-    ambiguous sources are mandatory non-additive variants;
-23. **AI-N23 — A acquisition-reference mismatch (`primaryOwner: AI-N23`):**
-    singleton passed A lacks the compact reference or names a `checkId`
-    different from the issued root and source identity;
-24. **AI-N24 — source/root check-identity mismatch (`primaryOwner: AI-N24`):**
-    the associated source `checkId` differs from
-    `ExecutionReceipt.spec.leaseAcquisitionEvidence.checkId`; different valid
-    `checkIdentifier` values are mandatory non-additive variants;
-25. **AI-N25 — source/A check-identity mismatch (`primaryOwner: AI-N25`):**
-    the associated source `checkId` does not identify singleton passed A. A
-    source and root that agree with each other but identify a different valid
-    check from A are a mandatory non-additive variant;
-26. **AI-N26 — source/root lease-identity mismatch (`primaryOwner: AI-N26`):**
-    the associated source `leaseId` differs from
-    `ExecutionReceipt.spec.leaseAcquisitionEvidence.leaseId`; different valid
-    UUID values are mandatory non-additive variants;
-27. **AI-N27 — associated-source digest-computation failure (`primaryOwner:
-    AI-N27`):** exactly one associated source has a syntactically valid tagged
-    digest whose `profile.digest.issued-lease-acquisition-v1` recomputation
-    from the closed source projection fails to match. A lexically malformed
-    digest remains generic structural/digest ownership; and
-28. **AI-N28 — source-to-receipt digest-copy mismatch (`primaryOwner:
-    AI-N28`):** the source digest validates successfully, but
-    `ExecutionReceipt.spec.leaseAcquisitionEvidence.acquisitionResultDigest`
-    is a different syntactically valid tagged digest.
 
-The seven primary witnesses are independent and no scenario is assigned to two
-primary negatives. AI-N21 changes only the source `taskId`. AI-N24 keeps source
-`checkId` equal to A while changing only the root `checkId`. AI-N25 keeps
-source and root `checkId` equal while changing A's `checkId`. AI-N26 keeps the
-source and referenced contract on one lease while changing only the root
-`leaseId`; any cross-effect is non-additive, and receipt/contract negative 19
-instead keeps source and root equal while both differ from the contract.
-AI-N22 independently uses zero or two otherwise eligible associated sources.
-AI-N27 keeps exactly one source and an exact root copy but uses a valid-shaped
-source digest that fails recomputation. AI-N28 keeps a valid recomputed source
-digest and changes only the receipt root to another valid-shaped digest.
-Therefore AI-N21/N24/N25/N26 exercise four independent equalities, and
-AI-N22/N27/N28 exercise three independent source/provenance predicates.
-
-Sequence equality remains a generic contiguous-sequence fault. Permitted
-timestamp equalities and the seven acquisition/issuance timestamp reversals are
-non-additive CH variants. A no-lease `leaseId` remains a TaskContract truth-
-table fault. Forbidden placement, unknown members, closed-shape faults, and UUID
-or identifier lexical faults remain generic structural owners or mandatory
-non-additive variants. Source/root presence on a no-lease or denial path,
-substitution of the issued chain for the unchanged denial chain, and promotion
-of indeterminate acquisition to a stable Source are mandatory conditional/union
-rejections and add no primary. The planned acquisition/issuance inventory is
-exactly 6 positive and 28 negative primary predicates. Contract/source/root
-lease-ID mismatch is the independent nineteenth receipt/contract-binding
-negative, not an AI primary.
-
-#### Focused cumulative denial-prerequisite vectors
-
-The nine planned positive primary predicates correspond one-for-one to the
-closed denial checkpoints and the cumulative matrix above. Every positive has
-an exact `controllerCheckId` binding, including exact mapped type,
-greatest-sequence selection, failed/indeterminate outcome, `observedAt`, and
-`reasonCodes`. DP-P08 and the acquired DP-P09 variant also have the exact
-passed-A, lease-ID, and acquisition-result-digest binding; all non-acquired
-variants forbid `acquisitionEvidenceRef`:
-
-Every positive also requires every actual member of `Prereq(r)` passed and
-before the controller, all unreached ordinary types empty, and no ordinary
-check after the controller. Only applicable acquired cleanup L and then F, or
-F alone, may follow.
-
-1. **DP-P01 — intent denial:** controlling failed/indeterminate intent check,
-   no fabricated prerequisite or future stage, and F;
-2. **DP-P02 — project/domain denial:** passed intent evidence, controlling
-   project/domain failure or indeterminacy, no future stage, and F;
-3. **DP-P03 — role-routing denial:** passed intent and project/domain evidence,
-   controlling routing failure or indeterminacy, no future stage, and F;
-4. **DP-P04 — host-binding denial:** the three earlier G types passed,
-   controlling host failure or indeterminacy, no future stage, and F;
-5. **DP-P05 — initial-preflight denial:** the four earlier G types passed,
-   controlling preflight failure or indeterminacy, no future stage, and F;
-6. **DP-P06 — N denial:** all five G types present and all actual G passed,
-   controlling N failed/indeterminate, no A/R/I/P/E/V/L, and F;
-7. **DP-P07 — acquisition denial:** all five G types present and passed,
-   controlling A failed/indeterminate, no stable acquired identity or later
-   stage, applicable warning, and F;
-8. **DP-P08 — acquired R denial:** all five G types passed, singleton passed A,
-   selected by the exact acquisition-evidence reference and matching the
-   acquired lease identity/digest, with controlling R failed/indeterminate, no
-   I/P/E/V, ownership-checked L cleanup, and F; and
-9. **DP-P09 — issuance denial:** all five G types passed, the applicable passed
-   A/R or N path, controlling I failed/indeterminate, no P/E/V, applicable
-   cleanup, acquired-reference binding exactly on the acquired variant and
-   reference absence on the no-lease variant, and F.
-
-Across all nine checkpoint positives, mandatory non-additive controller-history
-variants include `passed -> failed`, `passed -> indeterminate`, `passed ->
-passed -> failed`, and `passed -> passed -> indeterminate`.
-
-The six planned negative primary predicates are exactly:
-
-1. **DP-N01 — missing cumulative prerequisite:** one stage known to have
-   completed before the denial is absent from checks;
-2. **DP-N02 — denial-stage boundary violation:** the row-level predicate
-   requiring every prerequisite-stage observation before the controller,
-   every unreached ordinary type empty, and no ordinary check after the
-   controller is false. Variant A is unreached future-stage evidence anywhere;
-   Variant B is a prerequisite re-observation or other ordinary check after
-   the controller;
-3. **DP-N03 — wrong controller/checkpoint/outcome:** the selected checkpoint
-   maps to the wrong controlling check type, its mapped check set is empty, or
-   its greatest-sequence controller is passed; each checkpoint, wrong-type,
-   failed/indeterminate, and wrong-checkpoint form is a non-additive variant;
-4. **DP-N04 — controller reference/binding mismatch:** `controllerCheckId` is
-   missing, unknown, references an earlier same-type or otherwise non-greatest
-   member, references a wrong-type member, or disagrees on exact `observedAt`
-   or canonical `reasonCodes`; reason-code reorder, extra, missing,
-   same-type-later-member, and check-reorder forms are non-additive variants;
-   and
-5. **DP-N05 — acquired evidence reference/identity mismatch:** the reference is
-   missing on an acquired denial, present on any non-acquired state, selects
-   the wrong A, a failed/indeterminate A, or a non-A check, or disagrees with
-   the acquired origin's exact `leaseId` or `acquisitionResultDigest`; and
-6. **DP-N06 — non-passed same-type observation before the referenced
-   controller:** `failed -> failed`, `failed -> indeterminate`,
-   `indeterminate -> failed`, and `indeterminate -> indeterminate` are
-   mandatory non-additive variants.
-
-Checkpoint, state, controller-ID, member-order, timestamp, reason-code,
-acquisition-reference, lease-identity, and digest choices are mandatory
-non-additive variants of their named primary predicate. Both DP-N02 variants
-belong to its single row-level sequence/membership predicate; they add neither
-a seventh negative primary nor a timestamp edge. Missing or malformed
-cleanup/F, warning, and top-level release mapping remain RF-owned; chronology
-reversals remain CH-owned. `failed -> passed` and `indeterminate -> passed`
-remain mandatory non-additive DP-N03 variants because the greatest controller
-is passed. Only the four non-passed-to-non-passed same-type histories belong to
-DP-N06, and the documented passed histories remain positive. Exact
-controller/evidence timestamp equality is DP positive binding coverage and
-mismatch is DP-N04. The planned denial-prerequisite inventory remains exactly
-9 positive and 6 negative primary predicates.
-
-#### Focused lease-release and receipt-finalization vectors
-
-Every positive primary requires `sanitization.applied: true`; a
-`redactionCount` of zero is a mandatory valid variant.
-
-The eleven planned positive primary predicates are exactly:
-
-1. **RF-P01 — lease attempted, final L passed:** release succeeded,
-   sanitization completed, and terminal F passed;
-2. **RF-P02 — final L failed:** release failed, the exact final-L warning,
-   sanitization completed, and terminal F passed;
-3. **RF-P03 — final L indeterminate:** release indeterminate, the exact final-L
-   warning, sanitization completed, and terminal F passed;
-4. **RF-P04 — multiple L:** an earlier failed or indeterminate L followed by
-   final passed L, with the CH-P25 timestamp prerequisite satisfied, and a
-   succeeded release;
-5. **RF-P05 — complete issued pre-release set:** all eleven possible lease-path
-   pre-release check types precede every L, sanitization, and F;
-6. **RF-P06 — acquired denial:** complete cumulative `G/A/R/L/F` denial path
-   with failed/indeterminate controlling R and valid cleanup; every L carries
-   exactly `{checkId: preContractEvidence.acquisitionEvidenceRef.checkId}`.
-   Mandatory non-additive valid variants include one L, multiple L all carrying
-   the same correct checkId, and failed/indeterminate earlier L followed by
-   passed finalL with every L correctly bound. RF-P04 owns the release-history
-   predicate and CH-P25 supplies chronology; these RF-P06 prerequisite variants
-   do not add primary classes;
-7. **RF-P07 — lease-required non-attempted:** complete prefix and `L/F`, with E
-   and V empty;
-8. **RF-P08 — no-lease attempted:** complete `G/N/I/P/E/V/F`, with L empty;
-9. **RF-P09 — no-lease non-attempted:** complete `G/N/I/[P]/F`, with E, V,
-   and L empty;
-10. **RF-P10 — other conclusive denial:** passed F with L empty for every
-    applicable `not-required`, `not-attempted`, and `not-acquired` checkpoint
-    variant; and
-11. **RF-P11 — indeterminate acquisition:** no stable identity, required
-    warning, L empty, indeterminate outcomes, sanitization, and passed F.
-
-The fourteen planned negative primary predicates are exactly:
-
-1. **RF-N01 — missing L on a release-required path:** issued and acquired-
-   denial origins are non-additive variants;
-2. **RF-N02 — finalL/top-level mismatch:** all off-diagonal value pairs are
-   non-additive variants with otherwise-correct warning evidence;
-3. **RF-N03 — missing universal F:** every receipt origin/path is a non-
-   additive variant;
-4. **RF-N04 — duplicate F**;
-5. **RF-N05 — non-passed singleton F:** failed and indeterminate variants;
-6. **RF-N06 — non-terminal F / non-F after F by sequence:** the two
-   descriptions are one wire predicate under singleton F and contiguous
-   sequence;
-7. **RF-N07 — issued pre-release check after L by sequence**;
-8. **RF-N08 — acquired-denial Dpre after L by sequence**;
-9. **RF-N09 — L on a no-release path:** all no-lease and non-acquired denial
-   states are non-additive variants; and
-10. **RF-N10 — final-L warning absent or wrongly referenced:** failed and
-    indeterminate final-L and absent/wrong-check warning variants; and
-11. **RF-N11 — forbidden post-sanitization F content:** F contains
-    `expectedSummary`, `observedSummary`, both summaries, or another
-    forbidden free-form member such as `sanitizedSummary`, `detail`, or
-    `payload` or an unknown member; each forbidden-member presence form is a
-    non-additive variant with intended `primaryOwner: RF-N11`; and
-12. **RF-N12 — primitive finalization exact-tuple violation:** wrong F
-    `checkId`, wrong F `profileId`, non-empty F `reasonCodes`, and
-    regex-valid secret-like F check/profile/reason alternatives are mandatory
-    non-additive variants of one exact-F-tuple predicate with intended
-    `primaryOwner: RF-N12`; and
-13. **RF-N13 — release-required every-L acquisition-reference violation:**
-    any L lacks the compact reference or names a different acquisition
-    `checkId`. Issued variants retain missing/wrong source/root/A references
-    and an earlier bad L followed by correct finalL. Acquired-denial variants
-    compare every L with `preContractEvidence.acquisitionEvidenceRef.checkId`
-    and require all seven forms: missing ref on the only L; wrong checkId on
-    the only L; bad earlier L followed by correct finalL; correct earlier L
-    followed by bad finalL; multiple L with one non-adjacent bad member;
-    reference to controller R instead of A; and reference to another
-    same-receipt check instead of A. Every unrelated predicate, including
-    acquired origin/reference/A identity, chronology, finalL/outcome, warning,
-    sanitization, and F, remains valid so RF-N13 is the isolatable owner.
-    Both origins and all member/history forms are non-additive variants of
-    one universal predicate; no new primary ID is added; and
-14. **RF-N14 — incomplete sanitization applied flag:** an otherwise-valid
-    serialized receipt has `sanitization.applied: false` while retaining the
-    otherwise-correct singleton F fields, including outcome passed, sequence,
-    Boolean shape, redaction count, digest projection, and delivery-independent
-    state; the false flag means that F is not accepted as a valid terminal F.
-    Zero and
-    positive redaction counts are mandatory non-additive variants.
-
-A non-F use of `check.receipt-finalization` cannot be an independently
-isolated RF-N12 specimen because every valid receipt already contains the
-mandatory F with that exact ID. The malformed non-F case is a generic
-receipt-wide duplicate-`checkId` rejection, derived and non-additive. The RF
-inventory is therefore exactly 11 positive and 14 negative primaries.
-
-RF-P04 and every other multiple-L RF witness take CH-P25 as a prerequisite.
-L timestamp inversion belongs only to CH-N25 and does not add an RF positive or
-negative primary. RF remains exactly 11/14/25.
-
-F-before-sanitization, F-after-finish, a non-F check after sanitization, denial
-evidence after sanitization, and the five release-related timestamp reversals
-are CH-owned and cross-referenced here without another primary count.
-`postconditionRef` on F remains PB-N12-owned and is a non-additive
-cross-reference here. Stable identity on indeterminate acquisition remains a
-closed-union fault. The planned release/finalization inventory is exactly 11
-positive and 14 negative primary predicates. AI plus RF therefore contains 59
-planned primary predicates.
-
-Across AI, DP, RF, CH, and the existing PB family, every primary predicate has
-one unique planned ID and that same ID is its intended `primaryOwner`. Origin,
-value, check-type, warning-form, equality, and later-valid-member variants are
-mandatory but non-additive. Generic array defects remain generic-array-owned;
-derived chronology relations own no primary fixture. This is a documentation
-consistency model, not executable fixture or manifest verification.
 A `not-attempted/not-performed` receipt has E and V empty, while P is optional.
 If P contains a failed or indeterminate member, it is the final P, every earlier
 P is passed, and no later P exists; that terminal member may be at or after
@@ -1828,72 +1789,10 @@ Tests also MUST NOT require E or V members to form contiguous type regions.
 Phase 1 checks internal claims only. Phase 4 owns trusted time, authenticity,
 actual immediacy, evidence truth, and operational freshness.
 
-The universal twelve-step pipeline remains byte-identical. The digest catalog
-now has fourteen field paths, eleven computations, and three exact copies. The
-`profile.digest.issued-lease-acquisition-v1` projection and golden belong to
-the AP-1 source and remain distinct from the unchanged acquired-denial profile;
-its source computation precedes the exact receipt-root copy, LB-2 binding, and
-the containing receipt digest. The other ten computation profiles/results and
-their non-receipt golden bytes remain unchanged.
 
-The acquired-denial repair reuses an existing field and changes the wire
-conditional-presence contract, while leaving the wire member set, enum/check
-vocabularies, origins, capabilities, reason-code requirements, digest selectors,
-computations, exact-copy paths, API/receipt versions, and unpublished status
-unchanged. A compact L reference is inside `checks[]` and is therefore covered
-by `profile.digest.execution-receipt-v1`: any full acquired-denial receipt
-projection/completion, receiptDigest, delivery exact copy, or enclosing golden
-attestation containing such a receipt would be AFFECTED and must be recomputed.
-Inspection of all three current documents finds no exact full acquired-denial
-receipt or execution-receipt projection golden. The acquired examples are only
-isolated `profile.digest.pre-contract-evidence-v1` and
-`profile.digest.lease-acquisition-result-v1` projections/completions, both
-excluding checks and UNAFFECTED. The AP-1 source/root vectors, the issued
-no-lease receipt/delivery golden below, and the PG-1 broad region and its
-counts/hashes are also UNAFFECTED. The dependency graph remains acyclic at
-14/11/3; no existing golden value needs alteration.
 
-The source vector has an exact 163-byte non-digest projection and a 234-byte
-completed closed `LeaseAcquisitionResultIdentity`. Independent runtime-only
-Python, Node, and PowerShell/.NET extraction reproduces
-`sha256:c99b362ffd7200478eddc317427976e7d8cc60f4174110c6f4ef3d27e9f25ac6`.
-The associated receipt-root vector copies that tagged value exactly and adds no
-computation; a different root digest is an independent exact-copy rejection.
+### Retained historical protected-region records
 
-The no-lease successful golden has the complete lifecycle sequence:
-
-```text
-0  intent-validation                   passed
-1  project-domain-resolution           passed
-2  role-routing                        passed
-3  host-binding                        passed
-4  initial-preflight                   passed
-5  pre-issuance-revalidation           passed
-6  contract-issuance                   passed
-7  pre-action-revalidation             passed
-8  execution                           succeeded
-9  post-execution-verification         passed
-10 receipt-finalization                passed
-```
-
-V at sequence 9 retains exactly
-`postconditionRef: {"type":"scope-contained"}`. A, R, L, lease identity, and
-every acquisition claim remain empty; the AP-1 source, issued root, and compact
-references are absent. `startedAt`, G0-4, N5, and contract `freshness.issuedAt` are at
-`2000-01-01T00:00:00Z`; I6 and P7 retain the next second. This proves the
-RS-1 no-lease bracket without requiring either equality. F at sequence 10 is
-inside the digest projection and means evidence closure only.
-
-The projection is exactly 3337 bytes and the completed value is exactly 3427
-bytes. Independent runtime-only Python, Node, and PowerShell/.NET extraction of
-the actual Markdown fences reproduces
-`sha256:d3cc668ea95fa385392f04b4e5580cd2fdc810835ae7fd1ab285c102777402b0`.
-The delivery result copies that tagged value exactly rather than computing a
-new digest.
-
-The authoritative PG-1 broad region in the design begins inclusively at exact
-heading `### Complete digest-profile catalog` and ends exclusively at exact
-heading `## 11. Complete array-ordering matrix`. W is the unmodified on-disk
 byte slice; B performs only CRLF-to-LF replacement. The prior values W =
 35334 bytes / 271 CRLF /
 `a4f80b731f4b6c9ee8ee4ec621350f85dc24ff694c2c4b47fa10902a8ed9b88d`
@@ -1907,23 +1806,118 @@ PG-1 W = 37326 bytes / 295 CRLF / e6cd8deb426a509a2ade0c4df48f2bf7c6e148afed02d3
 PG-1 B = 37031 bytes / 295 LF / 8d8b0aee8b93559690d530402761347fba0aa222962ef11b99d42caf1262c432
 ```
 
-The current AP-1 external attestation, independently reproduced with Python,
-Node, and PowerShell/.NET, is exactly:
+
+
+### Complete digest-profile catalog
+
+The final field graph has 12 digest-bearing paths, 10 independent computations, and 2 exact-copy paths. Counts follow the twelve rows below; consumers cannot select another profile. Source is non-public and contributes no resource kind.
 
 ```text
-PG-1 W = 38914 bytes / 313 CRLF / cbe0ed9ad14919f5acfef5edba978233ce57d679644e22179dc591d5c2edd9ad
-PG-1 B = 38601 bytes / 313 LF / 719899f43c6f8c0908d7b6887a720960d010aab98e99fc254031da7b2e404b58
+separator(profile) = ASCII("contextctl.dev") || NUL || ASCII("v1alpha1-r1") || NUL || ASCII(profile identifier) || NUL
+taggedDigest = "sha256:" || lowercaseHex(SHA256(separator(profile) || payloadBytes))
+RAW: payloadBytes = exact retained original bytes
+JCS: payloadBytes = UTF8(JCS(exact closed projection))
 ```
 
-The recount includes all prose, tables, and JSON examples in that broad region.
-It contains 5 distinct timestamp values across 38 occurrences, 7 structured-
-remote object occurrences, 34 tagged-digest occurrences representing 13
-distinct values, and 3 `profile.digest.execution-receipt-v1` tagged-value
-occurrences. Those three are exactly the completed `ExecutionReceipt`, the
-`ReceiptDeliveryResult` exact copy, and the `Recalculated golden results`
-table entry; the receipt digest projection contains zero `receiptDigest`
-members. The attestation is outside the exclusive boundary; no receipt-only
-subregion replaces or narrows PG-1.
+Raw bytes are never normalized, trimmed, filtered, transcoded, or converted between line endings. JCS preserves validated strings and array order. Every computation is framed, including both raw profiles. Table pipe escapes are Markdown syntax only and never input bytes.
+
+| Exact field path | Exact profile and payload kind | Exact protected value and included fields | Exact exclusions | Byte construction, replay source, and lifecycle phase |
+| --- | --- | --- | --- | --- |
+| `trackedEntry.contentDigest` | `profile.digest.worktree-content-v1`; raw | Exact D4 regular-file bytes or symlink-target bytes | Path, mode, Git object ID, filters, decoded text, directories, gitlinks | `separator(profile) \|\| rawBytes`; stable Phase 3 observation and Phase 4 verification |
+| `TaskContract.spec.issuer.derivationDigest` | `profile.digest.contract-derivation-v1`; JCS | Complete `TaskContract` resource, including identity, every source digest, target, scope, baseline, transitions, postconditions, lease fields, issuance checkpoint, and freshness | Only `issuer.derivationDigest` | `separator(profile) \|\| UTF8(JCS(projection))`; validated representation and issuance/provenance replay in Phase 4 |
+| `TaskContract.spec.digests.policyDigest` | `profile.digest.policy-selection-v1`; JCS | Closed `{project, domains, worktreeRole, routingPolicy}` containing the complete selected Project, complete canonically ordered resolved Domain resource set, selected WorktreeRole, and selected RoutingPolicy | HostOverlay and all runtime state | Same framed JCS construction; authoritative configuration snapshot used for issuance and Phase 4 verification |
+| `TaskContract.spec.digests.configurationDigest` | `profile.digest.configuration-snapshot-v1`; JCS | Closed `{governanceBundle, hostOverlay}` containing the complete GovernanceBundle used for resolution and complete selected HostOverlay | Secrets, leases, contracts, receipts | Same framed JCS construction; validated configuration source used for issuance and verification |
+| `TaskContract.spec.digests.taskIntentDigest` | `profile.digest.task-intent-bytes-v1`; raw | Exact original strict UTF-8 task-intent bytes | BOM, normalization, trimming, line-ending conversion, JCS, semantic interpretation | `separator(profile) \|\| originalBytes`; retained original intent bytes at issuance and verification |
+| `TaskContract.spec.issuanceCheckpoint.stateDigest` | `profile.digest.issuance-state-v1`; JCS | Closed `{repositoryIdentity, target, expectedBaseline, observedAt}` using the contract values and `issuanceCheckpoint.observedAt` | `stateDigest` itself and every other contract field | Same framed JCS construction; issuance-checkpoint representation and Phase 4 replay |
+| `ExecutionReceipt.spec.origin[type=issued-contract].contractDigest` | `profile.digest.task-contract-v1`; JCS | Complete `TaskContract` resource including `issuer.derivationDigest` | Nothing | Same framed JCS construction; referenced trusted contract bytes during receipt binding and verification |
+| `ExecutionReceipt.spec.origin[type=pre-contract-denial].preContractEvidence.evidenceDigest` | `profile.digest.pre-contract-evidence-v1`; JCS | Closed {taskId, denialCheckpoint, preContractEvidence}, with only evidenceDigest removed from the last member; plus complete receipt-level acquisitionBinding iff acquired | Only evidenceDigest from evidence; acquisitionBinding is absent on every non-acquired branch | Source validation and binding copy precede acquired projection; all other evidence fields are included |
+| `LeaseAcquisitionResultIdentity.acquisitionResultDigest` | `profile.digest.lease-acquisition-identity-v1`; JCS | Closed {taskId, acquisitionBinding:{checkId,leaseId}}, bijectively formed from all three non-digest Source members | Source acquisitionResultDigest | One computation on either stable-acquired origin; Phase 3 produces evidence, Phase 4 validates provenance and ownership |
+| `ExecutionReceipt.spec.acquisitionBinding.acquisitionResultDigest` | `profile.digest.lease-acquisition-identity-v1`; exact copy | Exactly the validated associated Source.acquisitionResultDigest | No second computation or receipt-derived source | Exact tagged-string copy after task/check/lease equality; both stable-acquired origins require it |
+| `ExecutionReceipt.spec.receiptDigest` | `profile.digest.execution-receipt-v1`; JCS | Complete `ExecutionReceipt` resource | Only `spec.receiptDigest`; `ReceiptDeliveryResult` occurs after finalization and is outside the receipt | Same framed JCS construction; validated receipt representation at Phase 4 finalization and replay |
+| `ReceiptDeliveryResult.receiptDigest` | `profile.digest.execution-receipt-v1`; exact copy, no additional computation | The referenced finalized receipt's already-computed `ExecutionReceipt.spec.receiptDigest` | The delivery result is never included in or rehashed as the receipt | Exact tagged-string equality with the referenced receipt and receipt ID after finalization; the same execution-receipt profile remains the sole binding |
+
+The graph is acyclic. Policy/configuration/raw intent/issuance-state → contract derivation → complete contract → issued contractDigest. Independently, Source non-digest identity → Source digest → exact acquisitionBinding copy → acquired-denial evidenceDigest when applicable → receiptDigest → optional delivery copy. The source projection has no receipt-digest input. The non-acquired evidence projection omits acquisitionBinding. Worktree content is an independent raw leaf. Static acceptance of all applicable bindings precedes receipt hashing; a hash proves integrity only, never event truth, provenance, ownership, or authority.
+
+
+### Option-B exact golden mirror
+
+The design document contains fully expanded acquired-R and acquired-I projections and completions, their conditional evidence projections, the full Source and binding, four single-state controls, and four explicit erased-success negatives. These tables mirror its exact values. Single failed/indeterminate A and I controls are accepted. The four passed-prefix state-creation specimens reject DP10 or DP11 before digest acceptance, even though their test hashes are mathematically correct.
+
+#### Recalculated golden results
+
+| Vector / profile | Payload bytes | Complete object bytes where applicable | Tagged digest |
+| --- | ---: | ---: | --- |
+| policy-selection | 2572 | — | `sha256:632908742df166217cf19fc74febda89e2f8ea816d71ec69f65a11a1a4831743` |
+| configuration-snapshot | 3717 | — | `sha256:d673b61894f1377ae4e7b7a563db05204ec96cc95bfa9ffb08ccc191e3154f86` |
+| issuance-state | 642 | — | `sha256:4b9cf13b1accd0e3c29754feedb601c5a7b43619842ad76cbf118a56ae4a2702` |
+| contract-derivation | 1882 | — | `sha256:9ced52eaa97d549c51caea566cc4681016f18614b68d1db0bc7a2748113f9a25` |
+| task-contract | 1975 | — | `sha256:238c3af3ceab3eafc70d660b6e3d5cef97c3741d48b76c49e9e998a26d8afe30` |
+| execution-receipt | 3337 | 3427 | `sha256:d3cc668ea95fa385392f04b4e5580cd2fdc810835ae7fd1ab285c102777402b0` |
+| task-intent-bytes-v1 (raw) | 56 | — | `sha256:f4dda8a653d84b21ae740b502386262ebd525e7086270c5eba7af31eda6929c8` |
+| worktree-content-v1 (empty raw) | 0 | — | `sha256:75a1e5502a349f7d22cbb583985b3045b6d5fd084f9f053cf3379bbbfe3781f9` |
+| lease-acquisition-identity-v1 Source | 157 | 234 | `sha256:6aec9485391fbba3fd7a35640e21dd45dc2da0228e87db83fe935ba99a100e7f` |
+| acquired-R evidence | 507 | — | `sha256:3f2a27da5bfdf587209700191c430aa1900cdbe4e428f82abb7d289efbee0429` |
+| acquired-R receipt | 3743 | 3833 | `sha256:d8c44f4ae79b8402ffb0aa36cd8e9fff2d610df09e0c6f0a7a88c9ca4bfaec8f` |
+| acquired-I evidence | 483 | — | `sha256:93c0c3a28a9dbfdc05b29183fde51f653ad3c7cab65eb4c7b571dd3dc94bac4a` |
+| acquired-I receipt | 3542 | 3632 | `sha256:d151aa6ce1c13f4e42ce3b47a058df488bcb072491506de936d3ad7873f74cff` |
+| single-failed-A evidence | 275 | — | `sha256:a6e3d300a1dd1ef61aa7a203441f971c6229dd306157ac8aafc20268ac7ad42c` |
+| single-failed-A receipt | 2403 | 2493 | `sha256:04e565109819e271ddafc60bf50aa7a035c0a70cee005af67a6f84dacaf6c69e` |
+| single-indeterminate-A evidence | 275 | — | `sha256:a6e3d300a1dd1ef61aa7a203441f971c6229dd306157ac8aafc20268ac7ad42c` |
+| single-indeterminate-A receipt | 2549 | 2639 | `sha256:55e493aa0c23428037602c86fbc4b8dab52a7e2cf28fd5b0ff6d69d4cb5f1706` |
+| single-failed-I evidence | 275 | — | `sha256:e53415c5bad5345082073b225dba4ddb01a895968f03815e9a5fcd0b80ebc839` |
+| single-failed-I receipt | 2610 | 2700 | `sha256:b887eb26f92bd9bacbe60be84295cac4b16abac138b94dae9490c835329da9aa` |
+| single-indeterminate-I evidence | 275 | — | `sha256:e53415c5bad5345082073b225dba4ddb01a895968f03815e9a5fcd0b80ebc839` |
+| single-indeterminate-I receipt | 2617 | 2707 | `sha256:6133e6152bf48b945916ec67d348ccc8baa3435846e1c2968b11d0e83e9e5d47` |
+| passed-A-then-failed-A evidence | 275 | — | `sha256:a6e3d300a1dd1ef61aa7a203441f971c6229dd306157ac8aafc20268ac7ad42c` |
+| passed-A-then-failed-A receipt | 2591 | 2681 | `sha256:d3d5e1727b67bb896f6863f299e9734875c1340a1e514f5b5274ee25cf3bbbff` |
+| passed-A-then-indeterminate-A evidence | 275 | — | `sha256:a6e3d300a1dd1ef61aa7a203441f971c6229dd306157ac8aafc20268ac7ad42c` |
+| passed-A-then-indeterminate-A receipt | 2737 | 2827 | `sha256:2fde9652c4f03149a06d42a8c2128b6f33193bf198c26bf3524473a90f54b679` |
+| passed-I-then-failed-I evidence | 275 | — | `sha256:e53415c5bad5345082073b225dba4ddb01a895968f03815e9a5fcd0b80ebc839` |
+| passed-I-then-failed-I receipt | 2798 | 2888 | `sha256:d57f7c7fb94a295c2430f12e8a4bf899a779c5e45584e8c811555a114d882f74` |
+| passed-I-then-indeterminate-I evidence | 275 | — | `sha256:e53415c5bad5345082073b225dba4ddb01a895968f03815e9a5fcd0b80ebc839` |
+| passed-I-then-indeterminate-I receipt | 2805 | 2895 | `sha256:bb97681c6ada4a5db3ddbfa38fcabe28f674ab358fe1e6752647c0b5ff7cb6f4` |
+
+The unchanged policy, configuration, raw intent/content, issuance state, derivation, complete contract, and no-lease receipt/delivery goldens are retained only after recomputation from their exact payloads. Each changed profile separator, Source projection, binding copy, evidence projection, complete denial receipt, and byte count is recomputed. The source projection has no digest member; the receipt projection excludes only spec.receiptDigest. Four invalid histories have correct mathematical test hashes but fail static acceptance before a validator may accept those hashes.
+
+Mutating an included field, excluding the wrong member, inserting a self-digest, changing any separator byte or profile, or changing any raw byte produces a different result. Closed-shape extras and invalid arrays reject before projection. Missing/different Source cannot be substituted by self-consistent receipt claims. A delivery result copies the exact referenced finalized receipt digest and never creates a second hash. All results establish integrity only, not event truth, ownership, provenance, release, or authority.
+
+
+### Current Option-B protected-region attestation
+
+PG-1 starts at the unique complete heading line `### Complete digest-profile catalog` in the design and ends before the unique complete heading line `## 11. Complete array-ordering matrix`. W is the exact raw UTF-8 on-disk slice, including every intervening byte. B replaces only CRLF with LF. This attestation lies outside the protected slice and cannot self-reference. No smaller receipt-only slice substitutes for PG-1.
+
+```text
+PG-1 W bytes = 75920
+PG-1 W CRLF separators = 343
+PG-1 W lone LF separators = 0
+PG-1 W SHA-256 = d45cdded71ff568f440cdb657a6e83a787ad4dfa2e7103c8c1ade15fdb90cae2
+PG-1 B bytes = 75577
+PG-1 B LF separators = 343
+PG-1 B SHA-256 = 8df69ec3d5c4298b400c2781705c9a80497dab3d03ca343fa6333521b9a37a8d
+protected distinct timestamp values = 8
+protected timestamp occurrences = 192
+protected structured-remote occurrences = 7
+protected tagged-digest occurrences = 76
+protected distinct tagged-digest values = 25
+protected execution-receipt tagged-value occurrences = 23
+```
+
+Counts cover all prose, tables, and JSON fences in that same broad slice. Each canonical whole-second UTC token, each complete closed structured-remote JSON object, and each exact sha256: plus 64 lower-case hex token is counted per textual occurrence; distinct counts deduplicate exact strings only. The execution-receipt total counts the eleven distinct receipt hashes: ten denial specimens each appear in its completed record and results row, and the no-lease hash appears in completion, delivery copy, and results row. Projections contain no receiptDigest member. The four rejected histories still count as exact byte specimens, without implying acceptance.
+
+| Literal profile identifier | Occurrences in PG-1 |
+| --- | ---: |
+| `profile.digest.worktree-content-v1` | 3 |
+| `profile.digest.policy-selection-v1` | 3 |
+| `profile.digest.configuration-snapshot-v1` | 3 |
+| `profile.digest.task-intent-bytes-v1` | 3 |
+| `profile.digest.issuance-state-v1` | 3 |
+| `profile.digest.contract-derivation-v1` | 3 |
+| `profile.digest.task-contract-v1` | 3 |
+| `profile.digest.pre-contract-evidence-v1` | 2 |
+| `profile.digest.lease-acquisition-identity-v1` | 3 |
+| `profile.digest.execution-receipt-v1` | 4 |
+
+Node and PowerShell/.NET independently reproduce canonical payloads and SHA-256 values for all retained and changed goldens, including raw vectors; complete-object byte counts are also independently checked. PG-1 W/B bytes and SHA-256 were recomputed separately from the final region. No Schema/model test suite or runtime producer is implemented.
 
 ### Portable repository-relative path coverage
 
@@ -2145,7 +2139,7 @@ a non-additive validation-order variant of its OE structural owner. D6,
 PB/global verification, OC 3/8/11, and every existing aggregate retain their
 independent ownership. No fixture file or executable test is created or
 claimed executed. The expanded prior-family aggregate excludes OC and OE and
-remains 183; no new combined aggregate is defined.
+is 168 and excludes the separate OC and OE case inventories.
 
 Phase 3 vectors retain live resolution for top-level `.git` indirection,
 linked and common Git directories, administrative locations outside the
@@ -2408,30 +2402,8 @@ the design, while preserving its assigned phase and ownership boundary:
   and every unavailable proof;
   and prove HostOverlay, availability, branch, or lease state cannot make an
   incomplete selected role eligible.
-- **D11:** `schema-contracts` catalogs fourteen digest field paths bound once
-  to eleven computations and three exact-copy paths, plus the acyclic dependency
-  graph, framing, projections, completed values, recorded bytes/digests, and
-  expected vectors. Every public selector resolves to a valid branch in its
-  closed union; the non-public AP-1 source path is not a resource selector. The
-  acquired computation selector is exactly
-  `ExecutionReceipt.spec.origin[type=pre-contract-denial].leaseAcquisition[state=acquired].acquisitionResultDigest`;
-  the acquired exact-copy selector is exactly
-  `ExecutionReceipt.spec.origin[type=pre-contract-denial].preContractEvidence.acquisitionEvidenceRef.acquisitionResultDigest`;
-  the issued source computation path is exactly
-  `LeaseAcquisitionResultIdentity.acquisitionResultDigest`; the issued receipt
-  exact-copy selector is exactly
-  `ExecutionReceipt.spec.leaseAcquisitionEvidence.acquisitionResultDigest`;
-  and the invalid `leaseAcquisition` predicate `[type=acquired]` is rejected.
-  The source projection is closed
-  `{taskId, leaseAcquisitionEvidence:{checkId,leaseId}}`, excludes the source
-  digest, and validates before the root exact copy, source/root/A/R/every-L
-  identity chain, and contract lease binding. Future `model-implementation`
-  constructs projections, JCS, hashes, exact copies, verification, and
-  executable replay of every separator, raw/JCS payload, exclusion, completed
-  value, tagged hash, negative vector, denial acquisition copy, issued-source
-  computation, receipt-root copy, delivery copy, and cross-runtime result.
-  Phase 3 produces the acquisition result/source identity; Phase 4 performs
-  trusted provenance and operational replay.
+- **D11:** the complete twelve-row catalog in this document has ten computations and two exact copies. Both stable-acquired origins share the external Source computation, exact acquisitionBinding copy, A/every-R/every-L identity, and receipt digest. Acquired evidence includes the complete binding; other denials omit it. The source, evidence, receipt, and optional delivery graph is acyclic. Future model-implementation owns executable projection, framed raw/JCS hashing, copying, replay, and conformance; Phase 3/4 own production and trusted provenance/ownership.
+
 - **D12:** verify the complete five-class capability partition and all four
   valid review-only permitted sets with exact prohibited-set complements, plus
   every non-observation, role, mode, overlap, complement, exclusive-write, and
@@ -2447,7 +2419,13 @@ approval, integration, and distinct-worktree gates. Phase 2 retains routing,
 Phase 3 retains live Git/branch/worktree/lease observation, and Phase 4 retains
 trusted replay, issuer provenance, authority, receipt truth, and delivery.
 
-The current invariant inventory is exact:
+### Option-B construction verification
+
+Before audit freeze, in-memory synthetic construction checks exercised 45 denial/state/identity cases, the retained 43 scope/OC/OE cases, two issued identity cases, and all 20 independent temporal reversal assignments: 110 checks with the intended dispositions. The checks are disposable document-construction verification, not a repository validator or executable Schema/model test suite. The 31 framed hash cases and 13 completed-object byte cases were independently replayed by Node and PowerShell/.NET. Trusted issuance, runtime observation, acquisition/release truth, and scope attribution remain outside these checks.
+
+Current owner numbers are derived from the row inventories, not inherited aggregate targets. All superseded current representations and count summaries are removed. Historical opening review records and explicitly historical PG-1 attestations retain their original values and meaning.
+
+### Current invariant counts
 
 ```text
 Schema resources = 11
@@ -2472,10 +2450,11 @@ timestamp paths = 9
 timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
 normative displayed chronology relations = 31
-primitive additive chronology relations = 25
-chronology positive primary classes = 25
-chronology reversal primary classes = 25
-chronology primary classes = 50
+primitive additive chronology relations = 20
+chronology derived relations = 11
+chronology positive primary classes = 20
+chronology reversal primary classes = 20
+chronology primary classes = 40
 focused pre-action positives = 8
 focused pre-action negatives = 37
 final-E exact-match positives = 4
@@ -2485,17 +2464,17 @@ final-E mismatch-matrix negatives = 12
 final-E total negatives = 22
 focused post-execution-verification positives = 10
 focused post-execution-verification negatives = 20
-required-postcondition binding positives = 15
-required-postcondition binding negatives = 20
-lease-acquisition-chain positives = 6
-lease-acquisition-chain negatives = 28
-cumulative-denial-prerequisite positives = 9
-cumulative-denial-prerequisite negatives = 6
-lease-release/finalization positives = 11
+required-postcondition binding positives = 5
+required-postcondition binding negatives = 5
+lease-acquisition-chain positives = 23
+lease-acquisition-chain negatives = 23
+cumulative-denial-prerequisite positives = 13
+cumulative-denial-prerequisite negatives = 13
+lease-release/finalization positives = 14
 lease-release/finalization negatives = 14
-PB/AI/DP/RF numbered primary definitions = 109
-acquisition-plus-release focused primary classes = 59
-five focused-family primary classes = 159
+PB/AI/DP/RF numbered primary definitions = 110
+acquisition-plus-release focused primary classes = 74
+five focused-family primary classes = 150
 changed-path scope positives = 5
 changed-path scope dedicated negatives = 6
 changed-path scope D5 cross-reference = 1 existing family, not additive
@@ -2508,66 +2487,22 @@ operation-evidence primary classes = 21
 D6 valid receipt-level combinations = 13
 D6 invalid receipt-level combinations = 7
 receipt/contract equalities = 8
-receipt/contract binding positives = 5
-receipt/contract binding negatives = 19
-receipt/contract binding primary classes = 24
-expanded affected-family aggregate including receipt/contract binding = 183
-digest-bearing paths = 14
-digest computations = 11
-digest exact-copy paths = 3
+receipt/contract binding positives = 9
+receipt/contract binding negatives = 9
+receipt/contract binding primary classes = 18
+expanded affected-family aggregate including receipt/contract binding = 168
+digest-bearing paths = 12
+digest computations = 10
+digest exact-copy paths = 2
 numeric fields = 6
 host-resource-exclusivity positives = 5
 host-resource-exclusivity negatives = 13
-PG-1 distinct timestamp values = 5
-PG-1 timestamp occurrences = 38
-PG-1 structured-remote occurrences = 7
-PG-1 tagged-digest occurrences = 34
-PG-1 distinct tagged-digest values = 13
-PG-1 profile.digest.execution-receipt-v1 tagged-value occurrences = 3
 ```
 
-The synchronized affected-family intended-owner mirror is:
 
-```text
-postcondition-binding positives = PB-P01..PB-P15 = 15
-postcondition-binding negatives = PB-N01..PB-N20 = 20
-acquisition/issuance positives = AI-P01..AI-P06 = 6
-acquisition/issuance negatives = AI-N01..AI-N28 = 28
-cumulative-denial positives = DP-P01..DP-P09 = 9
-cumulative-denial negatives = DP-N01..DP-N06 = 6
-release/finalization positives = RF-P01..RF-P11 = 11
-release/finalization negatives = RF-N01..RF-N14 = 14
-PB/AI/DP/RF numbered primary definitions = 109
-primitive chronology witnesses = CH-P01..CH-P25 = 25
-primitive chronology reversals = CH-N01..CH-N25 = 25
-primitive chronology primary classes = 50
-acquisition-plus-release primary classes = 59
-five focused families subtotal = 159
-receipt/contract binding positives = 5
-receipt/contract binding negatives = 19
-receipt/contract binding primary classes = 24
-expanded affected-family aggregate = 183
-ordinary-capability-closure positives = OC-P01..OC-P03 = 3
-ordinary-capability-closure negatives = OC-N01..OC-N08 = 8
-ordinary-capability-closure primary classes = 11
-operation-evidence positives = OE-P01..OE-P10 = 10
-operation-evidence negatives = OE-N01..OE-N11 = 11
-operation-evidence primary classes = 21
-```
+Current continuous ranges are PB-P/N01..05, AI-P/N01..23, DP-P/N01..13, RF-P/N01..14, CH-P/N01..20, and RC-P/N01..09. Each row in the independent ledger has exactly one positive and one negative owner. Mandatory variants are non-additive. Scope 5/6, OC 3/8, OE 10/11 and other retained inventories are coverage-case counts outside this independently rebuilt aggregate.
 
-Each planned range is continuous. Each primary ID is the intended
-`primaryOwner` for a future serialized fixture. Variants are mandatory but non-
-additive; derived chronology has no primary. Executable fixtures and a fixture
-manifest have not been implemented, so these are documentation-consistency
-counts rather than executable payload or manifest verification.
 
-The PG-1 broad corpus has 5 distinct timestamp values across 38 occurrences, 7
-structured-remote object occurrences, 34 tagged-digest occurrences representing
-13 distinct values, and 3 `profile.digest.execution-receipt-v1` tagged-value
-occurrences. Those are exactly the completed receipt, delivery exact copy, and
-recalculated-results table entry; the projection has zero `receiptDigest`
-members. Its exact W/B identities and inclusive/exclusive headings are recorded
-above and must mirror the design and Schema README exactly.
 The required future coverage includes, concisely:
 
 - the conflict-free stage-0 `TaskContract` index profile, including clean,
@@ -2589,13 +2524,11 @@ The required future coverage includes, concisely:
   dangling, cross-receipt, duplicate-check, and delivery-result cases;
 - exhaustive positive and applicable negative coverage for every ref/HEAD,
   baseline, transition, postcondition, warning, check, outcome, V-only
-  postcondition reference, issued LB-2 root and compact A/R/every-L reference,
-  acquired-denial every-L compact reference with all non-L placements forbidden,
+  postcondition reference, unified acquisitionBinding and A/every-R/every-L references on both stable-acquired origins,
   lease-acquisition, lease-release, and receipt-
   finalization branch;
 - required `preContractEvidence.controllerCheckId` and
-  `sanitizedSummary`, exact acquired-only `acquisitionEvidenceRef`
-  presence/absence and binding, and `ReceiptDeliveryResult.sanitizedSummary`
+  `sanitizedSummary`, exact stable-acquired acquisitionBinding/Source presence and binding, and `ReceiptDeliveryResult.sanitizedSummary`
   presence; warning and non-F check summaries retain their designed
   optionality, while F forbids every summary or payload field;
 - the material pre-publication five-state lease-acquisition correction:
@@ -2672,36 +2605,7 @@ Uniqueness is established before digest projection or hashing.
 Receipt vectors cover warnings with and without optional fields, all 14 check
 types, the exact 4/3 outcome conditional, V-only closed references, contiguous
 sequences, unique IDs, ordered reason codes, and same-receipt warning links.
-Planned issued-contract vectors cover all outcomes, all 25 primitive chronology
-relations and 31 displayed consequences, the 8/37 pre-action, 8/22
-final-E, 10/20 verification, 5/6 changed-path scope, 3/8 OC, and 10/11 OE
-families, plus 15/20 postcondition-
-binding, rebuilt 6/28 acquisition/issuance, 9/6 cumulative-denial, and 11/14
-release/finalization families. They cover EF-1 execution terminality, final P/E/V, per-type final V,
-diagnostic finalG and sequence-only final L selection; C-UNIVERSAL-PASS for every passed
-verification; every G and every attempted P passed;
-failed/indeterminate P same-lifecycle terminality with no later P/E/V and
-not-attempted/not-performed outcomes; exact applicable
-A/R/N/I; one source-profile-valid AP-1 identity, exact source-to-root digest
-copy, source/root/A identity, compact A/R/every-L references, and
-source/root/contract lease-ID equality; acquired-denial every-L compact refs
-bound to `acquisitionEvidenceRef.checkId`, with RF-P06 valid prerequisites
-and RF-N13 missing/wrong-reference variants; P/E/V presence; cumulative denial
-all-member
-prerequisite/controller ordering and stop-boundary membership; G/A, G/N, A/R,
-R/checkpoint, N/checkpoint, checkpoint/issuedAt, derived R/issuedAt and
-N/issuedAt, issuedAt/I, every-I/every-P, P/E/V, issued-pre-release/L,
-acquired-Dpre/L, evidence/L, pairwise L-by-sequence chronology,
-every-non-F/sanitization, sanitization/F, and
-F/finish order; mandatory `sanitization.applied == true`; final
-E/V/L mapping; scope; terminal exact-tuple F; warning linkage; not-attempted
-E/V emptiness; and L emptiness on every no-release path. Planned pre-contract-
-denial vectors cover every checkpoint/state pair, every actual prerequisite
-before the controller, unreached-stage emptiness, the ordinary-stage
-post-controller stop boundary, exact controller ID/type/greatest/outcome/time/
-reason binding, acquired-only A/lease/digest binding, and acquired cleanup
-outcome.
-These are requirements, not claims of existing executable vectors.
+All outcomes retain the independent owner ledger and full chronology graph above, universal P/E/V and scope predicates, exact Source/binding/A/every-R/every-L linkage, issued lease equality, state-aware denial matrix, warning linkage, pairwise L chronology, and exact terminal F. The complete synthetic corpus and adversarial recipes make intended dispositions reviewable; executable Schema/model tests remain a later authorized implementation.
 
 The selected `v1alpha1-r1` number profile accepts only raw JSON number tokens
 matching `0|[1-9][0-9]*`, with a universal maximum of
@@ -2728,56 +2632,77 @@ Phase 4 verification requires raw-token replay or the complete trusted
 representation proof. Validator research must prove this selected profile and
 MUST NOT choose or weaken it. All coverage remains planned and unimplemented.
 
-### Cross-finding validation-order coverage
+### Validation dependency DAG
 
-The repairs MUST be tested as this effective application of the existing
-universal pipeline and artifact dependency graph, not as a replacement
-pipeline:
+Validation uses a dependency DAG, not a chronology-before-selector loop.
+An absent candidate is a preparation result; it is never an accepted omission.
+No intermediate digest or successful preparation grants acceptance or authority.
 
-1. strict byte/token decoding prerequisites;
-2. timestamp and structured-remote lexical validation;
-3. JSON Schema structural validation, including present-carrier shape,
-   record closedness, operation enum/non-emptiness, and path profiles;
-4. local Phase 1 static invariants, including carrier duplicate rejection;
-5. canonical-array and remote-order validation, including carrier-record and
-   nested-operation order;
-6. validated canonical representation construction;
-7. digest projection and digest computation where applicable;
-8. complete TaskContract digest verification;
-9. issued receipt/TaskContract field equality plus AP-1 associated-source
-   profile validation, source-to-root exact digest copy, and LB-2
-   root/reference/lease binding; then carrier iff-presence validation,
-   `EvidencePaths ⊆ changedPaths`, `OexecByPath`/`Oexec` reconstruction,
-   and carrier path/capability binding;
-10. all 25 primitive chronology comparisons and all 31 displayed consequences,
-    including every ordered L pair; only then final P/E/V, per-type final V,
-    diagnostic finalG, and sequence-only finalL selection;
-    C-UNIVERSAL-PASS for every passed verification; attempted P/E/V and
-    per-type reference presence; final-P freshness; every
-    actual G and every attempted P passed; failed/indeterminate P same-lifecycle
-    terminality with no later P/E/V and not-attempted/not-performed outcomes;
-    exact applicable A/R/N/I; cumulative denial all-member
-    prerequisite/controller ordering, future-stage exclusion, and ordinary
-    post-controller stop boundary; G/A, G/N, A/R, R/checkpoint, N/checkpoint,
-    checkpoint/issuedAt, derived R/issuedAt and N/issuedAt, issuedAt/I,
-    every-I/every-P,
-    P/E/V, issued-pre-release/L, acquired-Dpre/L, evidence/L, every-non-F/
-    sanitization, sanitization/F, and F/finish ordering; mandatory
-    `sanitization.applied == true`; EF-1 execution terminality and final E/V/L binding;
-    path-and-operation scope, terminal F, warning, L-empty, and existing outcome
-    consistency;
-11. receipt digest verification; and
-12. delivery-result binding and chronology.
+1. **Preparation.** Strict UTF-8/token decoding rejects BOM, malformed Unicode,
+   duplicate keys, non-NFC strings, invalid raw number tokens, and unsafe or
+   out-of-range numbers before lossy conversion. Validate closed shapes,
+   supported versions, identifier/UUID/digest/timestamp profiles, Gregorian
+   dates, and mandatory offline format assertion. Verify canonical arrays,
+   contiguous sequences, and receipt-wide check-ID uniqueness without sorting.
+   Construct immutable decoded values and pure deterministic type subsets,
+   including every G and the A/R/L candidates, before using their operands.
+   Construct greatest-sequence candidates, finalP/finalE/finalV/finalL, per-type finalV(t),
+   diagnostic finalG, and controller candidates. Selectors use sequence alone.
+   Selector construction is not acceptance and does not await chronology.
+2. **Static acceptance.** With those prepared values, validate conditional
+   presence and cardinalities, the same complete TaskContract and its
+   derivation prerequisites/digest when applicable, and all eight receipt/C
+   comparisons. Validate stable-acquired X/Source presence, required Source
+   cardinality and digest, Source→X task/check/lease equality and digest copy,
+   A singleton/passed state and X→A identity, issued X→C lease equality, and
+   every A/R/L compact reference. On stable-acquired paths, validate required
+   G/R presence and applicable outcomes, then apply every-G→A sequence and
+   timestamp predicates (AI10/CH08), followed by A→every-R predicates
+   (AI11/CH10). Continue with controller identity/time/reasons, state-aware A/I
+   singleton denial rules, cumulative prerequisites, and issued suffix rules.
+   Recompute denial evidenceDigest from its exact conditional projection after
+   Source/binding inputs and controller bindings validate. Apply remaining
+   sequence/chronology, outcomes and terminality, warning linkage, required-
+   postcondition binding, scope, ordinary-operation evidence, sanitization,
+   and F acceptance. This causal dependency order is mandatory; unrelated
+   independent predicates may run in either order after their operands exist.
+   Every applicable predicate must pass before receipt-digest acceptance.
+   A contract/source digest is an input to these checks, not receipt acceptance.
+3. **Receipt digest acceptance.** Only after every applicable receipt-internal
+   and static cross-artifact predicate passes, freeze the complete receipt
+   projection excluding only spec.receiptDigest; obtain the profile's payload
+   bytes, prepend its exact separator, hash, and compare receiptDigest exactly.
+   For acquired denial the source digest and X exact copy precede the
+   evidence-digest projection, which precedes receipt hashing. Selectors,
+   acceptance proofs, and delivery results are not extra receipt members.
+4. **Delivery pair.** Only when a delivery result exists, validate its closed
+   outcome shape, exact receipt-ID binding, exact finalized receiptDigest copy,
+   and finishedAt <= attemptedAt. Delivery-only chronology is inapplicable
+   without that pair and cannot block preparation or receipt acceptance.
 
-Within these same twelve stages, carrier vectors enforce strict decoding and
-lexical prerequisites; structural validation; record closedness; operation
-enum validation; non-empty operations; path validation; duplicate rejection;
-canonical record and operation ordering; cross-artifact conditional presence;
-`EvidencePaths ⊆ changedPaths`; `OexecByPath`/`Oexec` reconstruction;
-path containment; operation-capability containment; existing outcome
-consistency; and unchanged C-UNIVERSAL-PASS, in that order before receipt-
-digest acceptance. No thirteenth stage is planned, and the protected pipeline
-bytes are not changed.
+The internal validated canonical instance representation is non-serializable:
+it binds the immutable closed JSON value, selected schema revision/root ID,
+completed strict-parser/shape/array/static proofs, and retained original bytes
+or same-process provenance to that same value. A prepared value is not yet
+this fully validated representation. Caller-created decoded objects cannot
+claim these proofs. No normalization, repair, migration, or array sorting is
+part of validation.
+
+For every digest computation the rule is exactly:
+
+```text
+RAW profile: payloadBytes = exact retained original bytes
+JCS profile: payloadBytes = UTF8(JCS(exact closed projection))
+digest = tagged SHA256(separator(profile) || payloadBytes)
+```
+
+Raw profiles forbid trimming, newline conversion, filtering, transcoding,
+or normalization. JCS sorts object members only and preserves validated
+strings and array order. The existing NUL-delimited separator convention is
+unchanged. Complete schema/static validation of each computation's own source
+precedes its projection; this does not require the downstream receipt to
+already have a verified receiptDigest. Failed delivery never rewrites a
+finalized receipt or establishes acquisition, release, or authorization.
 
 ## Required failure scenarios
 
@@ -2816,7 +2741,9 @@ The test suite MUST demonstrate fail-closed behavior for at least:
   operation, or administrative lock;
 - each missing G type; any failed or indeterminate G; a failed/indeterminate G
   followed by a later same-type pass; missing/duplicate/non-passed or wrong-
-  path A/R/N/I; every G/A/R/N/I/P sequence violation; a missing/invalid
+  path A/R/N/I; G-after-A sequence or timestamp inversion on every stable-
+  acquired origin, including repeated passed G and acquired R/I denials;
+  every other G/A/R/N/I/P sequence violation; a missing/invalid
   associated source; invalid source-profile digest; missing, forbidden,
   malformed, or misbound issued root; source/root digest-copy mismatch;
   receipt/source task mismatch; source/root/A check mismatch; source/root or
@@ -2841,129 +2768,73 @@ The test suite MUST demonstrate fail-closed behavior for at least:
 - secrets or machine-specific runtime data in diagnostics, planned payloads,
   golden files, logs, or receipts.
 
-The active rejection matrix MUST independently exercise:
+### Option-B adversarial construction and disposition matrix
 
-- each of the five missing G types;
-- a failed G and an indeterminate G for every type, including each followed by
-  a later same-type pass that cannot recover the receipt;
-- for each attempted execution outcome, an earlier failed P and an earlier
-  indeterminate P followed by a later passed P and E/V, proving that the same
-  lifecycle cannot recover;
-- one G after A and one G after N; A after R; R/N after I; and an earlier P
-  before I despite a later valid P;
-- N on a lease path, R or A on a no-lease path, missing/duplicate/non-passed
-  A/R/N/I, and all applicable origin variants;
-- RS-1 reversals for `startedAt/issuedAt`, R/checkpoint, N/checkpoint,
-  checkpoint/issuedAt, and issuedAt/I, while also checking the derived direct
-  R/issuedAt and N/issuedAt consequences;
-- AI-N19 conditional issued-root presence/absence; unchanged AI-N20 R compact-
-  reference mismatch; AI-N21 receipt/source task mismatch; AI-N22 missing or
-  multiple associated sources; unchanged AI-N23 A compact-reference mismatch;
-  AI-N24 source/root `checkId` mismatch; AI-N25 source/singleton-A `checkId`
-  mismatch; AI-N26 source/root `leaseId` mismatch; AI-N27 exactly one
-  associated source with a valid-shaped digest that fails recomputation; and
-  AI-N28 a valid source digest plus a different syntactically valid receipt-
-  root digest;
-- source/root/reference presence on a no-lease path, issued source/root
-  presence on any denial, compact reference presence on any acquired-denial
-  non-L check (including A, R/controller, G, and F), compact reference presence
-  anywhere on a non-acquired denial, and promotion of indeterminate acquisition
-  to a stable source identity, as mandatory non-additive conditional variants;
-  correctly bound acquired-denial L references are accepted;
-- DP-N01 missing prerequisite evidence for each checkpoint prefix;
-- DP-N02 Variant A, an unreached future-stage check anywhere, and Variant B, a
-  passed prerequisite re-observation or any other ordinary check after the
-  controller, for every applicable checkpoint row;
-- DP-N03 wrong controller/checkpoint/outcome, including empty mapped type,
-  wrong mapped type or checkpoint, passed greatest-sequence controller, and
-  both `failed -> passed` and `indeterminate -> passed` histories;
-- DP-N04 controller reference/binding mismatch: missing or unknown ID, wrong
-  type, earlier same-type or other non-greatest member, later same-type member,
-  check reorder, `observedAt` mismatch, and reason-code mismatch, reorder,
-  extra, or omission; and
-- DP-N05 acquired evidence-reference/identity mismatch: missing acquired
-  reference, reference on every non-acquired state, wrong A, failed or
-  indeterminate A, non-A, wrong lease ID, and wrong acquisition-result digest;
-- DP-N06 non-passed history before the referenced controller, with independent
-  serialized variants for `failed -> failed`, `failed -> indeterminate`,
-  `indeterminate -> failed`, and `indeterminate -> indeterminate`;
-- N denial represented as acquired R, and acquired R denial missing any G, A,
-  L, final-L mapping, or required warning;
-- an unrelated passed V without the required postcondition reference;
-- missing F on every receipt-origin/path variant; duplicate F; non-passed F;
-  any check after F by sequence; and RF-N11 F with `expectedSummary`,
-  `observedSummary`, both, or an unknown/free-form summary/detail/payload
-  member;
-- RF-N12 F with a wrong exact `checkId`, the regex-valid secret-like
-  `check.c-users-alice.secrets.api-key-abcd1234`, a wrong `profileId`, the
-  regex-valid secret-like `profile.synthetic.secret.sk-live-abcdef123456`,
-  non-empty `reasonCodes`, the regex-valid secret-like
-  `reason.synthetic.secret.token-abcdef123456`;
-- a non-F check using `check.receipt-finalization`, owned only by generic
-  receipt-wide check-ID uniqueness because the mandatory F already uses that
-  ID; this is derived/non-additive and not RF-N12;
-- CH-N05 a non-F check after sanitization, CH-N07 denial evidence after
-  sanitization, CH-N22 F before sanitization, CH-N23 F after finish, CH-N25
-  L timestamp inversion by sequence on both release-required origins, plus every
-  other primitive chronology reversal;
-- missing L on both release-required origins; every finalL/top-level off-
-  diagonal mismatch; final-L warning absent/wrongly referenced; RF-N13 with any
-  bad issued or acquired-denial L reference, including each of the seven
-  acquired-denial RF-N13 variants and a bad earlier L before correct finalL;
-  RF-N14 with `sanitization.applied: false` and no other defect; Dpre after L;
-  and L on every no-release path.
+Each mutation starts from the complete acquired-R or acquired-I record in the exact corpus and its one associated Source, or from a complete matching issued pair for RC09. Change only the described semantic edge. Restore contiguous sequence by assigning each physical position as sequence, keep check IDs unique and shapes closed, and recompute every affected Source/evidence/receipt digest and any delivery copy. A target digest/copy fault is deliberately retained only at that edge. This prevents a stale hash from masking the intended predicate.
 
-The active acceptance matrix MUST independently exercise:
+| Identity case | Concrete isolated mutation | Precise owner |
+| --- | --- | --- |
+| A=X, R=Y | acquired-I: change the passed R compact checkId to check.other-acquisition, leaving A/Source/binding correct | AI-N23 |
+| A=X, L=Y | acquired-I: change its L compact checkId only | RF-N12 |
+| Correct R controller, bad earlier R | acquired-R: alter only check.revalidation-earlier compact checkId | AI-N23 |
+| Correct finalL, bad earlier L | acquired-R: alter only check.release-earlier compact checkId | RF-N12 |
+| Source task mismatch | change Source.taskId to another canonical UUID; recompute Source and copy its new digest into unchanged-task binding/receipt | AI-N16 |
+| Source check mismatch | change Source.checkId only; X.checkId and every A/R/L reference still name A; recompute Source and digest copy | AI-N17 |
+| Source lease mismatch | change Source.leaseId only; X.leaseId remains the original; recompute Source and digest copy | AI-N18 |
+| Binding digest is not Source copy | keep valid Source, change only X.acquisitionResultDigest to another tagged value and rehash descendants | AI-N20 |
+| Issued binding lease differs from C | keep C unchanged; Source and X agree on another lease and valid source digest/copy, A/R/L remain bound | RC-N09 |
 
-- canonical F with exactly `check.receipt-finalization`,
-  `profile.validation.v1`, `[]`, and passed outcome, plus ordinary non-F
-  checks using other generic-profile IDs; every such serialized receipt has
-  `sanitization.applied: true`, including a valid `redactionCount: 0` variant;
-- repeated same-type all-passed G, including every G type as a variant;
-- multiple P members only when all are passed, with the greatest-sequence final
-  P strictly pre-expiry before E/V;
-- complete lease-required attempted and non-attempted issued chains with one
-  valid AP-1 source, source-profile-valid digest, exact source-to-root digest
-  copy, receipt/source task identity, source/root/A check identity, compact
-  A/R/every-L references, and source/root/contract lease-ID equality, including
-  multiple L members all bound to that same identity;
-- no-lease attempted `G/N/I/P/E/V/F` and non-attempted `G/N/I/[P]/F`, with
-  source, root, and compact references absent and
-  `releaseOutcome: not-required`;
-- for each of all nine denial checkpoints, a controller with no earlier
-  same-type observation and mandatory non-additive histories `passed ->
-  failed`, `passed -> indeterminate`, `passed -> passed -> failed`, and
-  `passed -> passed -> indeterminate`, subject to the cumulative matrix;
-- each of the first five denial checkpoints with exactly its passed cumulative
-  prefix, every actual prerequisite before the controller, exact controller
-  ID/type/greatest/outcome/time/reason binding, no unreached type or ordinary
-  post-controller check, sanitization, and exact-tuple F;
-- N denial with cumulative all-passed G, exact N controller binding, no
-  A/R/I/P/E/V/L or acquired reference, and exact-tuple F;
-- acquired R denial with cumulative all-passed G and passed A all ordered
-  before the exact R controller tuple, exact A/lease/digest reference binding,
-  ownership-checked post-controller L with every L compact-ref bound to
-  `acquisitionEvidenceRef.checkId`, sanitization, and exact-tuple F; RF-P06
-  covers one L, multiple correctly bound L, and failed/indeterminate earlier L
-  followed by passed finalL, with all chronology and warning rules valid;
-- acquisition and both issuance-denial variants with exact controller binding,
-  including indeterminate acquisition with its warning, acquired issuance with
-  exact I controller, A/lease/digest reference tuple, and every L compact-ref
-  bound to `acquisitionEvidenceRef.checkId`, no-lease issuance
-  without that reference, all actual prerequisites before I, no ordinary check
-  after I, and exact-tuple F;
-- the unchanged repaired preContractEvidence example; the AP-1 163-byte source
-  projection, 234-byte completed source identity, and receipt-root exact-copy
-  vector; and the RS-1 issued no-lease golden, including all recorded exact
-  bytes and digests and independent Python/Node/PowerShell replay;
-- multiple V(t) members with every same-type member and every V passed, with
-  the greatest-sequence member retained as passed finalV(t), and multiple L
-  members with passed greatest-sequence finalL;
-- execution failed with verification/release passed and F, and verification
-  failed with release passed and F; and
-- timestamp equality and non-equality witnesses for both RS-1 issuance
-  brackets, including `R == issuanceCheckpoint == issuedAt` and
-  `N == issuanceCheckpoint == issuedAt`, plus equality at every permitted FS-1
-  boundary, including non-F/sanitization, denial-evidence/sanitization,
-  sanitization/F, and F/finish.
+| Causality case | Otherwise-valid construction | Precise owner |
+| --- | --- | --- |
+| G-after-A sequence, acquired R | Swap A with the sole G5 in the complete acquired-R golden, renumber sequence, preserve every timestamp and other field, and rehash the receipt | AI-N10 |
+| G-after-A timestamp | Keep every G before A by sequence; in acquired-R set only G5 time to second 2 while A stays at 1, R at 2/3, and L at 4/5. Repeat on acquired-I with R at 2 and I at 3 | CH-N08; both origins are variants |
+| Earlier repeated G after A | In acquired-R move G5a immediately after A, then add distinct-ID passed G5b after G5a and before every R/controller. Keep both G times at 0 and rehash | AI-N10; repeated-member variant |
+| Earlier bad G time, later valid G | Keep G5a and a distinct-ID G5b before A by sequence; G5a time 2, later G5b time 0, A time 1, R/controller time 3, and L time 4 or later | CH-N08; universal-quantifier variant |
+| G/A inversion, acquired I | Swap A with G5 in the complete acquired-I golden; keep R before singleton failed I, all original timestamps, cleanup, and identity bindings | AI-N10 |
+| Issued stable-acquired prefix | In a complete matching lease-required issued pair, swap G5/A with valid times, or keep valid sequence and set G5 time after A but before R; run attempted and not-attempted forms independently | AI-N10 or CH-N08, never new origin owners |
+| R sequence before A with valid times | acquired-R: move the earlier passed R immediately before A; keep the controlling R after A; set all A/R times to second 1 and evidence to controller time | AI-N11 |
+| A sequence before R but R time before A | keep the acquired-R array; A time 2, earlier passed R time 1, controller/evidence time 3, every L time 4 or later | CH-N10 |
+| Bad early R, good controller | the first two constructions independently demonstrate that a correctly ordered controlling R cannot erase a bad earlier R | same AI-N11 / CH-N10, non-additive |
+| Controlling R time inversion | A time 2, earlier R time 2, controlling R/evidence time 1; all other bounds remain valid | CH-N10, non-additive |
+| Sequence-only selection trap | retain greatest-sequence finalL while inverting an earlier/later L timestamp pair; finalL outcome and all references remain valid | CH-N20 |
+
+The known acquired-R G5/A swap has correctly recomputed receiptDigest
+`sha256:d906c9e66457617fc23e3d0d7a86654f67ba1f64a3dbc41bd69d3b9afd273c65`.
+It MUST reject at AI-N10 during static acceptance, before receipt-digest
+acceptance; a correct digest does not rescue G5.sequence>A.sequence.
+Positive controls retain both complete acquired-denial goldens and issued
+lease-required attempted/not-attempted paths, including repeated passed G
+entirely before A and G.observedAt==A.observedAt at whole-second boundaries.
+Run each sequence/time negative separately for all five G types and each
+stable-acquired origin, with every unrelated predicate and dependent digest
+valid. In the repeated sequence inversion, the latest G may satisfy outcome,
+time, and controller bounds, but cannot satisfy G<A when an earlier-by-sequence
+G is already after A. The separate timestamp variant isolates an earlier bad
+G while the latest same-type G satisfies G<=A. finalG never replaces every G.
+
+The four exact erased-success histories in the corpus reject under DP-N10 (A) or DP-N11 (I), with single failed/indeterminate A/I controls accepted. An acquired I variant inserts a passed I after its passed A/R prefix and before the failed I: it also rejects only the I-denial singleton rule. Each G/N/R controller admits passed* followed by one failed/indeterminate controller; all nine checkpoints do not share that rule. Empty mapped type is a structural/presence failure; wrong controller ID, time, or reasons uses DP05, DP07, or DP08 separately.
+
+Positive release variants replace acquired-R's early failed L with indeterminate L while retaining passed finalL. Both histories are accepted with every L bound and pairwise chronological; neither requires an unresolved warning solely for the earlier member. acquired-I's indeterminate finalL requires a warning naming that final L. A warning naming only an earlier L rejects RF-N11. Removing all L rejects RF-N01. F is always present, passed, exact-tuple, sanitized, and terminal.
+
+Negative controls cover missing/multiple Source, missing/forbidden X, invalid Source hash, wrong X/A identity, missing A/R/L compact refs, and forbidden compact placements on G/N/I/P/E/V/F and every non-stable path. These use AI14..AI23, RF12, or the generic shape owner as defined by the ledger; no extra primary is added for the same mismatch on another origin. Unreached denial types and prerequisite observations after the controller reject DP03/DP04.
+
+The acceptance matrix also retains no-lease issued attempted and not-attempted paths; both lease-required issued paths; all ten denial matrix rows; repeated all-passed G; passed-only P before expiry; non-passed P terminality; EF-1 execution terminality; mixed non-passed V histories; exact per-type V coverage; and every outcome/release precedence row. G-to-G, E-to-E, and R-to-R timestamp inversions remain valid where all explicit edges pass. Timestamps never select the final member.
+
+### Scope and operation regression matrix
+
+Option B does not change the scope projection or the operation carrier. Re-run each retained case against a receipt with the repaired acquisition bindings and refreshed dependent digests.
+
+| Independent surface | Accepted control | Rejected or fail-closed mutation |
+| --- | --- | --- |
+| Apath / Qpath | every ordinary effect path is in authorized language and outside prohibited language | unauthorized path; prohibited overlap; canonical but out-of-scope earlier path despite a good final member |
+| Acap / Qcap | Oplan and Oexec are subsets of Acap and disjoint from Qcap | unauthorized or prohibited create/modify/delete; permitted final operation cannot hide an earlier disallowed operation |
+| Oplan(B,F) | simultaneous transitions produce one F; conservative ordinary effects satisfy capability closure | transition requiring a forbidden capability; after-state invented independently of B; administrative operation treated as ordinary |
+| Carrier presence | exactly iff issued, writing, attempted; complete zero-effect case is [] | missing carrier on each attempted outcome; carrier on no-lease/non-writing, denial, or not-attempted path |
+| Carrier shape/order | closed {path, operations}, non-empty canonical operations, canonical unique paths | extra key, empty/unknown operation, duplicate path/operation, unsorted path/operation |
+| EvidencePaths | every carrier path belongs to changedPaths | carrier path missing from changedPaths |
+| OexecByPath / Oexec | actual per-path unions and full union retain every listed operation | drop an earlier operation or reconstruct only final records |
+| Verification / lifecycle | contained effects plus all passed referenced V and consistent outcomes | out-of-scope effect with passed verification or succeeded lifecycle; a later passed V cannot erase an earlier non-passed V |
+
+Failed/indeterminate verification retains actual out-of-scope evidence; it does not rewrite or suppress the carrier. Oplan is a conservative planned effect set, not a claim that all planned operations actually happened. Exact index/submodule/admin surfaces keep their existing separate owners. These are static synthetic constructions and planned conformance requirements, not runtime enforcement or permission to execute effects.
+
 Worktree-role ownership of the complete `Domain` set and runtime write leases MUST be exercised as independent controls. Tests MUST prove that execution outcome and lease liveness are independent and that generated receipts remain outside portable governance. Terminal processing MUST attempt to record a sanitized `ExecutionReceipt` for every issued-contract execution attempt; pre-contract denial receipts MAY remain policy-optional. Tests MUST NOT rely on automatic branch switching, branch creation, stashing, reset, cleaning, restoration, fetching, pulling, merging, rebasing, lease or lock breaking, or Git-state repair.
