@@ -403,9 +403,11 @@ The required conformance order is:
    source/root/A check ID, and source/root/contract lease ID; require the root
    digest to copy the valid source digest exactly; and bind A/R/every-L compact
    references;
-7. apply all 24 primitive chronology comparisons and verify all 30 displayed
-   consequences against the same contract and receipt;
-8. apply final P/E/V, per-type final V, diagnostic finalG, and final L
+7. apply all 25 primitive chronology comparisons and verify all 31 displayed
+   consequences, including every ordered L pair, against the same contract and
+   receipt;
+8. only then apply final P/E/V, per-type final V, diagnostic finalG, and
+   sequence-only final L
    selection; C-UNIVERSAL-PASS for every passed verification; every actual G
    and every attempted P passed; terminate the same
    lifecycle on any failed/indeterminate P with no later P/E/V and
@@ -844,16 +846,16 @@ authenticity, freshness, and event truth. The mechanically recounted PG-1 broad
 region contains five distinct timestamp values across 38 occurrences; its full
 remote and digest counts are mirrored below.
 
-Future Phase 1 static and contract coverage MUST enforce all 24 primitive
-chronology relations and verify all 30 displayed consequences in the design
+Future Phase 1 static and contract coverage MUST enforce all 25 primitive
+chronology relations and verify all 31 displayed consequences in the design
 record's [timestamp chronology
 section](../docs/schema-contract-v1alpha1.md#timestamp-chronology). Equality
 remains permitted at every earlier allowed boundary. The existing
 `freshness.issuedAt < freshness.expiresAt` and every-passed-P-before-expiry
 relations remain the only strict timestamp relations.
 
-The planned chronology ledger assigns `CH-P01..CH-P24` and
-`CH-N01..CH-N24` to the 24 primitive relations. CH15 now owns R/checkpoint and
+The planned chronology ledger assigns `CH-P01..CH-P25` and
+`CH-N01..CH-N25` to the 25 primitive relations. CH15 now owns R/checkpoint and
 CH16 owns N/checkpoint; their positive and reversal IDs do not change. The direct
 R/issuedAt and N/issuedAt relations are derived through the existing
 checkpoint/issuedAt primitive. Each primitive owns one planned positive witness
@@ -867,6 +869,47 @@ checkpoint/issuedAt valid while placing the checkpoint before R or N; the old
 direct-only rule accepted them and CH-N15/CH-N16 now reject them. Executable
 fixtures
 and a fixture manifest have not been implemented.
+
+**CH-P25 — non-decreasing L timestamp by sequence** owns one positive
+chronology primary. For every release-required receipt and all distinct `li`,
+`lj` in L, the already-validated timestamp instants MUST satisfy:
+
+```text
+li.sequence < lj.sequence => li.observedAt <= lj.observedAt
+```
+
+The rule applies to every ordered pair, including non-adjacent L members, on
+both lease-required `issued-contract` receipts and acquired pre-contract
+denials. Its canonical witness has two increasing-sequence L members with a
+strictly later second timestamp. Mandatory non-additive variants include two L
+with equal `observedAt`; two L with a later second `observedAt`; three or more L
+satisfying every ordered-pair comparison; both release-required origins; and an
+earlier failed or indeterminate L followed by final passed L. `finalL` remains
+the unique greatest-sequence L; timestamps are never its selector or tie-breaker.
+
+For the RF-P04 release/finalization witness, `primaryOwner = RF-P04` remains
+unchanged and CH-P25 supplies the chronology prerequisite. The same fixture
+MUST NOT count as two additive primaries. Each CH-P25-specific chronology
+variant remains non-additive under CH-P25.
+
+**CH-N25 — L timestamp inversion by sequence** owns one negative chronology
+primary: `li.sequence < lj.sequence` with `li.observedAt > lj.observedAt` is
+invalid. Mandatory non-additive variants cover a two-member inversion; an
+inversion involving an earlier non-final L; an inversion immediately before
+`finalL`; three or more L with a violating ordered pair, including a non-adjacent
+pair; and both issued-contract and acquired-denial release-required origins.
+Earlier failed and indeterminate L followed by passed `finalL`, and other
+otherwise-valid release outcome permutations, remain non-additive variants.
+Every unrelated predicate, finalL/top-level outcome mapping, and warning rule
+must remain valid so that CH-N25 is the intended owner; no RF primary owns the
+inversion.
+
+The Review-15B counterexample is invalid: failed L1 at sequence 3 and `12:05`
+followed by passed L2 at sequence 4 and `12:04` violates CH-N25. Sequence-only
+`finalL = L2` cannot rescue it. Using the same synthetic UTC date and valid
+whole-second timestamp spelling, L2 at `12:05` or `12:06` instead satisfies
+CH-P25 and remains valid provided every other contract requirement passes.
+These are planned semantic witnesses, not implemented fixture files or tests.
 
 The chronology inventory counts ordering between distinct lifecycle events.
 Exact timestamp equality used only to bind two representations of one evidence
@@ -1113,8 +1156,11 @@ other pre-contract denial:
 ```
 
 All non-F checks are no later than sanitization, sanitization is no later than
-F, and F is no later than finish. There is no E-to-E or L-to-L timestamp
-monotonicity. The complete displayed/primitive/derived chronology counts are 30/24/6.
+F, and F is no later than finish. Every release-required receipt additionally
+requires `li.sequence < lj.sequence => li.observedAt <= lj.observedAt` for all
+ordered L pairs, with equality allowed and sequence-only finalL selection.
+There is no E-to-E or global check-timestamp monotonicity. The complete
+displayed/primitive/derived chronology counts are 31/25/6.
 The eight exact focused positive classes are:
 
 1. `succeeded` attempted execution with a final passed/pre-expiry check and a
@@ -1649,7 +1695,8 @@ The eleven planned positive primary predicates are exactly:
 3. **RF-P03 — final L indeterminate:** release indeterminate, the exact final-L
    warning, sanitization completed, and terminal F passed;
 4. **RF-P04 — multiple L:** an earlier failed or indeterminate L followed by
-   final passed L and succeeded release;
+   final passed L, with the CH-P25 timestamp prerequisite satisfied, and a
+   succeeded release;
 5. **RF-P05 — complete issued pre-release set:** all eleven possible lease-path
    pre-release check types precede every L, sanitization, and F;
 6. **RF-P06 — acquired denial:** complete cumulative `G/A/R/L/F` denial path
@@ -1712,8 +1759,12 @@ mandatory F with that exact ID. The malformed non-F case is a generic
 receipt-wide duplicate-`checkId` rejection, derived and non-additive. The RF
 inventory is therefore exactly 11 positive and 14 negative primaries.
 
+RF-P04 and every other multiple-L RF witness take CH-P25 as a prerequisite.
+L timestamp inversion belongs only to CH-N25 and does not add an RF positive or
+negative primary. RF remains exactly 11/14/25.
+
 F-before-sanitization, F-after-finish, a non-F check after sanitization, denial
-evidence after sanitization, and the four release-related timestamp reversals
+evidence after sanitization, and the five release-related timestamp reversals
 are CH-owned and cross-referenced here without another primary count.
 `postconditionRef` on F remains PB-N12-owned and is a non-additive
 cross-reference here. Stable identity on indeterminate acquisition remains a
@@ -1738,7 +1789,8 @@ any check kind or denial checkpoint beyond the owner-selected
 `pre-issuance-revalidation` identity and matching closed `denialCheckpoint`
 enum member; introduce a new timestamp or checkpoint field; require exactly one
 P, E, or V member; require global check-type uniqueness; or treat
-greatest-sequence selection or sequence comparisons as timestamp chronology.
+greatest-sequence selection or sequence comparisons by themselves as timestamp
+chronology. The explicit pairwise L rule is independent of finalL selection.
 Tests also MUST NOT require E or V members to form contiguous type regions.
 Phase 1 checks internal claims only. Phase 4 owns trusted time, authenticity,
 actual immediacy, evidence truth, and operational freshness.
@@ -2043,7 +2095,7 @@ a non-additive validation-order variant of its OE structural owner. D6,
 PB/global verification, OC 3/8/11, and every existing aggregate retain their
 independent ownership. No fixture file or executable test is created or
 claimed executed. The expanded prior-family aggregate excludes OC and OE and
-remains 181; no new combined aggregate is defined.
+remains 183; no new combined aggregate is defined.
 
 Phase 3 vectors retain live resolution for top-level `.git` indirection,
 linked and common Git directories, administrative locations outside the
@@ -2369,10 +2421,11 @@ distinct check-outcome tokens = 5
 timestamp paths = 9
 timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
-normative displayed chronology relations = 30
-primitive additive chronology relations = 24
-chronology positive primary classes = 24
-chronology reversal primary classes = 24
+normative displayed chronology relations = 31
+primitive additive chronology relations = 25
+chronology positive primary classes = 25
+chronology reversal primary classes = 25
+chronology primary classes = 50
 focused pre-action positives = 8
 focused pre-action negatives = 37
 final-E exact-match positives = 4
@@ -2392,7 +2445,7 @@ lease-release/finalization positives = 11
 lease-release/finalization negatives = 14
 PB/AI/DP/RF numbered primary definitions = 109
 acquisition-plus-release focused primary classes = 59
-five focused-family primary classes = 157
+five focused-family primary classes = 159
 changed-path scope positives = 5
 changed-path scope dedicated negatives = 6
 changed-path scope D5 cross-reference = 1 existing family, not additive
@@ -2408,7 +2461,7 @@ receipt/contract equalities = 8
 receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
-expanded affected-family aggregate including receipt/contract binding = 181
+expanded affected-family aggregate including receipt/contract binding = 183
 digest-bearing paths = 14
 digest computations = 11
 digest exact-copy paths = 3
@@ -2435,14 +2488,15 @@ cumulative-denial negatives = DP-N01..DP-N06 = 6
 release/finalization positives = RF-P01..RF-P11 = 11
 release/finalization negatives = RF-N01..RF-N14 = 14
 PB/AI/DP/RF numbered primary definitions = 109
-primitive chronology witnesses = CH-P01..CH-P24 = 24
-primitive chronology reversals = CH-N01..CH-N24 = 24
+primitive chronology witnesses = CH-P01..CH-P25 = 25
+primitive chronology reversals = CH-N01..CH-N25 = 25
+primitive chronology primary classes = 50
 acquisition-plus-release primary classes = 59
-five focused families subtotal = 157
+five focused families subtotal = 159
 receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
-expanded affected-family aggregate = 181
+expanded affected-family aggregate = 183
 ordinary-capability-closure positives = OC-P01..OC-P03 = 3
 ordinary-capability-closure negatives = OC-N01..OC-N08 = 8
 ordinary-capability-closure primary classes = 11
@@ -2567,13 +2621,13 @@ Uniqueness is established before digest projection or hashing.
 Receipt vectors cover warnings with and without optional fields, all 14 check
 types, the exact 4/3 outcome conditional, V-only closed references, contiguous
 sequences, unique IDs, ordered reason codes, and same-receipt warning links.
-Planned issued-contract vectors cover all outcomes, all 24 primitive chronology
-relations and 30 displayed consequences, the 8/37 pre-action, 8/22
+Planned issued-contract vectors cover all outcomes, all 25 primitive chronology
+relations and 31 displayed consequences, the 8/37 pre-action, 8/22
 final-E, 10/20 verification, 5/6 changed-path scope, 3/8 OC, and 10/11 OE
 families, plus 15/20 postcondition-
 binding, rebuilt 6/28 acquisition/issuance, 9/6 cumulative-denial, and 11/14
 release/finalization families. They cover EF-1 execution terminality, final P/E/V, per-type final V,
-diagnostic finalG and final L selection; C-UNIVERSAL-PASS for every passed
+diagnostic finalG and sequence-only final L selection; C-UNIVERSAL-PASS for every passed
 verification; every G and every attempted P passed;
 failed/indeterminate P same-lifecycle terminality with no later P/E/V and
 not-attempted/not-performed outcomes; exact applicable
@@ -2584,7 +2638,8 @@ all-member
 prerequisite/controller ordering and stop-boundary membership; G/A, G/N, A/R,
 R/checkpoint, N/checkpoint, checkpoint/issuedAt, derived R/issuedAt and
 N/issuedAt, issuedAt/I, every-I/every-P, P/E/V, issued-pre-release/L,
-acquired-Dpre/L, evidence/L, every-non-F/sanitization, sanitization/F, and
+acquired-Dpre/L, evidence/L, pairwise L-by-sequence chronology,
+every-non-F/sanitization, sanitization/F, and
 F/finish order; mandatory `sanitization.applied == true`; final
 E/V/L mapping; scope; terminal exact-tuple F; warning linkage; not-attempted
 E/V emptiness; and L emptiness on every no-release path. Planned pre-contract-
@@ -2641,8 +2696,9 @@ pipeline:
    root/reference/lease binding; then carrier iff-presence validation,
    `EvidencePaths ⊆ changedPaths`, `OexecByPath`/`Oexec` reconstruction,
    and carrier path/capability binding;
-10. all 24 primitive chronology comparisons and all 30 displayed consequences;
-    final P/E/V, per-type final V, diagnostic finalG, and finalL selection;
+10. all 25 primitive chronology comparisons and all 31 displayed consequences,
+    including every ordered L pair; only then final P/E/V, per-type final V,
+    diagnostic finalG, and sequence-only finalL selection;
     C-UNIVERSAL-PASS for every passed verification; attempted P/E/V and
     per-type reference presence; final-P freshness; every
     actual G and every attempted P passed; failed/indeterminate P same-lifecycle
@@ -2791,7 +2847,8 @@ The active rejection matrix MUST independently exercise:
   receipt-wide check-ID uniqueness because the mandatory F already uses that
   ID; this is derived/non-additive and not RF-N12;
 - CH-N05 a non-F check after sanitization, CH-N07 denial evidence after
-  sanitization, CH-N22 F before sanitization, CH-N23 F after finish, plus every
+  sanitization, CH-N22 F before sanitization, CH-N23 F after finish, CH-N25
+  L timestamp inversion by sequence on both release-required origins, plus every
   other primitive chronology reversal;
 - missing L on both release-required origins; every finalL/top-level off-
   diagonal mismatch; final-L warning absent/wrongly referenced; RF-N13 with any

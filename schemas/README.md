@@ -335,8 +335,8 @@ matching:
 
 Future Schema uses `type: string`, that exact pattern, and asserted
 `format: date-time`. Phase 1 additionally enforces years `0001` through
-`9999`, Gregorian date and leap-year validity, all 24 primitive chronology
-relations, and all 30 displayed consequences. Lower-case delimiters, offsets,
+`9999`, Gregorian date and leap-year validity, all 25 primitive chronology
+relations, and all 31 displayed consequences. Lower-case delimiters, offsets,
 fractions, leap seconds,
 `24:00:00`, whitespace, alternate spellings, and repair are forbidden. The
 profile applies to the three TaskContract timestamps, receipt `startedAt`,
@@ -412,7 +412,7 @@ postcondition-binding family remains 15/20. The design and test plan retain the
 existing 5/19 receipt-binding, 10/24 timestamp lexical, 8/22 final-E, 10/20
 verification, 5/6 scope, and 15/61 remote families, and record rebuilt 6/28
 acquisition/issuance, 9/6 cumulative-denial, 11/14 release/finalization, and
-24/24 primitive-chronology families under intended-owner and non-additive-
+25/25 primitive-chronology families under intended-owner and non-additive-
 variant rules.
 
 For post-sanitization receipt-finalization evidence, textual identity fields
@@ -427,9 +427,10 @@ These repairs retain the existing universal pipeline dependency order: strict
 bytes/tokens; timestamp and remote lexemes; Schema structure; local Phase 1
 invariants; array and remote order; validated representation; digest
 projection/computation; complete TaskContract digest; receipt/contract
-equality plus AP-1 source-profile/exact-copy and LB-2 root/reference/lease binding; the current 24
-primitive chronology checks and 30 displayed
-consequences; final P/E/V, diagnostic finalG, per-type V, and finalL selection;
+equality plus AP-1 source-profile/exact-copy and LB-2 root/reference/lease binding; the current 25
+primitive chronology checks and 31 displayed
+consequences, including every ordered L pair; only then final P/E/V, diagnostic
+finalG, per-type V, and sequence-only finalL selection;
 every actual G and every attempted P passed; failed/indeterminate P same-lifecycle
 terminality with no later P/E/V and not-attempted/not-performed outcomes; exact
 applicable A/R/N/I; cumulative denial all-member
@@ -883,6 +884,28 @@ lifecycle success, or release success.
 Release is required for a lease-required issued receipt and an acquired
 denial. Such a path has at least one L, every applicable pre-release/Dpre check
 before every L, and top-level release outcome mapped exactly from finalL.
+For every such receipt and all distinct `li`, `lj` in L, Phase 1 static
+validation requires the already-validated timestamp instants to satisfy:
+
+```text
+li.sequence < lj.sequence => li.observedAt <= lj.observedAt
+```
+
+This applies to every ordered L pair, including non-adjacent members, on both
+release-required origins. Equal timestamps and strictly later timestamps are
+permitted; a reversal is invalid even when a later-sequence L passed. Only
+after this comparison does `finalL` select the unique greatest-sequence L;
+timestamps neither select nor tie-break it. No E-to-E or global check-timestamp
+monotonicity is introduced. Phase 4 retains trusted-clock evaluation, timestamp
+authenticity, event truth, and operational freshness.
+
+CH-P25 owns the non-decreasing L chronology positive and CH-N25 owns its
+inversion. RF-P04 remains the release/finalization `primaryOwner` for an earlier
+failed or indeterminate L followed by final passed L; CH-P25 supplies its
+chronology prerequisite without a second additive primary. L timestamp
+inversion belongs only to CH-N25, so RF remains exactly 11 positive and 14
+negative primaries.
+
 Failed or indeterminate finalL requires a warning bound exactly to finalL.
 On a lease-required issued receipt, every L—not only finalL—has a compact
 reference whose `checkId` equals the issued root, source identity, and singleton A. The
@@ -898,9 +921,9 @@ The six complete sequence paths remain lease-required attempted
 `G/A/R/I/P/E/V/L/F`; lease-required non-attempted `G/A/R/I/[P]/L/F`; no-lease
 attempted `G/N/I/P/E/V/F`; no-lease non-attempted `G/N/I/[P]/F`; acquired
 denial `Dpre/L/F`; and other denial `non-F/F`. The normative chronology
-displays 30 relations: 24 primitive/additive and six derived/non-additive
+displays 31 relations: 25 primitive/additive and six derived/non-additive
 (sanitization/finish, start/finish, denial-evidence/F, non-F/F, R/issuedAt,
-and N/issuedAt). CH15/16 retain their 24/24 IDs but their primitive ownership
+and N/issuedAt). CH15/16 retain their existing IDs but their primitive ownership
 moves to R/checkpoint and N/checkpoint; the direct R/N-to-issuedAt relations are
 derived through checkpoint/issuedAt. Each primitive owns one planned CH
 positive and one planned reversal; equality and member variants are non-
@@ -911,11 +934,11 @@ post-execution verification 10/20, changed-path scope 5/6 plus one D5 cross-
 reference, ordinary-capability closure 3/8, D6 13/7, and postcondition binding
 15/20. Rebuilding under the final
 owner choices yields acquisition/issuance 6/28, cumulative denial 9/6,
-release/finalization 11/14, and primitive chronology 24/24. AI plus RF contains
+release/finalization 11/14, and primitive chronology 25/25. AI plus RF contains
 59 planned primary predicates; PB + AI + DP + RF contain 109 numbered primary
-definitions; the five focused families PB + AI + DP + RF + CH contain 157.
+definitions; the five focused families PB + AI + DP + RF + CH contain 159.
 Adding the separate 5/19 receipt/contract-binding family yields the clearly
-labeled expanded affected-family aggregate of 181. The four added pre-action
+labeled expanded affected-family aggregate of 183. The four added pre-action
 negatives are outcome-specific succeeded, failed, cancelled, and indeterminate
 same-lifecycle recovery shapes with an earlier failed/indeterminate P, a later
 passed P, and execution; failed and indeterminate earlier-P values are mandatory
@@ -1108,7 +1131,7 @@ D3-owned; unauthorized/prohibited paths are changed-path-scope-owned;
 modify-only transient create/delete and rename capability faults remain
 non-additive OC-N08/OC-N07 variants; malformed-digest acceptance remains a
 non-additive variant of the corresponding OE structural owner. The existing
-expanded prior-family aggregate excludes both OC and OE and remains 181; no
+expanded prior-family aggregate excludes both OC and OE and remains 183; no
 new combined aggregate is defined.
 
 D5 now contains exactly 21 `3 × 7` Cartesian negatives. Removing the retired
@@ -1141,10 +1164,11 @@ distinct check-outcome tokens = 5
 timestamp paths = 9
 timestamp lexical/calendar positives = 10
 timestamp lexical/calendar negatives = 24
-normative displayed chronology relations = 30
-primitive additive chronology relations = 24
-chronology positive primary classes = 24
-chronology reversal primary classes = 24
+normative displayed chronology relations = 31
+primitive additive chronology relations = 25
+chronology positive primary classes = 25
+chronology reversal primary classes = 25
+chronology primary classes = 50
 focused pre-action positives = 8
 focused pre-action negatives = 37
 final-E exact-match positives = 4
@@ -1164,7 +1188,7 @@ lease-release/finalization positives = 11
 lease-release/finalization negatives = 14
 PB/AI/DP/RF numbered primary definitions = 109
 acquisition-plus-release focused primary classes = 59
-five focused-family primary classes = 157
+five focused-family primary classes = 159
 changed-path scope positives = 5
 changed-path scope dedicated negatives = 6
 changed-path scope D5 cross-reference = 1 existing family, not additive
@@ -1180,7 +1204,7 @@ receipt/contract equalities = 8
 receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
-expanded affected-family aggregate including receipt/contract binding = 181
+expanded affected-family aggregate including receipt/contract binding = 183
 digest-bearing paths = 14
 digest computations = 11
 digest exact-copy paths = 3
@@ -1207,14 +1231,15 @@ cumulative-denial negatives = DP-N01..DP-N06 = 6
 release/finalization positives = RF-P01..RF-P11 = 11
 release/finalization negatives = RF-N01..RF-N14 = 14
 PB/AI/DP/RF numbered primary definitions = 109
-primitive chronology witnesses = CH-P01..CH-P24 = 24
-primitive chronology reversals = CH-N01..CH-N24 = 24
+primitive chronology witnesses = CH-P01..CH-P25 = 25
+primitive chronology reversals = CH-N01..CH-N25 = 25
+primitive chronology primary classes = 50
 acquisition-plus-release primary classes = 59
-five focused families subtotal = 157
+five focused families subtotal = 159
 receipt/contract binding positives = 5
 receipt/contract binding negatives = 19
 receipt/contract binding primary classes = 24
-expanded affected-family aggregate = 181
+expanded affected-family aggregate = 183
 ordinary-capability-closure positives = OC-P01..OC-P03 = 3
 ordinary-capability-closure negatives = OC-N01..OC-N08 = 8
 ordinary-capability-closure primary classes = 11
