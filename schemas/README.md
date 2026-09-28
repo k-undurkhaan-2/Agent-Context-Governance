@@ -520,7 +520,11 @@ No intermediate digest or successful preparation grants acceptance or authority.
 2. **Static acceptance.** With those prepared values, validate conditional
    presence and cardinalities, the same complete TaskContract and its
    derivation prerequisites/digest when applicable, and all eight receipt/C
-   comparisons. Validate stable-acquired X/Source presence, required Source
+   comparisons. Contract acceptance first rejects unsupported transition
+   members, checks Ptrans against Apath/Qpath and upstream narrowed authority,
+   validates simultaneous B/F reconstruction, and enforces both RequiredPlanCaps
+   predicates with unchanged Oplan plus Iplan. Matching postconditions, an empty
+   ordinary-operation set, or a receipt digest cannot bypass these gates. Validate stable-acquired X/Source presence, required Source
    cardinality and digest, Source→X task/check/lease equality and digest copy,
    A singleton/passed state and X→A identity, issued X→C lease equality, and
    every A/R/L compact reference. On stable-acquired paths, validate required
@@ -712,13 +716,15 @@ may be contracted as an allowed baseline, transition, or final postcondition.
 Git administrative locks remain distinct from runtime write leases,
 lease-store locks, and transient command-internal lock files.
 
-`permittedTransitions` has exactly seven branches: `ref-state`, `head-state`,
-`index-entry`, `tracked-entry`, `untracked-path`, `ignored-path`, and
-`submodule-entry`. The required-postcondition union remains at eleven branches.
-Its optional `active-operations` and `administrative-locks` branches are both
-none-only and are not newly mandatory. Simultaneous composition applies the
-seven transitions while reconstructing one final nine-dimension composite in
-which both active operations and administrative locks remain none.
+The closed permittedTransitions union has exactly four supported path-keyed
+branches: index-entry, tracked-entry, untracked-path, and ignored-path.
+Ref-state, head-state, and submodule-entry transition members reject
+structurally under v1alpha1-r1 before capability inference. All eleven
+postcondition branches remain; optional ref-state, head-state, and
+submodule-state require baseline-equal observations, and optional active-
+operations/administrative-locks remain none-only. Simultaneous composition
+uses only the four supported types, preserves ref/HEAD/submodules, and
+reconstructs one valid nine-dimension F.
 
 For a writing TaskContract `C`, the design-only mirror defines
 `M = {create, modify, delete}`,
@@ -737,9 +743,10 @@ and not prohibited.
 
 `Oplan(B,F)` is the least-upper-bound union, across every ordinary path, of
 every ordinary mutation capability possible in a B/F-consistent effect. The
-operation is not inferred from a transition branch name. Ref, HEAD, index, and
-outer-repository submodule transitions contribute no ordinary-file mutation;
-tracked, untracked, and ignored contributions use complete B/F path state. For
+operation is not inferred from a transition branch name. An index-entry alone
+contributes no ordinary-file mutation; any ordinary effect of the complete
+composite still contributes. Tracked, untracked, and ignored contributions
+use complete B/F path state. Ref/HEAD/submodule transitions are unsupported. For
 tracked `P = {clean, modified, type-changed}` and `D = deleted`, `P -> D` is
 delete, `D -> P` is create, known changed `P -> P` is modify, proven equal
 `P -> P` is no-op, and equality-unprovable `P -> P` is possible modify.
@@ -749,13 +756,221 @@ present-to-present is possible modify; a classification transfer alone is not
 create+delete when the same leaf remains present. A rename-equivalent old/new
 pair requires both delete and create.
 
-A valid writing contract requires exactly `Oplan(B,F) ⊆ Acap` and
-`Oplan(B,F) ∩ Qcap = ∅`. This is a non-wire D7 extension: the
-seven transition branches, eleven postconditions, D6, D8, D10, D12, API,
-resource shapes, capability tokens, and digest graph remain unchanged. SG-001
-remains 25 rows; only its existing Permitted transitions, Required
-postconditions, D7 simultaneous transition composition, and Receipt
-outcomes/scope rows cross-reference this closure.
+The complete closure is RequiredPlanCaps = Oplan(B,F) union Iplan, with
+RequiredPlanCaps subset Acap and RequiredPlanCaps intersection Qcap empty.
+Iplan is {git-stage} whenever an index-entry is present, otherwise empty.
+The ordinary Oplan predicates remain necessary within this conjunction.
+The direct Ptrans path predicates and all upstream narrowing also apply.
+This material pre-publication transition-union narrowing retains the API,
+revision, eleven postconditions, capability enum, receipt fields, and digest
+graph. SG-001 remains 25 rows; its existing transition, postcondition, D5,
+D7, and receipt scope rows cover the repaired contract.
+
+#### Transition authorization — HYBRID_A_PLUS_C
+
+ROOT-TRANSITION-AUTHORIZATION joins TA-01 capability closure and TA-02 path
+closure. ADR-TA-01 and ADR-TA-02 remove ref-state, head-state, and
+submodule-entry from the current closed transition union. Endpoint ref/HEAD
+state cannot identify checkout/switch, commit, reset-like movement,
+detach/reattach, or initial-commit semantics, so it MUST NOT be mapped
+opportunistically to git-branch or git-commit. The former submodule branch
+mixes outer gitlink state, nested initialization/HEAD, and nested
+dirty/untracked/conflict observations; it receives no broad capability.
+A future design may separate outer-gitlink authority, nested-repository
+authority, and operation/effect evidence. Transition-design Option B is
+deferred; the existing unified-acquisition OPTION_B remains unchanged.
+
+The complete supported transition vocabulary and postcondition mapping is:
+
+| Supported transition | Required postcondition when that dimension changes |
+| --- | --- |
+| index-entry | index-state |
+| tracked-entry | tracked-state |
+| untracked-path | untracked-state |
+| ignored-path | ignored-state |
+
+All nine baseline dimensions and all eleven postcondition branches remain.
+F = Apply(B, permittedTransitions) applies only these four transition types
+simultaneously. Untargeted values retain B, always including
+F.ref = B.ref, F.head = B.head, and F.submodules = B.submodules.
+Optional ref-state, head-state, and submodule-state postconditions therefore
+describe only unchanged baseline projections. They confer no transition
+authority. Cross-dimension reconstruction remains mandatory: in particular,
+an index gitlink change cannot evade the immutable submodule projection or
+the index/submodule equality and coverage rules. Actual drift prevents
+successful verification. The mandatory scope-contained obligation remains.
+
+Possession of a capability token does not create a permitted state
+transition. A state dimension may change only when this revision defines a
+supported permittedTransition for that dimension and all corresponding static
+authority predicates pass. The shared 13-token capability enum is unchanged,
+including git-branch, git-commit, and git-remote. In v1alpha1-r1, neither
+git-branch nor git-commit confers permission to change ref or HEAD, because
+no supported ref/head transition exists.
+
+Define the following over the already validated contract C:
+
+```text
+Ptrans = {t.path | t in C.spec.permittedTransitions}
+Apath = union(language(p) for p in C.spec.authorizedScope.paths)
+Qpath = union(language(p) for p in C.spec.prohibitedScope.paths)
+
+for every p in Ptrans:
+  p in Apath
+  p not in Qpath
+```
+
+These direct transition-target predicates are mandatory before contract
+acceptance for every supported member, independently of whether Oplan is
+empty, an ordinary effect is produced, a later receipt includes the path, or
+matching postcondition evidence exists. Deny precedence is unconditional.
+The pattern languages use the existing valid repository-relative path
+universe and exact anchored grammar; .git remains reserved.
+
+These checks do not replace the complete resolved Domain-set binding,
+one covering WorktreeRole's ownership, Project restrictions, or HostOverlay
+narrowing. Authorized paths must remain within the resolved Domains' scope
+and the covering role/Project/overlay authority at the applicable static and
+issuance gates. Widening authorizedScope.paths cannot legalize a target
+outside that authority. Retain every existing upstream identity, subset,
+inclusion, and narrowing proof. Phase 1 checks supplied closed data; Phase 2
+resolves the real complete Domain set and role; trusted Phase 4 validates the
+resulting binding before issuance. Missing or unprovable authority denies.
+
+ADR-TA-04 defines the derived index requirement without a new wire field:
+
+```text
+Iplan = {git-stage}  if any permittedTransition has type index-entry
+Iplan = empty        otherwise
+
+Acap = set(C.spec.authorizedScope.capabilities)
+Qcap = set(C.spec.prohibitedScope.capabilities)
+RequiredPlanCaps = Oplan(B,F) union Iplan
+
+RequiredPlanCaps subset Acap
+RequiredPlanCaps intersection Qcap = empty
+```
+
+Here union, subset, and intersection mean exact set union, inclusion, and
+intersection. Acap and Qcap remain disjoint. Requirements are conjunctive:
+git-stage never substitutes for create/modify/delete, and an ordinary token
+never substitutes for git-stage. Oplan retains its complete-composite ordinary
+create/modify/delete semantics, including conservative opaque identity and
+all effects implied by B/F. The derived union is not a branch-name substitute.
+
+For this contract layer, git-stage covers only authorized logical stage-0
+index effects represented by supported index-entry transitions: staging,
+unstaging, exact supported entry replacement, and exact supported entry
+removal. It does not authorize ref/HEAD movement, commit creation, branch
+switching, unsupported submodule operations, or arbitrary administrative-file
+writes. index-entry(path) targets the logical repository path, not .git/index.
+A direct runtime filesystem write to .git/index or another resolved Git
+administrative location remains subject to the existing runtime administrative-
+path boundary and cannot be relabeled as ordinary portable scope evidence.
+Trusted runtime handling must distinguish a supported logical Git index effect
+from a direct administrative-file mutation; a token alone proves neither.
+
+ADR-TA-03 selects TA-A. No ExecutionReceipt field or digest profile is added.
+Phase 1 statically validates requested transition authority; Phase 3
+materializes required baseline/live state; trusted Phase 4 compares observed
+final state with F and performs actual transition and effect attribution.
+The existing ordinaryOperationEvidence carrier keeps its exact ordinary-only
+role. An archived receipt does not independently reconstruct the complete
+operation history of non-ordinary Git effects. Endpoint equality cannot prove
+that an unauthorized transient index mutation did not occur and get restored.
+Runtime attribution MUST fail closed when trusted evidence is insufficient;
+it cannot assert successful verification from endpoint equality alone.
+These limits do not weaken any contract-time predicate. Durable typed replay
+of actual administrative-operation history would require a separate TA-B
+architecture change.
+
+#### Transition-authorization conformance and ownership
+
+All cases below are planned static/synthetic conformance requirements, not
+implemented validators or runtime evidence. Each construction uses complete,
+otherwise-valid B/F resources, canonical arrays, required postconditions,
+the same complete resolved authority, and refreshed dependent digests.
+Companion transitions required by cross-dimension consistency stay present;
+they cannot be omitted merely to create an apparently isolated branch test.
+
+The additive TA owner graph has exactly three positive/negative owner pairs:
+
+| Owner pair | Independent predicate | Isolating negative and positive control |
+| --- | --- | --- |
+| TA-P01 / TA-N01 | Ptrans subset Apath | Supported index-effect witness at p with Qpath empty and all capabilities/Domain authority valid; omit p from Apath, then restore it. |
+| TA-P02 / TA-N02 | Ptrans intersection Qpath is empty | Same witness with p=src/private/item and authorized pattern src/**; prohibit src/private/**, then remove it. Distinct pattern tokens preserve literal-set disjointness while their matched languages overlap. |
+| TA-P03 / TA-N03 | Iplan subset Acap, the index projection of RequiredPlanCaps inclusion | Same witness with Oplan empty, valid paths, and Qcap empty; omit git-stage, then authorize it. |
+
+One universal path predicate owns its variants across all four branch types.
+Wrong-Domain/role/Project/overlay cases keep their existing upstream owners.
+Unsupported-type rejection keeps the generic closed-enum/union owner;
+ref-state, head-state, and submodule-entry are three required variants, not
+three new owners, and reject before any capability inference. An undefined
+requirement always rejects. RequiredPlanCaps is the derived union, not another
+additive owner. Its ordinary inclusion projection retains the existing OC
+ownership; its index projection is TA03. The required prohibited-intersection
+check remains explicit, but is non-additive in this independent graph: with
+RequiredPlanCaps subset Acap and Acap disjoint Qcap, it is implied. A
+git-stage-only-in-Qcap case necessarily also lacks authorized git-stage and
+cannot isolate an additional prohibition owner. Keep that mandatory negative
+without double counting. The three positive controls use distinct synthetic
+contract identities; companion metadata transitions do not add owners.
+
+| Coverage family | Required negative variants | Valid control |
+| --- | --- | --- |
+| Unsupported old members | ref-state; head-state; submodule-entry, with any capability contents, including inspect-only or the former putative Git token | Each of the four supported closed shapes with all other gates satisfied |
+| Direct paths, each of four supported types | target outside Apath; target inside Qpath; target in a wrong Domain-owned area despite a widened Apath | Correct target with proper Domain/role/Project/overlay binding and complete capabilities |
+| Index capability | index-entry without git-stage; git-stage present only in Qcap | git-stage in Acap and outside Qcap |
+| Ordinary capability | retain missing create/modify/delete and each prohibited ordinary operation, OC-N01..06 | retain OC-P01..03 |
+| Index plus ordinary delete | Acap={delete}; Acap={git-stage}, with Qcap empty | Acap={delete,git-stage}, with neither prohibited; both tokens are necessary |
+| Inspect-only, Acap={inspect} | index effect lacks git-stage; tracked modify lacks modify; untracked create lacks create; ignored create lacks create | Supply the complete required capability set and valid path authority |
+| Non-writing | all three allowWrite=false truth-table rows paired with each of the four supported types | Empty transitions and baseline-equal optional state postconditions |
+| Runtime evidence | unproved transient index history or unauthorized ref/HEAD/submodule drift claimed as passed | Trusted complete attribution and observed final state equal to F, with all other evidence gates passed |
+
+The direct-path matrix has 4 x 3 = 12 negative variants and four positive
+branch controls, not twelve independent primary predicates. The non-writing
+matrix has 3 x 4 = 12 D5 negatives. There are three unsupported-member
+variants and four inspect-only negatives. These case inventories overlap the
+owner witnesses and are not added to the independent owner aggregate.
+
+A complete index-only ordinary-no-effect control uses a synthetic committed
+HEAD with one ordinary path p, the same complete stage-0 index, and a tracked
+deleted entry for p: the ordinary leaf is absent. Remove the index entry and
+its matching tracked metadata together. F has an empty exact index (different
+from unchanged non-empty HEAD), tracked.clean, no untracked/ignored/submodule
+entries, and the unchanged ref/HEAD. Supply index-state and tracked-state
+postconditions plus scope-contained. The ordinary leaf stays absent, so
+Oplan is empty and Iplan={git-stage}; no create/delete is manufactured from
+the index change. Correct git-stage alone passes this capability family,
+subject to all remaining gates. For the conjunctive delete control, begin
+with that ordinary leaf present and known clean instead, then remove the
+index entry and tracked leaf/metadata together: Oplan={delete} and
+Iplan={git-stage}. Both controls preserve the original reconstruction rules.
+
+Rebuilding the retained row inventories yields PB 5/5, AI 23/23, DP 13/13,
+RF 14/14, CH 20/20, and RC 9/9: 150 in the five-family subtotal, 168 with RC.
+TA adds 3/3, giving 174 independent positive/negative owners including RC
+and TA. Scope 5/6, OC 3/8, OE 10/11, D5 variants, generic structural
+rejections, and upstream narrowing variants are separate non-additive case
+inventories; they do not inflate this aggregate.
+
+#### Transition repair corpus disposition
+
+The current exact golden corpus contains one complete TaskContract and its
+derivation projection, both with permittedTransitions: []. They remain valid
+current specimens; neither requires conversion, replacement, or historical-
+only reclassification for unsupported transition members. No golden input
+bytes change in this repair, so all downstream derivation, complete-contract,
+receipt, and delivery bindings retain their existing values after replay.
+The digest graph still follows the catalog's field dependencies: no new
+digest-bearing field, profile, computation, or copy is introduced.
+
+PG-1's exact broad catalog-through-golden slice is outside the edited
+transition/validation text. Its raw W and CRLF-to-LF B identities and every
+occurrence/attestation copy must still be checked against the actual slice;
+no old hash or count is a repair target. The retained prior OPTION_B golden
+and PG-1 headings refer to acquisition binding, not the deferred transition-
+design Option B or a new receipt-history carrier.
 
 A non-empty active operation or administrative lock at initial or pre-issuance
 revalidation denies before a contract exists. At post-contract
@@ -799,7 +1014,7 @@ reserved value because that value is outside `U`.
 This one rule applies to Domain and role-derived path scope, HostOverlay path
 ceilings and D10 inclusion, RoutingPolicy/static inclusion, TaskContract
 authorized and prohibited scopes, baseline and postcondition path entries, the
-five path-keyed transition branches, receipt `changedPaths`, and
+four supported path-keyed transition branches, receipt `changedPaths`, and
 `scope-contained` verification. `modify` plus `**` cannot authorize
 `.git/config` or hooks. Git-administration capability tokens do not turn an
 administrative filesystem location into an ordinary path. A runtime-resolved
@@ -1465,8 +1680,10 @@ The complete row inventory therefore remains 20 primitive timestamp families,
 11 derived displays, and the existing 23 AI families, with no added primary.
 
 The five focused families have PB 5/5, AI 23/23, DP 13/13, RF 14/14,
-and CH 20/20 positive/negative owners. The subtotal is
-2*(5+23+13+14+20)=150. RC is 9/9, so the expanded aggregate is 168.
+and CH 20/20 positive/negative owners. Their rebuilt subtotal is
+2*(5+23+13+14+20)=150. RC is 9/9, giving a retained subtotal of 168.
+The transition-authorization ledger adds three independent TA owner pairs,
+so the expanded aggregate including RC and TA is 174.
 PB+AI+DP+RF has 110 numbered owner definitions; AI+RF has 74.
 Scope/ordinary-capability/operation-evidence coverage remains separate,
 with its existing 5/6 plus D5 cross-reference, OC 3/8, and OE 10/11
@@ -1573,7 +1790,7 @@ valid-path multi-path composite missing at least one implied operation; and
 unauthorized transient/restored operation on an authorized path. Mandatory
 non-additive variants cover untracked and ignored create/delete, tracked
 `D -> P`, `P -> D`, and changed `P -> P`, known no-op,
-ref/head/index/submodule ordinary no-op, opaque same-present with modify
+unchanged ref/HEAD/submodule observation and a logical index ordinary no-op, opaque same-present with modify
 authorized/absent/prohibited, all three operations across distinct paths, and
 rename delete/create with both tokens required. OC does not reuse HX IDs or add
 wire state, a reason code, a capability, a transition, or runtime collection;
@@ -1610,9 +1827,9 @@ D3-owned; unauthorized/prohibited paths are changed-path-scope-owned;
 modify-only transient create/delete and rename capability faults remain
 non-additive OC-N08/OC-N07 variants; malformed-digest acceptance remains a
 non-additive variant of the corresponding OE structural owner. The existing
-independent affected-family aggregate is 168 and excludes the separate OC and OE case inventories.
+independent affected-family aggregate including TA is 174 and excludes the separate OC and OE case inventories.
 
-D5 now contains exactly 21 `3 × 7` Cartesian negatives. Removing the retired
+D5 now contains exactly 12 `3 × 4` Cartesian negatives. Removing the retired
 administrative-lock transition removes two TaskContract administrative-lock
 array rows, while A2 adds the carrier-record and nested-operation rows, so the
 array-ordering matrix contains 54 rows. The reusable evidence union retains
@@ -1695,8 +1912,8 @@ Option B does not change the scope projection or the operation carrier. Re-run e
 
 | Independent surface | Accepted control | Rejected or fail-closed mutation |
 | --- | --- | --- |
-| Apath / Qpath | every ordinary effect path is in authorized language and outside prohibited language | unauthorized path; prohibited overlap; canonical but out-of-scope earlier path despite a good final member |
-| Acap / Qcap | Oplan and Oexec are subsets of Acap and disjoint from Qcap | unauthorized or prohibited create/modify/delete; permitted final operation cannot hide an earlier disallowed operation |
+| Apath / Qpath | every Ptrans target is directly authorized and non-prohibited before acceptance; receipt paths separately satisfy their scope predicates | unauthorized/prohibited transition target even with Oplan empty; wrong Domain authority; canonical but out-of-scope earlier receipt path despite a good final member |
+| Acap / Qcap | RequiredPlanCaps and Oexec are subsets of Acap and disjoint from Qcap | unauthorized/prohibited create/modify/delete or required git-stage; neither capability family substitutes for the other, and a permitted final operation cannot hide earlier disallowed effects |
 | Oplan(B,F) | simultaneous transitions produce one F; conservative ordinary effects satisfy capability closure | transition requiring a forbidden capability; after-state invented independently of B; administrative operation treated as ordinary |
 | Carrier presence | exactly iff issued, writing, attempted; complete zero-effect case is [] | missing carrier on each attempted outcome; carrier on no-lease/non-writing, denial, or not-attempted path |
 | Carrier shape/order | closed {path, operations}, non-empty canonical operations, canonical unique paths | extra key, empty/unknown operation, duplicate path/operation, unsorted path/operation |
@@ -1704,12 +1921,12 @@ Option B does not change the scope projection or the operation carrier. Re-run e
 | OexecByPath / Oexec | actual per-path unions and full union retain every listed operation | drop an earlier operation or reconstruct only final records |
 | Verification / lifecycle | contained effects plus all passed referenced V and consistent outcomes | out-of-scope effect with passed verification or succeeded lifecycle; a later passed V cannot erase an earlier non-passed V |
 
-Failed/indeterminate verification retains actual out-of-scope evidence; it does not rewrite or suppress the carrier. Oplan is a conservative planned effect set, not a claim that all planned operations actually happened. Exact index/submodule/admin surfaces keep their existing separate owners. These are static synthetic constructions and planned conformance requirements, not runtime enforcement or permission to execute effects.
+Failed/indeterminate verification retains actual out-of-scope evidence; it does not rewrite or suppress the carrier. Oplan is a conservative planned effect set, not a claim that all planned operations actually happened. Index authority is TA03-owned; unsupported ref/HEAD/submodule transition shapes and runtime administrative-path checks retain their separate owners. These are static synthetic constructions and planned conformance requirements, not runtime enforcement or permission to execute effects.
 
 
-### Option-B construction verification
+### Historical Option-B construction verification
 
-Before audit freeze, in-memory synthetic construction checks exercised 45 denial/state/identity cases, the retained 43 scope/OC/OE cases, two issued identity cases, and all 20 independent temporal reversal assignments: 110 checks with the intended dispositions. The checks are disposable document-construction verification, not a repository validator or executable Schema/model test suite. The 31 framed hash cases and 13 completed-object byte cases were independently replayed by Node and PowerShell/.NET. Trusted issuance, runtime observation, acquisition/release truth, and scope attribution remain outside these checks.
+At the prior Option-B audit freeze, in-memory synthetic construction checks exercised 45 denial/state/identity cases, the retained 43 scope/OC/OE cases, two issued identity cases, and all 20 independent temporal reversal assignments: 110 checks with the intended dispositions. The checks are disposable document-construction verification, not a repository validator or executable Schema/model test suite. The 31 framed hash cases and 13 completed-object byte cases were independently replayed by Node and PowerShell/.NET. Trusted issuance, runtime observation, acquisition/release truth, and scope attribution remain outside these checks.
 
 Current owner numbers are derived from the row inventories, not inherited aggregate targets. All superseded current representations and count summaries are removed. Historical opening review records and explicitly historical PG-1 attestations retain their original values and meaning.
 
@@ -1719,7 +1936,7 @@ Current owner numbers are derived from the row inventories, not inherited aggreg
 Schema resources = 11
 dispatchable kinds = 7
 baseline dimensions = 9
-permitted-transition branches = 7
+permitted-transition branches = 4
 required-postcondition branches = 11
 check types = 14
 denial checkpoints = 9
@@ -1727,7 +1944,7 @@ ExecutionReceipt spec fields = 17
 ExecutionReceipt field-table rows = 16
 array-ordering matrix rows = 54
 mandatory SG-001 rows = 25
-D5 Cartesian negatives = 21
+D5 Cartesian negatives = 12
 active-operation regressions = 21
 administrative-lock regressions = 21
 check-outcome conditional branches = 2
@@ -1778,7 +1995,15 @@ receipt/contract equalities = 8
 receipt/contract binding positives = 9
 receipt/contract binding negatives = 9
 receipt/contract binding primary classes = 18
-expanded affected-family aggregate including receipt/contract binding = 168
+expanded retained-family aggregate including receipt/contract binding = 168
+transition-authorization positive independent owners = 3
+transition-authorization negative independent owners = 3
+transition-authorization independent owner classes = 6
+expanded affected-family aggregate including receipt/contract binding and TA = 174
+transition-path negative variants = 12
+transition-path positive branch controls = 4
+unsupported former-transition variants = 3
+inspect-only supported-transition negatives = 4
 digest-bearing paths = 12
 digest computations = 10
 digest exact-copy paths = 2
@@ -1788,7 +2013,7 @@ host-resource-exclusivity negatives = 13
 ```
 
 
-Current continuous ranges are PB-P/N01..05, AI-P/N01..23, DP-P/N01..13, RF-P/N01..14, CH-P/N01..20, and RC-P/N01..09. Each row in the independent ledger has exactly one positive and one negative owner. Mandatory variants are non-additive. Scope 5/6, OC 3/8, OE 10/11 and other retained inventories are coverage-case counts outside this independently rebuilt aggregate.
+Current continuous ranges are PB-P/N01..05, AI-P/N01..23, DP-P/N01..13, RF-P/N01..14, CH-P/N01..20, RC-P/N01..09, and TA-P/N01..03. Each row in the independent ledger has exactly one positive and one negative owner. Mandatory variants are non-additive. Scope 5/6, OC 3/8, OE 10/11 and other retained inventories are coverage-case counts outside this independently rebuilt aggregate.
 
 ### Retained historical protected-region records
 
