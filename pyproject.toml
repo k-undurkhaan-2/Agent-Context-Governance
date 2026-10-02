@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agent-context-governance-schema"
+version = "0.0.0"
+description = "Unpublished S1 catalog and offline Schema package scaffolding."
+requires-python = ">=3.13,<3.14"
+license-files = []
+classifiers = ["Private :: Do Not Upload"]
+dependencies = [
+    "jsonschema==4.26.0",
+    "referencing==0.37.0",
+    "jsonschema-specifications==2025.9.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1"]
+tooling = ["pip==26.2.1", "pip-tools==7.6.1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/contextctl_schema"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"schemas/v1alpha1" = "contextctl_schema/schemas/v1alpha1"
+
+[tool.pytest.ini_options]
+testpaths = ["tests/schema"]
+addopts = ["--import-mode=importlib", "-p", "no:cacheprovider"]
