@@ -304,6 +304,77 @@ for i, value in enumerate([
     ".".join(["a" * 63] * 3 + ["b" * 62]),
 ]):
     negative("remoteDnsHost", "host-" + str(i), value)
+# Numeric DNS labels remain lexical names unless the complete host is a
+# range-valid IPv4 spelling. These controls include invalid radix spellings,
+# excess components, and the DNS label/host length limits.
+for label, value in [
+    ("numeric-first", "1.example"), ("numeric-last", "example.1"),
+    ("numeric-prefix", "1.2.example"), ("numeric-suffix", "example.1.2"),
+    ("hex-first", "0x7f.example"), ("hex-last", "example.0x1"),
+    ("octal-first", "0177.example"), ("octal-last", "example.0177"),
+    ("non-hex-digit", "0xg.1"), ("bare-hex-prefix", "0x.1"),
+    ("non-numeric-prefix", "00x1.1"),
+    ("non-octal-first", "08.1"), ("non-octal-last", "1.08"),
+    ("non-octal-four-part", "1.2.3.09"),
+    ("five-decimal-labels", "1.2.3.4.5"),
+    ("five-hex-labels", "0x1.0x2.0x3.0x4.0x5"),
+    ("numeric-label-63", "9" * 63 + ".1"),
+    ("zero-label-63", "0" * 63 + ".example"),
+    ("numeric-host-253", ".".join(["9" * 63] * 3 + ["9" * 61])),
+]:
+    positive("remoteDnsHost", "dns-" + label, value)
+
+for label, value in [
+    ("review-decimal-two-part", "127.1"),
+    ("review-decimal-three-part", "127.0.1"),
+    ("review-octal-two-part", "0177.1"),
+    ("review-hex-two-part", "0x7f.1"),
+    ("single-decimal", "2130706433"),
+    ("single-octal", "017700000001"),
+    ("single-hex", "0x7f000001"),
+    ("zero-two-part", "0.0"), ("zero-three-part", "0.0.0"),
+    ("zero-four-part", "0.0.0.0"),
+    ("decimal-two-part-16-bit-tail", "1.256"),
+    ("decimal-two-part-24-bit-tail", "1.65536"),
+    ("decimal-three-part-16-bit-tail", "1.0.256"),
+    ("octal-three-part", "0177.00.01"),
+    ("octal-four-part", "0177.0.0.01"),
+    ("octal-zero-padding", "000177.000001"),
+    ("hex-two-part", "0x7f.0x1"),
+    ("hex-three-part", "0x7f.0x0.0x1"),
+    ("hex-four-part", "0x7f.0x0.0x0.0x1"),
+    ("hex-zero-padding", "0x0007f.0x000001"),
+    ("mixed-hex-octal-decimal", "0x7f.00.1"),
+    ("mixed-octal-decimal-hex", "0177.0.0x1"),
+    ("mixed-four-part", "127.00.0x0.01"),
+    ("octal-label-63", "0" * 60 + "177.1"),
+    ("hex-label-63", "0x" + "0" * 59 + "7f.1"),
+    ("octal-tail-63", "1." + "0" * 62 + "1"),
+    ("zero-host-253", ".".join(["0" * 63] * 3 + ["0" * 61])),
+]:
+    negative("remoteDnsHost", "ipv4-" + label, value)
+
+# Exact maxima and their immediate successors in each radix. Overflow at any
+# component makes the complete string a DNS-grammar control, not an IPv4 alias.
+for radix, max8, above8, max16, above16, max24, above24 in [
+    ("decimal", "255", "256", "65535", "65536", "16777215", "16777216"),
+    ("octal", "0377", "0400", "0177777", "0200000", "077777777", "0100000000"),
+    ("hex", "0xff", "0x100", "0xffff", "0x10000", "0xffffff", "0x1000000"),
+]:
+    for parts, last_maximum, last_overflow in [
+        (2, max24, above24), (3, max16, above16), (4, max8, above8),
+    ]:
+        components = [max8] * (parts - 1) + [last_maximum]
+        label = radix + "-" + str(parts) + "-part"
+        negative("remoteDnsHost", "ipv4-maximum-" + label, ".".join(components))
+        for position in range(parts):
+            overflow = components.copy()
+            overflow[position] = above8 if position < parts - 1 else last_overflow
+            positive(
+                "remoteDnsHost", "dns-overflow-" + label + "-" + str(position),
+                ".".join(overflow),
+            )
+
 for profile, maximum in [("remoteNamespaceComponent", 63), ("remoteRepositoryName", 128)]:
     for label, value in [("minimum", "a"), ("maximum", "a" * maximum), ("punctuation", "a_b-c.d")]:
         positive(profile, label, value)
@@ -398,8 +469,8 @@ def vector_ids(vectors):
 
 
 def test_common_schema_identity_dialect_and_definition_coverage():
-    assert len(POSITIVE_VECTORS) + len(TIMESTAMP_POSITIVES) == 201
-    assert len(NEGATIVE_VECTORS) + len(TIMESTAMP_CALENDAR_NEGATIVES) == 793
+    assert len(POSITIVE_VECTORS) + len(TIMESTAMP_POSITIVES) == 247
+    assert len(NEGATIVE_VECTORS) + len(TIMESTAMP_CALENDAR_NEGATIVES) == 829
     assert COMMON["$id"] == COMMON_ID
     assert COMMON["$schema"] == "https://json-schema.org/draft/2020-12/schema"
     assert "not" not in COMMON
@@ -450,7 +521,7 @@ def test_timestamp_calendar_negative_with_asserted_format(value, asserted_format
 
 # Adapter-only cases assert format without the Schema's lexical patterns, so
 # the Schema cannot mask a permissive checker. The declared S2 inventory above
-# remains 201 positive and 793 negative vectors.
+# contains 247 positive and 829 negative vectors.
 FORMAT_NAMES = {"canonicalUuid": "uuid", "canonicalUtcTimestamp": "date-time"}
 ADAPTER_POSITIVE_VECTORS = [
     (FORMAT_NAMES[profile], label, value)
