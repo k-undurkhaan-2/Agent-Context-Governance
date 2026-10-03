@@ -1,4 +1,4 @@
-"""Installed-package offline registry and rejecting-placeholder evidence."""
+"""Installed-package offline registry and ten rejecting-placeholder resources."""
 
 import json
 import socket
@@ -37,18 +37,26 @@ def test_packaged_resource_identity_and_dialect(record, offline_registry):
             "schemas", "v1alpha1", record.resource_name
         ).read_text("utf-8")
     )
-    assert document == {
-        "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": record.schema_id,
-        "not": {},
-    }
+    if record.resource_name == "common.schema.json":
+        assert "$defs" in document
+        assert "not" not in document
+    else:
+        assert document == {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "$id": record.schema_id,
+            "not": {},
+        }
+    assert document["$id"] == record.schema_id
     assert document["$schema"] == DIALECT
     Draft202012Validator.check_schema(document)
     assert offline_registry.resolver().lookup(record.schema_id).contents == document
     assert offline_registry[record.schema_id] == DRAFT202012.create_resource(document)
 
 
-@pytest.mark.parametrize("record", CATALOG, ids=lambda r: r.resource_name)
+@pytest.mark.parametrize(
+    "record", [r for r in CATALOG if r.resource_name != "common.schema.json"],
+    ids=lambda r: r.resource_name,
+)
 @pytest.mark.parametrize("instance", [
     None, False, True, 0, -1, 1.5, "", "synthetic",
     [], [None], {}, {"synthetic": [1, True, None]},

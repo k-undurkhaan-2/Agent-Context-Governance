@@ -1,5 +1,685 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
-  "not": {}
+  "$comment": "S2 reusable structural vocabulary for contextctl.dev/v1alpha1, v1alpha1-r1. Select a $defs fragment; this supporting resource is not a resource dispatcher. Format assertion is mandatory. Strict decoding, raw numeric spelling, Unicode scalar/NFC validation, static relationships, and operational checks are separate gates.",
+  "$defs": {
+    "apiVersion": {
+      "type": "string",
+      "const": "contextctl.dev/v1alpha1"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "Project",
+        "Domain",
+        "WorktreeRole",
+        "RoutingPolicy",
+        "HostOverlay",
+        "TaskContract",
+        "ExecutionReceipt"
+      ]
+    },
+    "logicalIdentifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 63,
+      "pattern": "^[a-z0-9](?:[a-z0-9.-]{0,61}[a-z0-9])?$(?![\\s\\S])"
+    },
+    "reasonCode": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 160,
+      "pattern": "^reason\\.[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?)*$(?![\\s\\S])"
+    },
+    "profileIdentifier": {
+      "type": "string",
+      "minLength": 9,
+      "maxLength": 160,
+      "pattern": "^profile\\.[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?)*$(?![\\s\\S])"
+    },
+    "checkIdentifier": {
+      "type": "string",
+      "minLength": 7,
+      "maxLength": 160,
+      "pattern": "^check\\.[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]{0,30}[a-z0-9])?)*$(?![\\s\\S])"
+    },
+    "sanitizedSummary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^[^\\u0000-\\u001f\\u007f]+$(?![\\s\\S])",
+      "description": "Shape only. Already-NFC validation is deferred; actual sanitization requires Phase 4 and external controls."
+    },
+    "canonicalUuid": {
+      "type": "string",
+      "minLength": 36,
+      "maxLength": 36,
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "format": "uuid"
+    },
+    "displayText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+$(?![\\s\\S])",
+      "description": "Already-NFC validation and content classification are separate requirements."
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/logicalIdentifier"
+        },
+        "displayName": {
+          "$ref": "#/$defs/displayText",
+          "maxLength": 128
+        },
+        "description": {
+          "$ref": "#/$defs/displayText"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "repositoryRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "^(?![A-Za-z]:)(?!(?:\\.{1,2}|\\.git)(?:/|(?![\\s\\S])))[^/\\\\\\u0000]+(?:/(?!(?:\\.{1,2}|\\.git)(?:/|(?![\\s\\S])))[^/\\\\\\u0000]+)*$(?![\\s\\S])",
+      "description": "Lexical repository-relative path only; strict decoding, Unicode scalar/NFC validation, and live containment are separate."
+    },
+    "pathPattern": {
+      "$ref": "#/$defs/repositoryRelativePath",
+      "allOf": [
+        {
+          "not": {
+            "pattern": "[!{}\\[\\]()]"
+          }
+        },
+        {
+          "not": {
+            "pattern": "(?:[^/]\\*\\*|\\*\\*[^/])"
+          }
+        }
+      ],
+      "description": "Anchored restricted glob syntax: * and ? are segment-local; ** is a whole segment. Literal .git components are excluded. Pattern parsing and language proofs over the valid path universe remain Phase 1 static work."
+    },
+    "posixAbsoluteHostPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "^/(?:(?!\\.{1,2}(?:/|(?![\\s\\S])))[^/\\\\\\u0000-\\u001f\\u007f-\\u009f]+(?:/(?!\\.{1,2}(?:/|(?![\\s\\S])))[^/\\\\\\u0000-\\u001f\\u007f-\\u009f]+)*)?$(?![\\s\\S])"
+    },
+    "windowsDriveAbsoluteHostPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "pattern": "^[A-Z]:\\\\(?:(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][lL][oO][cC][kK]\\$|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|\\\\|(?![\\s\\S])))[^<>:\"/\\\\|?*\\u0000-\\u001f\\u007f-\\u009f]*[^<>:\"/\\\\|?*\\u0000-\\u001f\\u007f-\\u009f. ](?:\\\\(?!(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][lL][oO][cC][kK]\\$|[cC][oO][mM][1-9]|[lL][pP][tT][1-9])(?:\\.|\\\\|(?![\\s\\S])))[^<>:\"/\\\\|?*\\u0000-\\u001f\\u007f-\\u009f]*[^<>:\"/\\\\|?*\\u0000-\\u001f\\u007f-\\u009f. ])*)?$(?![\\s\\S])"
+    },
+    "absoluteHostPath": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "platform": {
+              "const": "posix"
+            },
+            "value": {
+              "$ref": "#/$defs/posixAbsoluteHostPath"
+            }
+          },
+          "required": [
+            "platform",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "platform": {
+              "const": "windows"
+            },
+            "value": {
+              "$ref": "#/$defs/windowsDriveAbsoluteHostPath"
+            }
+          },
+          "required": [
+            "platform",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "description": "Closed lexical union; platform compatibility, filesystem identity, aliases, and containment require Phase 3."
+    },
+    "objectReference": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "$ref": "#/$defs/apiVersion"
+        },
+        "kind": {
+          "$ref": "#/$defs/kind"
+        },
+        "id": {
+          "$ref": "#/$defs/logicalIdentifier"
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "plan-only",
+        "implementation"
+      ]
+    },
+    "allowWrite": {
+      "type": "boolean",
+      "description": "Required by containing records; omission never implies true. Containing resource Schemas must reject plan-only with allowWrite true."
+    },
+    "capability": {
+      "type": "string",
+      "enum": [
+        "inspect",
+        "validate",
+        "create",
+        "modify",
+        "delete",
+        "execute-tests",
+        "execute-build",
+        "git-stage",
+        "git-commit",
+        "git-branch",
+        "git-remote",
+        "network",
+        "external-secret-use"
+      ]
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capability"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "taggedDigest": {
+      "type": "string",
+      "minLength": 71,
+      "maxLength": 71,
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "gitObjectId": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "algorithm": {
+              "const": "sha1"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 40,
+              "maxLength": 40,
+              "pattern": "^[0-9a-f]{40}$"
+            }
+          },
+          "required": [
+            "algorithm",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "algorithm": {
+              "const": "sha256"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 64,
+              "maxLength": 64,
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "algorithm",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "gitMode": {
+      "type": "string",
+      "enum": [
+        "100644",
+        "100755",
+        "120000",
+        "160000"
+      ]
+    },
+    "gitRefIdentifier": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 1024,
+      "pattern": "^refs/(?![A-Za-z0-9._-]*\\.\\.)(?![A-Za-z0-9._-]*\\.lock(?:/|(?![\\s\\S])))[A-Za-z0-9_-](?:[A-Za-z0-9._-]{0,253}[A-Za-z0-9_-])?(?:/(?![A-Za-z0-9._-]*\\.\\.)(?![A-Za-z0-9._-]*\\.lock(?:/|(?![\\s\\S])))[A-Za-z0-9_-](?:[A-Za-z0-9._-]{0,253}[A-Za-z0-9_-])?)*$(?![\\s\\S])"
+    },
+    "branchRef": {
+      "$ref": "#/$defs/gitRefIdentifier",
+      "pattern": "^refs/heads/"
+    },
+    "branchPrefix": {
+      "$ref": "#/$defs/branchRef",
+      "description": "Literal inclusive component prefix. Matching and deny precedence are separate static semantics; no wildcard or stored trailing slash."
+    },
+    "branchSelection": {
+      "type": "object",
+      "properties": {
+        "exact": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/branchRef"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "prefixes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/branchPrefix"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "exact",
+        "prefixes"
+      ],
+      "additionalProperties": false
+    },
+    "branchPolicy": {
+      "type": "object",
+      "properties": {
+        "allowed": {
+          "$ref": "#/$defs/branchSelection"
+        },
+        "denied": {
+          "$ref": "#/$defs/branchSelection"
+        }
+      },
+      "required": [
+        "allowed",
+        "denied"
+      ],
+      "additionalProperties": false
+    },
+    "refState": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "branch"
+            },
+            "branchRef": {
+              "$ref": "#/$defs/branchRef"
+            }
+          },
+          "required": [
+            "state",
+            "branchRef"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "detached"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "headState": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "commit"
+            },
+            "objectId": {
+              "$ref": "#/$defs/gitObjectId"
+            }
+          },
+          "required": [
+            "state",
+            "objectId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "unborn"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "canonicalUtcTimestamp": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 20,
+      "pattern": "^[0-9]{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])T(?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]Z$",
+      "format": "date-time",
+      "description": "Format assertion is mandatory. Full project Gregorian/year validity and cross-field chronology remain Phase 1 static requirements; trusted time and operational freshness require Phase 4."
+    },
+    "freshnessBoundary": {
+      "type": "object",
+      "properties": {
+        "issuedAt": {
+          "$ref": "#/$defs/canonicalUtcTimestamp"
+        },
+        "expiresAt": {
+          "$ref": "#/$defs/canonicalUtcTimestamp"
+        }
+      },
+      "required": [
+        "issuedAt",
+        "expiresAt"
+      ],
+      "additionalProperties": false,
+      "description": "Phase 1 static validation must additionally require expiresAt > issuedAt; Schema alone establishes no chronology or current freshness."
+    },
+    "remoteDnsHost": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 253,
+      "pattern": "^(?!xn--)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\\.(?!xn--)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$(?![\\s\\S])",
+      "$comment": "Exclude range-valid IPv4 spellings with decimal, leading-zero octal, or 0x hexadecimal components, including mixed forms and zero padding. Single-component addresses already fail the DNS label count. No normalization or lookup.",
+      "not": {
+        "anyOf": [
+          {
+            "$comment": "Two parts: 8-bit first component and 24-bit last component.",
+            "pattern": "^(?:[1-9][0-9]?|1[0-9]{2}|2[0-4][0-9]|25[0-5]|0+[0-3]?[0-7]{0,2}|0x0*[0-9a-f]{1,2})\\.(?:[1-9][0-9]{0,6}|1[0-5][0-9]{6}|16[0-6][0-9]{5}|167[0-6][0-9]{4}|1677[0-6][0-9]{3}|16777[01][0-9]{2}|1677720[0-9]|1677721[0-5]|0+[0-7]{0,8}|0x0*[0-9a-f]{1,6})$(?![\\s\\S])"
+          },
+          {
+            "$comment": "Three parts: two 8-bit components and a 16-bit last component.",
+            "pattern": "^(?:(?:[1-9][0-9]?|1[0-9]{2}|2[0-4][0-9]|25[0-5]|0+[0-3]?[0-7]{0,2}|0x0*[0-9a-f]{1,2})\\.){2}(?:[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]|0+1?[0-7]{0,5}|0x0*[0-9a-f]{1,4})$(?![\\s\\S])"
+          },
+          {
+            "$comment": "Four parts: four 8-bit components.",
+            "pattern": "^(?:(?:[1-9][0-9]?|1[0-9]{2}|2[0-4][0-9]|25[0-5]|0+[0-3]?[0-7]{0,2}|0x0*[0-9a-f]{1,2})\\.){3}(?:[1-9][0-9]?|1[0-9]{2}|2[0-4][0-9]|25[0-5]|0+[0-3]?[0-7]{0,2}|0x0*[0-9a-f]{1,2})$(?![\\s\\S])"
+          }
+        ]
+      }
+    },
+    "remoteNamespaceComponent": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 63,
+      "pattern": "^(?![a-z0-9._-]*\\.\\.)[a-z0-9](?:[a-z0-9._-]{0,61}[a-z0-9])?$(?![\\s\\S])"
+    },
+    "remoteNamespace": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/remoteNamespaceComponent"
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "description": "Ordered segments, with repetition permitted. These bounds imply joined length <= 1023; canonical identity preserves segment order."
+    },
+    "remoteRepositoryName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^(?![a-z0-9._-]*\\.\\.)(?![a-z0-9._-]*\\.git$)[a-z0-9](?:[a-z0-9._-]{0,126}[a-z0-9])?$(?![\\s\\S])"
+    },
+    "remotePort": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "structuredRemote": {
+      "type": "object",
+      "properties": {
+        "transport": {
+          "type": "string",
+          "enum": [
+            "https",
+            "ssh"
+          ]
+        },
+        "host": {
+          "$ref": "#/$defs/remoteDnsHost"
+        },
+        "port": {
+          "$ref": "#/$defs/remotePort"
+        },
+        "namespace": {
+          "$ref": "#/$defs/remoteNamespace"
+        },
+        "repository": {
+          "$ref": "#/$defs/remoteRepositoryName"
+        }
+      },
+      "required": [
+        "transport",
+        "host",
+        "namespace",
+        "repository"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "transport": {
+                "const": "https"
+              }
+            },
+            "required": [
+              "transport"
+            ]
+          },
+          "then": {
+            "properties": {
+              "port": {
+                "not": {
+                  "const": 443
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transport": {
+                "const": "ssh"
+              }
+            },
+            "required": [
+              "transport"
+            ]
+          },
+          "then": {
+            "properties": {
+              "port": {
+                "not": {
+                  "const": 22
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "acceptedRemotes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/structuredRemote"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Exact duplicate objects are rejected; canonical J(remote) ordering and cross-record membership remain Phase 1 static checks."
+    },
+    "repositoryIdentity": {
+      "type": "object",
+      "properties": {
+        "acceptedRemotes": {
+          "$ref": "#/$defs/acceptedRemotes"
+        }
+      },
+      "required": [
+        "acceptedRemotes"
+      ],
+      "additionalProperties": false
+    },
+    "remoteExpectation": {
+      "type": "object",
+      "properties": {
+        "remoteName": {
+          "$ref": "#/$defs/logicalIdentifier"
+        },
+        "acceptedRemotes": {
+          "$ref": "#/$defs/acceptedRemotes"
+        }
+      },
+      "required": [
+        "remoteName",
+        "acceptedRemotes"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "capabilities": {
+          "$ref": "#/$defs/capabilities"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pathPattern"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "capabilities",
+        "paths"
+      ],
+      "additionalProperties": false
+    },
+    "checkOutcome": {
+      "type": "string",
+      "enum": [
+        "passed",
+        "failed",
+        "indeterminate"
+      ],
+      "description": "Non-execution check outcome only. S3 containing checks must discriminate this from executionCheckOutcome by checkType."
+    },
+    "executionCheckOutcome": {
+      "type": "string",
+      "enum": [
+        "succeeded",
+        "failed",
+        "cancelled",
+        "indeterminate"
+      ]
+    },
+    "executionOutcome": {
+      "type": "string",
+      "enum": [
+        "not-attempted",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "indeterminate"
+      ]
+    },
+    "verificationOutcome": {
+      "type": "string",
+      "enum": [
+        "not-performed",
+        "passed",
+        "failed",
+        "indeterminate"
+      ]
+    },
+    "releaseOutcome": {
+      "type": "string",
+      "enum": [
+        "not-required",
+        "succeeded",
+        "failed",
+        "indeterminate"
+      ]
+    },
+    "lifecycleOutcome": {
+      "type": "string",
+      "enum": [
+        "denied",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "indeterminate"
+      ]
+    },
+    "receiptDeliveryOutcome": {
+      "type": "string",
+      "enum": [
+        "not-attempted",
+        "succeeded",
+        "failed",
+        "indeterminate"
+      ]
+    },
+    "routingPriority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "indexStage": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 0
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4095
+    },
+    "redactionCount": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    }
+  }
 }
