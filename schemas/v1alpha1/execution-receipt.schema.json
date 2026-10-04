@@ -1,5 +1,2140 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:53faa365-c113-4b2d-a9c5-022cd87a21dd",
-  "not": {}
+  "$comment": "Design sections 5 and 7, ExecutionReceipt. Evidence only. Conditions enforce local consistency of serialized claims; they neither infer live lease ownership nor prove authorization. Complete TaskContract/Source binding, identity-key uniqueness, ordering, chronology, final-check selection, digest verification, sanitization truth and event truth remain separate gates.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "kind": {
+      "const": "ExecutionReceipt"
+    },
+    "metadata": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/metadata",
+      "properties": {
+        "id": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUuid"
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "receiptVersion": {
+          "const": "1"
+        },
+        "taskId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUuid"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        },
+        "acquisitionBinding": {
+          "$ref": "#/$defs/acquisitionBinding"
+        },
+        "executionOutcome": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/executionOutcome"
+        },
+        "verificationOutcome": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/verificationOutcome"
+        },
+        "releaseOutcome": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/releaseOutcome"
+        },
+        "lifecycleOutcome": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/lifecycleOutcome"
+        },
+        "unresolvedCoordinationWarnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/warning"
+          },
+          "maxItems": 4096
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/check"
+          },
+          "minItems": 1,
+          "maxItems": 4096,
+          "contains": {
+            "properties": {
+              "checkType": {
+                "const": "receipt-finalization"
+              }
+            },
+            "required": [
+              "checkType"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        "changedPaths": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "ordinaryOperationEvidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ordinaryOperationEvidenceRecord"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "reasonCodes": {
+          "$ref": "#/$defs/reasonCodes"
+        },
+        "sanitization": {
+          "type": "object",
+          "properties": {
+            "profileId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/profileIdentifier"
+            },
+            "applied": {
+              "const": true
+            },
+            "redactionCount": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/redactionCount"
+            },
+            "completedAt": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUtcTimestamp"
+            }
+          },
+          "required": [
+            "profileId",
+            "applied",
+            "redactionCount",
+            "completedAt"
+          ],
+          "additionalProperties": false
+        },
+        "receiptDigest": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+        },
+        "startedAt": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUtcTimestamp"
+        },
+        "finishedAt": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUtcTimestamp"
+        }
+      },
+      "required": [
+        "receiptVersion",
+        "taskId",
+        "origin",
+        "executionOutcome",
+        "verificationOutcome",
+        "releaseOutcome",
+        "lifecycleOutcome",
+        "unresolvedCoordinationWarnings",
+        "checks",
+        "changedPaths",
+        "reasonCodes",
+        "sanitization",
+        "receiptDigest",
+        "startedAt",
+        "finishedAt"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "executionOutcome": {
+                "const": "not-attempted"
+              }
+            },
+            "required": [
+              "executionOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "verificationOutcome": {
+                "const": "not-performed"
+              },
+              "changedPaths": {
+                "const": []
+              },
+              "checks": {
+                "items": {
+                  "not": {
+                    "properties": {
+                      "checkType": {
+                        "type": "string",
+                        "enum": [
+                          "execution",
+                          "post-execution-verification"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "checkType"
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "verificationOutcome",
+              "changedPaths",
+              "checks"
+            ]
+          },
+          "else": {
+            "properties": {
+              "verificationOutcome": {
+                "type": "string",
+                "enum": [
+                  "passed",
+                  "failed",
+                  "indeterminate"
+                ]
+              }
+            },
+            "required": [
+              "verificationOutcome"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "executionOutcome": {
+                "const": "not-attempted"
+              }
+            },
+            "required": [
+              "executionOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "ordinaryOperationEvidence": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "verificationOutcome": {
+                "const": "passed"
+              }
+            },
+            "required": [
+              "verificationOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "checks": {
+                "items": {
+                  "if": {
+                    "properties": {
+                      "checkType": {
+                        "const": "post-execution-verification"
+                      }
+                    },
+                    "required": [
+                      "checkType"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "outcome": {
+                        "const": "passed"
+                      }
+                    },
+                    "required": [
+                      "outcome"
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "checks"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "lifecycleOutcome": {
+                "const": "succeeded"
+              }
+            },
+            "required": [
+              "lifecycleOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "unresolvedCoordinationWarnings": {
+                "const": []
+              }
+            },
+            "required": [
+              "unresolvedCoordinationWarnings"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "acquisitionBinding"
+            ]
+          },
+          "then": {
+            "properties": {
+              "checks": {
+                "items": {
+                  "if": {
+                    "properties": {
+                      "checkType": {
+                        "type": "string",
+                        "enum": [
+                          "lease-acquisition",
+                          "post-acquisition-revalidation",
+                          "lease-release"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "checkType"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "leaseAcquisitionRef"
+                    ]
+                  },
+                  "else": {
+                    "properties": {
+                      "leaseAcquisitionRef": false
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "checks"
+            ]
+          },
+          "else": {
+            "properties": {
+              "checks": {
+                "items": {
+                  "properties": {
+                    "leaseAcquisitionRef": false
+                  }
+                }
+              }
+            },
+            "required": [
+              "checks"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "acquisitionBinding"
+            ]
+          },
+          "then": {
+            "properties": {
+              "checks": {
+                "allOf": [
+                  {
+                    "contains": {
+                      "properties": {
+                        "checkType": {
+                          "const": "lease-acquisition"
+                        }
+                      },
+                      "required": [
+                        "checkType"
+                      ]
+                    },
+                    "minContains": 1,
+                    "maxContains": 1
+                  },
+                  {
+                    "contains": {
+                      "properties": {
+                        "checkType": {
+                          "const": "lease-acquisition"
+                        },
+                        "outcome": {
+                          "const": "passed"
+                        }
+                      },
+                      "required": [
+                        "checkType",
+                        "outcome"
+                      ]
+                    },
+                    "minContains": 1,
+                    "maxContains": 1
+                  },
+                  {
+                    "contains": {
+                      "properties": {
+                        "checkType": {
+                          "const": "post-acquisition-revalidation"
+                        }
+                      },
+                      "required": [
+                        "checkType"
+                      ]
+                    },
+                    "minContains": 1
+                  },
+                  {
+                    "contains": {
+                      "properties": {
+                        "checkType": {
+                          "const": "lease-release"
+                        }
+                      },
+                      "required": [
+                        "checkType"
+                      ]
+                    },
+                    "minContains": 1
+                  },
+                  {
+                    "items": {
+                      "not": {
+                        "properties": {
+                          "checkType": {
+                            "type": "string",
+                            "enum": [
+                              "pre-issuance-revalidation"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "checkType"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "checks"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "releaseOutcome": {
+                "type": "string",
+                "enum": [
+                  "failed",
+                  "indeterminate"
+                ]
+              }
+            },
+            "required": [
+              "releaseOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "unresolvedCoordinationWarnings": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "unresolvedCoordinationWarnings"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "origin": {
+                "properties": {
+                  "type": {
+                    "const": "issued-contract"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              }
+            },
+            "required": [
+              "origin"
+            ]
+          },
+          "then": {
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "releaseOutcome": {
+                      "const": "not-required"
+                    }
+                  },
+                  "required": [
+                    "releaseOutcome"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "acquisitionBinding": false,
+                    "ordinaryOperationEvidence": false,
+                    "changedPaths": {
+                      "const": []
+                    },
+                    "checks": {
+                      "items": {
+                        "not": {
+                          "properties": {
+                            "checkType": {
+                              "type": "string",
+                              "enum": [
+                                "lease-acquisition",
+                                "post-acquisition-revalidation",
+                                "lease-release"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "else": {
+                  "required": [
+                    "acquisitionBinding"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "allOf": [
+                    {
+                      "required": [
+                        "acquisitionBinding"
+                      ]
+                    },
+                    {
+                      "properties": {
+                        "executionOutcome": {
+                          "not": {
+                            "const": "not-attempted"
+                          }
+                        }
+                      },
+                      "required": [
+                        "executionOutcome"
+                      ]
+                    }
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "ordinaryOperationEvidence"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "origin": {
+                      "properties": {
+                        "effectiveMode": {
+                          "const": "plan-only"
+                        }
+                      },
+                      "required": [
+                        "effectiveMode"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "origin"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "releaseOutcome": {
+                      "const": "not-required"
+                    },
+                    "changedPaths": {
+                      "const": []
+                    }
+                  },
+                  "required": [
+                    "releaseOutcome",
+                    "changedPaths"
+                  ]
+                }
+              },
+              {
+                "properties": {
+                  "checks": {
+                    "allOf": [
+                      {
+                        "contains": {
+                          "properties": {
+                            "checkType": {
+                              "const": "intent-validation"
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        },
+                        "minContains": 1
+                      },
+                      {
+                        "contains": {
+                          "properties": {
+                            "checkType": {
+                              "const": "project-domain-resolution"
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        },
+                        "minContains": 1
+                      },
+                      {
+                        "contains": {
+                          "properties": {
+                            "checkType": {
+                              "const": "role-routing"
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        },
+                        "minContains": 1
+                      },
+                      {
+                        "contains": {
+                          "properties": {
+                            "checkType": {
+                              "const": "host-binding"
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        },
+                        "minContains": 1
+                      },
+                      {
+                        "contains": {
+                          "properties": {
+                            "checkType": {
+                              "const": "initial-preflight"
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        },
+                        "minContains": 1
+                      },
+                      {
+                        "contains": {
+                          "properties": {
+                            "checkType": {
+                              "const": "contract-issuance"
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        },
+                        "minContains": 1,
+                        "maxContains": 1
+                      }
+                    ],
+                    "items": {
+                      "if": {
+                        "properties": {
+                          "checkType": {
+                            "type": "string",
+                            "enum": [
+                              "intent-validation",
+                              "project-domain-resolution",
+                              "role-routing",
+                              "host-binding",
+                              "initial-preflight",
+                              "contract-issuance"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "checkType"
+                        ]
+                      },
+                      "then": {
+                        "properties": {
+                          "outcome": {
+                            "const": "passed"
+                          }
+                        },
+                        "required": [
+                          "outcome"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "checks"
+                ]
+              },
+              {
+                "if": {
+                  "required": [
+                    "acquisitionBinding"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "checks": {
+                      "allOf": [
+                        {
+                          "contains": {
+                            "properties": {
+                              "checkType": {
+                                "const": "post-acquisition-revalidation"
+                              }
+                            },
+                            "required": [
+                              "checkType"
+                            ]
+                          },
+                          "minContains": 1,
+                          "maxContains": 1
+                        },
+                        {
+                          "contains": {
+                            "properties": {
+                              "checkType": {
+                                "const": "post-acquisition-revalidation"
+                              },
+                              "outcome": {
+                                "const": "passed"
+                              }
+                            },
+                            "required": [
+                              "checkType",
+                              "outcome"
+                            ]
+                          },
+                          "minContains": 1,
+                          "maxContains": 1
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "checks"
+                  ]
+                },
+                "else": {
+                  "properties": {
+                    "checks": {
+                      "allOf": [
+                        {
+                          "contains": {
+                            "properties": {
+                              "checkType": {
+                                "const": "pre-issuance-revalidation"
+                              }
+                            },
+                            "required": [
+                              "checkType"
+                            ]
+                          },
+                          "minContains": 1,
+                          "maxContains": 1
+                        },
+                        {
+                          "contains": {
+                            "properties": {
+                              "checkType": {
+                                "const": "pre-issuance-revalidation"
+                              },
+                              "outcome": {
+                                "const": "passed"
+                              }
+                            },
+                            "required": [
+                              "checkType",
+                              "outcome"
+                            ]
+                          },
+                          "minContains": 1,
+                          "maxContains": 1
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "checks"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "executionOutcome": {
+                      "not": {
+                        "const": "not-attempted"
+                      }
+                    }
+                  },
+                  "required": [
+                    "executionOutcome"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "checks": {
+                      "allOf": [
+                        {
+                          "contains": {
+                            "properties": {
+                              "checkType": {
+                                "const": "pre-action-revalidation"
+                              }
+                            },
+                            "required": [
+                              "checkType"
+                            ]
+                          },
+                          "minContains": 1
+                        },
+                        {
+                          "contains": {
+                            "properties": {
+                              "checkType": {
+                                "const": "execution"
+                              }
+                            },
+                            "required": [
+                              "checkType"
+                            ]
+                          },
+                          "minContains": 1
+                        },
+                        {
+                          "contains": {
+                            "properties": {
+                              "checkType": {
+                                "const": "post-execution-verification"
+                              }
+                            },
+                            "required": [
+                              "checkType"
+                            ]
+                          },
+                          "minContains": 1
+                        }
+                      ],
+                      "items": {
+                        "if": {
+                          "properties": {
+                            "checkType": {
+                              "const": "pre-action-revalidation"
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        },
+                        "then": {
+                          "properties": {
+                            "outcome": {
+                              "const": "passed"
+                            }
+                          },
+                          "required": [
+                            "outcome"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "checks"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "releaseOutcome": {
+                      "const": "indeterminate"
+                    }
+                  },
+                  "required": [
+                    "releaseOutcome"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "lifecycleOutcome": {
+                      "const": "indeterminate"
+                    }
+                  },
+                  "required": [
+                    "lifecycleOutcome"
+                  ]
+                },
+                "else": {
+                  "if": {
+                    "properties": {
+                      "releaseOutcome": {
+                        "const": "failed"
+                      }
+                    },
+                    "required": [
+                      "releaseOutcome"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "lifecycleOutcome": {
+                        "const": "failed"
+                      }
+                    },
+                    "required": [
+                      "lifecycleOutcome"
+                    ]
+                  },
+                  "else": {
+                    "if": {
+                      "properties": {
+                        "verificationOutcome": {
+                          "const": "indeterminate"
+                        }
+                      },
+                      "required": [
+                        "verificationOutcome"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "lifecycleOutcome": {
+                          "const": "indeterminate"
+                        }
+                      },
+                      "required": [
+                        "lifecycleOutcome"
+                      ]
+                    },
+                    "else": {
+                      "if": {
+                        "properties": {
+                          "verificationOutcome": {
+                            "const": "failed"
+                          }
+                        },
+                        "required": [
+                          "verificationOutcome"
+                        ]
+                      },
+                      "then": {
+                        "properties": {
+                          "lifecycleOutcome": {
+                            "const": "failed"
+                          }
+                        },
+                        "required": [
+                          "lifecycleOutcome"
+                        ]
+                      },
+                      "else": {
+                        "if": {
+                          "properties": {
+                            "executionOutcome": {
+                              "const": "indeterminate"
+                            }
+                          },
+                          "required": [
+                            "executionOutcome"
+                          ]
+                        },
+                        "then": {
+                          "properties": {
+                            "lifecycleOutcome": {
+                              "const": "indeterminate"
+                            }
+                          },
+                          "required": [
+                            "lifecycleOutcome"
+                          ]
+                        },
+                        "else": {
+                          "if": {
+                            "properties": {
+                              "executionOutcome": {
+                                "const": "failed"
+                              }
+                            },
+                            "required": [
+                              "executionOutcome"
+                            ]
+                          },
+                          "then": {
+                            "properties": {
+                              "lifecycleOutcome": {
+                                "const": "failed"
+                              }
+                            },
+                            "required": [
+                              "lifecycleOutcome"
+                            ]
+                          },
+                          "else": {
+                            "if": {
+                              "properties": {
+                                "executionOutcome": {
+                                  "const": "cancelled"
+                                }
+                              },
+                              "required": [
+                                "executionOutcome"
+                              ]
+                            },
+                            "then": {
+                              "properties": {
+                                "lifecycleOutcome": {
+                                  "const": "cancelled"
+                                }
+                              },
+                              "required": [
+                                "lifecycleOutcome"
+                              ]
+                            },
+                            "else": {
+                              "if": {
+                                "properties": {
+                                  "executionOutcome": {
+                                    "const": "not-attempted"
+                                  }
+                                },
+                                "required": [
+                                  "executionOutcome"
+                                ]
+                              },
+                              "then": {
+                                "properties": {
+                                  "lifecycleOutcome": {
+                                    "const": "denied"
+                                  }
+                                },
+                                "required": [
+                                  "lifecycleOutcome"
+                                ]
+                              },
+                              "else": {
+                                "if": {
+                                  "properties": {
+                                    "unresolvedCoordinationWarnings": {
+                                      "maxItems": 0
+                                    }
+                                  },
+                                  "required": [
+                                    "unresolvedCoordinationWarnings"
+                                  ]
+                                },
+                                "then": {
+                                  "properties": {
+                                    "lifecycleOutcome": {
+                                      "const": "succeeded"
+                                    }
+                                  },
+                                  "required": [
+                                    "lifecycleOutcome"
+                                  ]
+                                },
+                                "else": {
+                                  "properties": {
+                                    "lifecycleOutcome": {
+                                      "const": "indeterminate"
+                                    }
+                                  },
+                                  "required": [
+                                    "lifecycleOutcome"
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "origin": {
+                "properties": {
+                  "type": {
+                    "const": "pre-contract-denial"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              }
+            },
+            "required": [
+              "origin"
+            ]
+          },
+          "then": {
+            "allOf": [
+              {
+                "properties": {
+                  "executionOutcome": {
+                    "const": "not-attempted"
+                  },
+                  "verificationOutcome": {
+                    "const": "not-performed"
+                  },
+                  "changedPaths": {
+                    "const": []
+                  }
+                },
+                "required": [
+                  "executionOutcome",
+                  "verificationOutcome",
+                  "changedPaths"
+                ]
+              },
+              {
+                "properties": {
+                  "ordinaryOperationEvidence": false
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "origin": {
+                      "properties": {
+                        "leaseAcquisition": {
+                          "properties": {
+                            "state": {
+                              "const": "acquired"
+                            }
+                          },
+                          "required": [
+                            "state"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "leaseAcquisition"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "origin"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "acquisitionBinding"
+                  ],
+                  "properties": {
+                    "releaseOutcome": {
+                      "type": "string",
+                      "enum": [
+                        "succeeded",
+                        "failed",
+                        "indeterminate"
+                      ]
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "acquisitionBinding": false,
+                    "checks": {
+                      "items": {
+                        "not": {
+                          "properties": {
+                            "checkType": {
+                              "type": "string",
+                              "enum": [
+                                "lease-release"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "checkType"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "origin": {
+                      "properties": {
+                        "leaseAcquisition": {
+                          "properties": {
+                            "state": {
+                              "const": "indeterminate"
+                            }
+                          },
+                          "required": [
+                            "state"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "leaseAcquisition"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "origin"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "releaseOutcome": {
+                      "const": "indeterminate"
+                    },
+                    "lifecycleOutcome": {
+                      "const": "indeterminate"
+                    },
+                    "unresolvedCoordinationWarnings": {
+                      "minItems": 1
+                    }
+                  },
+                  "required": [
+                    "releaseOutcome",
+                    "lifecycleOutcome",
+                    "unresolvedCoordinationWarnings"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "origin": {
+                      "properties": {
+                        "leaseAcquisition": {
+                          "properties": {
+                            "state": {
+                              "type": "string",
+                              "enum": [
+                                "not-required",
+                                "not-attempted",
+                                "not-acquired"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "state"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "leaseAcquisition"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "origin"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "releaseOutcome": {
+                      "const": "not-required"
+                    }
+                  },
+                  "required": [
+                    "releaseOutcome"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "releaseOutcome": {
+                      "const": "failed"
+                    }
+                  },
+                  "required": [
+                    "releaseOutcome"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "lifecycleOutcome": {
+                      "const": "failed"
+                    }
+                  },
+                  "required": [
+                    "lifecycleOutcome"
+                  ]
+                },
+                "else": {
+                  "if": {
+                    "properties": {
+                      "releaseOutcome": {
+                        "const": "indeterminate"
+                      }
+                    },
+                    "required": [
+                      "releaseOutcome"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "lifecycleOutcome": {
+                        "const": "indeterminate"
+                      }
+                    },
+                    "required": [
+                      "lifecycleOutcome"
+                    ]
+                  },
+                  "else": {
+                    "properties": {
+                      "lifecycleOutcome": {
+                        "const": "denied"
+                      }
+                    },
+                    "required": [
+                      "lifecycleOutcome"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "checks": {
+                    "items": {
+                      "not": {
+                        "properties": {
+                          "checkType": {
+                            "type": "string",
+                            "enum": [
+                              "pre-action-revalidation",
+                              "execution",
+                              "post-execution-verification"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "checkType"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "checks"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "reasonCodes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/reasonCode"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "resolvedTarget": {
+      "type": "object",
+      "properties": {
+        "projectRef": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+          "properties": {
+            "kind": {
+              "const": "Project"
+            }
+          }
+        },
+        "worktreeRoleRef": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+          "properties": {
+            "kind": {
+              "const": "WorktreeRole"
+            }
+          }
+        },
+        "worktreeId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/logicalIdentifier"
+        },
+        "domainRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+            "properties": {
+              "kind": {
+                "const": "Domain"
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "projectRef",
+        "worktreeRoleRef",
+        "worktreeId",
+        "domainRefs"
+      ],
+      "additionalProperties": false
+    },
+    "preContractEvidence": {
+      "type": "object",
+      "properties": {
+        "observedAt": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUtcTimestamp"
+        },
+        "evidenceDigest": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+        },
+        "controllerCheckId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/checkIdentifier"
+        },
+        "reasonCodes": {
+          "$ref": "#/$defs/reasonCodes",
+          "minItems": 1
+        },
+        "sanitizedSummary": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/sanitizedSummary"
+        }
+      },
+      "required": [
+        "observedAt",
+        "evidenceDigest",
+        "controllerCheckId",
+        "reasonCodes",
+        "sanitizedSummary"
+      ],
+      "additionalProperties": false
+    },
+    "origin": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "issued-contract"
+            },
+            "contractId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUuid"
+            },
+            "contractDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            },
+            "resolvedTarget": {
+              "$ref": "#/$defs/resolvedTarget"
+            },
+            "effectiveMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/mode"
+            }
+          },
+          "required": [
+            "type",
+            "contractId",
+            "contractDigest",
+            "resolvedTarget",
+            "effectiveMode"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "pre-contract-denial"
+            },
+            "denialCheckpoint": {
+              "type": "string",
+              "enum": [
+                "intent-validation",
+                "project-domain-resolution",
+                "role-routing",
+                "host-binding",
+                "initial-preflight",
+                "pre-issuance-revalidation",
+                "lease-acquisition",
+                "post-acquisition-revalidation",
+                "contract-issuance"
+              ]
+            },
+            "preContractEvidence": {
+              "$ref": "#/$defs/preContractEvidence"
+            },
+            "leaseAcquisition": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "not-required",
+                    "not-attempted",
+                    "not-acquired",
+                    "indeterminate",
+                    "acquired"
+                  ]
+                }
+              },
+              "required": [
+                "state"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "type",
+            "denialCheckpoint",
+            "preContractEvidence",
+            "leaseAcquisition"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "intent-validation"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "not-required",
+                          "not-attempted"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "project-domain-resolution"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "not-required",
+                          "not-attempted"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "role-routing"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "not-required",
+                          "not-attempted"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "host-binding"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "not-required",
+                          "not-attempted"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "initial-preflight"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "not-required",
+                          "not-attempted"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "pre-issuance-revalidation"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "not-required"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "lease-acquisition"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "not-acquired",
+                          "indeterminate"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "post-acquisition-revalidation"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "acquired"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "denialCheckpoint": {
+                    "const": "contract-issuance"
+                  }
+                },
+                "required": [
+                  "denialCheckpoint"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "leaseAcquisition": {
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "enum": [
+                          "not-required",
+                          "acquired"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "leaseAcquisition"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "acquisitionBinding": {
+      "type": "object",
+      "properties": {
+        "checkId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/checkIdentifier"
+        },
+        "leaseId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUuid"
+        },
+        "acquisitionResultDigest": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+        }
+      },
+      "required": [
+        "checkId",
+        "leaseId",
+        "acquisitionResultDigest"
+      ],
+      "additionalProperties": false
+    },
+    "warning": {
+      "type": "object",
+      "properties": {
+        "sequence": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/sequence"
+        },
+        "code": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/reasonCode"
+        },
+        "profileId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/profileIdentifier"
+        },
+        "sanitizedSummary": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/sanitizedSummary"
+        },
+        "relatedCheckId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/checkIdentifier"
+        }
+      },
+      "required": [
+        "sequence",
+        "code",
+        "profileId"
+      ],
+      "additionalProperties": false
+    },
+    "check": {
+      "type": "object",
+      "properties": {
+        "sequence": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/sequence"
+        },
+        "checkId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/checkIdentifier"
+        },
+        "checkType": {
+          "type": "string",
+          "enum": [
+            "intent-validation",
+            "project-domain-resolution",
+            "role-routing",
+            "host-binding",
+            "initial-preflight",
+            "lease-acquisition",
+            "post-acquisition-revalidation",
+            "pre-issuance-revalidation",
+            "contract-issuance",
+            "pre-action-revalidation",
+            "execution",
+            "post-execution-verification",
+            "lease-release",
+            "receipt-finalization"
+          ]
+        },
+        "outcome": {
+          "oneOf": [
+            {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/checkOutcome"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "succeeded",
+                "cancelled"
+              ]
+            }
+          ]
+        },
+        "observedAt": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUtcTimestamp"
+        },
+        "profileId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/profileIdentifier"
+        },
+        "expectedSummary": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/sanitizedSummary"
+        },
+        "observedSummary": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/sanitizedSummary"
+        },
+        "postconditionRef": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "$ref": "urn:uuid:314c8f9e-2554-4ebc-b688-d48598693282#/$defs/postconditionType"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        "leaseAcquisitionRef": {
+          "type": "object",
+          "properties": {
+            "checkId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/checkIdentifier"
+            }
+          },
+          "required": [
+            "checkId"
+          ],
+          "additionalProperties": false
+        },
+        "reasonCodes": {
+          "$ref": "#/$defs/reasonCodes"
+        }
+      },
+      "required": [
+        "sequence",
+        "checkId",
+        "checkType",
+        "outcome",
+        "observedAt",
+        "profileId",
+        "reasonCodes"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "checkType": {
+                "const": "execution"
+              }
+            },
+            "required": [
+              "checkType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "outcome": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/executionCheckOutcome"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "else": {
+            "properties": {
+              "outcome": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/checkOutcome"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "checkType": {
+                "not": {
+                  "const": "post-execution-verification"
+                }
+              }
+            },
+            "required": [
+              "checkType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "postconditionRef": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "checkType": {
+                "not": {
+                  "type": "string",
+                  "enum": [
+                    "lease-acquisition",
+                    "post-acquisition-revalidation",
+                    "lease-release"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "checkType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "leaseAcquisitionRef": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "checkType": {
+                "const": "receipt-finalization"
+              }
+            },
+            "required": [
+              "checkType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "checkId": {
+                "const": "check.receipt-finalization"
+              },
+              "profileId": {
+                "const": "profile.validation.v1"
+              },
+              "outcome": {
+                "const": "passed"
+              },
+              "reasonCodes": {
+                "const": []
+              },
+              "expectedSummary": false,
+              "observedSummary": false,
+              "postconditionRef": false,
+              "leaseAcquisitionRef": false
+            }
+          }
+        }
+      ]
+    },
+    "ordinaryOperationEvidenceRecord": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+        },
+        "operations": {
+          "type": "array",
+          "enum": [
+            [
+              "create"
+            ],
+            [
+              "delete"
+            ],
+            [
+              "modify"
+            ],
+            [
+              "create",
+              "delete"
+            ],
+            [
+              "create",
+              "modify"
+            ],
+            [
+              "delete",
+              "modify"
+            ],
+            [
+              "create",
+              "delete",
+              "modify"
+            ]
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "operations"
+      ],
+      "additionalProperties": false
+    }
+  }
 }

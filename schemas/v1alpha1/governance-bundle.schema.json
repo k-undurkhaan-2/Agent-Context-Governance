@@ -1,5 +1,41 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:e1293323-8af3-41ed-a55e-dc0c27f35206",
-  "not": {}
+  "$comment": "Design section 8. Non-kind portable container only. Non-empty Project reference sets and complete bundle reference/association/uniqueness proofs are separate S4 requirements; this Schema performs no resolution.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "project": {
+      "$ref": "urn:uuid:d5cecdb5-eadf-491d-80c6-869a7f4d10d9"
+    },
+    "domains": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:uuid:2bab91f3-c4d5-43e5-90f6-ffb786b42e65"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "worktreeRoles": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:uuid:4393a3fc-40da-41be-aca9-4276ddc752fa"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "routingPolicy": {
+      "$ref": "urn:uuid:5d929622-e8b2-40b4-80aa-5d8630625108"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "project",
+    "domains",
+    "worktreeRoles",
+    "routingPolicy"
+  ],
+  "additionalProperties": false
 }

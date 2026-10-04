@@ -1,5 +1,89 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:2bab91f3-c4d5-43e5-90f6-ffb786b42e65",
-  "not": {}
+  "$comment": "Design sections 5 and 7, Domain. Reference existence, self-reference, overlap symmetry and path-language relationships remain S4 static checks.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "kind": {
+      "const": "Domain"
+    },
+    "metadata": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/metadata"
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "projectRef": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+          "properties": {
+            "kind": {
+              "const": "Project"
+            }
+          }
+        },
+        "responsibility": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/displayText"
+        },
+        "pathScope": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/pathPattern"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "exclude": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/pathPattern"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "include"
+          ],
+          "additionalProperties": false
+        },
+        "permissions": {
+          "$ref": "urn:uuid:d5cecdb5-eadf-491d-80c6-869a7f4d10d9#/$defs/permissions"
+        },
+        "overlapRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+            "properties": {
+              "kind": {
+                "const": "Domain"
+              }
+            }
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "projectRef",
+        "responsibility",
+        "pathScope",
+        "permissions",
+        "overlapRefs"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "additionalProperties": false
 }

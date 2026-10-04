@@ -1,100 +1,123 @@
-# v1alpha1 S2 shared-vocabulary candidate
+# v1alpha1 S3 structural Schema candidate
 
-The integrated S1 package establishes the package layout, frozen catalog,
-and offline registry for `contextctl.dev/v1alpha1`, Schema-set revision
-`v1alpha1-r1`. The distribution is `agent-context-governance-schema` version
-`0.0.0`; its import package is `contextctl_schema`. It is not a release or
-an approved complete Schema baseline.
+This unpublished candidate implements the seven public kind Schemas and three
+supporting/container resources for `contextctl.dev/v1alpha1`, Schema-set
+revision `v1alpha1-r1`, on the integrated S2 shared vocabulary. All ten former
+S1 rejecting placeholders have been replaced. The 53 definitions in
+`common.schema.json`, catalog, registry implementation, format checker,
+package metadata, and dependency lock remain unchanged.
 
-All 11 JSON files retain Draft 2020-12 and the exact reserved IDs from the
-[integrated design](../../docs/schema-contract-v1alpha1.md#3-schema-set-revision-and-frozen-resource-catalog).
-This unpublished S2 candidate replaces the common placeholder with reusable
-`$defs` in `common.schema.json`. Consumers select a definition fragment;
-common is a supporting vocabulary, not a resource dispatcher. The other ten
-resources retain their exact S1 rejecting placeholders (`"not": {}`).
-The seven concrete kind Schemas and the closed seven-kind `oneOf` dispatch in
-`resource.schema.json` remain S3 work.
+The distribution remains `agent-context-governance-schema` version `0.0.0`,
+with import package `contextctl_schema`. This candidate is not a release or an
+approved complete Schema baseline. Structural acceptance grants no operational
+authorization and establishes neither trusted issuance nor lease ownership.
 
-S2 covers Schema-expressible lexical, type, bound, enum, required-field,
-closed-object, union, and local structural constraints. UUID and timestamp
-formats must be asserted explicitly by a capable validator. Syntax does not
-establish reference existence, chronology, path containment, trusted issuance,
-or authorization. Strict decoding, models, routing, live Git inspection,
-leases, runtime contract/receipt execution, CLI, adapters, and enforcement
-remain outside S2.
+## Frozen resources and dispatch
 
-`build_format_checker()` supplies the S0-approved project-owned explicit
-checker for exactly `uuid` and `date-time`. It uses project-owned lexical
-validation and Python standard-library UUID/calendar validation; no optional
-jsonschema format dependency is required. Asserted formats must be passed
-explicitly during validation with `format_checker=build_format_checker()`.
-This adapter does not implement the future strict decoder or model codec,
-cross-field chronology, or trusted-clock freshness.
+All 11 JSON resources retain Draft 2020-12 and their exact reserved IDs from
+the [integrated design](../../docs/schema-contract-v1alpha1.md#3-schema-set-revision-and-frozen-resource-catalog).
 
-## Canonical resources and packaging
-
-The canonical JSON files live only in this directory. Hatchling copies their
-exact bytes into `contextctl_schema/schemas/v1alpha1/` in the candidate wheel.
-There is no second source-controlled copy under `src/`.
-
-The immutable `CATALOG` contains 11 records. The record attributes
-`resource_name`, `schema_set_revision`, `api_version`, `repository_path`,
-`schema_id`, `kind`, and `dispatchable_kind` represent the design's
-resourceName, schemaSetRevision, apiVersion, repository-relative path, exact
-$id, kind, and dispatchableKind respectively.
-
-`get_resource(resource_name)` performs exact resource-name lookup.
-`lookup_kind(schema_set_revision, api_version, kind)` dispatches exactly
-Project, Domain, WorktreeRole, RoutingPolicy, HostOverlay, TaskContract, and
-ExecutionReceipt. Unknown names or tuples raise `KeyError`.
-Common, resource, governance-bundle, and receipt-delivery-result are supporting
-or container resources; their kind is null and they are not dispatchable.
-
-`build_registry()` loads only the package's fixed catalog and explicitly
-interprets each resource as Draft 2020-12. Unknown resources fail; the
-retrieval callback cannot access a network or caller-selected filesystem path.
-A fresh registry is built for each call. Library Registry immutability does
-not make the JSON document dictionaries an instance-immutability contract.
-
-## Evidence boundary
-
-Registry tests preserve catalog identities, dispatch boundaries, local
-resolution, missing-resource and missing-fragment failure, fresh-registry
-isolation, and universal rejection by the ten remaining placeholders.
-`test_common_profiles.py` reads the checkout's common Schema directly. Its
-synthetic vectors distinguish structural/lexical evidence from asserted
-timestamp format/calendar evidence and from deliberately Schema-valid values
-that still require a deferred gate. All format assertions use the explicit
-project checker, including the timestamp calendar vectors; optional library
-checkers are not required and these vectors do not skip.
-These tests are not full S7 conformance, strict-decoder evidence, model
-conformance, or operational authorization.
-
-The [shared definitions](../../docs/schema-contract-v1alpha1.md#6-shared-definitions)
-and [validation matrix](../../docs/schema-contract-v1alpha1.md#12-structural-static-later-phase-and-external-control-matrix)
-assign the remaining requirements as follows:
-
-| Deferred requirement | Owner and boundary |
+| Resource group | Members and boundary |
 | --- | --- |
-| Strict UTF-8 decoding, duplicate-key rejection, raw numeric-token spelling, Unicode-scalar and NFC validation | Future model implementation of the Phase-1 strict decoding contract, before ordinary conversion loses source information. |
-| Complete Gregorian calendar/year semantics beyond Schema and the available asserted format checker; cross-field chronology | Phase-1 static validation; future model implementation supplies parser and instant-comparison conformance. Phase 4 supplies trusted current time. |
-| Cross-instance uniqueness, canonical ordering, set equality, reference existence/association, detached/unborn and other cross-field consistency | Phase-1 static validation over a closed loaded set. Schema only provides shapes and directly expressible local checks. |
-| Path-pattern semantic parsing and path-language inclusion/automata proofs over the valid repository-path universe | Phase-1 static validation. S2 rejects lexical violations but implements no matcher, parser, or inclusion engine. |
-| Remote canonical ordering, outer remote-name uniqueness, exact membership/narrowing, and canonical equality | Phase-1 static validation. Local duplicate objects and namespace cardinality/component bounds are structural; the namespace bounds imply joined length at most 1023. |
-| Typed models, codec, validated canonical representation, serialization, JCS, hash projections, replay, and cross-runtime conformance | Future model implementation in its distinct worktree after the complete Schema baseline is approved and integrated. |
-| Task resolution, Domain coverage, RoutingPolicy evaluation, and role selection | Later operational phase: Phase 2. |
-| Live filesystem/Git/worktree identity, containment, aliases, observed remotes, and leases | Later operational phase: Phase 3. |
-| Trusted issuance/provenance, operational freshness, authorization, sanitization, scope verification, and contract/receipt execution and delivery | Later operational phase: Phase 4, with external trust and data-classification controls. |
-| CLI, adapters, and operational enforcement | Later operational phases: CLI in Phase 5, adapters in Phase 6, composing the approved Phase 2–4 controls. |
+| Seven dispatchable kinds | Project, Domain, WorktreeRole, RoutingPolicy, HostOverlay, TaskContract, ExecutionReceipt. Each has exact API/kind discrimination and a closed envelope, metadata, and spec. |
+| Common vocabulary | `common.schema.json` supplies reusable `$defs`. It does not dispatch instances. |
+| Resource dispatcher | `resource.schema.json` has exactly seven `oneOf` references, with no fallback. It is not a kind. |
+| Portable container | `governance-bundle.schema.json` contains only apiVersion, Project, Domains, WorktreeRoles, and RoutingPolicy. It excludes host-local input and runtime artifacts. |
+| Delivery evidence | `receipt-delivery-result.schema.json` is a closed non-kind record for post-finalization delivery evidence. It cannot replace a receipt or grant authority. |
 
-The Windows CPython 3.13 dependency lock is generated from `pyproject.toml`
-with the approved build, test, and tooling dependencies. Package tests must run
-against the installed wheel in the separately authorized external environment.
-S2 profile tests read the candidate Schema directly using already available
-dependencies; a source-resource registry check is distinct from installed-wheel
-evidence. Bytecode generation and the pytest cache must be disabled. A Windows lock and
-test result make no Linux completeness or conformance claim.
+HostOverlay instances remain host-local. TaskContract and ExecutionReceipt
+instances remain runtime artifacts outside portable governance and the target
+worktree. Inline test data are conspicuously synthetic, not generated runtime
+artifacts.
+
+The immutable catalog contains 11 records. `get_resource(resource_name)` uses
+exact resource-name lookup. `lookup_kind(schema_set_revision, api_version,
+kind)` recognizes exactly the seven kinds; unknown names or tuples raise
+`KeyError`. Common, resource, governance-bundle, and receipt-delivery-result
+have null catalog kinds and are not dispatchable.
+
+Cross-resource references use the frozen absolute UUID URNs, optionally with
+definition fragments. Resource-local definitions compose the frozen common
+profiles. Project's permission definition is reused by Domain and WorktreeRole.
+Receipt postcondition references reuse TaskContract's eleven-value type
+definition. These definition references introduce no new kind.
+
+## Structural coverage
+
+S3 follows the design's [common envelope](../../docs/schema-contract-v1alpha1.md#5-common-envelope),
+[seven object-kind designs](../../docs/schema-contract-v1alpha1.md#7-seven-object-kind-designs),
+and [supporting resources](../../docs/schema-contract-v1alpha1.md#8-supporting-and-container-schemas).
+
+The candidate enforces required fields, exact types/constants, unknown-field
+rejection, shared lexical profiles, local duplicate-object rejection, finite
+conditional relationships, and closed unions. These include secure defaults;
+typed references; review-only capability complements; routing structure;
+five-field host bindings; TaskContract's four mode/write/lease combinations,
+nine baseline dimensions, four transition types and eleven postcondition types;
+and receipt origin, check-outcome, acquisition-reference, finalization,
+operation-record, and local outcome constraints.
+
+Receipt conditions check serialized claims. They do not prove that checks
+occurred, an acquisition Source exists, a lease is owned, or a release succeeded.
+The local acquisition/release/carrier conditions preserve consequences of the
+contract invariant; S4 must independently validate the complete referenced
+TaskContract and acquisition Source.
+
+UUID and timestamp formats must be asserted explicitly.
+`build_format_checker()` supplies the unchanged project-owned checker for
+exactly `uuid` and `date-time`, using standard-library UUID/calendar validation.
+Pass `format_checker=build_format_checker()` during validation. Format
+annotation alone is insufficient; no optional format dependency is needed.
+
+## Deferred validation and operational boundaries
+
+The [validation matrix](../../docs/schema-contract-v1alpha1.md#12-structural-static-later-phase-and-external-control-matrix)
+continues to apply.
+
+| Requirement | Owner and boundary |
+| --- | --- |
+| Strict UTF-8 decoding, duplicate instance keys, raw numeric-token spelling, Unicode scalar/NFC checking, and validated canonical representation | Future Phase-1 model/codec implementation. Parsing Schema source files in tests is not a governance-instance decoder. |
+| Cross-resource ID uniqueness, reference existence and kind resolution, coherent Project association, Domain-overlap symmetry, and resolved role ownership | S4 static validation over closed configuration data. |
+| Canonical ordering and identity-key uniqueness beyond local Schema constraints; arbitrary structured-value equality and set relationships | S4. `uniqueItems` rejects identical objects but does not prove uniqueness by an individual identity field. |
+| Complete HostOverlay inventory, same-host exclusivity, remote-name identity, and permission/remote narrowing | S4 with complete trusted comparison context. One overlay's Schema validity is insufficient. |
+| Path-pattern parsing, path-language inclusion/automata, scope containment, transition composition and capability closure | S4 where derivable from closed data; live effects and attribution remain later-phase work. |
+| Timestamp chronology, final-check selection, contiguous sequences, receipt/contract/Source equalities, and digest acceptance | Separate static/codec gates. Local Schema relationships do not prove chronology, provenance, or event truth. |
+| Full synthetic fixture corpus, lifecycle matrices and cross-runtime fixture assets | S5 and subsequent conformance work. S3 uses bounded inline structural vectors only. |
+| Models, serialization, JCS, digest projection, hashing, replay and cross-runtime equivalence | Future model implementation in its distinct worktree after approval and integration of the complete Schema baseline. |
+| Task/Project/Domain resolution, matching, priority evaluation and covering-role selection | Phase 2. |
+| Live filesystem/Git identity, aliases, containment, observed remotes, runtime coordination and leases | Phase 3. |
+| Trusted issuance, provenance, freshness, authorization, sanitization, scope verification, receipt generation and delivery | Phase 4, with external trust and data-classification controls. |
+| CLI, adapters and operational enforcement | Phases 5 and 6, composing approved prior-phase controls. |
+
+Schema cannot prove that descriptive text or a sanitized summary is safe.
+Test identities use synthetic values and reserved `.invalid` names.
+
+## Source validation and packaging
+
+Canonical JSON resources live only in this directory. Existing packaging copies
+their bytes into `contextctl_schema/schemas/v1alpha1/` in a candidate wheel;
+no second source-controlled copy is added.
+
+`build_registry()` loads only the fixed package catalog, explicitly using Draft
+2020-12. Unknown resources and fragments fail; its retrieval callback has no
+network or caller-selected filesystem fallback. Each call creates a fresh
+registry. Registry immutability does not freeze the JSON dictionaries.
+
+The five source test modules cover the frozen catalog, registry, common
+profiles, seven kind Schemas, and supporting/container Schemas. Registry tests
+bind the unchanged package-resource accessor to the fixed checkout root only
+inside a test fixture. This verifies candidate source bytes without rebuilding
+or reinstalling the package; it is not installed-wheel evidence. The new
+structural tests also use the fixed checkout resources and explicit project
+format checker.
+
+Use the already approved dependencies and source package, with
+`PYTHONDONTWRITEBYTECODE=1`, Python `-B`, and pytest `-p no:cacheprovider`.
+Run exactly `test_catalog.py`, `test_registry.py`, `test_common_profiles.py`,
+`test_resource_schemas.py`, and `test_container_schemas.py` under `tests/schema/`.
+No dependency installation, package build, wheel installation, cache generation,
+or runtime execution is part of the S3 implementation transaction.
 
 Publication is UNPUBLISHED. The project license remains undecided. Independent
 audit, integration-control approval, and separately authorized administrative
-actions remain necessary before an implementation baseline can be integrated.
+actions remain necessary before a complete implementation baseline is integrated.
