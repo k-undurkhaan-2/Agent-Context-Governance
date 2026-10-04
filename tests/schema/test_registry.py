@@ -1,9 +1,9 @@
-"""Installed-package offline registry and ten rejecting-placeholder resources."""
+"""Fixed-checkout source evidence for the unchanged offline registry."""
 
 import json
 import socket
 import urllib.request
-from importlib.resources import files
+from pathlib import Path
 
 import pytest
 from jsonschema import Draft202012Validator
@@ -13,11 +13,20 @@ from referencing.jsonschema import DRAFT202012
 from contextctl_schema.catalog import CATALOG
 from contextctl_schema.registry import DIALECT, build_registry
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
+@pytest.fixture(autouse=True)
+def source_package_resources(monkeypatch):
+    # Source-only S3 verification; no package rebuild or reinstall.
+    monkeypatch.setattr("contextctl_schema.registry.files", lambda _package: ROOT)
+
+
 
 @pytest.fixture
 def offline_registry(monkeypatch):
     def forbidden_network(*args, **kwargs):
-        pytest.fail("S1 registry attempted network access")
+        pytest.fail("Offline registry attempted network access")
 
     monkeypatch.setattr(socket.socket, "connect", forbidden_network)
     monkeypatch.setattr(socket, "create_connection", forbidden_network)
@@ -31,21 +40,20 @@ def test_complete_local_registry(offline_registry):
 
 
 @pytest.mark.parametrize("record", CATALOG, ids=lambda r: r.resource_name)
-def test_packaged_resource_identity_and_dialect(record, offline_registry):
-    document = json.loads(
-        files("contextctl_schema").joinpath(
-            "schemas", "v1alpha1", record.resource_name
-        ).read_text("utf-8")
-    )
+def test_source_resource_identity_and_dialect(record, offline_registry):
+    document = json.loads((ROOT / record.repository_path).read_text("utf-8"))
     if record.resource_name == "common.schema.json":
         assert "$defs" in document
         assert "not" not in document
+    elif record.resource_name == "resource.schema.json":
+        assert len(document["oneOf"]) == 7
+        assert document["oneOf"] == [
+            {"$ref": item.schema_id} for item in CATALOG if item.dispatchable_kind
+        ]
     else:
-        assert document == {
-            "$schema": "https://json-schema.org/draft/2020-12/schema",
-            "$id": record.schema_id,
-            "not": {},
-        }
+        assert document["type"] == "object"
+        assert document["additionalProperties"] is False
+    assert document.get("not") != {}
     assert document["$id"] == record.schema_id
     assert document["$schema"] == DIALECT
     Draft202012Validator.check_schema(document)
@@ -62,12 +70,11 @@ def test_packaged_resource_identity_and_dialect(record, offline_registry):
     [], [None], {}, {"synthetic": [1, True, None]},
     {"apiVersion": "contextctl.dev/v1alpha1", "kind": "Project"},
 ])
-def test_placeholders_reject_instances(record, instance, offline_registry):
+def test_resources_reject_non_resource_and_incomplete_instances(record, instance, offline_registry):
     schema = offline_registry.contents(record.schema_id)
     validator = Draft202012Validator(schema, registry=offline_registry)
     errors = list(validator.iter_errors(instance))
     assert errors
-    assert all(error.validator == "not" for error in errors)
     assert not validator.is_valid(instance)
 
 

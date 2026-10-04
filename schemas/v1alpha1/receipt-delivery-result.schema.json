@@ -1,5 +1,44 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:ffa1dcf4-5eb3-4a16-b1b2-be3bc1898684",
-  "not": {}
+  "$comment": "Design section 8. Closed non-kind post-finalization evidence; it cannot authorize action or replace/mutate a receipt. Receipt binding, chronology and actual sanitization remain separate checks.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "receiptId": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUuid"
+    },
+    "receiptDigest": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+    },
+    "outcome": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/receiptDeliveryOutcome"
+    },
+    "attemptedAt": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUtcTimestamp"
+    },
+    "reasonCodes": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/reasonCode"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "sanitizedSummary": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/sanitizedSummary"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "receiptId",
+    "receiptDigest",
+    "outcome",
+    "attemptedAt",
+    "reasonCodes",
+    "sanitizedSummary"
+  ],
+  "additionalProperties": false
 }

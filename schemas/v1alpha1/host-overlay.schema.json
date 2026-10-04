@@ -1,5 +1,141 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:c0de9354-1096-4cea-9cde-a33ad38ab313",
-  "not": {}
+  "$comment": "Design sections 5 and 7, HostOverlay. Host-local only. Complete same-host inventory, injectivity, restriction proofs and live identity are separate static/runtime gates.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "kind": {
+      "const": "HostOverlay"
+    },
+    "metadata": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/metadata"
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "hostId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/logicalIdentifier"
+        },
+        "projectRef": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+          "properties": {
+            "kind": {
+              "const": "Project"
+            }
+          }
+        },
+        "repositoryIdentity": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryIdentity"
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "roleRef": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+                "properties": {
+                  "kind": {
+                    "const": "WorktreeRole"
+                  }
+                }
+              },
+              "worktreeId": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/logicalIdentifier"
+              },
+              "repositoryRoot": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/absoluteHostPath"
+              },
+              "expectedRef": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/refState"
+              },
+              "remoteNames": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/logicalIdentifier"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "roleRef",
+              "worktreeId",
+              "repositoryRoot",
+              "expectedRef",
+              "remoteNames"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "remoteExpectations": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/remoteExpectation"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "capabilityCeiling": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/capabilities"
+        },
+        "pathCeiling": {
+          "type": "object",
+          "properties": {
+            "include": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/pathPattern"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            "exclude": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/pathPattern"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "include",
+            "exclude"
+          ],
+          "additionalProperties": false
+        },
+        "stateRoot": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/absoluteHostPath"
+        },
+        "lockRoot": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/absoluteHostPath"
+        }
+      },
+      "required": [
+        "hostId",
+        "projectRef",
+        "repositoryIdentity",
+        "bindings",
+        "remoteExpectations",
+        "capabilityCeiling",
+        "pathCeiling",
+        "stateRoot",
+        "lockRoot"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "additionalProperties": false
 }

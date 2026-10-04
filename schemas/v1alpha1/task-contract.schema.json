@@ -1,5 +1,2669 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:314c8f9e-2554-4ebc-b688-d48598693282",
-  "not": {}
+  "$comment": "Design sections 5 and 7, TaskContract. Structural validity is not trusted issuance, provenance, ownership, freshness or authorization. Baseline inventories, arbitrary-value equality, path languages, chronology and digest verification require separate gates.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "kind": {
+      "const": "TaskContract"
+    },
+    "metadata": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/metadata",
+      "properties": {
+        "id": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUuid"
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "contractVersion": {
+          "const": "1"
+        },
+        "taskId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUuid"
+        },
+        "projectRef": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+          "properties": {
+            "kind": {
+              "const": "Project"
+            }
+          }
+        },
+        "repositoryIdentity": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryIdentity"
+        },
+        "target": {
+          "type": "object",
+          "properties": {
+            "worktreeId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/logicalIdentifier"
+            },
+            "worktreeRoleRef": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+              "properties": {
+                "kind": {
+                  "const": "WorktreeRole"
+                }
+              }
+            }
+          },
+          "required": [
+            "worktreeId",
+            "worktreeRoleRef"
+          ],
+          "additionalProperties": false
+        },
+        "domainRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+            "properties": {
+              "kind": {
+                "const": "Domain"
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "issuer": {
+          "type": "object",
+          "properties": {
+            "issuerId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/logicalIdentifier"
+            },
+            "issuanceMethod": {
+              "const": "trusted-framework"
+            },
+            "derivationDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            }
+          },
+          "required": [
+            "issuerId",
+            "issuanceMethod",
+            "derivationDigest"
+          ],
+          "additionalProperties": false
+        },
+        "digests": {
+          "type": "object",
+          "properties": {
+            "policyDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            },
+            "configurationDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            },
+            "taskIntentDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            }
+          },
+          "required": [
+            "policyDigest",
+            "configurationDigest",
+            "taskIntentDigest"
+          ],
+          "additionalProperties": false
+        },
+        "requestedMode": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/mode"
+        },
+        "effectiveMode": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/mode"
+        },
+        "allowWrite": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/allowWrite"
+        },
+        "authorizedScope": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/scope"
+        },
+        "prohibitedScope": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/scope"
+        },
+        "expectedBaseline": {
+          "$ref": "#/$defs/expectedBaseline"
+        },
+        "permittedTransitions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/permittedTransition"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "requiredPostconditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/requiredPostcondition"
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "maxItems": 11,
+          "allOf": [
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "scope-contained"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "ref-state"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "head-state"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "index-state"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "tracked-state"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "untracked-state"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "ignored-state"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "submodule-state"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "active-operations"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "administrative-locks"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "type": {
+                    "const": "lease-state"
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              },
+              "minContains": 0,
+              "maxContains": 1
+            }
+          ]
+        },
+        "leaseRequired": {
+          "type": "boolean"
+        },
+        "leaseId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUuid"
+        },
+        "issuanceCheckpoint": {
+          "type": "object",
+          "properties": {
+            "observedAt": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/canonicalUtcTimestamp"
+            },
+            "stateDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            }
+          },
+          "required": [
+            "observedAt",
+            "stateDigest"
+          ],
+          "additionalProperties": false
+        },
+        "freshness": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/freshnessBoundary"
+        }
+      },
+      "required": [
+        "contractVersion",
+        "taskId",
+        "projectRef",
+        "repositoryIdentity",
+        "target",
+        "domainRefs",
+        "issuer",
+        "digests",
+        "requestedMode",
+        "effectiveMode",
+        "allowWrite",
+        "authorizedScope",
+        "prohibitedScope",
+        "expectedBaseline",
+        "permittedTransitions",
+        "requiredPostconditions",
+        "leaseRequired",
+        "issuanceCheckpoint",
+        "freshness"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "requestedMode": {
+                "const": "plan-only"
+              }
+            },
+            "required": [
+              "requestedMode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "effectiveMode": {
+                "const": "plan-only"
+              }
+            },
+            "required": [
+              "effectiveMode"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "allowWrite": {
+                "const": true
+              }
+            },
+            "required": [
+              "allowWrite"
+            ]
+          },
+          "then": {
+            "properties": {
+              "effectiveMode": {
+                "const": "implementation"
+              },
+              "leaseRequired": {
+                "const": true
+              }
+            },
+            "required": [
+              "effectiveMode",
+              "leaseRequired",
+              "leaseId"
+            ]
+          },
+          "else": {
+            "properties": {
+              "leaseRequired": {
+                "const": false
+              },
+              "leaseId": false,
+              "permittedTransitions": {
+                "const": []
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "leaseRequired": {
+                "const": true
+              }
+            },
+            "required": [
+              "leaseRequired"
+            ]
+          },
+          "then": {
+            "properties": {
+              "requiredPostconditions": {
+                "items": {
+                  "if": {
+                    "properties": {
+                      "type": {
+                        "const": "lease-state"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "expected": {
+                        "const": "owned"
+                      }
+                    },
+                    "required": [
+                      "expected"
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "requiredPostconditions"
+            ]
+          },
+          "else": {
+            "properties": {
+              "requiredPostconditions": {
+                "items": {
+                  "if": {
+                    "properties": {
+                      "type": {
+                        "const": "lease-state"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "expected": {
+                        "const": "not-required"
+                      }
+                    },
+                    "required": [
+                      "expected"
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "requiredPostconditions"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "inspect"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "inspect"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "validate"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "validate"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "create"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "create"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "modify"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "modify"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "delete"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "delete"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "execute-tests"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "execute-tests"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "execute-build"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "execute-build"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "git-stage"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "git-stage"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "git-commit"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "git-commit"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "git-branch"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "git-branch"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "git-remote"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "git-remote"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "network"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "network"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authorizedScope": {
+                "properties": {
+                  "capabilities": {
+                    "contains": {
+                      "const": "external-secret-use"
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "authorizedScope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedScope": {
+                "properties": {
+                  "capabilities": {
+                    "not": {
+                      "contains": {
+                        "const": "external-secret-use"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "capabilities"
+                ]
+              }
+            },
+            "required": [
+              "prohibitedScope"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "indexEntryStateWithoutPath": {
+      "type": "object",
+      "properties": {
+        "stage": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/indexStage"
+        },
+        "mode": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode"
+        },
+        "objectId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+        },
+        "intentToAdd": {
+          "const": false
+        },
+        "skipWorktree": {
+          "const": false
+        },
+        "assumeUnchanged": {
+          "const": false
+        }
+      },
+      "required": [
+        "stage",
+        "mode",
+        "objectId",
+        "intentToAdd",
+        "skipWorktree",
+        "assumeUnchanged"
+      ],
+      "additionalProperties": false
+    },
+    "indexEntry": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+        },
+        "stage": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/indexStage"
+        },
+        "mode": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode"
+        },
+        "objectId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+        },
+        "intentToAdd": {
+          "const": false
+        },
+        "skipWorktree": {
+          "const": false
+        },
+        "assumeUnchanged": {
+          "const": false
+        }
+      },
+      "required": [
+        "path",
+        "stage",
+        "mode",
+        "objectId",
+        "intentToAdd",
+        "skipWorktree",
+        "assumeUnchanged"
+      ],
+      "additionalProperties": false
+    },
+    "trackedEntryStateWithoutPath": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "clean"
+            },
+            "indexMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "indexObjectId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+            }
+          },
+          "required": [
+            "status",
+            "indexMode",
+            "indexObjectId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "modified"
+            },
+            "indexMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "indexObjectId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+            },
+            "worktreeMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "contentDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            }
+          },
+          "required": [
+            "status",
+            "indexMode",
+            "indexObjectId",
+            "worktreeMode",
+            "contentDigest"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "100644"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "const": "100644"
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "100755"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "const": "100755"
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "120000"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "const": "120000"
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "deleted"
+            },
+            "indexMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "indexObjectId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+            }
+          },
+          "required": [
+            "status",
+            "indexMode",
+            "indexObjectId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "type-changed"
+            },
+            "indexMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "indexObjectId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+            },
+            "worktreeMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "contentDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            }
+          },
+          "required": [
+            "status",
+            "indexMode",
+            "indexObjectId",
+            "worktreeMode",
+            "contentDigest"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "100644"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "not": {
+                      "const": "100644"
+                    }
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "100755"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "not": {
+                      "const": "100755"
+                    }
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "120000"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "not": {
+                      "const": "120000"
+                    }
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "trackedEntry": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "path": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+            },
+            "status": {
+              "const": "clean"
+            },
+            "indexMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "indexObjectId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+            }
+          },
+          "required": [
+            "path",
+            "status",
+            "indexMode",
+            "indexObjectId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "path": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+            },
+            "status": {
+              "const": "modified"
+            },
+            "indexMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "indexObjectId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+            },
+            "worktreeMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "contentDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            }
+          },
+          "required": [
+            "path",
+            "status",
+            "indexMode",
+            "indexObjectId",
+            "worktreeMode",
+            "contentDigest"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "100644"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "const": "100644"
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "100755"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "const": "100755"
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "120000"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "const": "120000"
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "path": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+            },
+            "status": {
+              "const": "deleted"
+            },
+            "indexMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "indexObjectId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+            }
+          },
+          "required": [
+            "path",
+            "status",
+            "indexMode",
+            "indexObjectId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "path": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+            },
+            "status": {
+              "const": "type-changed"
+            },
+            "indexMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "indexObjectId": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+            },
+            "worktreeMode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitMode",
+              "enum": [
+                "100644",
+                "100755",
+                "120000"
+              ]
+            },
+            "contentDigest": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/taggedDigest"
+            }
+          },
+          "required": [
+            "path",
+            "status",
+            "indexMode",
+            "indexObjectId",
+            "worktreeMode",
+            "contentDigest"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "100644"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "not": {
+                      "const": "100644"
+                    }
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "100755"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "not": {
+                      "const": "100755"
+                    }
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "indexMode": {
+                    "const": "120000"
+                  }
+                },
+                "required": [
+                  "indexMode"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "worktreeMode": {
+                    "not": {
+                      "const": "120000"
+                    }
+                  }
+                },
+                "required": [
+                  "worktreeMode"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "indexCondition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "clean"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "exact"
+            },
+            "entries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/indexEntry"
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "state",
+            "entries"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "trackedCondition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "clean"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "exact"
+            },
+            "entries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/trackedEntry"
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "contains": {
+                "properties": {
+                  "status": {
+                    "not": {
+                      "const": "clean"
+                    }
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "minContains": 1
+            }
+          },
+          "required": [
+            "state",
+            "entries"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "pathCondition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "none"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "exact"
+            },
+            "paths": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "state",
+            "paths"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "submoduleEntry": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+        },
+        "recordedObjectId": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+        },
+        "checkout": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "absent",
+                    "uninitialized"
+                  ]
+                }
+              },
+              "required": [
+                "state"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "const": "initialized"
+                },
+                "checkedOutObjectId": {
+                  "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/gitObjectId"
+                }
+              },
+              "required": [
+                "state",
+                "checkedOutObjectId"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "observation": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "const": "unavailable"
+                }
+              },
+              "required": [
+                "state"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "const": "observed"
+                },
+                "trackedChanges": {
+                  "type": "boolean"
+                },
+                "untrackedChanges": {
+                  "type": "boolean"
+                },
+                "conflicts": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "state",
+                "trackedChanges",
+                "untrackedChanges",
+                "conflicts"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "recordedObjectId",
+        "checkout",
+        "observation"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "checkout": {
+                "properties": {
+                  "state": {
+                    "const": "initialized"
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              }
+            },
+            "required": [
+              "checkout"
+            ]
+          },
+          "then": {
+            "properties": {
+              "observation": {
+                "properties": {
+                  "state": {
+                    "const": "observed"
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              }
+            },
+            "required": [
+              "observation"
+            ]
+          },
+          "else": {
+            "properties": {
+              "observation": {
+                "properties": {
+                  "state": {
+                    "const": "unavailable"
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              }
+            },
+            "required": [
+              "observation"
+            ]
+          }
+        }
+      ]
+    },
+    "submoduleCondition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "none"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "exact"
+            },
+            "entries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/submoduleEntry"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "state",
+            "entries"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "expectedBaseline": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/refState"
+        },
+        "head": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/headState"
+        },
+        "index": {
+          "$ref": "#/$defs/indexCondition"
+        },
+        "tracked": {
+          "$ref": "#/$defs/trackedCondition"
+        },
+        "untracked": {
+          "$ref": "#/$defs/pathCondition"
+        },
+        "ignored": {
+          "$ref": "#/$defs/pathCondition"
+        },
+        "submodules": {
+          "$ref": "#/$defs/submoduleCondition"
+        },
+        "activeOperations": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "none"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        "administrativeLocks": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "none"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "ref",
+        "head",
+        "index",
+        "tracked",
+        "untracked",
+        "ignored",
+        "submodules",
+        "activeOperations",
+        "administrativeLocks"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "ref": {
+                "properties": {
+                  "state": {
+                    "const": "detached"
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              }
+            },
+            "required": [
+              "ref"
+            ]
+          },
+          "then": {
+            "properties": {
+              "head": {
+                "properties": {
+                  "state": {
+                    "const": "commit"
+                  }
+                },
+                "required": [
+                  "state"
+                ]
+              }
+            },
+            "required": [
+              "head"
+            ]
+          }
+        }
+      ]
+    },
+    "permittedTransition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "index-entry"
+            },
+            "path": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+            },
+            "from": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "const": "absent"
+                    }
+                  },
+                  "required": [
+                    "state"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "const": "present"
+                    },
+                    "value": {
+                      "$ref": "#/$defs/indexEntryStateWithoutPath"
+                    }
+                  },
+                  "required": [
+                    "state",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "to": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "const": "absent"
+                    }
+                  },
+                  "required": [
+                    "state"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "const": "present"
+                    },
+                    "value": {
+                      "$ref": "#/$defs/indexEntryStateWithoutPath"
+                    }
+                  },
+                  "required": [
+                    "state",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "path",
+            "from",
+            "to"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "properties": {
+                      "state": {
+                        "const": "absent"
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "properties": {
+                      "state": {
+                        "const": "present"
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "tracked-entry"
+            },
+            "path": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+            },
+            "from": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "const": "absent"
+                    }
+                  },
+                  "required": [
+                    "state"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "const": "present"
+                    },
+                    "value": {
+                      "$ref": "#/$defs/trackedEntryStateWithoutPath"
+                    }
+                  },
+                  "required": [
+                    "state",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "to": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "const": "absent"
+                    }
+                  },
+                  "required": [
+                    "state"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "const": "present"
+                    },
+                    "value": {
+                      "$ref": "#/$defs/trackedEntryStateWithoutPath"
+                    }
+                  },
+                  "required": [
+                    "state",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "path",
+            "from",
+            "to"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "properties": {
+                      "state": {
+                        "const": "absent"
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "properties": {
+                      "state": {
+                        "const": "present"
+                      }
+                    },
+                    "required": [
+                      "state"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "untracked-path"
+            },
+            "path": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+            },
+            "from": {
+              "type": "string",
+              "enum": [
+                "absent",
+                "present"
+              ]
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "absent",
+                "present"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "path",
+            "from",
+            "to"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "absent"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "const": "present"
+                  }
+                },
+                "required": [
+                  "to"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "to": {
+                    "const": "absent"
+                  }
+                },
+                "required": [
+                  "to"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "ignored-path"
+            },
+            "path": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryRelativePath"
+            },
+            "from": {
+              "type": "string",
+              "enum": [
+                "absent",
+                "present"
+              ]
+            },
+            "to": {
+              "type": "string",
+              "enum": [
+                "absent",
+                "present"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "path",
+            "from",
+            "to"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "absent"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "const": "present"
+                  }
+                },
+                "required": [
+                  "to"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "to": {
+                    "const": "absent"
+                  }
+                },
+                "required": [
+                  "to"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "postconditionType": {
+      "type": "string",
+      "enum": [
+        "scope-contained",
+        "ref-state",
+        "head-state",
+        "index-state",
+        "tracked-state",
+        "untracked-state",
+        "ignored-state",
+        "submodule-state",
+        "active-operations",
+        "administrative-locks",
+        "lease-state"
+      ]
+    },
+    "requiredPostcondition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "scope-contained"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "ref-state"
+            },
+            "expected": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/refState"
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "head-state"
+            },
+            "expected": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/headState"
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "index-state"
+            },
+            "expected": {
+              "$ref": "#/$defs/indexCondition"
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "tracked-state"
+            },
+            "expected": {
+              "$ref": "#/$defs/trackedCondition"
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "untracked-state"
+            },
+            "expected": {
+              "$ref": "#/$defs/pathCondition"
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "ignored-state"
+            },
+            "expected": {
+              "$ref": "#/$defs/pathCondition"
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "submodule-state"
+            },
+            "expected": {
+              "$ref": "#/$defs/submoduleCondition"
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "active-operations"
+            },
+            "expected": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "const": "none"
+                }
+              },
+              "required": [
+                "state"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "administrative-locks"
+            },
+            "expected": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "const": "none"
+                }
+              },
+              "required": [
+                "state"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "lease-state"
+            },
+            "expected": {
+              "type": "string",
+              "enum": [
+                "not-required",
+                "owned"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "expected"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
 }

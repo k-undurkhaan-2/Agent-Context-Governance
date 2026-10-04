@@ -1,5 +1,271 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:4393a3fc-40da-41be-aca9-4276ddc752fa",
-  "not": {}
+  "$comment": "Design sections 5 and 7, WorktreeRole. Review-only restrictions are local constraints; ownership resolution and live Git inspection are separate gates.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "kind": {
+      "const": "WorktreeRole"
+    },
+    "metadata": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/metadata"
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "projectRef": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+          "properties": {
+            "kind": {
+              "const": "Project"
+            }
+          }
+        },
+        "roleClass": {
+          "type": "string",
+          "enum": [
+            "implementation",
+            "review",
+            "integration-control"
+          ]
+        },
+        "ownedDomainRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+            "properties": {
+              "kind": {
+                "const": "Domain"
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "excludedDomainRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+            "properties": {
+              "kind": {
+                "const": "Domain"
+              }
+            }
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "permissions": {
+          "$ref": "urn:uuid:d5cecdb5-eadf-491d-80c6-869a7f4d10d9#/$defs/permissions"
+        },
+        "branchPolicy": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/branchPolicy"
+        },
+        "cleanlinessPolicy": {
+          "type": "object",
+          "properties": {
+            "tracked": {
+              "type": "string",
+              "enum": [
+                "clean",
+                "contract-enumerated"
+              ]
+            },
+            "untracked": {
+              "type": "string",
+              "enum": [
+                "none",
+                "contract-enumerated"
+              ]
+            },
+            "ignored": {
+              "type": "string",
+              "enum": [
+                "none",
+                "contract-enumerated"
+              ]
+            },
+            "index": {
+              "type": "string",
+              "enum": [
+                "clean",
+                "contract-enumerated"
+              ]
+            },
+            "submodules": {
+              "type": "string",
+              "enum": [
+                "none",
+                "contract-enumerated"
+              ]
+            }
+          },
+          "required": [
+            "tracked",
+            "untracked",
+            "ignored",
+            "index",
+            "submodules"
+          ],
+          "additionalProperties": false
+        },
+        "exclusiveWriteRequired": {
+          "type": "boolean"
+        },
+        "reviewOnly": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "projectRef",
+        "roleClass",
+        "ownedDomainRefs",
+        "excludedDomainRefs",
+        "permissions",
+        "branchPolicy",
+        "cleanlinessPolicy",
+        "exclusiveWriteRequired",
+        "reviewOnly"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "reviewOnly": {
+                "const": true
+              }
+            },
+            "required": [
+              "reviewOnly"
+            ]
+          },
+          "then": {
+            "properties": {
+              "roleClass": {
+                "const": "review"
+              },
+              "permissions": {
+                "oneOf": [
+                  {
+                    "const": {
+                      "modes": [
+                        "plan-only"
+                      ],
+                      "permittedCapabilities": [],
+                      "prohibitedCapabilities": [
+                        "create",
+                        "delete",
+                        "execute-build",
+                        "execute-tests",
+                        "external-secret-use",
+                        "git-branch",
+                        "git-commit",
+                        "git-remote",
+                        "git-stage",
+                        "inspect",
+                        "modify",
+                        "network",
+                        "validate"
+                      ]
+                    }
+                  },
+                  {
+                    "const": {
+                      "modes": [
+                        "plan-only"
+                      ],
+                      "permittedCapabilities": [
+                        "inspect"
+                      ],
+                      "prohibitedCapabilities": [
+                        "create",
+                        "delete",
+                        "execute-build",
+                        "execute-tests",
+                        "external-secret-use",
+                        "git-branch",
+                        "git-commit",
+                        "git-remote",
+                        "git-stage",
+                        "modify",
+                        "network",
+                        "validate"
+                      ]
+                    }
+                  },
+                  {
+                    "const": {
+                      "modes": [
+                        "plan-only"
+                      ],
+                      "permittedCapabilities": [
+                        "validate"
+                      ],
+                      "prohibitedCapabilities": [
+                        "create",
+                        "delete",
+                        "execute-build",
+                        "execute-tests",
+                        "external-secret-use",
+                        "git-branch",
+                        "git-commit",
+                        "git-remote",
+                        "git-stage",
+                        "inspect",
+                        "modify",
+                        "network"
+                      ]
+                    }
+                  },
+                  {
+                    "const": {
+                      "modes": [
+                        "plan-only"
+                      ],
+                      "permittedCapabilities": [
+                        "inspect",
+                        "validate"
+                      ],
+                      "prohibitedCapabilities": [
+                        "create",
+                        "delete",
+                        "execute-build",
+                        "execute-tests",
+                        "external-secret-use",
+                        "git-branch",
+                        "git-commit",
+                        "git-remote",
+                        "git-stage",
+                        "modify",
+                        "network"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "exclusiveWriteRequired": {
+                "const": false
+              }
+            },
+            "required": [
+              "roleClass",
+              "permissions",
+              "exclusiveWriteRequired"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "additionalProperties": false
 }

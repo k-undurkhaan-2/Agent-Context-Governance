@@ -1,5 +1,171 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:5d929622-e8b2-40b4-80aa-5d8630625108",
-  "not": {}
+  "$comment": "Design sections 5, 7 and 9, RoutingPolicy. This Schema specifies policy structure and never matches tasks, selects priorities or routes roles.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "kind": {
+      "const": "RoutingPolicy"
+    },
+    "metadata": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/metadata"
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "projectRef": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+          "properties": {
+            "kind": {
+              "const": "Project"
+            }
+          }
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/logicalIdentifier"
+              },
+              "priority": {
+                "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/routingPriority"
+              },
+              "match": {
+                "type": "object",
+                "properties": {
+                  "projectRef": {
+                    "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+                    "properties": {
+                      "kind": {
+                        "const": "Project"
+                      }
+                    }
+                  },
+                  "domainSet": {
+                    "type": "object",
+                    "properties": {
+                      "domainRefs": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+                          "properties": {
+                            "kind": {
+                              "const": "Domain"
+                            }
+                          }
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "exact",
+                          "contains"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "domainRefs",
+                      "operator"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "projectRef",
+                  "domainSet"
+                ],
+                "additionalProperties": false
+              },
+              "decision": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "route"
+                      },
+                      "worktreeRoleRef": {
+                        "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+                        "properties": {
+                          "kind": {
+                            "const": "WorktreeRole"
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "worktreeRoleRef"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "deny"
+                      },
+                      "reasonCode": {
+                        "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/reasonCode"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "reasonCode"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "priority",
+              "match",
+              "decision"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "fallback": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "deny"
+            },
+            "reasonCode": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/reasonCode"
+            }
+          },
+          "required": [
+            "type",
+            "reasonCode"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "projectRef",
+        "rules",
+        "fallback"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "additionalProperties": false
 }

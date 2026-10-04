@@ -1,5 +1,487 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:d5cecdb5-eadf-491d-80c6-869a7f4d10d9",
-  "not": {}
+  "$comment": "Design sections 5 and 7, Project. Portable governance shape only; references and operational Project selection require separate validation.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion"
+    },
+    "kind": {
+      "const": "Project"
+    },
+    "metadata": {
+      "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/metadata"
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "repositoryIdentity": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/repositoryIdentity"
+        },
+        "secureDefaults": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "const": "plan-only"
+            },
+            "allowWrite": {
+              "const": false
+            }
+          },
+          "required": [
+            "mode",
+            "allowWrite"
+          ],
+          "additionalProperties": false
+        },
+        "permissions": {
+          "$ref": "#/$defs/permissions"
+        },
+        "domainRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+            "properties": {
+              "kind": {
+                "const": "Domain"
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "worktreeRoleRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+            "properties": {
+              "kind": {
+                "const": "WorktreeRole"
+              }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "routingPolicyRef": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/objectReference",
+          "properties": {
+            "kind": {
+              "const": "RoutingPolicy"
+            }
+          }
+        }
+      },
+      "required": [
+        "repositoryIdentity",
+        "secureDefaults",
+        "permissions",
+        "domainRefs",
+        "worktreeRoleRefs",
+        "routingPolicyRef"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "modes": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/mode"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "permittedCapabilities": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/capabilities"
+        },
+        "prohibitedCapabilities": {
+          "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/capabilities"
+        }
+      },
+      "required": [
+        "modes",
+        "permittedCapabilities",
+        "prohibitedCapabilities"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "inspect"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "inspect"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "validate"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "validate"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "create"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "create"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "modify"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "modify"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "delete"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "delete"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "execute-tests"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "execute-tests"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "execute-build"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "execute-build"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "git-stage"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "git-stage"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "git-commit"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "git-commit"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "git-branch"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "git-branch"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "git-remote"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "git-remote"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "network"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "network"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "permittedCapabilities": {
+                "contains": {
+                  "const": "external-secret-use"
+                }
+              }
+            },
+            "required": [
+              "permittedCapabilities"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prohibitedCapabilities": {
+                "not": {
+                  "contains": {
+                    "const": "external-secret-use"
+                  }
+                }
+              }
+            },
+            "required": [
+              "prohibitedCapabilities"
+            ]
+          }
+        }
+      ]
+    }
+  }
 }

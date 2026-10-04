@@ -1,5 +1,28 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:uuid:77fb943a-f8f8-491b-beaf-c1b4d9684801",
-  "not": {}
+  "$comment": "Design section 8. Closed dispatch to exactly seven public kinds; this resource is not a governance kind. Supporting and container resources never dispatch.",
+  "oneOf": [
+    {
+      "$ref": "urn:uuid:d5cecdb5-eadf-491d-80c6-869a7f4d10d9"
+    },
+    {
+      "$ref": "urn:uuid:2bab91f3-c4d5-43e5-90f6-ffb786b42e65"
+    },
+    {
+      "$ref": "urn:uuid:4393a3fc-40da-41be-aca9-4276ddc752fa"
+    },
+    {
+      "$ref": "urn:uuid:5d929622-e8b2-40b4-80aa-5d8630625108"
+    },
+    {
+      "$ref": "urn:uuid:c0de9354-1096-4cea-9cde-a33ad38ab313"
+    },
+    {
+      "$ref": "urn:uuid:314c8f9e-2554-4ebc-b688-d48598693282"
+    },
+    {
+      "$ref": "urn:uuid:53faa365-c113-4b2d-a9c5-022cd87a21dd"
+    }
+  ]
 }
