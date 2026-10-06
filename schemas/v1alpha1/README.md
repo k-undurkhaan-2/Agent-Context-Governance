@@ -121,3 +121,48 @@ or runtime execution is part of the S3 implementation transaction.
 Publication is UNPUBLISHED. The project license remains undecided. Independent
 audit, integration-control approval, and separately authorized administrative
 actions remain necessary before a complete implementation baseline is integrated.
+
+## S4 static validation candidate
+
+The separate `contextctl_schema.static_validation` module composes the frozen
+S3 Schemas and format checker with static checks over supplied closed values.
+Its six entry points cover GovernanceBundle, individual HostOverlay, complete
+same-host inventory, TaskContract, ExecutionReceipt, and receipt/delivery pairs.
+An individual overlay result does not establish complete-host acceptance.
+The package root exports and the S3 structural resources remain unchanged.
+
+Results distinguish `INVALID`, `PROOF_REQUIRED`, and `PASS`, record their exact
+validation scope, and carry immutable diagnostic and proof-obligation tuples.
+Known predicate failures take precedence over missing proof. A result with
+unevaluated prerequisites cannot claim full static acceptance. Validation does
+not repair or normalize supplied values, sort their arrays, or grant authority.
+
+Direct checks cover exact references, canonical array order, static narrowing,
+supplied baseline relationships, supported simultaneous transitions, receipt
+identities, sequence-based selectors, chronology and outcome consistency.
+Restricted path patterns use finite automata, complement relative to the valid
+relative-path universe, product intersection and complete emptiness search.
+Non-NFC accepted words are excluded exactly before another emptiness search;
+there is no sample, prefix or host-filesystem fallback. Unsupported syntax,
+unavailable proof and deterministic resource-limit exhaustion fail closed.
+
+Full acceptance also requires opaque, bound external proofs for model-owned
+input provenance, canonical comparisons, digest verification, complete host
+snapshots and otherwise missing baseline operands. S4 supplies consumer ports
+only. No production provider or public trust-registration interface exists in
+this candidate. A decoded mapping or caller assertion cannot establish trust.
+The private synthetic test doubles exercise consumer behavior only; their
+placeholder digest strings are not evidence of codec conformance.
+
+Strict decoding, canonical representation, RFC 8785 serialization, digest
+projections, hashing and replay remain model/codec work. S4 performs no actual
+task routing, live Git or filesystem inspection, leases, contract issuance,
+receipt generation, current-time authorization or operational enforcement.
+Those Phase 2/3/4 responsibilities remain outside this validation surface.
+
+The eleven `test_static_*.py` modules and `s4_synthetic.py` contain bounded
+synthetic vectors. They are separate from the five frozen S3 test modules and
+do not create the S5 fixture corpus. Run with the approved source-test runtime,
+no bytecode and no pytest cache; evidence stays outside repository worktrees.
+This candidate still requires test evidence and independent audit. It does not
+declare the complete Schema baseline ready or authorize staging or publication.
