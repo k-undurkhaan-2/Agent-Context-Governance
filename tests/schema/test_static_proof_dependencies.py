@@ -7,9 +7,9 @@ from contextctl_schema import static_validation as api
 from tests.schema.s4_synthetic import proofs, bundle, context, issued, denial, run_receipt, selected, contract_bundle, codes
 
 
-def coherent_bundle():
+def coherent_bundle(b=None):
     """Keep closed-bundle direct predicates valid before testing proof trust."""
-    b = bundle()
+    b = bundle() if b is None else b
     b["project"]["metadata"]["id"] = "project.invalid"
     b["domains"][0]["metadata"]["id"] = "domain.invalid"
     b["worktreeRoles"][0]["metadata"]["id"] = "role.invalid"
@@ -31,6 +31,15 @@ def test_caller_assertions_never_create_trust(provider, monkeypatch):
     ]
     assert "S4.BUNDLE.REFERENCES" not in codes(result)
 
+    b, o, c = contract_bundle()
+    coherent_bundle(b)
+    for claimed_inventory in (True, {"complete": True, "members": [(o, b)]}):
+        contract = api.validate_task_contract_static(c, bundle=b, host_overlay=o,
+            inventory_context=claimed_inventory, proof_context=provider)
+        assert contract.status == "PROOF_REQUIRED" and not contract.full_static_acceptance
+        assert any(p.requirement_id == "PROOF.SNAPSHOT" and p.profile == "trusted-complete-host-snapshot"
+                   and p.required_binding for p in contract.required_proofs)
+
 
 @pytest.mark.parametrize("operation,args", [
     ("require_input_provenance", ({"synthetic": True}, "root.invalid", "revision.invalid")),
@@ -42,6 +51,7 @@ def test_caller_assertions_never_create_trust(provider, monkeypatch):
 ])
 @pytest.mark.parametrize("failure", ["missing", "invalid", "wrong-binding", "changed"])
 def test_proof_ports_fail_closed(operation, args, failure, proofs):
+    original_issue = proofs.issue
     proofs.overrides[operation] = lambda *unused: True
     ctx = context({}, proofs.context)
     input_continuity = failure == "changed" and operation == "require_input_provenance"
@@ -102,6 +112,48 @@ def test_proof_ports_fail_closed(operation, args, failure, proofs):
             assert fresh_result.status == "PASS" and fresh_result.full_static_acceptance
     else:
         assert value is None and ctx.required_proofs
+
+    if operation == "require_complete_host_snapshot":
+        # Isolate the public checkpoint's snapshot failure from unrelated ports.
+        proofs.unavailable.clear()
+        proofs.corrupt = False
+        proofs.issue = original_issue
+        proofs.overrides.pop(operation)
+        b, o, c = contract_bundle()
+        coherent_bundle(b)
+        proofs.baseline(c)
+        marker = object()
+        proofs.snapshots[o["spec"]["hostId"], id(marker)] = (((o, b),), ())
+        if failure == "missing":
+            proofs.unavailable.add(operation)
+        elif failure in ("invalid", "wrong-binding"):
+            def unusable(op, operands):
+                handle = original_issue(op, operands)
+                if op == operation:
+                    if failure == "invalid":
+                        return True
+                    handle.identities = ()
+                return handle
+            proofs.issue = unusable
+        else:
+            proofs.overrides[operation] = lambda *unused: True
+        blocked = api.validate_task_contract_static(c, bundle=b, host_overlay=o,
+            inventory_context=marker, proof_context=proofs.context)
+        assert blocked.status == "PROOF_REQUIRED" and not blocked.full_static_acceptance
+        assert any(p.requirement_id == "PROOF.SNAPSHOT" for p in blocked.required_proofs)
+        proofs.unavailable.clear()
+        proofs.overrides.pop(operation, None)
+        proofs.issue = original_issue
+        accepted = api.validate_task_contract_static(c, bundle=b, host_overlay=o,
+            inventory_context=marker, proof_context=proofs.context)
+        assert accepted.status == "PASS" and accepted.full_static_acceptance
+        second = deepcopy(o)
+        second["metadata"]["id"] = "overlay.second-invalid"
+        proofs.snapshots[o["spec"]["hostId"], id(marker)] = (((o, b), (second, b)), ())
+        conflict = api.validate_task_contract_static(c, bundle=b, host_overlay=o,
+            inventory_context=marker, proof_context=proofs.context)
+        assert conflict.status == "INVALID" and not conflict.full_static_acceptance
+        assert {"S4.HX.A1", "S4.HX.A2"} <= codes(conflict)
 
 
 @pytest.mark.parametrize("missing", ["require_input_provenance", "require_completed_static_validation", "require_digest"])

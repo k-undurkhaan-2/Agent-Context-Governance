@@ -8,7 +8,7 @@ full static acceptance merely by claiming trusted provenance.
 from ._static_core import (
     DEFAULT_PROOF_LIMITS, ProofObligation, StaticDiagnostic,
     StaticValidationResult, _ValidationContext, _check_canonical_arrays,
-    _finish_result, _proof, _root, _validate_shape,
+    _finish_result, _proof, _proof_binding, _root, _validate_shape,
 )
 from .catalog import SCHEMA_SET_REVISION as _REVISION
 from ._static_bundle import (
@@ -76,8 +76,8 @@ def validate_host_overlay(overlay, *, bundle, proof_context=None, limits=DEFAULT
     return _finish_result("host-overlay-individual", ctx)
 
 
-def validate_same_host_inventory(*, host_id, inventory_context, proof_context=None, limits=DEFAULT_PROOF_LIMITS):
-    ctx = _ValidationContext(inventory_context, _root("host-overlay"), proof_context)
+def _validate_same_host_snapshot(host_id, inventory_context, limits, ctx):
+    """Validate the complete proof-bound snapshot before exposing its members."""
     snapshot = _consume_complete_host_inventory(host_id, inventory_context, ctx)
     # This private consumer payload is obtained only through an opaque proof
     # handle; a caller-provided inventory map never establishes completeness.
@@ -86,29 +86,37 @@ def validate_same_host_inventory(*, host_id, inventory_context, proof_context=No
             members, trusted_roots = snapshot
             validated, roots = [], list(trusted_roots)
             for overlay, bundle in members:
-                result = validate_host_overlay(overlay, bundle=bundle, proof_context=proof_context, limits=limits)
+                result = validate_host_overlay(overlay, bundle=bundle, proof_context=ctx.proof_context, limits=limits)
                 ctx.diagnostics.extend(result.diagnostics)
                 ctx.required_proofs.extend(result.required_proofs)
                 ctx.failed = ctx.failed or result.status == "INVALID"
                 ctx.unevaluated = ctx.unevaluated or not result.full_static_acceptance
                 ctx.check("PROOF.SNAPSHOT", overlay["spec"]["hostId"] == host_id, "/spec/hostId")
                 if result.full_static_acceptance:
-                    validated.append(overlay)
+                    validated.append((overlay, bundle))
                     roots.extend((kind, overlay["spec"][kind]) for kind in ("stateRoot", "lockRoot"))
             for kind, root in roots:
                 if kind not in ("stateRoot", "lockRoot"):
                     raise ValueError("Unrecognized coordination-root purpose")
                 _validate_shape(root, _root("common") + "#/$defs/absoluteHostPath", ctx)
             if not ctx.failed and not ctx.unevaluated:
-                _check_same_host_union(validated, roots, ctx)
+                _check_same_host_union((overlay for overlay, _ in validated), roots, ctx)
+                if not ctx.failed:
+                    return tuple(validated)
         except (TypeError, ValueError, KeyError):
             ctx.unavailable("PROOF.SNAPSHOT", profile="complete-snapshot-operands")
     else:
         ctx.unevaluated = True
+    return None
+
+
+def validate_same_host_inventory(*, host_id, inventory_context, proof_context=None, limits=DEFAULT_PROOF_LIMITS):
+    ctx = _ValidationContext(inventory_context, _root("host-overlay"), proof_context)
+    _validate_same_host_snapshot(host_id, inventory_context, limits, ctx)
     return _finish_result("same-host-inventory", ctx)
 
 
-def validate_task_contract_static(contract, *, bundle, host_overlay, proof_context=None, baseline_context=None, limits=DEFAULT_PROOF_LIMITS):
+def validate_task_contract_static(contract, *, bundle, host_overlay, inventory_context=None, proof_context=None, baseline_context=None, limits=DEFAULT_PROOF_LIMITS):
     ctx = _ValidationContext(contract, _root("task-contract"), proof_context)
     ctx.limits = limits
     if _prepare(contract, "task-contract", ctx):
@@ -116,11 +124,22 @@ def validate_task_contract_static(contract, *, bundle, host_overlay, proof_conte
         if indexes is not None and _prepare(host_overlay, "host-overlay", ctx):
             _check_overlay_individual(host_overlay, bundle, indexes, limits, ctx)
             if not ctx.failed:
-                _check_contract_bindings(contract, bundle, host_overlay, ctx)
-                materialized = _consume_materialized_baseline(contract, baseline_context, ctx)
-                _check_baseline_consistency(contract["spec"]["expectedBaseline"], materialized, ctx)
-                _check_contract_plan(contract, materialized, limits, ctx)
-                _check_prefix_chronology(None, None, {"contract": contract}, ctx)
+                host_id = host_overlay["spec"]["hostId"]
+                if inventory_context is None:
+                    # None is a missing checkpoint operand, even if a provider
+                    # would return a snapshot for it. Retain the exact binding.
+                    ctx.unavailable("PROOF.SNAPSHOT", profile="trusted-complete-host-snapshot",
+                        binding=_proof_binding(ctx, "require_complete_host_snapshot", (host_id, inventory_context)))
+                else:
+                    members = _validate_same_host_snapshot(host_id, inventory_context, limits, ctx)
+                    if members is not None and ctx.check("PROOF.SNAPSHOT", any(
+                            overlay == host_overlay and member_bundle == bundle
+                            for overlay, member_bundle in members)):
+                        _check_contract_bindings(contract, bundle, host_overlay, ctx)
+                        materialized = _consume_materialized_baseline(contract, baseline_context, ctx)
+                        _check_baseline_consistency(contract["spec"]["expectedBaseline"], materialized, ctx)
+                        _check_contract_plan(contract, materialized, limits, ctx)
+                        _check_prefix_chronology(None, None, {"contract": contract}, ctx)
         else:
             ctx.unevaluated = True
     return _finish_result("task-contract", ctx)

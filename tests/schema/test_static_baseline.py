@@ -11,6 +11,12 @@ from contextctl_schema.static_validation import validate_task_contract_static
 from tests.schema.s4_synthetic import proofs, context, codes, contract_bundle, reference, OID, DIGEST
 
 
+def _inventory_context(b, o, proofs):
+    marker = object()
+    proofs.snapshots[o["spec"]["hostId"], id(marker)] = (((o, b),), ())
+    return marker
+
+
 def explicit_baseline():
     b, o, c = contract_bundle()
     base = c["spec"]["expectedBaseline"]
@@ -91,7 +97,8 @@ def test_simultaneous_composition_preserves_input(proofs):
     # of the same semantic baseline and changes only the final index target.
     for variant in ("object-id", "mode", "remove-index-path"):
         b, o, c, view, index, tracked = coherent_case()
-        control = validate_task_contract_static(c, bundle=b, host_overlay=o, proof_context=proofs.context)
+        control = validate_task_contract_static(c, bundle=b, host_overlay=o,
+            inventory_context=_inventory_context(b, o, proofs), proof_context=proofs.context)
         assert control.status == "PASS" and control.full_static_acceptance, control
         assert _project_final_conditions(view, context(c))["tracked"] == {"state": "clean"}
         replacement = deepcopy(index)
@@ -112,7 +119,8 @@ def test_simultaneous_composition_preserves_input(proofs):
         assert final_view.values["tracked"] == (tracked,)
         assert final_view.values["index"] == (() if removed else (replacement,))
         assert all(final_view.values[key] == view.values[key] for key in view.values if key != "index")
-        result = validate_task_contract_static(c, bundle=b, host_overlay=o, proof_context=proofs.context)
+        result = validate_task_contract_static(c, bundle=b, host_overlay=o,
+            inventory_context=_inventory_context(b, o, proofs), proof_context=proofs.context)
         assert result.status == "INVALID" and not result.full_static_acceptance, (variant, result)
         assert codes(result) == {"S4.BASE.TRACKED_INDEX"} | ({"S4.BASE.COVERAGE"} if removed else set())
         assert all(d.instance_pointer == "/spec/expectedBaseline/tracked" and d.predicate_family == "baseline"
@@ -122,7 +130,8 @@ def test_simultaneous_composition_preserves_input(proofs):
     # Matching explicit inventories still pass, and a coherent tracked-entry
     # transition can still collapse modified records to canonical tracked.clean.
     b, o, c, view, index, tracked = coherent_case("modified")
-    exact = validate_task_contract_static(c, bundle=b, host_overlay=o, proof_context=proofs.context)
+    exact = validate_task_contract_static(c, bundle=b, host_overlay=o,
+        inventory_context=_inventory_context(b, o, proofs), proof_context=proofs.context)
     assert exact.status == "PASS" and exact.full_static_acceptance, exact
     clean = {k: v for k, v in tracked.items() if k not in ("worktreeMode", "contentDigest")}
     clean["status"] = "clean"
@@ -133,7 +142,8 @@ def test_simultaneous_composition_preserves_input(proofs):
     before = deepcopy(c)
     clean_final = _apply_simultaneous_transitions(view, c["spec"]["permittedTransitions"], context(c))
     assert _project_final_conditions(clean_final, context(c))["tracked"] == {"state": "clean"}
-    collapsed = validate_task_contract_static(c, bundle=b, host_overlay=o, proof_context=proofs.context)
+    collapsed = validate_task_contract_static(c, bundle=b, host_overlay=o,
+        inventory_context=_inventory_context(b, o, proofs), proof_context=proofs.context)
     assert collapsed.status == "PASS" and collapsed.full_static_acceptance, collapsed
     assert c == before and view.values["tracked"] == (tracked,)
 
