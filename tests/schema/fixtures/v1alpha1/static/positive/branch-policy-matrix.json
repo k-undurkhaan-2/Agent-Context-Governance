@@ -1,0 +1,123 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.branch-policy.positive.01-exact-allow-no-deny": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [
+            "refs/heads/release"
+          ],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release",
+      "headState": "commit"
+    },
+    "static.branch-policy.positive.02-prefix-equality": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release",
+      "headState": "commit"
+    },
+    "static.branch-policy.positive.03-prefix-descendant": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release/2026",
+      "headState": "commit"
+    },
+    "static.branch-policy.positive.04-prefix-deep-descendant": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release/2026/july",
+      "headState": "commit"
+    },
+    "static.branch-policy.positive.05-nested-valid-prefixes": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release",
+            "refs/heads/release/2026"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release/2026/july",
+      "headState": "commit"
+    },
+    "static.branch-policy.positive.06-simultaneous-exact-prefix": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [
+            "refs/heads/release"
+          ],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release",
+      "headState": "commit"
+    },
+    "static.branch-policy.positive.07-symbolic-unborn-allowed": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release/new",
+      "headState": "unborn"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

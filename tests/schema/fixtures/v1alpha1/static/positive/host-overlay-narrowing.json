@@ -1,0 +1,19 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.host-overlay.narrowing.positive.exact-subsets": {
+      "pathWitness": {
+        "overlay": [
+          "src/lib/**"
+        ],
+        "project": [
+          "src/**"
+        ]
+      },
+      "scenario": "exact Project and role references; capability, remote, and path subsets"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

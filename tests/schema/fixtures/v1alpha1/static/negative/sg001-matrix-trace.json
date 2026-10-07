@@ -1,0 +1,183 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.sg001.matrix-row-01.negative": {
+      "branchOrInvariant": "Reference, branch policy, and HEAD",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "detached plus unborn; branch missing `branchRef`; detached containing `branchRef`; commit missing `objectId`; unborn containing `objectId`; all 33 required negative branch-policy vectors, including raw-character-prefix, descendants-only, trailing-slash, and wildcard cases; plus each closed-shape missing-array variant",
+      "responsibility": "Schema enforces closed branches, four required policy arrays, and required/forbidden fields; Phase 1 static validates exact `branchRef`/`branchPrefix` syntax, `S(branchRef)`/`S(branchPrefix)` order and the recorded predicate vectors; Phase 3 live selects the symbolic branch or denies detached/unborn as specified, then compares actual ref and HEAD",
+      "row": 1
+    },
+    "static.sg001.matrix-row-02.negative": {
+      "branchOrInvariant": "Conflict-free index",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "stage `1`; stage `2`; stage `3`; duplicate path; unsupported mode; `intentToAdd: true`; `skipWorktree: true`; `assumeUnchanged: true`; sparse entry; unmerged index presented as a `TaskContract` baseline",
+      "responsibility": "Schema fixes stage and flags and closes entries; Phase 1 static enforces path identity, order, and complete explicit inventory; Phase 3 live selects clean versus exact and denies unrepresentable state; Phase 4 evidence may record sanitized pre-contract denial only",
+      "row": 2
+    },
+    "static.sg001.matrix-row-03.negative": {
+      "branchOrInvariant": "Tracked",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "modified with unequal modes; type-changed with equal modes; missing required field; branch-inapplicable field; mode `160000`; tracked/index mode mismatch; tracked/index object mismatch; omitted index path from `tracked.exact`; tracked entry for a gitlink path",
+      "responsibility": "Schema enforces status branches and fields; Phase 1 static enforces mode relations and explicit index equality/coverage; Phase 3 live confirms content, deletion, type, HEAD-dependent equality, and completeness; Phase 4 evidence verifies postconditions",
+      "row": 3
+    },
+    "static.sg001.matrix-row-04.negative": {
+      "branchOrInvariant": "Untracked and ignored / D3 path inventory",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "empty exact inventory; duplicate or non-canonical path; any exact `.git` component at any depth; cross-category or explicit-state collision; directory member; collapsed-directory alternative; unregistered nested repository; unreadable, racing, cyclic, identity/classification/submodule-boundary-unresolved, unrepresentable-path, unsupported-object, or unresolved administrative-root/alias observation",
+      "responsibility": "Schema enforces unions, non-empty exact arrays, and the revised path profile; Phase 1 static enforces `.git`-component rejection, `S(path)`, explicit disjointness, and directory/collapsed rejection; Phase 3 executes the leaf-only profile while resolving top-level indirection, linked/common Git dirs, aliases, registered-submodule roots, and nested repositories; Phase 4 evidence verifies postconditions without a weaker encoding",
+      "row": 4
+    },
+    "static.sg001.matrix-row-05.negative": {
+      "branchOrInvariant": "Submodules / D2 orthogonal state",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "absent/observed; uninitialized/observed; initialized/unavailable; missing or branch-inapplicable `checkedOutObjectId`; fields on unavailable; each missing observed Boolean; unknown field; `indeterminate`; superseded `worktreeState`; `recordedObjectId` mismatch; missing mode-`160000` inventory path; tracked/submodule collision",
+      "responsibility": "Schema enforces the closed checkout and observation unions; Phase 1 static enforces all pairings, explicit gitlink equality, coverage, and disjointness; Phase 3 live denies inconclusive initialized observation with one of the four D2 reason codes; Phase 4 observes the complete checkout/observation value, preserves the baseline submodule projection, and checks optional baseline-equal submodule-state postconditions; submodule-entry transitions reject",
+      "row": 5
+    },
+    "static.sg001.matrix-row-06.negative": {
+      "branchOrInvariant": "Active operations",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "exactly 21 legacy contract regressions: seven single-operation exact baselines, seven retired active-operation transitions, and seven single-operation exact postconditions; separately, the generic observation-shape family covers duplicate, unknown, non-canonical, and empty-exact arrays",
+      "responsibility": "Schema enforces the reusable observation/evidence union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy contract cases and separately validates generic observation shape; Phase 3 live observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence",
+      "row": 6
+    },
+    "static.sg001.matrix-row-07.negative": {
+      "branchOrInvariant": "Administrative locks",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "exactly 21 legacy-contract regressions: seven non-empty single-lock baselines, seven retired transitions, and seven non-empty single-lock postconditions; separately, duplicate identity, missing or forbidden branch identifiers, unknown branch, non-canonical order, empty exact, and other malformed reusable observations",
+      "responsibility": "Schema enforces the reusable closed union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy cases and separately validates `L(lock)` identity/order; Phase 3 observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence",
+      "row": 7
+    },
+    "static.sg001.matrix-row-08.negative": {
+      "branchOrInvariant": "Permitted transitions",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "identical from/to; duplicate target; unknown or branch-inapplicable field; invalid comparator/path; unsupported ref-state, head-state, submodule-entry, active-operation, or administrative-lock member; the 12 path and four inspect-only variants cross-reference their owners",
+      "responsibility": "Schema enforces the four closed shapes; Phase 1 checks target identity/order, direct Ptrans path membership, Iplan/Oplan conjunction, and explicit closed-data invariants before contract acceptance; Phases 3/4 retain live observation and actual attribution",
+      "row": 8
+    },
+    "static.sg001.matrix-row-09.negative": {
+      "branchOrInvariant": "Required postconditions",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "missing or repeated `scope-contained`; duplicate type; `scope-contained` containing `expected`; state branch missing `expected`; reserved `.git`-component path; successful scope claim that omits an administrative effect or lacks path or operation-capability containment as a non-additive OC cross-reference; each forbidden single-operation active or administrative-lock expectation; malformed reusable observation condition; invalid lease-state truth-table combination",
+      "responsibility": "Schema enforces eleven closed branches, both none-only expectations, and valid paths; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 resolves administrative locations; Phase 4 requires an administrative, path-scope, or operation-capability violation to make `scope-contained` failed or indeterminate and verifies every postcondition",
+      "row": 9
+    },
+    "static.sg001.matrix-row-10.negative": {
+      "branchOrInvariant": "Warnings and checks",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "warning or check sequence gap/duplicate; duplicate `checkId`; dangling or cross-receipt `relatedCheckId`; invalid reason-code order; unknown check type/outcome; execution using `passed`; non-execution using `succeeded` or `cancelled`; F with either summary, any other free-form/payload member, or any non-reserved tuple value; non-F duplicating the reserved F ID under generic check-ID uniqueness; `postconditionRef` on each of the other thirteen check types; malformed/unknown reference; valid type absent from the bound contract",
+      "responsibility": "Schema enforces closed record shapes, the F-implies-exact-tuple specialization, 14 check types, exact 4/3 outcome conditional, and the V-only closed reference object; Phase 1 enforces sequences, globally unique IDs and the derived non-F reserved-ID exclusion, reason-code order, same-receipt warning references, complete-contract postcondition reference resolution, and per-type greatest-sequence selection; Phase 4 produces and sanitizes evidence",
+      "row": 10
+    },
+    "static.sg001.matrix-row-11.negative": {
+      "branchOrInvariant": "Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "Four erased-success histories; independent sequence/time reversal; every cross-acquisition/task/check/lease/hash/copy mix; bad earlier R/L with good final member; all retained outcome, terminality, scope, warning and F negatives",
+      "responsibility": "Static checks and the dependency DAG precede receipt digest acceptance; operational truth remains Phase 3/4",
+      "row": 11
+    },
+    "static.sg001.matrix-row-12.negative": {
+      "branchOrInvariant": "TaskContract truth table",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "requested plan-only with effective implementation; effective plan-only with `allowWrite: true`; `allowWrite: false` with `leaseRequired: true`; `allowWrite: true` with `leaseRequired: false`; `leaseId` present while no lease is required; `leaseId` absent while required; `owned` postcondition while no lease is required; `not-required` postcondition while a lease is required",
+      "responsibility": "Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions",
+      "row": 12
+    },
+    "static.sg001.matrix-row-13.negative": {
+      "branchOrInvariant": "D1 validated canonical instance representation",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "generic decoded object; missing or stale proof component; proof rebound to another value; mutable value; representation asserted as a public kind, production typed model, transferable authority, TaskContract, or runtime artifact",
+      "responsibility": "`schema-contracts` specifies the representation contract and records its vectors; future `model-implementation` implements and tests decoding, construction, provenance binding, typed round trips, serialization, and Schema/model conformance; Phase 4 owns trusted operational replay and authenticity",
+      "row": 13
+    },
+    "static.sg001.matrix-row-14.negative": {
+      "branchOrInvariant": "D4 raw worktree-content digest",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "filtered or EOL-converted bytes; decoded or Unicode-normalized text; dereferenced symlink; unreadable, replaced, raced, truncated, length-inconsistent, or lossy observation; directory, gitlink, or unsupported type",
+      "responsibility": "Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile",
+      "row": 14
+    },
+    "static.sg001.matrix-row-15.negative": {
+      "branchOrInvariant": "D5 non-writing contracts",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "exactly 12 Cartesian negatives (`3 \u00d7 4`), pairing each non-writing row with each permitted transition branch; any drift-describing postcondition; lease identity/ownership; non-empty changed paths; test/build capability treated as a write override",
+      "responsibility": "Schema and Phase 1 static reject the closed contract and compare explicit postconditions with the immutable baseline; Phase 4 enforces empty changed paths and classifies drift as failed or indeterminate verification; the non-empty changed-path case is cross-referenced, not duplicated, by the focused scope family",
+      "row": 15
+    },
+    "static.sg001.matrix-row-16.negative": {
+      "branchOrInvariant": "D6 execution/verification biconditional",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "exactly seven pairs: each attempted execution outcome with `not-performed`, plus `not-attempted` with `passed`, `failed`, or `indeterminate`",
+      "responsibility": "Phase 1 static applies the unchanged 13/7 biconditional, then the separate final-`E` and final-`V` bindings and not-attempted E/V-empty rules, before the existing lifecycle-precedence table; Phase 4 supplies evidence claims",
+      "row": 16
+    },
+    "static.sg001.matrix-row-17.negative": {
+      "branchOrInvariant": "D7 simultaneous transition composition",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "baseline/from mismatch; unsupported member; sequential or order-dependent result; drift in an untargetable dimension; invalid final composite; missing/mismatched postcondition; incomplete D2/D3 value; wrong path or capability with otherwise-valid data",
+      "responsibility": "Phase 1 applies the four supported types, validates all nine dimensions, checks direct Ptrans scope and conjunctive capability closure; Phase 3 materializes live-dependent B; trusted Phase 4 compares F and attributes actual effects under TA-A",
+      "row": 17
+    },
+    "static.sg001.matrix-row-18.negative": {
+      "branchOrInvariant": "D8 closed HostOverlay binding and host-resource exclusivity",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "each missing field; every unknown field; empty, duplicate, or non-canonical remote names; unknown name; branch without `branchRef`; detached with `branchRef`; `expectedBranch`; each cached observed root/HEAD/branch/remote field; incomplete, missing, ambiguous, untrusted, or mixed-snapshot same-host evidence; all thirteen HX negatives",
+      "responsibility": "Schema closes the unchanged five-field record and ref branches; Phase 1 enforces binding identity, unchanged array canon, name resolution, individual resource validity followed by complete snapshot-bound same-host union `worktreeId` and exact-root injectivity, fail-closed completeness and coherence, and static coordination-root exclusion; Phase 3 compares live canonical root, registration, ref, and every named remote and fails closed on physical-worktree or containment ambiguity",
+      "row": 18
+    },
+    "static.sg001.matrix-row-19.negative": {
+      "branchOrInvariant": "D9 RoutingPolicy projection equality and complete-set contract",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "all twelve required complete-set negative vectors, including partial owner, no-fallthrough, same-target tie, collective-role union, split reuse, fallback failure, and TaskContract Domain/role/target mismatch; different IDs with equal `RuleProjection` JCS bytes; same-priority equal `MatchProjection` JCS bytes; non-canonical nested array",
+      "responsibility": "`schema-contracts` records projection equality, `Drule`/`Dresolved`/`Owned(R)` semantics, exact Phase 2 order, and vectors; executable projection/JCS comparison belongs to future `model-implementation`; Phase 2 alone resolves and routes the complete set, denies top-priority ambiguity or incomplete ownership, and never falls through or unions roles",
+      "row": 19
+    },
+    "static.sg001.matrix-row-20.negative": {
+      "branchOrInvariant": "D10 HostOverlay narrowing proof and canonical structured remotes",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "all 61 independent structured-remote negatives; each of the nine exact narrowing rejection-code classes; literal `.git/**`, `.git/config`, `foo/.git/**`, and `foo/.git/config`; added capability or remote; role/project mismatch; `docs/**` outside the Project universe; unsupported syntax, compilation failure, resource exhaustion, or indeterminate emptiness; sample, alias, normalization, ignored field, or prefix heuristic offered as proof; any binding, free capacity, or lease offered to make an incomplete selected owner eligible",
+      "responsibility": "Schema enforces the closed record, path profiles, named host/repository profiles, namespace and port rules; Phase 1 rejects literal `.git` components and performs exact lexical, `J(remote)`, set/reference, membership, order, and automata checks relative to revised `U`; only after Phase 2 selects one role that owns all of `Dresolved` may Phase 3 compare the live remote and reject administrative aliases; HostOverlay and runtime state can narrow or deny but never widen routing eligibility",
+      "row": 20
+    },
+    "static.sg001.matrix-row-21.negative": {
+      "branchOrInvariant": "D11 digest catalog and golden corpus",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "Included-field mutation, wrong exclusion, self-digest, wrong separator/profile, changed raw bytes, invalid Source hash/copy or conditional projection, delivery identity/copy mismatch",
+      "responsibility": "Future model-implementation owns executable codec/hash/replay; Phase 3/4 own production, provenance, ownership, and truth",
+      "row": 21
+    },
+    "static.sg001.matrix-row-22.negative": {
+      "branchOrInvariant": "D12 review-only capability complement",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "each of the eleven non-observation capabilities permitted separately; wrong role or mode; missing complement member; permitted/prohibited overlap or other complement error; exclusive write; restoration attempted through another field",
+      "responsibility": "Schema and Phase 1 static enforce the complete five-class partition and exact equations; later intersections may only narrow the result and cannot restore a forbidden capability",
+      "row": 22
+    },
+    "static.sg001.matrix-row-23.negative": {
+      "branchOrInvariant": "Cross-dimension baselines",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "omitted inventory member; index/tracked mode or object mismatch; gitlink/submodule mismatch; tracked/submodule collision; untracked/ignored collision; exact-path collision with explicit index, tracked, or submodule path; a Phase 1 check incorrectly depending on live state",
+      "responsibility": "Schema enforces local shape; Phase 1 static enforces relationships over explicit closed data; Phase 3 live owns HEAD-, object-, ignore-, filesystem-, checkout-, and index-dependent checks; Phase 4 evidence reuses the same postcondition semantics",
+      "row": 23
+    },
+    "static.sg001.matrix-row-24.negative": {
+      "branchOrInvariant": "Required denial bindings, safe summaries, and five-state correction",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "Four erased-success histories, bad earlier R/L, Source/binding mismatches, state mismatch, forbidden identity duplication in origin or evidence, missing summary, wrong F tuple and all controller defects",
+      "responsibility": "Five states and the ten-row lifecycle matrix are exhaustive; schema/static evidence checks confer no operational truth or authority",
+      "row": 24
+    },
+    "static.sg001.matrix-row-25.negative": {
+      "branchOrInvariant": "SG-002 numeric profile",
+      "fixtureKind": "normative-coverage-trace",
+      "requiredVectors": "Git stage `1`, `2`, `3`, and `4`; every existing signed, negative-zero, leading-plus, leading-zero, fractional, exponent, unsafe, NaN, Infinity, and field-out-of-range vector",
+      "responsibility": "`schema-contracts` specifies the six-field profile, exact bounds, and vectors; future `model-implementation` enforces raw tokens before conversion and proves precision-safe representation/JCS/replay across runtimes; Phase 4 verification requires raw-token replay or the complete validated-representation proof",
+      "row": 25
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

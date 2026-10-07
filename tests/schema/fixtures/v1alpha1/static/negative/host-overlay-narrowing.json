@@ -1,0 +1,44 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.host-overlay.narrowing.negative.01-project-mismatch": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "project-mismatch"
+    },
+    "static.host-overlay.narrowing.negative.02-role-not-in-project": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "role-not-in-project"
+    },
+    "static.host-overlay.narrowing.negative.03-role-project-mismatch": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "role-project-mismatch"
+    },
+    "static.host-overlay.narrowing.negative.04-capability-widening": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "capability-widening"
+    },
+    "static.host-overlay.narrowing.negative.05-repository-widening": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "repository-widening"
+    },
+    "static.host-overlay.narrowing.negative.06-remote-widening": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "remote-widening"
+    },
+    "static.host-overlay.narrowing.negative.07-remote-unresolved": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "remote-unresolved"
+    },
+    "static.host-overlay.narrowing.negative.08-path-widening": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "path-widening"
+    },
+    "static.host-overlay.narrowing.negative.09-path-proof-unavailable": {
+      "base": "valid-host-overlay-narrowing",
+      "isolatedMutation": "path-proof-unavailable"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

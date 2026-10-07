@@ -1,0 +1,112 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "phase1-static.structured-remote.negative.57-noncanonical-accepted-order": {
+      "profile": "acceptedRemotes",
+      "value": [
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "ssh"
+        },
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        }
+      ]
+    },
+    "phase1-static.structured-remote.negative.61-widen-by-ignored-field": {
+      "profile": "HostOverlay",
+      "value": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "HostOverlay",
+        "metadata": {
+          "id": "synthetic.invalid"
+        },
+        "spec": {
+          "bindings": [
+            {
+              "expectedRef": {
+                "branchRef": "refs/heads/synthetic",
+                "state": "branch"
+              },
+              "remoteNames": [
+                "origin"
+              ],
+              "repositoryRoot": {
+                "platform": "posix",
+                "value": "/srv/synthetic.invalid/worktree"
+              },
+              "roleRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "role.invalid",
+                "kind": "WorktreeRole"
+              },
+              "worktreeId": "worktree.invalid"
+            }
+          ],
+          "capabilityCeiling": [
+            "inspect"
+          ],
+          "hostId": "host.invalid",
+          "lockRoot": {
+            "platform": "posix",
+            "value": "/srv/synthetic.invalid/locks"
+          },
+          "pathCeiling": {
+            "exclude": [],
+            "include": [
+              "synthetic/**"
+            ]
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "remoteExpectations": [
+            {
+              "acceptedRemotes": [
+                {
+                  "host": "repo.invalid",
+                  "namespace": [
+                    "synthetic"
+                  ],
+                  "repository": "another",
+                  "transport": "https"
+                }
+              ],
+              "remoteName": "origin"
+            }
+          ],
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "stateRoot": {
+            "platform": "posix",
+            "value": "/srv/synthetic.invalid/state"
+          }
+        }
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

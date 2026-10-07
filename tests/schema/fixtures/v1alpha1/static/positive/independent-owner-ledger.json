@@ -1,0 +1,704 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.owner-ledger.positive.ai-p01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every issued G type is present",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P01"
+    },
+    "static.owner-ledger.positive.ai-p02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every issued G is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P02"
+    },
+    "static.owner-ledger.positive.ai-p03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Stable-acquired paths have exactly one A",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P03"
+    },
+    "static.owner-ledger.positive.ai-p04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "The stable-acquired singleton A is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P04"
+    },
+    "static.owner-ledger.positive.ai-p05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Issued lease-required R is singleton",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P05"
+    },
+    "static.owner-ledger.positive.ai-p06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Issued no-lease N is singleton",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P06"
+    },
+    "static.owner-ledger.positive.ai-p07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Issued I is singleton",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P07"
+    },
+    "static.owner-ledger.positive.ai-p08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Issued singleton R/N/I is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P08"
+    },
+    "static.owner-ledger.positive.ai-p09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Issued lease path forbids N; issued no-lease path forbids A/R",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P09"
+    },
+    "static.owner-ledger.positive.ai-p10": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every G precedes A on every stable-acquired path, or N on issued no-lease paths",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P10"
+    },
+    "static.owner-ledger.positive.ai-p11": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Stable singleton A precedes every R",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P11"
+    },
+    "static.owner-ledger.positive.ai-p12": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Issued applicable R/N precedes I",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P12"
+    },
+    "static.owner-ledger.positive.ai-p13": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every issued I precedes every P",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P13"
+    },
+    "static.owner-ledger.positive.ai-p14": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "X is present iff the stable-acquired condition holds",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P14"
+    },
+    "static.owner-ledger.positive.ai-p15": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Source count is one iff stable-acquired, otherwise zero",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P15"
+    },
+    "static.owner-ledger.positive.ai-p16": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Source.taskId equals receipt.taskId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P16"
+    },
+    "static.owner-ledger.positive.ai-p17": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Source.checkId equals X.checkId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P17"
+    },
+    "static.owner-ledger.positive.ai-p18": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Source.leaseId equals X.leaseId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P18"
+    },
+    "static.owner-ledger.positive.ai-p19": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "digest computation/copy",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Source digest matches its closed source-profile computation",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P19"
+    },
+    "static.owner-ledger.positive.ai-p20": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "digest computation/copy",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "X digest copies the validated Source digest exactly",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P20"
+    },
+    "static.owner-ledger.positive.ai-p21": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "X.checkId equals the singleton A.checkId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P21"
+    },
+    "static.owner-ledger.positive.ai-p22": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "A compact reference equals {checkId:X.checkId}",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P22"
+    },
+    "static.owner-ledger.positive.ai-p23": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every R compact reference equals {checkId:X.checkId}",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-P23"
+    },
+    "static.owner-ledger.positive.ch-p01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "TaskContract checkpoint",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`checkpoint <= issuedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P01"
+    },
+    "static.owner-ledger.positive.ch-p02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "TaskContract freshness",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`issuedAt < expiresAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P02"
+    },
+    "static.owner-ledger.positive.ch-p03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every receipt check q",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`startedAt <= q.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P03"
+    },
+    "static.owner-ledger.positive.ch-p04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every non-F check q",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`q.observedAt <= sanitization.completedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P04"
+    },
+    "static.owner-ledger.positive.ch-p05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every passed P, issued",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`P.observedAt < expiresAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P05"
+    },
+    "static.owner-ledger.positive.ch-p06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Attempted issued, every E",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`finalP.observedAt <= E.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P06"
+    },
+    "static.owner-ledger.positive.ch-p07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Attempted issued, every E/V pair",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`E.observedAt <= V.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P07"
+    },
+    "static.owner-ledger.positive.ch-p08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every stable-acquired path, every G",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`G.observedAt <= A.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P08"
+    },
+    "static.owner-ledger.positive.ch-p09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued no-lease, every G",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`G.observedAt <= N.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P09"
+    },
+    "static.owner-ledger.positive.ch-p10": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every stable-acquired path, every R",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`A.observedAt <= R.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P10"
+    },
+    "static.owner-ledger.positive.ch-p11": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued lease",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`R.observedAt <= checkpoint`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P11"
+    },
+    "static.owner-ledger.positive.ch-p12": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued no-lease",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`N.observedAt <= checkpoint`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P12"
+    },
+    "static.owner-ledger.positive.ch-p13": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued, singleton I",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`issuedAt <= I.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P13"
+    },
+    "static.owner-ledger.positive.ch-p14": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued, every P",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`I.observedAt <= P.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P14"
+    },
+    "static.owner-ledger.positive.ch-p15": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued lease, every pre-release q / every L",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`q.observedAt <= L.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P15"
+    },
+    "static.owner-ledger.positive.ch-p16": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Acquired denial, every Dpre / every L",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`Dpre.observedAt <= L.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P16"
+    },
+    "static.owner-ledger.positive.ch-p17": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every receipt",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`sanitization.completedAt <= F.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P17"
+    },
+    "static.owner-ledger.positive.ch-p18": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every receipt",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`F.observedAt <= finishedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P18"
+    },
+    "static.owner-ledger.positive.ch-p19": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Existing delivery pair only",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`finishedAt <= attemptedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P19"
+    },
+    "static.owner-ledger.positive.ch-p20": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every release-required path; every ordered pair L1<L2",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "`L1.observedAt <= L2.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-P20"
+    },
+    "static.owner-ledger.positive.dp-p01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every denial prerequisite type exists",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P01"
+    },
+    "static.owner-ledger.positive.dp-p02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every denial prerequisite observation G/N/R is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P02"
+    },
+    "static.owner-ledger.positive.dp-p03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "scope",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Only row-prerequisite and controller ordinary types occur",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P03"
+    },
+    "static.owner-ledger.positive.dp-p04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every ordinary prerequisite member precedes the controller",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P04"
+    },
+    "static.owner-ledger.positive.dp-p05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "controllerCheckId names the greatest mapped-type candidate",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P05"
+    },
+    "static.owner-ledger.positive.dp-p06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "The mapped-type controller candidate is failed or indeterminate",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P06"
+    },
+    "static.owner-ledger.positive.dp-p07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Evidence.observedAt equals controller.observedAt",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P07"
+    },
+    "static.owner-ledger.positive.dp-p08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Evidence.reasonCodes exactly equal controller.reasonCodes",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P08"
+    },
+    "static.owner-ledger.positive.dp-p09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every earlier G/N/R controller-family observation is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P09"
+    },
+    "static.owner-ledger.positive.dp-p10": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "A-denial has exactly one A",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P10"
+    },
+    "static.owner-ledger.positive.dp-p11": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "I-denial has exactly one I",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P11"
+    },
+    "static.owner-ledger.positive.dp-p12": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "An I-denial's prerequisite N/R has at most one member",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P12"
+    },
+    "static.owner-ledger.positive.dp-p13": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "A-denial outcome maps failed\u2192not-acquired and indeterminate\u2192indeterminate",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-P13"
+    },
+    "static.owner-ledger.positive.pb-p01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "shape",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "postconditionRef occurs only on V",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-P01"
+    },
+    "static.owner-ledger.positive.pb-p02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "shape",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "postconditionRef has exactly required type",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-P02"
+    },
+    "static.owner-ledger.positive.pb-p03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "shape",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "postconditionRef.type is in the eleven-token enum",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-P03"
+    },
+    "static.owner-ledger.positive.pb-p04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every well-shaped V reference names a required type in the same C",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-P04"
+    },
+    "static.owner-ledger.positive.pb-p05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every required type has at least one V(t) on an attempted receipt",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-P05"
+    },
+    "static.owner-ledger.positive.rc-p01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "receipt.contractId equals C.metadata.id",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P01"
+    },
+    "static.owner-ledger.positive.rc-p02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "digest computation/copy",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "receipt.contractDigest equals the complete C digest",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P02"
+    },
+    "static.owner-ledger.positive.rc-p03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "receipt.taskId equals C.spec.taskId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P03"
+    },
+    "static.owner-ledger.positive.rc-p04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "receipt target projectRef equals C.spec.projectRef",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P04"
+    },
+    "static.owner-ledger.positive.rc-p05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "receipt target worktreeRoleRef equals C target role",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P05"
+    },
+    "static.owner-ledger.positive.rc-p06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "receipt target worktreeId equals C target worktree",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P06"
+    },
+    "static.owner-ledger.positive.rc-p07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "receipt domainRefs equal the entire canonical C Domain set",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P07"
+    },
+    "static.owner-ledger.positive.rc-p08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "receipt effectiveMode equals C.spec.effectiveMode",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P08"
+    },
+    "static.owner-ledger.positive.rc-p09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Issued X.leaseId equals C.spec.leaseId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-P09"
+    },
+    "static.owner-ledger.positive.rf-p01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Release-required paths have at least one L",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P01"
+    },
+    "static.owner-ledger.positive.rf-p02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "No-release paths have no L",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P02"
+    },
+    "static.owner-ledger.positive.rf-p03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "releaseOutcome equals the finalL mapping",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P03"
+    },
+    "static.owner-ledger.positive.rf-p04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every serialized receipt has at least one F",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P04"
+    },
+    "static.owner-ledger.positive.rf-p05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "The singleton F is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P05"
+    },
+    "static.owner-ledger.positive.rf-p06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "finalization",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "F uses exact reserved checkId/profileId/empty reasonCodes",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P06"
+    },
+    "static.owner-ledger.positive.rf-p07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "shape",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "F forbids generic-check summary fields",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P07"
+    },
+    "static.owner-ledger.positive.rf-p08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "F is terminal",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P08"
+    },
+    "static.owner-ledger.positive.rf-p09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every issued pre-release check precedes every L",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P09"
+    },
+    "static.owner-ledger.positive.rf-p10": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every acquired-denial Dpre precedes every L",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P10"
+    },
+    "static.owner-ledger.positive.rf-p11": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Failed/indeterminate finalL has an exactly related warning",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P11"
+    },
+    "static.owner-ledger.positive.rf-p12": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Every L compact reference equals {checkId:X.checkId}",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P12"
+    },
+    "static.owner-ledger.positive.rf-p13": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "finalization",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "sanitization.applied is true",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P13"
+    },
+    "static.owner-ledger.positive.rf-p14": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Indeterminate acquisition retains an unresolved coordination warning",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-P14"
+    },
+    "static.owner-ledger.positive.ta-p01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "transition authorization",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Ptrans subset Apath",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "TA-P01"
+    },
+    "static.owner-ledger.positive.ta-p02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "transition authorization",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Ptrans intersection Qpath is empty",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "TA-P02"
+    },
+    "static.owner-ledger.positive.ta-p03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "transition authorization",
+      "construction": "Use the corresponding complete valid control with every named operand present.",
+      "criterion": "Iplan subset Acap, the index projection of RequiredPlanCaps inclusion",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "TA-P03"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

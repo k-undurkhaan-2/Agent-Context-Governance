@@ -1,0 +1,73 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "phase1-static.host-exclusivity.negative.hx-a-n01": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-N01",
+      "primaryPredicate": "Distinct `HostOverlay` resources for the same host reuse one `worktreeId`; different `projectRef` and `roleRef` values are mandatory non-additive variants, and the complete union rejects."
+    },
+    "phase1-static.host-exclusivity.negative.hx-a-n02": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-N02",
+      "primaryPredicate": "Distinct same-host resources with distinct IDs, Projects, roles, or `worktreeId` values reuse one already-validated exact `(platform, repositoryRoot.value)` identity, and the complete union rejects."
+    },
+    "phase1-static.host-exclusivity.negative.hx-a-n05": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-N05",
+      "primaryPredicate": "A caller or other input supplies only a proper subset of the configured trusted same-host overlays; incomplete membership rejects."
+    },
+    "phase1-static.host-exclusivity.negative.hx-a-n06": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-N06",
+      "primaryPredicate": "A participating same-host resource or its exact contents are missing, ambiguous, or untrusted, so the complete-set proof rejects."
+    },
+    "phase1-static.host-exclusivity.negative.hx-a-n07": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-N07",
+      "primaryPredicate": "Membership from one configuration state is combined with contents, individual validation, union construction, or injectivity from an incompatible state; the mixed-snapshot proof rejects."
+    },
+    "phase1-static.host-exclusivity.negative.hx-b-n01": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-B-N01",
+      "primaryPredicate": "`stateRoot` exactly equals a binding `repositoryRoot`."
+    },
+    "phase1-static.host-exclusivity.negative.hx-b-n02": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-B-N02",
+      "primaryPredicate": "`stateRoot` is a strict descendant of a binding `repositoryRoot`."
+    },
+    "phase1-static.host-exclusivity.negative.hx-b-n03": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-B-N03",
+      "primaryPredicate": "`lockRoot` exactly equals a binding `repositoryRoot`."
+    },
+    "phase1-static.host-exclusivity.negative.hx-b-n04": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-B-N04",
+      "primaryPredicate": "`lockRoot` is a strict descendant of a binding `repositoryRoot`."
+    },
+    "phase3-live-deferred.host-exclusivity.negative.hx-a-n03": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-N03",
+      "primaryPredicate": "Lexically distinct same-host binding roots that resolve to the same physical worktree reject in future Phase 3."
+    },
+    "phase3-live-deferred.host-exclusivity.negative.hx-a-n04": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-N04",
+      "primaryPredicate": "Indeterminate same-host physical-worktree distinctness rejects in future Phase 3."
+    },
+    "phase3-live-deferred.host-exclusivity.negative.hx-b-n05": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-B-N05",
+      "primaryPredicate": "A lexically separate coordination root resolves equal to or inside an actual bound registered worktree in future Phase 3."
+    },
+    "phase3-live-deferred.host-exclusivity.negative.hx-b-n06": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-B-N06",
+      "primaryPredicate": "Live alias or containment identity is indeterminate in future Phase 3."
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

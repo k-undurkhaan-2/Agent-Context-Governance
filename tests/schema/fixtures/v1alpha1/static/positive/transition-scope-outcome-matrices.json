@@ -1,0 +1,148 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.execution-receipt.d6.positive.01": {
+      "executionOutcome": "not-attempted",
+      "verificationOutcome": "not-performed"
+    },
+    "static.execution-receipt.d6.positive.02": {
+      "executionOutcome": "succeeded",
+      "verificationOutcome": "passed"
+    },
+    "static.execution-receipt.d6.positive.03": {
+      "executionOutcome": "succeeded",
+      "verificationOutcome": "failed"
+    },
+    "static.execution-receipt.d6.positive.04": {
+      "executionOutcome": "succeeded",
+      "verificationOutcome": "indeterminate"
+    },
+    "static.execution-receipt.d6.positive.05": {
+      "executionOutcome": "failed",
+      "verificationOutcome": "passed"
+    },
+    "static.execution-receipt.d6.positive.06": {
+      "executionOutcome": "failed",
+      "verificationOutcome": "failed"
+    },
+    "static.execution-receipt.d6.positive.07": {
+      "executionOutcome": "failed",
+      "verificationOutcome": "indeterminate"
+    },
+    "static.execution-receipt.d6.positive.08": {
+      "executionOutcome": "cancelled",
+      "verificationOutcome": "passed"
+    },
+    "static.execution-receipt.d6.positive.09": {
+      "executionOutcome": "cancelled",
+      "verificationOutcome": "failed"
+    },
+    "static.execution-receipt.d6.positive.10": {
+      "executionOutcome": "cancelled",
+      "verificationOutcome": "indeterminate"
+    },
+    "static.execution-receipt.d6.positive.11": {
+      "executionOutcome": "indeterminate",
+      "verificationOutcome": "passed"
+    },
+    "static.execution-receipt.d6.positive.12": {
+      "executionOutcome": "indeterminate",
+      "verificationOutcome": "failed"
+    },
+    "static.execution-receipt.d6.positive.13": {
+      "executionOutcome": "indeterminate",
+      "verificationOutcome": "indeterminate"
+    },
+    "static.receipt.oc.positive.01-create-authorized": {
+      "family": "OC",
+      "scenario": "create-authorized"
+    },
+    "static.receipt.oc.positive.02-modify-authorized": {
+      "family": "OC",
+      "scenario": "modify-authorized"
+    },
+    "static.receipt.oc.positive.03-delete-authorized": {
+      "family": "OC",
+      "scenario": "delete-authorized"
+    },
+    "static.receipt.oe.positive.01-operation-evidence-control-01": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-01"
+    },
+    "static.receipt.oe.positive.02-operation-evidence-control-02": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-02"
+    },
+    "static.receipt.oe.positive.03-operation-evidence-control-03": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-03"
+    },
+    "static.receipt.oe.positive.04-operation-evidence-control-04": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-04"
+    },
+    "static.receipt.oe.positive.05-operation-evidence-control-05": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-05"
+    },
+    "static.receipt.oe.positive.06-operation-evidence-control-06": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-06"
+    },
+    "static.receipt.oe.positive.07-operation-evidence-control-07": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-07"
+    },
+    "static.receipt.oe.positive.08-operation-evidence-control-08": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-08"
+    },
+    "static.receipt.oe.positive.09-operation-evidence-control-09": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-09"
+    },
+    "static.receipt.oe.positive.10-operation-evidence-control-10": {
+      "family": "OE",
+      "scenario": "operation-evidence-control-10"
+    },
+    "static.receipt.scope.positive.01-no-changed-paths": {
+      "family": "SCOPE",
+      "scenario": "no-changed-paths"
+    },
+    "static.receipt.scope.positive.02-single-contained-path": {
+      "family": "SCOPE",
+      "scenario": "single-contained-path"
+    },
+    "static.receipt.scope.positive.03-multiple-contained-paths": {
+      "family": "SCOPE",
+      "scenario": "multiple-contained-paths"
+    },
+    "static.receipt.scope.positive.04-create-delete-contained": {
+      "family": "SCOPE",
+      "scenario": "create-delete-contained"
+    },
+    "static.receipt.scope.positive.05-failed-verification-retains-out-of-scope-evidence": {
+      "family": "SCOPE",
+      "scenario": "failed-verification-retains-out-of-scope-evidence"
+    },
+    "static.transition-path.positive.control-ignored-path": {
+      "control": "authorized-and-observable",
+      "transitionType": "ignored-path"
+    },
+    "static.transition-path.positive.control-index-entry": {
+      "control": "authorized-and-observable",
+      "transitionType": "index-entry"
+    },
+    "static.transition-path.positive.control-tracked-entry": {
+      "control": "authorized-and-observable",
+      "transitionType": "tracked-entry"
+    },
+    "static.transition-path.positive.control-untracked-path": {
+      "control": "authorized-and-observable",
+      "transitionType": "untracked-path"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

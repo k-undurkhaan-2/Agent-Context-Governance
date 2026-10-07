@@ -1,0 +1,104 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.branch-policy.negative.01-empty-prefix": {
+      "prefix": ""
+    },
+    "schema.branch-policy.negative.02-heads-root-only": {
+      "prefix": "refs/heads/"
+    },
+    "schema.branch-policy.negative.03-stored-trailing-slash": {
+      "prefix": "refs/heads/release/"
+    },
+    "schema.branch-policy.negative.04-repeated-slash": {
+      "prefix": "refs/heads/release//x"
+    },
+    "schema.branch-policy.negative.05-empty-component": {
+      "prefix": "refs/heads//release"
+    },
+    "schema.branch-policy.negative.06-malformed-component": {
+      "prefix": "refs/heads/release^x"
+    },
+    "schema.branch-policy.negative.07-leading-dot": {
+      "prefix": "refs/heads/.release"
+    },
+    "schema.branch-policy.negative.08-trailing-dot": {
+      "prefix": "refs/heads/release."
+    },
+    "schema.branch-policy.negative.09-lock-suffix": {
+      "prefix": "refs/heads/release.lock"
+    },
+    "schema.branch-policy.negative.10-dot-dot": {
+      "prefix": "refs/heads/release..x"
+    },
+    "schema.branch-policy.negative.11-wildcard-glob": {
+      "prefix": "refs/heads/release/*"
+    },
+    "schema.branch-policy.negative.12-regular-expression": {
+      "prefix": "refs/heads/release.*"
+    },
+    "schema.branch-policy.negative.24-duplicate-allowed-exact": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [
+            "refs/heads/release",
+            "refs/heads/release"
+          ],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      }
+    },
+    "schema.branch-policy.negative.25-duplicate-allowed-prefix": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release",
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      }
+    },
+    "schema.branch-policy.negative.26-duplicate-denied-exact": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [
+            "refs/heads/release",
+            "refs/heads/release"
+          ],
+          "prefixes": []
+        }
+      }
+    },
+    "schema.branch-policy.negative.27-duplicate-denied-prefix": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release",
+            "refs/heads/release"
+          ]
+        }
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

@@ -1,0 +1,58 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.path.negative.dot-git-carrier-01-domain-path-scope": {
+      "carrier": "domain-path-scope",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-02-role-derived-scope": {
+      "carrier": "role-derived-scope",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-03-host-overlay-path-ceiling": {
+      "carrier": "host-overlay-path-ceiling",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-04-task-contract-authorized-scope": {
+      "carrier": "task-contract-authorized-scope",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-05-task-contract-prohibited-scope": {
+      "carrier": "task-contract-prohibited-scope",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-06-baseline-entry": {
+      "carrier": "baseline-entry",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-07-postcondition-entry": {
+      "carrier": "postcondition-entry",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-08-transition-target": {
+      "carrier": "transition-target",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-09-changed-path": {
+      "carrier": "changed-path",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    },
+    "static.path.negative.dot-git-carrier-10-scope-contained-evidence": {
+      "carrier": "scope-contained-evidence",
+      "controlSimilarName": "synthetic/.gitignore",
+      "path": "synthetic/.git/config"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

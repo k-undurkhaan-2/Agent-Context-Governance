@@ -1,0 +1,181 @@
+{
+  "authorityClaim": false,
+  "owner": "model-codec-deferred",
+  "results": [
+    {
+      "completeObjectByteLength": null,
+      "name": "policy-selection",
+      "payloadByteLength": 2572,
+      "taggedDigest": "sha256:632908742df166217cf19fc74febda89e2f8ea816d71ec69f65a11a1a4831743"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "configuration-snapshot",
+      "payloadByteLength": 3717,
+      "taggedDigest": "sha256:d673b61894f1377ae4e7b7a563db05204ec96cc95bfa9ffb08ccc191e3154f86"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "issuance-state",
+      "payloadByteLength": 642,
+      "taggedDigest": "sha256:4b9cf13b1accd0e3c29754feedb601c5a7b43619842ad76cbf118a56ae4a2702"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "contract-derivation",
+      "payloadByteLength": 1882,
+      "taggedDigest": "sha256:9ced52eaa97d549c51caea566cc4681016f18614b68d1db0bc7a2748113f9a25"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "task-contract",
+      "payloadByteLength": 1975,
+      "taggedDigest": "sha256:238c3af3ceab3eafc70d660b6e3d5cef97c3741d48b76c49e9e998a26d8afe30"
+    },
+    {
+      "completeObjectByteLength": 3427,
+      "name": "execution-receipt",
+      "payloadByteLength": 3337,
+      "taggedDigest": "sha256:d3cc668ea95fa385392f04b4e5580cd2fdc810835ae7fd1ab285c102777402b0"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "task-intent-bytes-v1 (raw)",
+      "payloadByteLength": 56,
+      "taggedDigest": "sha256:f4dda8a653d84b21ae740b502386262ebd525e7086270c5eba7af31eda6929c8"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "worktree-content-v1 (empty raw)",
+      "payloadByteLength": 0,
+      "taggedDigest": "sha256:75a1e5502a349f7d22cbb583985b3045b6d5fd084f9f053cf3379bbbfe3781f9"
+    },
+    {
+      "completeObjectByteLength": 234,
+      "name": "lease-acquisition-identity-v1 Source",
+      "payloadByteLength": 157,
+      "taggedDigest": "sha256:6aec9485391fbba3fd7a35640e21dd45dc2da0228e87db83fe935ba99a100e7f"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "acquired-R evidence",
+      "payloadByteLength": 507,
+      "taggedDigest": "sha256:3f2a27da5bfdf587209700191c430aa1900cdbe4e428f82abb7d289efbee0429"
+    },
+    {
+      "completeObjectByteLength": 3833,
+      "name": "acquired-R receipt",
+      "payloadByteLength": 3743,
+      "taggedDigest": "sha256:d8c44f4ae79b8402ffb0aa36cd8e9fff2d610df09e0c6f0a7a88c9ca4bfaec8f"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "acquired-I evidence",
+      "payloadByteLength": 483,
+      "taggedDigest": "sha256:93c0c3a28a9dbfdc05b29183fde51f653ad3c7cab65eb4c7b571dd3dc94bac4a"
+    },
+    {
+      "completeObjectByteLength": 3632,
+      "name": "acquired-I receipt",
+      "payloadByteLength": 3542,
+      "taggedDigest": "sha256:d151aa6ce1c13f4e42ce3b47a058df488bcb072491506de936d3ad7873f74cff"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "single-failed-A evidence",
+      "payloadByteLength": 275,
+      "taggedDigest": "sha256:a6e3d300a1dd1ef61aa7a203441f971c6229dd306157ac8aafc20268ac7ad42c"
+    },
+    {
+      "completeObjectByteLength": 2493,
+      "name": "single-failed-A receipt",
+      "payloadByteLength": 2403,
+      "taggedDigest": "sha256:04e565109819e271ddafc60bf50aa7a035c0a70cee005af67a6f84dacaf6c69e"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "single-indeterminate-A evidence",
+      "payloadByteLength": 275,
+      "taggedDigest": "sha256:a6e3d300a1dd1ef61aa7a203441f971c6229dd306157ac8aafc20268ac7ad42c"
+    },
+    {
+      "completeObjectByteLength": 2639,
+      "name": "single-indeterminate-A receipt",
+      "payloadByteLength": 2549,
+      "taggedDigest": "sha256:55e493aa0c23428037602c86fbc4b8dab52a7e2cf28fd5b0ff6d69d4cb5f1706"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "single-failed-I evidence",
+      "payloadByteLength": 275,
+      "taggedDigest": "sha256:e53415c5bad5345082073b225dba4ddb01a895968f03815e9a5fcd0b80ebc839"
+    },
+    {
+      "completeObjectByteLength": 2700,
+      "name": "single-failed-I receipt",
+      "payloadByteLength": 2610,
+      "taggedDigest": "sha256:b887eb26f92bd9bacbe60be84295cac4b16abac138b94dae9490c835329da9aa"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "single-indeterminate-I evidence",
+      "payloadByteLength": 275,
+      "taggedDigest": "sha256:e53415c5bad5345082073b225dba4ddb01a895968f03815e9a5fcd0b80ebc839"
+    },
+    {
+      "completeObjectByteLength": 2707,
+      "name": "single-indeterminate-I receipt",
+      "payloadByteLength": 2617,
+      "taggedDigest": "sha256:6133e6152bf48b945916ec67d348ccc8baa3435846e1c2968b11d0e83e9e5d47"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "passed-A-then-failed-A evidence",
+      "payloadByteLength": 275,
+      "taggedDigest": "sha256:a6e3d300a1dd1ef61aa7a203441f971c6229dd306157ac8aafc20268ac7ad42c"
+    },
+    {
+      "completeObjectByteLength": 2681,
+      "name": "passed-A-then-failed-A receipt",
+      "payloadByteLength": 2591,
+      "taggedDigest": "sha256:d3d5e1727b67bb896f6863f299e9734875c1340a1e514f5b5274ee25cf3bbbff"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "passed-A-then-indeterminate-A evidence",
+      "payloadByteLength": 275,
+      "taggedDigest": "sha256:a6e3d300a1dd1ef61aa7a203441f971c6229dd306157ac8aafc20268ac7ad42c"
+    },
+    {
+      "completeObjectByteLength": 2827,
+      "name": "passed-A-then-indeterminate-A receipt",
+      "payloadByteLength": 2737,
+      "taggedDigest": "sha256:2fde9652c4f03149a06d42a8c2128b6f33193bf198c26bf3524473a90f54b679"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "passed-I-then-failed-I evidence",
+      "payloadByteLength": 275,
+      "taggedDigest": "sha256:e53415c5bad5345082073b225dba4ddb01a895968f03815e9a5fcd0b80ebc839"
+    },
+    {
+      "completeObjectByteLength": 2888,
+      "name": "passed-I-then-failed-I receipt",
+      "payloadByteLength": 2798,
+      "taggedDigest": "sha256:d57f7c7fb94a295c2430f12e8a4bf899a779c5e45584e8c811555a114d882f74"
+    },
+    {
+      "completeObjectByteLength": null,
+      "name": "passed-I-then-indeterminate-I evidence",
+      "payloadByteLength": 275,
+      "taggedDigest": "sha256:e53415c5bad5345082073b225dba4ddb01a895968f03815e9a5fcd0b80ebc839"
+    },
+    {
+      "completeObjectByteLength": 2895,
+      "name": "passed-I-then-indeterminate-I receipt",
+      "payloadByteLength": 2805,
+      "taggedDigest": "sha256:bb97681c6ada4a5db3ddbfa38fcabe28f674ab358fe1e6752647c0b5ff7cb6f4"
+    }
+  ],
+  "schemaSetRevision": "v1alpha1-r1"
+}

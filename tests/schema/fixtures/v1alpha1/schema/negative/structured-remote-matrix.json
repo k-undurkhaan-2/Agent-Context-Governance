@@ -1,0 +1,775 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.structured-remote.negative.01-missing-transport": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance"
+      }
+    },
+    "schema.structured-remote.negative.02-missing-host": {
+      "profile": "structuredRemote",
+      "value": {
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.03-missing-namespace": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.04-missing-repository": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.05-unknown-field": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "syntheticExtra": true,
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.06-unsupported-transport": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "git"
+      }
+    },
+    "schema.structured-remote.negative.07-raw-url": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "https://repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.08-user-info": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "user@repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.09-credential-token-material": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "token": "synthetic-prohibited-value",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.10-uppercase-host": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "Repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.11-single-label-host": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "synthetic",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.12-localhost": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "localhost",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.13-trailing-dot": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid.",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.14-leading-dot": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": ".repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.15-repeated-dot": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo..invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.16-empty-dns-label": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo..invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.17-leading-label-hyphen": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "-repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.18-trailing-label-hyphen": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo-.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.19-host-underscore": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "re_po.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.20-xn-label": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "xn--synthetic.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.21-unicode-host": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "\u4f8b.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.22-ipv4": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "127.0.0.1",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.23-ipv6": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "::1",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.24-bracketed-ipv6": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "[::1]",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.25-port-zero": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 0,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.26-port-above-max": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 65536,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.27-port-negative": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": -1,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.28-port-string": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": "8443",
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.29-port-fraction": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 1.5,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.30-https-explicit-default": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 443,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.31-ssh-explicit-default": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 22,
+        "repository": "governance",
+        "transport": "ssh"
+      }
+    },
+    "schema.structured-remote.negative.32-empty-namespace": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.33-too-many-namespace-segments": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a",
+          "a"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.34-empty-namespace-segment": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          ""
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.35-namespace-segment-too-long": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.36-joined-namespace-too-long": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "b"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.37-namespace-dot": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "."
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.38-namespace-dot-dot": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          ".."
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.39-namespace-dot-dot-substring": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "a..b"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.40-namespace-slash": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "a/b"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.41-namespace-backslash": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "a\\b"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.42-uppercase-namespace": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "Synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.43-unicode-namespace": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "\u4f8b"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.44-empty-repository": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.45-repository-too-long": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.46-leading-repository-dot": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": ".a",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.47-trailing-repository-dot": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "a.",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.48-leading-repository-hyphen": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "-a",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.49-trailing-repository-hyphen": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "a-",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.50-repository-dot-dot": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "a..b",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.51-repository-slash": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "a/b",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.52-repository-backslash": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "a\\b",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.53-uppercase-repository": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "Governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.54-unicode-repository": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "\u4f8b",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.55-terminal-dot-git": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance.git",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.negative.56-duplicate-canonical-remote": {
+      "profile": "acceptedRemotes",
+      "value": [
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        },
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        }
+      ]
+    },
+    "schema.structured-remote.negative.58-duplicate-outer-remote-name": {
+      "profile": "HostOverlay",
+      "value": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "HostOverlay",
+        "metadata": {
+          "id": "synthetic.invalid"
+        },
+        "spec": {
+          "bindings": [
+            {
+              "expectedRef": {
+                "branchRef": "refs/heads/synthetic",
+                "state": "branch"
+              },
+              "remoteNames": [
+                "origin"
+              ],
+              "repositoryRoot": {
+                "platform": "posix",
+                "value": "/srv/synthetic.invalid/worktree"
+              },
+              "roleRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "role.invalid",
+                "kind": "WorktreeRole"
+              },
+              "worktreeId": "worktree.invalid"
+            }
+          ],
+          "capabilityCeiling": [
+            "inspect"
+          ],
+          "hostId": "host.invalid",
+          "lockRoot": {
+            "platform": "posix",
+            "value": "/srv/synthetic.invalid/locks"
+          },
+          "pathCeiling": {
+            "exclude": [],
+            "include": [
+              "synthetic/**"
+            ]
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "remoteExpectations": [
+            {
+              "acceptedRemotes": [
+                {
+                  "host": "repo.invalid",
+                  "namespace": [
+                    "synthetic"
+                  ],
+                  "repository": "governance",
+                  "transport": "https"
+                }
+              ],
+              "remoteName": "origin"
+            },
+            {
+              "acceptedRemotes": [
+                {
+                  "host": "repo.invalid",
+                  "namespace": [
+                    "synthetic"
+                  ],
+                  "repository": "another",
+                  "transport": "https"
+                }
+              ],
+              "remoteName": "origin"
+            }
+          ],
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "stateRoot": {
+            "platform": "posix",
+            "value": "/srv/synthetic.invalid/state"
+          }
+        }
+      }
+    },
+    "schema.structured-remote.negative.59-same-endpoint-explicit-default": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 443,
+        "repository": "governance",
+        "transport": "https"
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

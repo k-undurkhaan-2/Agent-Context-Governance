@@ -1,0 +1,1452 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.common.absolutehostpath.positive.posix-0": {
+      "label": "posix-0",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "posix",
+        "value": "/"
+      }
+    },
+    "schema.common.absolutehostpath.positive.posix-1": {
+      "label": "posix-1",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "posix",
+        "value": "/srv/synthetic.invalid/worktree"
+      }
+    },
+    "schema.common.absolutehostpath.positive.posix-2": {
+      "label": "posix-2",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "posix",
+        "value": "/srv/synthetic.invalid/\u4f8b"
+      }
+    },
+    "schema.common.absolutehostpath.positive.posix-3": {
+      "label": "posix-3",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "posix",
+        "value": "/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.absolutehostpath.positive.posix-closed": {
+      "label": "posix-closed",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "posix",
+        "value": "/"
+      }
+    },
+    "schema.common.absolutehostpath.positive.windows-0": {
+      "label": "windows-0",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows",
+        "value": "C:\\"
+      }
+    },
+    "schema.common.absolutehostpath.positive.windows-1": {
+      "label": "windows-1",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows",
+        "value": "C:\\Synthetic.Invalid\\Worktree"
+      }
+    },
+    "schema.common.absolutehostpath.positive.windows-2": {
+      "label": "windows-2",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows",
+        "value": "C:\\Synthetic.Invalid\\\u4f8b"
+      }
+    },
+    "schema.common.absolutehostpath.positive.windows-3": {
+      "label": "windows-3",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows",
+        "value": "Z:\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.absolutehostpath.positive.windows-closed": {
+      "label": "windows-closed",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows",
+        "value": "C:\\"
+      }
+    },
+    "schema.common.acceptedremotes.positive.multiple": {
+      "label": "multiple",
+      "profile": "acceptedRemotes",
+      "value": [
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        },
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "ssh"
+        }
+      ]
+    },
+    "schema.common.allowwrite.positive.false": {
+      "label": "False",
+      "profile": "allowWrite",
+      "value": false
+    },
+    "schema.common.allowwrite.positive.true": {
+      "label": "True",
+      "profile": "allowWrite",
+      "value": true
+    },
+    "schema.common.apiversion.positive.frozen": {
+      "label": "frozen",
+      "profile": "apiVersion",
+      "value": "contextctl.dev/v1alpha1"
+    },
+    "schema.common.branchpolicy.positive.closed": {
+      "label": "closed",
+      "profile": "branchPolicy",
+      "value": {
+        "allowed": {
+          "exact": [
+            "refs/heads/synthetic"
+          ],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      }
+    },
+    "schema.common.branchprefix.positive.literal-dot": {
+      "label": "literal-dot",
+      "profile": "branchPrefix",
+      "value": "refs/heads/synthetic.v1"
+    },
+    "schema.common.branchprefix.positive.nested": {
+      "label": "nested",
+      "profile": "branchPrefix",
+      "value": "refs/heads/synthetic/topic"
+    },
+    "schema.common.branchprefix.positive.ordinary": {
+      "label": "ordinary",
+      "profile": "branchPrefix",
+      "value": "refs/heads/synthetic"
+    },
+    "schema.common.branchprefix.positive.segment-255": {
+      "label": "segment-255",
+      "profile": "branchPrefix",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.branchprefix.positive.total-1024": {
+      "label": "total-1024",
+      "profile": "branchPrefix",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "schema.common.branchref.positive.literal-dot": {
+      "label": "literal-dot",
+      "profile": "branchRef",
+      "value": "refs/heads/synthetic.v1"
+    },
+    "schema.common.branchref.positive.nested": {
+      "label": "nested",
+      "profile": "branchRef",
+      "value": "refs/heads/synthetic/topic"
+    },
+    "schema.common.branchref.positive.ordinary": {
+      "label": "ordinary",
+      "profile": "branchRef",
+      "value": "refs/heads/synthetic"
+    },
+    "schema.common.branchref.positive.segment-255": {
+      "label": "segment-255",
+      "profile": "branchRef",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.branchref.positive.total-1024": {
+      "label": "total-1024",
+      "profile": "branchRef",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "schema.common.branchselection.positive.closed": {
+      "label": "closed",
+      "profile": "branchSelection",
+      "value": {
+        "exact": [
+          "refs/heads/synthetic"
+        ],
+        "prefixes": []
+      }
+    },
+    "schema.common.canonicalutctimestamp.positive.calendar-01": {
+      "label": "calendar-01",
+      "profile": "canonicalUtcTimestamp",
+      "value": "0001-01-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.calendar-02": {
+      "label": "calendar-02",
+      "profile": "canonicalUtcTimestamp",
+      "value": "9999-12-31T23:59:59Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.calendar-03": {
+      "label": "calendar-03",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-02-29T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.calendar-04": {
+      "label": "calendar-04",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2004-02-29T23:59:59Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.calendar-05": {
+      "label": "calendar-05",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2001-01-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.timestamp-0": {
+      "label": "timestamp-0",
+      "profile": "canonicalUtcTimestamp",
+      "value": "0001-01-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.timestamp-1": {
+      "label": "timestamp-1",
+      "profile": "canonicalUtcTimestamp",
+      "value": "9999-12-31T23:59:59Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.timestamp-2": {
+      "label": "timestamp-2",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-02-29T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.timestamp-3": {
+      "label": "timestamp-3",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2004-02-29T23:59:59Z"
+    },
+    "schema.common.canonicalutctimestamp.positive.timestamp-4": {
+      "label": "timestamp-4",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2001-01-01T00:00:00Z"
+    },
+    "schema.common.canonicaluuid.positive.lowercase": {
+      "label": "lowercase",
+      "profile": "canonicalUuid",
+      "value": "01234567-89ab-cdef-0123-456789abcdef"
+    },
+    "schema.common.canonicaluuid.positive.nil": {
+      "label": "nil",
+      "profile": "canonicalUuid",
+      "value": "00000000-0000-0000-0000-000000000000"
+    },
+    "schema.common.capabilities.positive.empty": {
+      "label": "empty",
+      "profile": "capabilities",
+      "value": []
+    },
+    "schema.common.capabilities.positive.multiple": {
+      "label": "multiple",
+      "profile": "capabilities",
+      "value": [
+        "inspect",
+        "validate"
+      ]
+    },
+    "schema.common.capability.positive.create": {
+      "label": "create",
+      "profile": "capability",
+      "value": "create"
+    },
+    "schema.common.capability.positive.delete": {
+      "label": "delete",
+      "profile": "capability",
+      "value": "delete"
+    },
+    "schema.common.capability.positive.execute-build": {
+      "label": "execute-build",
+      "profile": "capability",
+      "value": "execute-build"
+    },
+    "schema.common.capability.positive.execute-tests": {
+      "label": "execute-tests",
+      "profile": "capability",
+      "value": "execute-tests"
+    },
+    "schema.common.capability.positive.external-secret-use": {
+      "label": "external-secret-use",
+      "profile": "capability",
+      "value": "external-secret-use"
+    },
+    "schema.common.capability.positive.git-branch": {
+      "label": "git-branch",
+      "profile": "capability",
+      "value": "git-branch"
+    },
+    "schema.common.capability.positive.git-commit": {
+      "label": "git-commit",
+      "profile": "capability",
+      "value": "git-commit"
+    },
+    "schema.common.capability.positive.git-remote": {
+      "label": "git-remote",
+      "profile": "capability",
+      "value": "git-remote"
+    },
+    "schema.common.capability.positive.git-stage": {
+      "label": "git-stage",
+      "profile": "capability",
+      "value": "git-stage"
+    },
+    "schema.common.capability.positive.inspect": {
+      "label": "inspect",
+      "profile": "capability",
+      "value": "inspect"
+    },
+    "schema.common.capability.positive.modify": {
+      "label": "modify",
+      "profile": "capability",
+      "value": "modify"
+    },
+    "schema.common.capability.positive.network": {
+      "label": "network",
+      "profile": "capability",
+      "value": "network"
+    },
+    "schema.common.capability.positive.validate": {
+      "label": "validate",
+      "profile": "capability",
+      "value": "validate"
+    },
+    "schema.common.checkidentifier.positive.minimum": {
+      "label": "minimum",
+      "profile": "checkIdentifier",
+      "value": "check.a"
+    },
+    "schema.common.checkidentifier.positive.segment-32": {
+      "label": "segment-32",
+      "profile": "checkIdentifier",
+      "value": "check.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.checkidentifier.positive.segmented": {
+      "label": "segmented",
+      "profile": "checkIdentifier",
+      "value": "check.synthetic.valid-1"
+    },
+    "schema.common.checkidentifier.positive.total-160": {
+      "label": "total-160",
+      "profile": "checkIdentifier",
+      "value": "check.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.checkoutcome.positive.failed": {
+      "label": "failed",
+      "profile": "checkOutcome",
+      "value": "failed"
+    },
+    "schema.common.checkoutcome.positive.indeterminate": {
+      "label": "indeterminate",
+      "profile": "checkOutcome",
+      "value": "indeterminate"
+    },
+    "schema.common.checkoutcome.positive.passed": {
+      "label": "passed",
+      "profile": "checkOutcome",
+      "value": "passed"
+    },
+    "schema.common.displaytext.positive.maximum": {
+      "label": "maximum",
+      "profile": "displayText",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "schema.common.displaytext.positive.minimum": {
+      "label": "minimum",
+      "profile": "displayText",
+      "value": "x"
+    },
+    "schema.common.displaytext.positive.nfc-unicode": {
+      "label": "nfc-unicode",
+      "profile": "displayText",
+      "value": "Synthetic \u00e9 \u4f8b"
+    },
+    "schema.common.executioncheckoutcome.positive.cancelled": {
+      "label": "cancelled",
+      "profile": "executionCheckOutcome",
+      "value": "cancelled"
+    },
+    "schema.common.executioncheckoutcome.positive.failed": {
+      "label": "failed",
+      "profile": "executionCheckOutcome",
+      "value": "failed"
+    },
+    "schema.common.executioncheckoutcome.positive.indeterminate": {
+      "label": "indeterminate",
+      "profile": "executionCheckOutcome",
+      "value": "indeterminate"
+    },
+    "schema.common.executioncheckoutcome.positive.succeeded": {
+      "label": "succeeded",
+      "profile": "executionCheckOutcome",
+      "value": "succeeded"
+    },
+    "schema.common.executionoutcome.positive.cancelled": {
+      "label": "cancelled",
+      "profile": "executionOutcome",
+      "value": "cancelled"
+    },
+    "schema.common.executionoutcome.positive.failed": {
+      "label": "failed",
+      "profile": "executionOutcome",
+      "value": "failed"
+    },
+    "schema.common.executionoutcome.positive.indeterminate": {
+      "label": "indeterminate",
+      "profile": "executionOutcome",
+      "value": "indeterminate"
+    },
+    "schema.common.executionoutcome.positive.not-attempted": {
+      "label": "not-attempted",
+      "profile": "executionOutcome",
+      "value": "not-attempted"
+    },
+    "schema.common.executionoutcome.positive.succeeded": {
+      "label": "succeeded",
+      "profile": "executionOutcome",
+      "value": "succeeded"
+    },
+    "schema.common.freshnessboundary.positive.closed": {
+      "label": "closed",
+      "profile": "freshnessBoundary",
+      "value": {
+        "expiresAt": "2000-01-01T00:00:01Z",
+        "issuedAt": "2000-01-01T00:00:00Z"
+      }
+    },
+    "schema.common.gitmode.positive.100644": {
+      "label": "100644",
+      "profile": "gitMode",
+      "value": "100644"
+    },
+    "schema.common.gitmode.positive.100755": {
+      "label": "100755",
+      "profile": "gitMode",
+      "value": "100755"
+    },
+    "schema.common.gitmode.positive.120000": {
+      "label": "120000",
+      "profile": "gitMode",
+      "value": "120000"
+    },
+    "schema.common.gitmode.positive.160000": {
+      "label": "160000",
+      "profile": "gitMode",
+      "value": "160000"
+    },
+    "schema.common.gitobjectid.positive.sha1": {
+      "label": "sha1",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha1",
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.gitobjectid.positive.sha1-closed": {
+      "label": "sha1-closed",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha1",
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.gitobjectid.positive.sha256": {
+      "label": "sha256",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha256",
+        "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    "schema.common.gitobjectid.positive.sha256-closed": {
+      "label": "sha256-closed",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha256",
+        "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    "schema.common.gitrefidentifier.positive.literal-dot": {
+      "label": "literal-dot",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/synthetic.v1"
+    },
+    "schema.common.gitrefidentifier.positive.minimum": {
+      "label": "minimum",
+      "profile": "gitRefIdentifier",
+      "value": "refs/a"
+    },
+    "schema.common.gitrefidentifier.positive.nested": {
+      "label": "nested",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/synthetic/topic"
+    },
+    "schema.common.gitrefidentifier.positive.ordinary": {
+      "label": "ordinary",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/synthetic"
+    },
+    "schema.common.gitrefidentifier.positive.segment-255": {
+      "label": "segment-255",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.gitrefidentifier.positive.tag": {
+      "label": "tag",
+      "profile": "gitRefIdentifier",
+      "value": "refs/tags/synthetic"
+    },
+    "schema.common.gitrefidentifier.positive.total-1024": {
+      "label": "total-1024",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "schema.common.headstate.positive.commit": {
+      "label": "commit",
+      "profile": "headState",
+      "value": {
+        "objectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "state": "commit"
+      }
+    },
+    "schema.common.headstate.positive.unborn": {
+      "label": "unborn",
+      "profile": "headState",
+      "value": {
+        "state": "unborn"
+      }
+    },
+    "schema.common.indexstage.positive.minimum": {
+      "label": "minimum",
+      "profile": "indexStage",
+      "value": 0
+    },
+    "schema.common.kind.positive.domain": {
+      "label": "Domain",
+      "profile": "kind",
+      "value": "Domain"
+    },
+    "schema.common.kind.positive.executionreceipt": {
+      "label": "ExecutionReceipt",
+      "profile": "kind",
+      "value": "ExecutionReceipt"
+    },
+    "schema.common.kind.positive.hostoverlay": {
+      "label": "HostOverlay",
+      "profile": "kind",
+      "value": "HostOverlay"
+    },
+    "schema.common.kind.positive.project": {
+      "label": "Project",
+      "profile": "kind",
+      "value": "Project"
+    },
+    "schema.common.kind.positive.routingpolicy": {
+      "label": "RoutingPolicy",
+      "profile": "kind",
+      "value": "RoutingPolicy"
+    },
+    "schema.common.kind.positive.taskcontract": {
+      "label": "TaskContract",
+      "profile": "kind",
+      "value": "TaskContract"
+    },
+    "schema.common.kind.positive.worktreerole": {
+      "label": "WorktreeRole",
+      "profile": "kind",
+      "value": "WorktreeRole"
+    },
+    "schema.common.lifecycleoutcome.positive.cancelled": {
+      "label": "cancelled",
+      "profile": "lifecycleOutcome",
+      "value": "cancelled"
+    },
+    "schema.common.lifecycleoutcome.positive.denied": {
+      "label": "denied",
+      "profile": "lifecycleOutcome",
+      "value": "denied"
+    },
+    "schema.common.lifecycleoutcome.positive.failed": {
+      "label": "failed",
+      "profile": "lifecycleOutcome",
+      "value": "failed"
+    },
+    "schema.common.lifecycleoutcome.positive.indeterminate": {
+      "label": "indeterminate",
+      "profile": "lifecycleOutcome",
+      "value": "indeterminate"
+    },
+    "schema.common.lifecycleoutcome.positive.succeeded": {
+      "label": "succeeded",
+      "profile": "lifecycleOutcome",
+      "value": "succeeded"
+    },
+    "schema.common.logicalidentifier.positive.internal-dots": {
+      "label": "internal-dots",
+      "profile": "logicalIdentifier",
+      "value": "a..b"
+    },
+    "schema.common.logicalidentifier.positive.maximum": {
+      "label": "maximum",
+      "profile": "logicalIdentifier",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.logicalidentifier.positive.minimum": {
+      "label": "minimum",
+      "profile": "logicalIdentifier",
+      "value": "a"
+    },
+    "schema.common.logicalidentifier.positive.punctuation": {
+      "label": "punctuation",
+      "profile": "logicalIdentifier",
+      "value": "project.synthetic-1.invalid"
+    },
+    "schema.common.metadata.positive.full": {
+      "label": "full",
+      "profile": "metadata",
+      "value": {
+        "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "displayName": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "id": "synthetic.invalid"
+      }
+    },
+    "schema.common.metadata.positive.minimal": {
+      "label": "minimal",
+      "profile": "metadata",
+      "value": {
+        "id": "synthetic.invalid"
+      }
+    },
+    "schema.common.mode.positive.implementation": {
+      "label": "implementation",
+      "profile": "mode",
+      "value": "implementation"
+    },
+    "schema.common.mode.positive.plan-only": {
+      "label": "plan-only",
+      "profile": "mode",
+      "value": "plan-only"
+    },
+    "schema.common.objectreference.positive.closed": {
+      "label": "closed",
+      "profile": "objectReference",
+      "value": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "id": "project.invalid",
+        "kind": "Project"
+      }
+    },
+    "schema.common.pathpattern.positive.pattern-0": {
+      "label": "pattern-0",
+      "profile": "pathPattern",
+      "value": "**"
+    },
+    "schema.common.pathpattern.positive.pattern-1": {
+      "label": "pattern-1",
+      "profile": "pathPattern",
+      "value": "src/**"
+    },
+    "schema.common.pathpattern.positive.pattern-10": {
+      "label": "pattern-10",
+      "profile": "pathPattern",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "schema.common.pathpattern.positive.pattern-2": {
+      "label": "pattern-2",
+      "profile": "pathPattern",
+      "value": "**/synthetic?.py"
+    },
+    "schema.common.pathpattern.positive.pattern-3": {
+      "label": "pattern-3",
+      "profile": "pathPattern",
+      "value": "src/*.py"
+    },
+    "schema.common.pathpattern.positive.pattern-4": {
+      "label": "pattern-4",
+      "profile": "pathPattern",
+      "value": "a*b?"
+    },
+    "schema.common.pathpattern.positive.pattern-5": {
+      "label": "pattern-5",
+      "profile": "pathPattern",
+      "value": "a/**/b"
+    },
+    "schema.common.pathpattern.positive.pattern-6": {
+      "label": "pattern-6",
+      "profile": "pathPattern",
+      "value": ".gitignore"
+    },
+    "schema.common.pathpattern.positive.pattern-7": {
+      "label": "pattern-7",
+      "profile": "pathPattern",
+      "value": ".github/**"
+    },
+    "schema.common.pathpattern.positive.pattern-8": {
+      "label": "pattern-8",
+      "profile": "pathPattern",
+      "value": "foo.git/**"
+    },
+    "schema.common.pathpattern.positive.pattern-9": {
+      "label": "pattern-9",
+      "profile": "pathPattern",
+      "value": "dir/.git*"
+    },
+    "schema.common.posixabsolutehostpath.positive.path-0": {
+      "label": "path-0",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/"
+    },
+    "schema.common.posixabsolutehostpath.positive.path-1": {
+      "label": "path-1",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree"
+    },
+    "schema.common.posixabsolutehostpath.positive.path-2": {
+      "label": "path-2",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/\u4f8b"
+    },
+    "schema.common.posixabsolutehostpath.positive.path-3": {
+      "label": "path-3",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.profileidentifier.positive.minimum": {
+      "label": "minimum",
+      "profile": "profileIdentifier",
+      "value": "profile.a"
+    },
+    "schema.common.profileidentifier.positive.segment-32": {
+      "label": "segment-32",
+      "profile": "profileIdentifier",
+      "value": "profile.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.profileidentifier.positive.segmented": {
+      "label": "segmented",
+      "profile": "profileIdentifier",
+      "value": "profile.synthetic.valid-1"
+    },
+    "schema.common.profileidentifier.positive.total-160": {
+      "label": "total-160",
+      "profile": "profileIdentifier",
+      "value": "profile.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.reasoncode.positive.minimum": {
+      "label": "minimum",
+      "profile": "reasonCode",
+      "value": "reason.a"
+    },
+    "schema.common.reasoncode.positive.segment-32": {
+      "label": "segment-32",
+      "profile": "reasonCode",
+      "value": "reason.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.reasoncode.positive.segmented": {
+      "label": "segmented",
+      "profile": "reasonCode",
+      "value": "reason.synthetic.valid-1"
+    },
+    "schema.common.reasoncode.positive.total-160": {
+      "label": "total-160",
+      "profile": "reasonCode",
+      "value": "reason.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.receiptdeliveryoutcome.positive.failed": {
+      "label": "failed",
+      "profile": "receiptDeliveryOutcome",
+      "value": "failed"
+    },
+    "schema.common.receiptdeliveryoutcome.positive.indeterminate": {
+      "label": "indeterminate",
+      "profile": "receiptDeliveryOutcome",
+      "value": "indeterminate"
+    },
+    "schema.common.receiptdeliveryoutcome.positive.not-attempted": {
+      "label": "not-attempted",
+      "profile": "receiptDeliveryOutcome",
+      "value": "not-attempted"
+    },
+    "schema.common.receiptdeliveryoutcome.positive.succeeded": {
+      "label": "succeeded",
+      "profile": "receiptDeliveryOutcome",
+      "value": "succeeded"
+    },
+    "schema.common.redactioncount.positive.maximum": {
+      "label": "maximum",
+      "profile": "redactionCount",
+      "value": 4294967295
+    },
+    "schema.common.redactioncount.positive.minimum": {
+      "label": "minimum",
+      "profile": "redactionCount",
+      "value": 0
+    },
+    "schema.common.refstate.positive.branch": {
+      "label": "branch",
+      "profile": "refState",
+      "value": {
+        "branchRef": "refs/heads/synthetic",
+        "state": "branch"
+      }
+    },
+    "schema.common.refstate.positive.detached": {
+      "label": "detached",
+      "profile": "refState",
+      "value": {
+        "state": "detached"
+      }
+    },
+    "schema.common.releaseoutcome.positive.failed": {
+      "label": "failed",
+      "profile": "releaseOutcome",
+      "value": "failed"
+    },
+    "schema.common.releaseoutcome.positive.indeterminate": {
+      "label": "indeterminate",
+      "profile": "releaseOutcome",
+      "value": "indeterminate"
+    },
+    "schema.common.releaseoutcome.positive.not-required": {
+      "label": "not-required",
+      "profile": "releaseOutcome",
+      "value": "not-required"
+    },
+    "schema.common.releaseoutcome.positive.succeeded": {
+      "label": "succeeded",
+      "profile": "releaseOutcome",
+      "value": "succeeded"
+    },
+    "schema.common.remotednshost.positive.dns-bare-hex-prefix": {
+      "label": "dns-bare-hex-prefix",
+      "profile": "remoteDnsHost",
+      "value": "0x.1"
+    },
+    "schema.common.remotednshost.positive.dns-five-decimal-labels": {
+      "label": "dns-five-decimal-labels",
+      "profile": "remoteDnsHost",
+      "value": "1.2.3.4.5"
+    },
+    "schema.common.remotednshost.positive.dns-five-hex-labels": {
+      "label": "dns-five-hex-labels",
+      "profile": "remoteDnsHost",
+      "value": "0x1.0x2.0x3.0x4.0x5"
+    },
+    "schema.common.remotednshost.positive.dns-hex-first": {
+      "label": "dns-hex-first",
+      "profile": "remoteDnsHost",
+      "value": "0x7f.example"
+    },
+    "schema.common.remotednshost.positive.dns-hex-last": {
+      "label": "dns-hex-last",
+      "profile": "remoteDnsHost",
+      "value": "example.0x1"
+    },
+    "schema.common.remotednshost.positive.dns-non-hex-digit": {
+      "label": "dns-non-hex-digit",
+      "profile": "remoteDnsHost",
+      "value": "0xg.1"
+    },
+    "schema.common.remotednshost.positive.dns-non-numeric-prefix": {
+      "label": "dns-non-numeric-prefix",
+      "profile": "remoteDnsHost",
+      "value": "00x1.1"
+    },
+    "schema.common.remotednshost.positive.dns-non-octal-first": {
+      "label": "dns-non-octal-first",
+      "profile": "remoteDnsHost",
+      "value": "08.1"
+    },
+    "schema.common.remotednshost.positive.dns-non-octal-four-part": {
+      "label": "dns-non-octal-four-part",
+      "profile": "remoteDnsHost",
+      "value": "1.2.3.09"
+    },
+    "schema.common.remotednshost.positive.dns-non-octal-last": {
+      "label": "dns-non-octal-last",
+      "profile": "remoteDnsHost",
+      "value": "1.08"
+    },
+    "schema.common.remotednshost.positive.dns-numeric-first": {
+      "label": "dns-numeric-first",
+      "profile": "remoteDnsHost",
+      "value": "1.example"
+    },
+    "schema.common.remotednshost.positive.dns-numeric-host-253": {
+      "label": "dns-numeric-host-253",
+      "profile": "remoteDnsHost",
+      "value": "999999999999999999999999999999999999999999999999999999999999999.999999999999999999999999999999999999999999999999999999999999999.999999999999999999999999999999999999999999999999999999999999999.9999999999999999999999999999999999999999999999999999999999999"
+    },
+    "schema.common.remotednshost.positive.dns-numeric-label-63": {
+      "label": "dns-numeric-label-63",
+      "profile": "remoteDnsHost",
+      "value": "999999999999999999999999999999999999999999999999999999999999999.1"
+    },
+    "schema.common.remotednshost.positive.dns-numeric-last": {
+      "label": "dns-numeric-last",
+      "profile": "remoteDnsHost",
+      "value": "example.1"
+    },
+    "schema.common.remotednshost.positive.dns-numeric-prefix": {
+      "label": "dns-numeric-prefix",
+      "profile": "remoteDnsHost",
+      "value": "1.2.example"
+    },
+    "schema.common.remotednshost.positive.dns-numeric-suffix": {
+      "label": "dns-numeric-suffix",
+      "profile": "remoteDnsHost",
+      "value": "example.1.2"
+    },
+    "schema.common.remotednshost.positive.dns-octal-first": {
+      "label": "dns-octal-first",
+      "profile": "remoteDnsHost",
+      "value": "0177.example"
+    },
+    "schema.common.remotednshost.positive.dns-octal-last": {
+      "label": "dns-octal-last",
+      "profile": "remoteDnsHost",
+      "value": "example.0177"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-2-part-0": {
+      "label": "dns-overflow-decimal-2-part-0",
+      "profile": "remoteDnsHost",
+      "value": "256.16777215"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-2-part-1": {
+      "label": "dns-overflow-decimal-2-part-1",
+      "profile": "remoteDnsHost",
+      "value": "255.16777216"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-3-part-0": {
+      "label": "dns-overflow-decimal-3-part-0",
+      "profile": "remoteDnsHost",
+      "value": "256.255.65535"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-3-part-1": {
+      "label": "dns-overflow-decimal-3-part-1",
+      "profile": "remoteDnsHost",
+      "value": "255.256.65535"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-3-part-2": {
+      "label": "dns-overflow-decimal-3-part-2",
+      "profile": "remoteDnsHost",
+      "value": "255.255.65536"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-4-part-0": {
+      "label": "dns-overflow-decimal-4-part-0",
+      "profile": "remoteDnsHost",
+      "value": "256.255.255.255"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-4-part-1": {
+      "label": "dns-overflow-decimal-4-part-1",
+      "profile": "remoteDnsHost",
+      "value": "255.256.255.255"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-4-part-2": {
+      "label": "dns-overflow-decimal-4-part-2",
+      "profile": "remoteDnsHost",
+      "value": "255.255.256.255"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-decimal-4-part-3": {
+      "label": "dns-overflow-decimal-4-part-3",
+      "profile": "remoteDnsHost",
+      "value": "255.255.255.256"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-2-part-0": {
+      "label": "dns-overflow-hex-2-part-0",
+      "profile": "remoteDnsHost",
+      "value": "0x100.0xffffff"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-2-part-1": {
+      "label": "dns-overflow-hex-2-part-1",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0x1000000"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-3-part-0": {
+      "label": "dns-overflow-hex-3-part-0",
+      "profile": "remoteDnsHost",
+      "value": "0x100.0xff.0xffff"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-3-part-1": {
+      "label": "dns-overflow-hex-3-part-1",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0x100.0xffff"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-3-part-2": {
+      "label": "dns-overflow-hex-3-part-2",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0xff.0x10000"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-4-part-0": {
+      "label": "dns-overflow-hex-4-part-0",
+      "profile": "remoteDnsHost",
+      "value": "0x100.0xff.0xff.0xff"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-4-part-1": {
+      "label": "dns-overflow-hex-4-part-1",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0x100.0xff.0xff"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-4-part-2": {
+      "label": "dns-overflow-hex-4-part-2",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0xff.0x100.0xff"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-hex-4-part-3": {
+      "label": "dns-overflow-hex-4-part-3",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0xff.0xff.0x100"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-2-part-0": {
+      "label": "dns-overflow-octal-2-part-0",
+      "profile": "remoteDnsHost",
+      "value": "0400.077777777"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-2-part-1": {
+      "label": "dns-overflow-octal-2-part-1",
+      "profile": "remoteDnsHost",
+      "value": "0377.0100000000"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-3-part-0": {
+      "label": "dns-overflow-octal-3-part-0",
+      "profile": "remoteDnsHost",
+      "value": "0400.0377.0177777"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-3-part-1": {
+      "label": "dns-overflow-octal-3-part-1",
+      "profile": "remoteDnsHost",
+      "value": "0377.0400.0177777"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-3-part-2": {
+      "label": "dns-overflow-octal-3-part-2",
+      "profile": "remoteDnsHost",
+      "value": "0377.0377.0200000"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-4-part-0": {
+      "label": "dns-overflow-octal-4-part-0",
+      "profile": "remoteDnsHost",
+      "value": "0400.0377.0377.0377"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-4-part-1": {
+      "label": "dns-overflow-octal-4-part-1",
+      "profile": "remoteDnsHost",
+      "value": "0377.0400.0377.0377"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-4-part-2": {
+      "label": "dns-overflow-octal-4-part-2",
+      "profile": "remoteDnsHost",
+      "value": "0377.0377.0400.0377"
+    },
+    "schema.common.remotednshost.positive.dns-overflow-octal-4-part-3": {
+      "label": "dns-overflow-octal-4-part-3",
+      "profile": "remoteDnsHost",
+      "value": "0377.0377.0377.0400"
+    },
+    "schema.common.remotednshost.positive.dns-zero-label-63": {
+      "label": "dns-zero-label-63",
+      "profile": "remoteDnsHost",
+      "value": "000000000000000000000000000000000000000000000000000000000000000.example"
+    },
+    "schema.common.remotednshost.positive.host-0": {
+      "label": "host-0",
+      "profile": "remoteDnsHost",
+      "value": "a.b"
+    },
+    "schema.common.remotednshost.positive.host-1": {
+      "label": "host-1",
+      "profile": "remoteDnsHost",
+      "value": "repo.invalid"
+    },
+    "schema.common.remotednshost.positive.host-2": {
+      "label": "host-2",
+      "profile": "remoteDnsHost",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "schema.common.remoteexpectation.positive.closed": {
+      "label": "closed",
+      "profile": "remoteExpectation",
+      "value": {
+        "acceptedRemotes": [
+          {
+            "host": "repo.invalid",
+            "namespace": [
+              "synthetic"
+            ],
+            "repository": "governance",
+            "transport": "https"
+          }
+        ],
+        "remoteName": "origin"
+      }
+    },
+    "schema.common.remotenamespace.positive.maximum-joined-1023": {
+      "label": "maximum-joined-1023",
+      "profile": "remoteNamespace",
+      "value": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ]
+    },
+    "schema.common.remotenamespace.positive.minimum": {
+      "label": "minimum",
+      "profile": "remoteNamespace",
+      "value": [
+        "a"
+      ]
+    },
+    "schema.common.remotenamespace.positive.ordered-repetition": {
+      "label": "ordered-repetition",
+      "profile": "remoteNamespace",
+      "value": [
+        "synthetic",
+        "synthetic"
+      ]
+    },
+    "schema.common.remotenamespacecomponent.positive.git-literal": {
+      "label": "git-literal",
+      "profile": "remoteNamespaceComponent",
+      "value": "synthetic.git"
+    },
+    "schema.common.remotenamespacecomponent.positive.maximum": {
+      "label": "maximum",
+      "profile": "remoteNamespaceComponent",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.remotenamespacecomponent.positive.minimum": {
+      "label": "minimum",
+      "profile": "remoteNamespaceComponent",
+      "value": "a"
+    },
+    "schema.common.remotenamespacecomponent.positive.punctuation": {
+      "label": "punctuation",
+      "profile": "remoteNamespaceComponent",
+      "value": "a_b-c.d"
+    },
+    "schema.common.remoteport.positive.maximum": {
+      "label": "maximum",
+      "profile": "remotePort",
+      "value": 65535
+    },
+    "schema.common.remoteport.positive.minimum": {
+      "label": "minimum",
+      "profile": "remotePort",
+      "value": 1
+    },
+    "schema.common.remoterepositoryname.positive.maximum": {
+      "label": "maximum",
+      "profile": "remoteRepositoryName",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.remoterepositoryname.positive.minimum": {
+      "label": "minimum",
+      "profile": "remoteRepositoryName",
+      "value": "a"
+    },
+    "schema.common.remoterepositoryname.positive.nonterminal-git": {
+      "label": "nonterminal-git",
+      "profile": "remoteRepositoryName",
+      "value": "synthetic.git.data"
+    },
+    "schema.common.remoterepositoryname.positive.punctuation": {
+      "label": "punctuation",
+      "profile": "remoteRepositoryName",
+      "value": "a_b-c.d"
+    },
+    "schema.common.repositoryidentity.positive.closed": {
+      "label": "closed",
+      "profile": "repositoryIdentity",
+      "value": {
+        "acceptedRemotes": [
+          {
+            "host": "repo.invalid",
+            "namespace": [
+              "synthetic"
+            ],
+            "repository": "governance",
+            "transport": "https"
+          }
+        ]
+      }
+    },
+    "schema.common.repositoryrelativepath.positive.path-0": {
+      "label": "path-0",
+      "profile": "repositoryRelativePath",
+      "value": "a"
+    },
+    "schema.common.repositoryrelativepath.positive.path-1": {
+      "label": "path-1",
+      "profile": "repositoryRelativePath",
+      "value": "src/synthetic.py"
+    },
+    "schema.common.repositoryrelativepath.positive.path-10": {
+      "label": "path-10",
+      "profile": "repositoryRelativePath",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "schema.common.repositoryrelativepath.positive.path-2": {
+      "label": "path-2",
+      "profile": "repositoryRelativePath",
+      "value": ".gitignore"
+    },
+    "schema.common.repositoryrelativepath.positive.path-3": {
+      "label": "path-3",
+      "profile": "repositoryRelativePath",
+      "value": ".gitmodules"
+    },
+    "schema.common.repositoryrelativepath.positive.path-4": {
+      "label": "path-4",
+      "profile": "repositoryRelativePath",
+      "value": ".github"
+    },
+    "schema.common.repositoryrelativepath.positive.path-5": {
+      "label": "path-5",
+      "profile": "repositoryRelativePath",
+      "value": "foo.git"
+    },
+    "schema.common.repositoryrelativepath.positive.path-6": {
+      "label": "path-6",
+      "profile": "repositoryRelativePath",
+      "value": "dir/.gitignore"
+    },
+    "schema.common.repositoryrelativepath.positive.path-7": {
+      "label": "path-7",
+      "profile": "repositoryRelativePath",
+      "value": "dir/.github/workflow.yml"
+    },
+    "schema.common.repositoryrelativepath.positive.path-8": {
+      "label": "path-8",
+      "profile": "repositoryRelativePath",
+      "value": ".Git/config"
+    },
+    "schema.common.repositoryrelativepath.positive.path-9": {
+      "label": "path-9",
+      "profile": "repositoryRelativePath",
+      "value": "synthetic/\u4f8b"
+    },
+    "schema.common.routingpriority.positive.maximum": {
+      "label": "maximum",
+      "profile": "routingPriority",
+      "value": 1000
+    },
+    "schema.common.routingpriority.positive.minimum": {
+      "label": "minimum",
+      "profile": "routingPriority",
+      "value": 0
+    },
+    "schema.common.sanitizedsummary.positive.maximum": {
+      "label": "maximum",
+      "profile": "sanitizedSummary",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "schema.common.sanitizedsummary.positive.minimum": {
+      "label": "minimum",
+      "profile": "sanitizedSummary",
+      "value": "x"
+    },
+    "schema.common.sanitizedsummary.positive.nfc-unicode": {
+      "label": "nfc-unicode",
+      "profile": "sanitizedSummary",
+      "value": "Synthetic \u00e9 \u4f8b"
+    },
+    "schema.common.scope.positive.closed": {
+      "label": "closed",
+      "profile": "scope",
+      "value": {
+        "capabilities": [
+          "inspect"
+        ],
+        "paths": [
+          "src/**"
+        ]
+      }
+    },
+    "schema.common.sequence.positive.maximum": {
+      "label": "maximum",
+      "profile": "sequence",
+      "value": 4095
+    },
+    "schema.common.sequence.positive.minimum": {
+      "label": "minimum",
+      "profile": "sequence",
+      "value": 0
+    },
+    "schema.common.structuredremote.positive.closed": {
+      "label": "closed",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.positive.https": {
+      "label": "https",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.positive.https-non-default": {
+      "label": "https-non-default",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 8443,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.positive.https-ssh-port": {
+      "label": "https-ssh-port",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 22,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.positive.ssh": {
+      "label": "ssh",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "ssh"
+      }
+    },
+    "schema.common.structuredremote.positive.ssh-https-port": {
+      "label": "ssh-https-port",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 443,
+        "repository": "governance",
+        "transport": "ssh"
+      }
+    },
+    "schema.common.structuredremote.positive.ssh-non-default": {
+      "label": "ssh-non-default",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 2222,
+        "repository": "governance",
+        "transport": "ssh"
+      }
+    },
+    "schema.common.taggeddigest.positive.sha256": {
+      "label": "sha256",
+      "profile": "taggedDigest",
+      "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.verificationoutcome.positive.failed": {
+      "label": "failed",
+      "profile": "verificationOutcome",
+      "value": "failed"
+    },
+    "schema.common.verificationoutcome.positive.indeterminate": {
+      "label": "indeterminate",
+      "profile": "verificationOutcome",
+      "value": "indeterminate"
+    },
+    "schema.common.verificationoutcome.positive.not-performed": {
+      "label": "not-performed",
+      "profile": "verificationOutcome",
+      "value": "not-performed"
+    },
+    "schema.common.verificationoutcome.positive.passed": {
+      "label": "passed",
+      "profile": "verificationOutcome",
+      "value": "passed"
+    },
+    "schema.common.windowsdriveabsolutehostpath.positive.path-0": {
+      "label": "path-0",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\"
+    },
+    "schema.common.windowsdriveabsolutehostpath.positive.path-1": {
+      "label": "path-1",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree"
+    },
+    "schema.common.windowsdriveabsolutehostpath.positive.path-2": {
+      "label": "path-2",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\\u4f8b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.positive.path-3": {
+      "label": "path-3",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "Z:\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.windowsdriveabsolutehostpath.positive.similar-devices": {
+      "label": "similar-devices",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM0\\COM10\\xCON\\CONSOLE"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

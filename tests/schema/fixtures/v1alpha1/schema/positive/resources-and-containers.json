@@ -1,0 +1,764 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.container.governance-bundle.positive.minimal": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "domains": [
+          {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "kind": "Domain",
+            "metadata": {
+              "id": "synthetic.invalid"
+            },
+            "spec": {
+              "overlapRefs": [],
+              "pathScope": {
+                "exclude": [],
+                "include": [
+                  "synthetic/**"
+                ]
+              },
+              "permissions": {
+                "modes": [
+                  "plan-only"
+                ],
+                "permittedCapabilities": [
+                  "inspect"
+                ],
+                "prohibitedCapabilities": []
+              },
+              "projectRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "project.invalid",
+                "kind": "Project"
+              },
+              "responsibility": "Conspicuously synthetic structural test domain."
+            }
+          }
+        ],
+        "project": {
+          "apiVersion": "contextctl.dev/v1alpha1",
+          "kind": "Project",
+          "metadata": {
+            "id": "synthetic.invalid"
+          },
+          "spec": {
+            "domainRefs": [
+              {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "domain.invalid",
+                "kind": "Domain"
+              }
+            ],
+            "permissions": {
+              "modes": [
+                "plan-only"
+              ],
+              "permittedCapabilities": [
+                "inspect"
+              ],
+              "prohibitedCapabilities": []
+            },
+            "repositoryIdentity": {
+              "acceptedRemotes": [
+                {
+                  "host": "repo.invalid",
+                  "namespace": [
+                    "synthetic"
+                  ],
+                  "repository": "governance",
+                  "transport": "https"
+                }
+              ]
+            },
+            "routingPolicyRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "routing.invalid",
+              "kind": "RoutingPolicy"
+            },
+            "secureDefaults": {
+              "allowWrite": false,
+              "mode": "plan-only"
+            },
+            "worktreeRoleRefs": [
+              {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "role.invalid",
+                "kind": "WorktreeRole"
+              }
+            ]
+          }
+        },
+        "routingPolicy": {
+          "apiVersion": "contextctl.dev/v1alpha1",
+          "kind": "RoutingPolicy",
+          "metadata": {
+            "id": "synthetic.invalid"
+          },
+          "spec": {
+            "fallback": {
+              "reasonCode": "reason.synthetic.denied",
+              "type": "deny"
+            },
+            "projectRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "project.invalid",
+              "kind": "Project"
+            },
+            "rules": [
+              {
+                "decision": {
+                  "type": "route",
+                  "worktreeRoleRef": {
+                    "apiVersion": "contextctl.dev/v1alpha1",
+                    "id": "role.invalid",
+                    "kind": "WorktreeRole"
+                  }
+                },
+                "id": "rule.invalid",
+                "match": {
+                  "domainSet": {
+                    "domainRefs": [
+                      {
+                        "apiVersion": "contextctl.dev/v1alpha1",
+                        "id": "domain.invalid",
+                        "kind": "Domain"
+                      }
+                    ],
+                    "operator": "exact"
+                  },
+                  "projectRef": {
+                    "apiVersion": "contextctl.dev/v1alpha1",
+                    "id": "project.invalid",
+                    "kind": "Project"
+                  }
+                },
+                "priority": 1
+              }
+            ]
+          }
+        },
+        "worktreeRoles": [
+          {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "kind": "WorktreeRole",
+            "metadata": {
+              "id": "synthetic.invalid"
+            },
+            "spec": {
+              "branchPolicy": {
+                "allowed": {
+                  "exact": [
+                    "refs/heads/synthetic"
+                  ],
+                  "prefixes": []
+                },
+                "denied": {
+                  "exact": [],
+                  "prefixes": []
+                }
+              },
+              "cleanlinessPolicy": {
+                "ignored": "none",
+                "index": "clean",
+                "submodules": "none",
+                "tracked": "clean",
+                "untracked": "none"
+              },
+              "excludedDomainRefs": [],
+              "exclusiveWriteRequired": false,
+              "ownedDomainRefs": [
+                {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "id": "domain.invalid",
+                  "kind": "Domain"
+                }
+              ],
+              "permissions": {
+                "modes": [
+                  "plan-only"
+                ],
+                "permittedCapabilities": [
+                  "inspect"
+                ],
+                "prohibitedCapabilities": []
+              },
+              "projectRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "project.invalid",
+                "kind": "Project"
+              },
+              "reviewOnly": false,
+              "roleClass": "implementation"
+            }
+          }
+        ]
+      }
+    },
+    "schema.container.receipt-delivery-result.positive": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "attemptedAt": "2000-01-01T00:00:00Z",
+        "outcome": "not-attempted",
+        "reasonCodes": [],
+        "receiptDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "receiptId": "00000000-0000-4000-8000-000000000003",
+        "sanitizedSummary": "Conspicuously synthetic delivery evidence."
+      }
+    },
+    "schema.resource.domain.positive.minimal": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "Domain",
+        "metadata": {
+          "id": "synthetic.invalid"
+        },
+        "spec": {
+          "overlapRefs": [],
+          "pathScope": {
+            "exclude": [],
+            "include": [
+              "synthetic/**"
+            ]
+          },
+          "permissions": {
+            "modes": [
+              "plan-only"
+            ],
+            "permittedCapabilities": [
+              "inspect"
+            ],
+            "prohibitedCapabilities": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "responsibility": "Conspicuously synthetic structural test domain."
+        }
+      }
+    },
+    "schema.resource.executionreceipt.positive.minimal": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "ExecutionReceipt",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000003"
+        },
+        "spec": {
+          "changedPaths": [],
+          "checks": [
+            {
+              "checkId": "check.intent-validation",
+              "checkType": "intent-validation",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 0
+            },
+            {
+              "checkId": "check.project-domain-resolution",
+              "checkType": "project-domain-resolution",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 1
+            },
+            {
+              "checkId": "check.role-routing",
+              "checkType": "role-routing",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 2
+            },
+            {
+              "checkId": "check.host-binding",
+              "checkType": "host-binding",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 3
+            },
+            {
+              "checkId": "check.initial-preflight",
+              "checkType": "initial-preflight",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 4
+            },
+            {
+              "checkId": "check.pre-issuance-revalidation",
+              "checkType": "pre-issuance-revalidation",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 5
+            },
+            {
+              "checkId": "check.contract-issuance",
+              "checkType": "contract-issuance",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 6
+            },
+            {
+              "checkId": "check.pre-action-revalidation",
+              "checkType": "pre-action-revalidation",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 7
+            },
+            {
+              "checkId": "check.execution",
+              "checkType": "execution",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "succeeded",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 8
+            },
+            {
+              "checkId": "check.post-execution-verification",
+              "checkType": "post-execution-verification",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "postconditionRef": {
+                "type": "scope-contained"
+              },
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 9
+            },
+            {
+              "checkId": "check.receipt-finalization",
+              "checkType": "receipt-finalization",
+              "observedAt": "2000-01-01T00:00:00Z",
+              "outcome": "passed",
+              "profileId": "profile.validation.v1",
+              "reasonCodes": [],
+              "sequence": 10
+            }
+          ],
+          "executionOutcome": "succeeded",
+          "finishedAt": "2000-01-01T00:00:00Z",
+          "lifecycleOutcome": "succeeded",
+          "origin": {
+            "contractDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "contractId": "00000000-0000-4000-8000-000000000002",
+            "effectiveMode": "plan-only",
+            "resolvedTarget": {
+              "domainRefs": [
+                {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "id": "domain.invalid",
+                  "kind": "Domain"
+                }
+              ],
+              "projectRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "project.invalid",
+                "kind": "Project"
+              },
+              "worktreeId": "worktree.invalid",
+              "worktreeRoleRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "role.invalid",
+                "kind": "WorktreeRole"
+              }
+            },
+            "type": "issued-contract"
+          },
+          "reasonCodes": [],
+          "receiptDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+          "receiptVersion": "1",
+          "releaseOutcome": "not-required",
+          "sanitization": {
+            "applied": true,
+            "completedAt": "2000-01-01T00:00:00Z",
+            "profileId": "profile.sanitization.v1",
+            "redactionCount": 0
+          },
+          "startedAt": "2000-01-01T00:00:00Z",
+          "taskId": "00000000-0000-4000-8000-000000000001",
+          "unresolvedCoordinationWarnings": [],
+          "verificationOutcome": "passed"
+        }
+      }
+    },
+    "schema.resource.hostoverlay.positive.minimal": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "HostOverlay",
+        "metadata": {
+          "id": "synthetic.invalid"
+        },
+        "spec": {
+          "bindings": [
+            {
+              "expectedRef": {
+                "branchRef": "refs/heads/synthetic",
+                "state": "branch"
+              },
+              "remoteNames": [
+                "origin"
+              ],
+              "repositoryRoot": {
+                "platform": "posix",
+                "value": "/srv/synthetic.invalid/worktree"
+              },
+              "roleRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "id": "role.invalid",
+                "kind": "WorktreeRole"
+              },
+              "worktreeId": "worktree.invalid"
+            }
+          ],
+          "capabilityCeiling": [
+            "inspect"
+          ],
+          "hostId": "host.invalid",
+          "lockRoot": {
+            "platform": "posix",
+            "value": "/srv/synthetic.invalid/locks"
+          },
+          "pathCeiling": {
+            "exclude": [],
+            "include": [
+              "synthetic/**"
+            ]
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "remoteExpectations": [
+            {
+              "acceptedRemotes": [
+                {
+                  "host": "repo.invalid",
+                  "namespace": [
+                    "synthetic"
+                  ],
+                  "repository": "governance",
+                  "transport": "https"
+                }
+              ],
+              "remoteName": "origin"
+            }
+          ],
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "stateRoot": {
+            "platform": "posix",
+            "value": "/srv/synthetic.invalid/state"
+          }
+        }
+      }
+    },
+    "schema.resource.project.positive.minimal": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "Project",
+        "metadata": {
+          "id": "synthetic.invalid"
+        },
+        "spec": {
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "permissions": {
+            "modes": [
+              "plan-only"
+            ],
+            "permittedCapabilities": [
+              "inspect"
+            ],
+            "prohibitedCapabilities": []
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "routingPolicyRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "routing.invalid",
+            "kind": "RoutingPolicy"
+          },
+          "secureDefaults": {
+            "allowWrite": false,
+            "mode": "plan-only"
+          },
+          "worktreeRoleRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          ]
+        }
+      }
+    },
+    "schema.resource.routingpolicy.positive.minimal": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "RoutingPolicy",
+        "metadata": {
+          "id": "synthetic.invalid"
+        },
+        "spec": {
+          "fallback": {
+            "reasonCode": "reason.synthetic.denied",
+            "type": "deny"
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "rules": [
+            {
+              "decision": {
+                "type": "route",
+                "worktreeRoleRef": {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "id": "role.invalid",
+                  "kind": "WorktreeRole"
+                }
+              },
+              "id": "rule.invalid",
+              "match": {
+                "domainSet": {
+                  "domainRefs": [
+                    {
+                      "apiVersion": "contextctl.dev/v1alpha1",
+                      "id": "domain.invalid",
+                      "kind": "Domain"
+                    }
+                  ],
+                  "operator": "exact"
+                },
+                "projectRef": {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "id": "project.invalid",
+                  "kind": "Project"
+                }
+              },
+              "priority": 1
+            }
+          ]
+        }
+      }
+    },
+    "schema.resource.taskcontract.positive.minimal": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.resource.worktreerole.positive.minimal": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "WorktreeRole",
+        "metadata": {
+          "id": "synthetic.invalid"
+        },
+        "spec": {
+          "branchPolicy": {
+            "allowed": {
+              "exact": [
+                "refs/heads/synthetic"
+              ],
+              "prefixes": []
+            },
+            "denied": {
+              "exact": [],
+              "prefixes": []
+            }
+          },
+          "cleanlinessPolicy": {
+            "ignored": "none",
+            "index": "clean",
+            "submodules": "none",
+            "tracked": "clean",
+            "untracked": "none"
+          },
+          "excludedDomainRefs": [],
+          "exclusiveWriteRequired": false,
+          "ownedDomainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "permissions": {
+            "modes": [
+              "plan-only"
+            ],
+            "permittedCapabilities": [
+              "inspect"
+            ],
+            "prohibitedCapabilities": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "reviewOnly": false,
+          "roleClass": "implementation"
+        }
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}
