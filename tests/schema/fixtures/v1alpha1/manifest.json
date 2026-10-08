@@ -855,11 +855,11 @@
       "sha256": "2830c2198f60b2214d9f151addf49fde31907383cc1fd540c242c0b9bfd6270f"
     },
     {
-      "byteLength": 3257,
+      "byteLength": 3068,
       "caseCount": 13,
       "encoding": "utf-8-json",
       "path": "tests/schema/fixtures/v1alpha1/schema/positive/sg001-additional.json",
-      "sha256": "f7da8013b2b144fc23e206504d0083dd1895c58cb2d262be1f12b2e55440fa2d"
+      "sha256": "c74be2c290646eb55fabec003d18d04251448e1204e928d4b4c799983cba030c"
     },
     {
       "byteLength": 110285,
