@@ -1,0 +1,3571 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.sg001.check.positive.00-intent-validation": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.intent-validation",
+        "checkType": "intent-validation",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 0
+      }
+    },
+    "schema.sg001.check.positive.01-project-domain-resolution": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.project-domain-resolution",
+        "checkType": "project-domain-resolution",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 1
+      }
+    },
+    "schema.sg001.check.positive.02-role-routing": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.role-routing",
+        "checkType": "role-routing",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 2
+      }
+    },
+    "schema.sg001.check.positive.03-host-binding": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.host-binding",
+        "checkType": "host-binding",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 3
+      }
+    },
+    "schema.sg001.check.positive.04-initial-preflight": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.initial-preflight",
+        "checkType": "initial-preflight",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 4
+      }
+    },
+    "schema.sg001.check.positive.05-lease-acquisition": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.lease-acquisition",
+        "checkType": "lease-acquisition",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 5
+      }
+    },
+    "schema.sg001.check.positive.06-post-acquisition-revalidation": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.post-acquisition-revalidation",
+        "checkType": "post-acquisition-revalidation",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 6
+      }
+    },
+    "schema.sg001.check.positive.07-pre-issuance-revalidation": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.pre-issuance-revalidation",
+        "checkType": "pre-issuance-revalidation",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 7
+      }
+    },
+    "schema.sg001.check.positive.08-contract-issuance": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.contract-issuance",
+        "checkType": "contract-issuance",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 8
+      }
+    },
+    "schema.sg001.check.positive.09-pre-action-revalidation": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.pre-action-revalidation",
+        "checkType": "pre-action-revalidation",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 9
+      }
+    },
+    "schema.sg001.check.positive.10-execution": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.execution",
+        "checkType": "execution",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "succeeded",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 10
+      }
+    },
+    "schema.sg001.check.positive.11-post-execution-verification": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.post-execution-verification",
+        "checkType": "post-execution-verification",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "postconditionRef": {
+          "type": "scope-contained"
+        },
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 11
+      }
+    },
+    "schema.sg001.check.positive.12-lease-release": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.lease-release",
+        "checkType": "lease-release",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 12
+      }
+    },
+    "schema.sg001.check.positive.13-receipt-finalization": {
+      "fragment": "#/$defs/check",
+      "instance": {
+        "checkId": "check.receipt-finalization",
+        "checkType": "receipt-finalization",
+        "observedAt": "2000-01-01T00:00:00Z",
+        "outcome": "passed",
+        "profileId": "profile.validation.v1",
+        "reasonCodes": [],
+        "sequence": 13
+      }
+    },
+    "schema.sg001.ignored.positive.exact": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "paths": [
+                "synthetic/file.txt"
+              ],
+              "state": "exact"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.ignored.positive.none": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.index.positive.exact-empty": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "objectId": {
+                "algorithm": "sha1",
+                "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "state": "commit"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "entries": [],
+              "state": "exact"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.index.positive.exact-nonempty": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "objectId": {
+                "algorithm": "sha1",
+                "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "state": "commit"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "entries": [
+                {
+                  "assumeUnchanged": false,
+                  "intentToAdd": false,
+                  "mode": "100644",
+                  "objectId": {
+                    "algorithm": "sha1",
+                    "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                  },
+                  "path": "synthetic/file.txt",
+                  "skipWorktree": false,
+                  "stage": 0
+                }
+              ],
+              "state": "exact"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.01-scope-contained": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.02-ref-state": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "branchRef": "refs/heads/synthetic",
+                "state": "branch"
+              },
+              "type": "ref-state"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.03-head-state": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "state": "unborn"
+              },
+              "type": "head-state"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.04-index-state": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "state": "clean"
+              },
+              "type": "index-state"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.05-tracked-state": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "state": "clean"
+              },
+              "type": "tracked-state"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.06-untracked-state": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "state": "none"
+              },
+              "type": "untracked-state"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.07-ignored-state": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "state": "none"
+              },
+              "type": "ignored-state"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.08-submodule-state": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "state": "none"
+              },
+              "type": "submodule-state"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.09-active-operations": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "state": "none"
+              },
+              "type": "active-operations"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.10-administrative-locks": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": {
+                "state": "none"
+              },
+              "type": "administrative-locks"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.postcondition.positive.11-lease-state": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "expected": "not-required",
+              "type": "lease-state"
+            },
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.reference-head.positive.01-branch-commit": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "objectId": {
+                "algorithm": "sha1",
+                "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "state": "commit"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.reference-head.positive.02-branch-unborn": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.reference-head.positive.03-detached-commit": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "objectId": {
+                "algorithm": "sha1",
+                "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "state": "commit"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "state": "detached"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.absent-unavailable": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "state": "absent"
+        },
+        "observation": {
+          "state": "unavailable"
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-01": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": false,
+          "state": "observed",
+          "trackedChanges": false,
+          "untrackedChanges": false
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-02": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": false,
+          "state": "observed",
+          "trackedChanges": false,
+          "untrackedChanges": false
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-03": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": true,
+          "state": "observed",
+          "trackedChanges": false,
+          "untrackedChanges": false
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-04": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": true,
+          "state": "observed",
+          "trackedChanges": false,
+          "untrackedChanges": false
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-05": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": false,
+          "state": "observed",
+          "trackedChanges": false,
+          "untrackedChanges": true
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-06": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": false,
+          "state": "observed",
+          "trackedChanges": false,
+          "untrackedChanges": true
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-07": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": true,
+          "state": "observed",
+          "trackedChanges": false,
+          "untrackedChanges": true
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-08": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": true,
+          "state": "observed",
+          "trackedChanges": false,
+          "untrackedChanges": true
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-09": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": false,
+          "state": "observed",
+          "trackedChanges": true,
+          "untrackedChanges": false
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-10": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": false,
+          "state": "observed",
+          "trackedChanges": true,
+          "untrackedChanges": false
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-11": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": true,
+          "state": "observed",
+          "trackedChanges": true,
+          "untrackedChanges": false
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-12": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": true,
+          "state": "observed",
+          "trackedChanges": true,
+          "untrackedChanges": false
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-13": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": false,
+          "state": "observed",
+          "trackedChanges": true,
+          "untrackedChanges": true
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-14": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": false,
+          "state": "observed",
+          "trackedChanges": true,
+          "untrackedChanges": true
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-15": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": true,
+          "state": "observed",
+          "trackedChanges": true,
+          "untrackedChanges": true
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.initialized-16": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "checkedOutObjectId": {
+            "algorithm": "sha1",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "state": "initialized"
+        },
+        "observation": {
+          "conflicts": true,
+          "state": "observed",
+          "trackedChanges": true,
+          "untrackedChanges": true
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.submodule.positive.uninitialized-unavailable": {
+      "fragment": "#/$defs/submoduleEntry",
+      "instance": {
+        "checkout": {
+          "state": "uninitialized"
+        },
+        "observation": {
+          "state": "unavailable"
+        },
+        "path": "synthetic/submodule",
+        "recordedObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.sg001.tracked.positive.clean": {
+      "fragment": "#/$defs/trackedEntry",
+      "instance": {
+        "indexMode": "100644",
+        "indexObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "path": "synthetic/file.txt",
+        "status": "clean"
+      }
+    },
+    "schema.sg001.tracked.positive.deleted": {
+      "fragment": "#/$defs/trackedEntry",
+      "instance": {
+        "indexMode": "100644",
+        "indexObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "path": "synthetic/file.txt",
+        "status": "deleted"
+      }
+    },
+    "schema.sg001.tracked.positive.modified": {
+      "fragment": "#/$defs/trackedEntry",
+      "instance": {
+        "contentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "indexMode": "100644",
+        "indexObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "path": "synthetic/file.txt",
+        "status": "modified",
+        "worktreeMode": "100644"
+      }
+    },
+    "schema.sg001.tracked.positive.type-changed": {
+      "fragment": "#/$defs/trackedEntry",
+      "instance": {
+        "contentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "indexMode": "100644",
+        "indexObjectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "path": "synthetic/file.txt",
+        "status": "type-changed",
+        "worktreeMode": "120000"
+      }
+    },
+    "schema.sg001.transition.positive.01-index-entry": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": true,
+          "authorizedScope": {
+            "capabilities": [
+              "create",
+              "delete",
+              "git-stage",
+              "inspect",
+              "modify"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "implementation",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseId": "00000000-0000-4000-8000-000000000004",
+          "leaseRequired": true,
+          "permittedTransitions": [
+            {
+              "from": {
+                "state": "absent"
+              },
+              "path": "synthetic/file.txt",
+              "to": {
+                "state": "present",
+                "value": {
+                  "assumeUnchanged": false,
+                  "intentToAdd": false,
+                  "mode": "100644",
+                  "objectId": {
+                    "algorithm": "sha1",
+                    "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                  },
+                  "skipWorktree": false,
+                  "stage": 0
+                }
+              },
+              "type": "index-entry"
+            }
+          ],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "implementation",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.transition.positive.02-tracked-entry": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": true,
+          "authorizedScope": {
+            "capabilities": [
+              "create",
+              "delete",
+              "git-stage",
+              "inspect",
+              "modify"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "implementation",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseId": "00000000-0000-4000-8000-000000000004",
+          "leaseRequired": true,
+          "permittedTransitions": [
+            {
+              "from": {
+                "state": "present",
+                "value": {
+                  "indexMode": "100644",
+                  "indexObjectId": {
+                    "algorithm": "sha1",
+                    "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                  },
+                  "status": "clean"
+                }
+              },
+              "path": "synthetic/file.txt",
+              "to": {
+                "state": "present",
+                "value": {
+                  "contentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+                  "indexMode": "100644",
+                  "indexObjectId": {
+                    "algorithm": "sha1",
+                    "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                  },
+                  "status": "modified",
+                  "worktreeMode": "100644"
+                }
+              },
+              "type": "tracked-entry"
+            }
+          ],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "implementation",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.transition.positive.03-untracked-path": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": true,
+          "authorizedScope": {
+            "capabilities": [
+              "create",
+              "delete",
+              "git-stage",
+              "inspect",
+              "modify"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "implementation",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseId": "00000000-0000-4000-8000-000000000004",
+          "leaseRequired": true,
+          "permittedTransitions": [
+            {
+              "from": "absent",
+              "path": "synthetic/file.txt",
+              "to": "present",
+              "type": "untracked-path"
+            }
+          ],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "implementation",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.transition.positive.04-ignored-path": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": true,
+          "authorizedScope": {
+            "capabilities": [
+              "create",
+              "delete",
+              "git-stage",
+              "inspect",
+              "modify"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "implementation",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseId": "00000000-0000-4000-8000-000000000004",
+          "leaseRequired": true,
+          "permittedTransitions": [
+            {
+              "from": "present",
+              "path": "synthetic/file.txt",
+              "to": "absent",
+              "type": "ignored-path"
+            }
+          ],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "implementation",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.untracked.positive.exact": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "paths": [
+                "synthetic/file.txt"
+              ],
+              "state": "exact"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    },
+    "schema.sg001.untracked.positive.none": {
+      "instance": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000002"
+        },
+        "spec": {
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/**"
+            ]
+          },
+          "contractVersion": "1",
+          "digests": {
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "domain.invalid",
+              "kind": "Domain"
+            }
+          ],
+          "effectiveMode": "plan-only",
+          "expectedBaseline": {
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            },
+            "head": {
+              "state": "unborn"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "index": {
+              "state": "clean"
+            },
+            "ref": {
+              "branchRef": "refs/heads/synthetic",
+              "state": "branch"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            }
+          },
+          "freshness": {
+            "expiresAt": "2000-01-01T00:01:00Z",
+            "issuedAt": "2000-01-01T00:00:00Z"
+          },
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "issuer": {
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "issuanceMethod": "trusted-framework",
+            "issuerId": "issuer.invalid"
+          },
+          "leaseRequired": false,
+          "permittedTransitions": [],
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "id": "project.invalid",
+            "kind": "Project"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance",
+                "transport": "https"
+              }
+            ]
+          },
+          "requestedMode": "plan-only",
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "target": {
+            "worktreeId": "worktree.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "id": "role.invalid",
+              "kind": "WorktreeRole"
+            }
+          },
+          "taskId": "00000000-0000-4000-8000-000000000001"
+        }
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

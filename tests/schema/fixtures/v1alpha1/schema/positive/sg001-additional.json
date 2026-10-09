@@ -1,0 +1,98 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.sg001.baseline-dimension.positive.01-ref": {
+      "fragment": "#/$defs/expectedBaseline/properties/ref",
+      "instance": {
+        "branchRef": "refs/heads/synthetic",
+        "state": "branch"
+      }
+    },
+    "schema.sg001.baseline-dimension.positive.02-head": {
+      "fragment": "#/$defs/expectedBaseline/properties/head",
+      "instance": {
+        "state": "unborn"
+      }
+    },
+    "schema.sg001.baseline-dimension.positive.03-index": {
+      "fragment": "#/$defs/expectedBaseline/properties/index",
+      "instance": {
+        "state": "clean"
+      }
+    },
+    "schema.sg001.baseline-dimension.positive.04-tracked": {
+      "fragment": "#/$defs/expectedBaseline/properties/tracked",
+      "instance": {
+        "state": "clean"
+      }
+    },
+    "schema.sg001.baseline-dimension.positive.05-untracked": {
+      "fragment": "#/$defs/expectedBaseline/properties/untracked",
+      "instance": {
+        "state": "none"
+      }
+    },
+    "schema.sg001.baseline-dimension.positive.06-ignored": {
+      "fragment": "#/$defs/expectedBaseline/properties/ignored",
+      "instance": {
+        "state": "none"
+      }
+    },
+    "schema.sg001.baseline-dimension.positive.07-submodules": {
+      "fragment": "#/$defs/expectedBaseline/properties/submodules",
+      "instance": {
+        "state": "none"
+      }
+    },
+    "schema.sg001.baseline-dimension.positive.08-activeoperations": {
+      "fragment": "#/$defs/expectedBaseline/properties/activeOperations",
+      "instance": {
+        "state": "none"
+      }
+    },
+    "schema.sg001.baseline-dimension.positive.09-administrativelocks": {
+      "fragment": "#/$defs/expectedBaseline/properties/administrativeLocks",
+      "instance": {
+        "state": "none"
+      }
+    },
+    "schema.sg001.warning.positive.01-minimal": {
+      "fragment": "#/$defs/warning",
+      "instance": {
+        "code": "reason.synthetic.warning",
+        "profileId": "profile.validation.v1",
+        "sequence": 0
+      }
+    },
+    "schema.sg001.warning.positive.02-summary": {
+      "fragment": "#/$defs/warning",
+      "instance": {
+        "code": "reason.synthetic.warning",
+        "profileId": "profile.validation.v1",
+        "sanitizedSummary": "Conspicuously synthetic warning.",
+        "sequence": 0
+      }
+    },
+    "schema.sg001.warning.positive.03-related-earlier": {
+      "fragment": "#/$defs/warning",
+      "instance": {
+        "code": "reason.synthetic.warning",
+        "profileId": "profile.validation.v1",
+        "relatedCheckId": "check.synthetic-earlier",
+        "sequence": 0
+      }
+    },
+    "schema.sg001.warning.positive.04-related-later": {
+      "fragment": "#/$defs/warning",
+      "instance": {
+        "code": "reason.synthetic.warning",
+        "profileId": "profile.validation.v1",
+        "relatedCheckId": "check.synthetic-later",
+        "sequence": 0
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

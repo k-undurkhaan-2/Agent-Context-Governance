@@ -1,0 +1,213 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.bundle.negative.01-duplicate-resource-id": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "duplicate-resource-id",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.02-missing-reference": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "missing-reference",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.03-wrong-kind-reference": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "wrong-kind-reference",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.04-unknown-domain-reference": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "unknown-domain-reference",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.05-unknown-role-reference": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "unknown-role-reference",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.06-empty-required-domain-set": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "empty-required-domain-set",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.07-self-overlap": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "self-overlap",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.08-asymmetric-overlap": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "asymmetric-overlap",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.09-owned-excluded-intersection": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "owned-excluded-intersection",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.10-noncanonical-set-array": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "noncanonical-set-array",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.11-duplicate-set-array-entry": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "duplicate-set-array-entry",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.12-projection-equal-different-rule-ids": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "projection-equal-different-rule-ids",
+      "validation": "governance-bundle"
+    },
+    "static.bundle.negative.13-same-priority-equal-match-projection": {
+      "base": "minimal-portable-bundle",
+      "isolatedMutation": "same-priority-equal-match-projection",
+      "validation": "governance-bundle"
+    },
+    "static.execution-receipt.denial.negative.01-unlisted-checkpoint-state-pair": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "unlisted-checkpoint-state-pair",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.02-missing-prerequisite": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "missing-prerequisite",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.03-failed-prerequisite": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "failed-prerequisite",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.04-future-stage-present": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "future-stage-present",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.05-wrong-controller-id": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "wrong-controller-id",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.06-wrong-controller-type": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "wrong-controller-type",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.07-not-greatest-sequence-controller": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "not-greatest-sequence-controller",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.08-controller-outcome-passed": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "controller-outcome-passed",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.09-controller-time-mismatch": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "controller-time-mismatch",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.10-controller-reasons-mismatch": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "controller-reasons-mismatch",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.11-earlier-non-passed-controller-family": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "earlier-non-passed-controller-family",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.12-forbidden-acquisition-state": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "forbidden-acquisition-state",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.13-impossible-successful-execution": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "impossible-successful-execution",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.14-impossible-verification": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "impossible-verification",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.15-impossible-release": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "impossible-release",
+      "validation": "pre-contract-denial"
+    },
+    "static.execution-receipt.denial.negative.16-impossible-lifecycle": {
+      "base": "permitted-denial-row",
+      "isolatedMutation": "impossible-lifecycle",
+      "validation": "pre-contract-denial"
+    },
+    "static.receipt-delivery-result.negative.01-missing-sanitized-summary": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "missing-sanitized-summary",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.receipt-delivery-result.negative.02-receipt-id-mismatch": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "receipt-id-mismatch",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.receipt-delivery-result.negative.03-receipt-digest-mismatch": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "receipt-digest-mismatch",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.receipt-delivery-result.negative.04-attempted-before-finished": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "attempted-before-finished",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.receipt-delivery-result.negative.05-receipt-not-finalized": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "receipt-not-finalized",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.receipt-delivery-result.negative.06-cross-receipt-reference": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "cross-receipt-reference",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.receipt-delivery-result.negative.07-unknown-field": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "unknown-field",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.receipt-delivery-result.negative.08-forbidden-authority-field": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "forbidden-authority-field",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.receipt-delivery-result.negative.09-wrong-outcome-summary": {
+      "base": "post-finalization-delivery",
+      "isolatedMutation": "wrong-outcome-summary",
+      "validation": "receipt-delivery-pair"
+    },
+    "static.task-contract.freshness.negative.01-missing-freshness": {
+      "base": "complete-contract",
+      "isolatedMutation": "missing-freshness",
+      "validation": "task-contract"
+    },
+    "static.task-contract.freshness.negative.02-checkpoint-after-issued": {
+      "base": "complete-contract",
+      "isolatedMutation": "checkpoint-after-issued",
+      "validation": "task-contract"
+    },
+    "static.task-contract.freshness.negative.03-issued-not-before-expires": {
+      "base": "complete-contract",
+      "isolatedMutation": "issued-not-before-expires",
+      "validation": "task-contract"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

@@ -1,0 +1,60 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.execution-receipt.origin.negative.01-issued-missing-contract-id": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "issued-missing-contract-id"
+    },
+    "schema.execution-receipt.origin.negative.02-issued-missing-contract-digest": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "issued-missing-contract-digest"
+    },
+    "schema.execution-receipt.origin.negative.03-issued-containing-denial-checkpoint": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "issued-containing-denial-checkpoint"
+    },
+    "schema.execution-receipt.origin.negative.04-issued-containing-pre-contract-evidence": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "issued-containing-pre-contract-evidence"
+    },
+    "schema.execution-receipt.origin.negative.05-issued-containing-denial-lease-acquisition": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "issued-containing-denial-lease-acquisition"
+    },
+    "schema.execution-receipt.origin.negative.06-denial-containing-contract-id": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "denial-containing-contract-id"
+    },
+    "schema.execution-receipt.origin.negative.07-denial-containing-contract-digest": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "denial-containing-contract-digest"
+    },
+    "schema.execution-receipt.origin.negative.08-denial-missing-checkpoint": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "denial-missing-checkpoint"
+    },
+    "schema.execution-receipt.origin.negative.09-evidence-missing-sanitized-summary": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "evidence-missing-sanitized-summary"
+    },
+    "schema.execution-receipt.origin.negative.10-evidence-missing-controller-check-id": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "evidence-missing-controller-check-id"
+    },
+    "schema.execution-receipt.origin.negative.11-denial-lease-branch-extra-member": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "denial-lease-branch-extra-member"
+    },
+    "schema.execution-receipt.origin.negative.12-receipt-secret-like-field": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "receipt-secret-like-field"
+    },
+    "schema.execution-receipt.origin.negative.13-receipt-authority-grant-field": {
+      "baseResource": "ExecutionReceipt",
+      "isolatedMutation": "receipt-authority-grant-field"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

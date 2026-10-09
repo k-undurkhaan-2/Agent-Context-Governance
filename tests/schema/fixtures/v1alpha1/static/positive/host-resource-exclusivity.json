@@ -1,0 +1,33 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "phase1-static.host-exclusivity.positive.hx-a-p01": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-P01",
+      "primaryPredicate": "A complete trusted same-host set containing at least two individually valid `HostOverlay` resources, including a different-`projectRef` variant, has distinct `worktreeId` and exact `(platform, repositoryRoot.value)` identities across its snapshot-bound binding union and passes Phase 1 exclusivity."
+    },
+    "phase1-static.host-exclusivity.positive.hx-a-p03": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-P03",
+      "primaryPredicate": "Complete sets for different `hostId` values may contain lexically equal `repositoryRoot.value` strings without rejection solely for that cross-host equality."
+    },
+    "phase1-static.host-exclusivity.positive.hx-b-p01": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-B-P01",
+      "primaryPredicate": "Both coordination roots are statically outside or siblings of every binding root; equal coordination roots and a worktree beneath a coordination root are non-additive valid variants."
+    },
+    "phase3-live-deferred.host-exclusivity.positive.hx-a-p02": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-A-P02",
+      "primaryPredicate": "Future Phase 3 proves that every distinct binding across the checkpoint's complete same-host set resolves to a distinct canonical registered physical Git worktree."
+    },
+    "phase3-live-deferred.host-exclusivity.positive.hx-b-p02": {
+      "construction": "conspicuously synthetic complete-host inventory",
+      "ownerId": "HX-B-P02",
+      "primaryPredicate": "Future Phase 3 proves that both coordination roots resolve outside every actual bound registered worktree."
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

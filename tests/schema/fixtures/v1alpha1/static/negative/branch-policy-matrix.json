@@ -1,0 +1,289 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "phase1-static.branch-policy.negative.13-partial-release-malicious": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release-malicious"
+    },
+    "phase1-static.branch-policy.negative.14-partial-releases": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/releases"
+    },
+    "phase1-static.branch-policy.negative.15-partial-releas": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/releas"
+    },
+    "phase1-static.branch-policy.negative.16-no-allow-match": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [
+            "refs/heads/other"
+          ],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release"
+    },
+    "phase1-static.branch-policy.negative.17-empty-allow-arrays": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release"
+    },
+    "phase1-static.branch-policy.negative.18-exact-allow-exact-deny": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [
+            "refs/heads/release"
+          ],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [
+            "refs/heads/release"
+          ],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release"
+    },
+    "phase1-static.branch-policy.negative.19-exact-allow-prefix-deny": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [
+            "refs/heads/release"
+          ],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        }
+      },
+      "branchRef": "refs/heads/release"
+    },
+    "phase1-static.branch-policy.negative.20-prefix-allow-exact-deny": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [
+            "refs/heads/release/2026"
+          ],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release/2026"
+    },
+    "phase1-static.branch-policy.negative.21-prefix-allow-prefix-deny": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release/2026"
+          ]
+        }
+      },
+      "branchRef": "refs/heads/release/2026/x"
+    },
+    "phase1-static.branch-policy.negative.22-many-allows-one-deny": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [
+            "refs/heads/release/2026"
+          ],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release/2026"
+          ]
+        }
+      },
+      "branchRef": "refs/heads/release/2026"
+    },
+    "phase1-static.branch-policy.negative.28-noncanonical-four-array-variants": {
+      "variants": [
+        {
+          "allowed": {
+            "exact": [
+              "refs/heads/z",
+              "refs/heads/a"
+            ],
+            "prefixes": []
+          },
+          "denied": {
+            "exact": [],
+            "prefixes": []
+          }
+        },
+        {
+          "allowed": {
+            "exact": [],
+            "prefixes": [
+              "refs/heads/z",
+              "refs/heads/a"
+            ]
+          },
+          "denied": {
+            "exact": [],
+            "prefixes": []
+          }
+        },
+        {
+          "allowed": {
+            "exact": [],
+            "prefixes": []
+          },
+          "denied": {
+            "exact": [
+              "refs/heads/z",
+              "refs/heads/a"
+            ],
+            "prefixes": []
+          }
+        },
+        {
+          "allowed": {
+            "exact": [],
+            "prefixes": []
+          },
+          "denied": {
+            "exact": [],
+            "prefixes": [
+              "refs/heads/z",
+              "refs/heads/a"
+            ]
+          }
+        }
+      ]
+    },
+    "phase1-static.branch-policy.negative.29-raw-character-prefix": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release-candidate"
+    },
+    "phase1-static.branch-policy.negative.32-deny-prefix-equals-allowed-exact": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [
+            "refs/heads/release"
+          ],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        }
+      },
+      "branchRef": "refs/heads/release"
+    },
+    "phase1-static.branch-policy.negative.33-exact-deny-under-allow-prefix": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [
+            "refs/heads/release/2026"
+          ],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release/2026"
+    },
+    "phase3-live-deferred.branch-policy.negative.31-unborn-head-gate-rejects": {
+      "branchPolicy": {
+        "allowed": {
+          "exact": [],
+          "prefixes": [
+            "refs/heads/release"
+          ]
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      },
+      "branchRef": "refs/heads/release/new",
+      "headState": "commit-required"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

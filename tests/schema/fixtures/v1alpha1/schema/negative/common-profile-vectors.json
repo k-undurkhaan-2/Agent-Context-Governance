@@ -1,0 +1,4552 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.common.absolutehostpath.negative.platform-mismatch": {
+      "label": "platform-mismatch",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows",
+        "value": "/srv/synthetic.invalid"
+      }
+    },
+    "schema.common.absolutehostpath.negative.posix-closed-missing-platform": {
+      "label": "posix-closed-missing-platform",
+      "profile": "absoluteHostPath",
+      "value": {
+        "value": "/"
+      }
+    },
+    "schema.common.absolutehostpath.negative.posix-closed-missing-value": {
+      "label": "posix-closed-missing-value",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "posix"
+      }
+    },
+    "schema.common.absolutehostpath.negative.posix-closed-unknown": {
+      "label": "posix-closed-unknown",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "posix",
+        "syntheticExtra": true,
+        "value": "/"
+      }
+    },
+    "schema.common.absolutehostpath.negative.unc": {
+      "label": "unc",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows",
+        "value": "\\\\host.invalid\\share"
+      }
+    },
+    "schema.common.absolutehostpath.negative.unknown-platform": {
+      "label": "unknown-platform",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "win32",
+        "value": "C:\\"
+      }
+    },
+    "schema.common.absolutehostpath.negative.windows-closed-missing-platform": {
+      "label": "windows-closed-missing-platform",
+      "profile": "absoluteHostPath",
+      "value": {
+        "value": "C:\\"
+      }
+    },
+    "schema.common.absolutehostpath.negative.windows-closed-missing-value": {
+      "label": "windows-closed-missing-value",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows"
+      }
+    },
+    "schema.common.absolutehostpath.negative.windows-closed-unknown": {
+      "label": "windows-closed-unknown",
+      "profile": "absoluteHostPath",
+      "value": {
+        "platform": "windows",
+        "syntheticExtra": true,
+        "value": "C:\\"
+      }
+    },
+    "schema.common.acceptedremotes.negative.duplicate": {
+      "label": "duplicate",
+      "profile": "acceptedRemotes",
+      "value": [
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        },
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        }
+      ]
+    },
+    "schema.common.acceptedremotes.negative.empty": {
+      "label": "empty",
+      "profile": "acceptedRemotes",
+      "value": []
+    },
+    "schema.common.allowwrite.negative.type-0": {
+      "label": "type-0",
+      "profile": "allowWrite",
+      "value": 0
+    },
+    "schema.common.allowwrite.negative.type-1": {
+      "label": "type-1",
+      "profile": "allowWrite",
+      "value": 1
+    },
+    "schema.common.allowwrite.negative.type-2": {
+      "label": "type-2",
+      "profile": "allowWrite",
+      "value": "true"
+    },
+    "schema.common.allowwrite.negative.type-3": {
+      "label": "type-3",
+      "profile": "allowWrite",
+      "value": null
+    },
+    "schema.common.apiversion.negative.missing-string": {
+      "label": "missing-string",
+      "profile": "apiVersion",
+      "value": null
+    },
+    "schema.common.apiversion.negative.unknown-version": {
+      "label": "unknown-version",
+      "profile": "apiVersion",
+      "value": "contextctl.dev/v1alpha2"
+    },
+    "schema.common.branchpolicy.negative.closed-missing-allowed": {
+      "label": "closed-missing-allowed",
+      "profile": "branchPolicy",
+      "value": {
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        }
+      }
+    },
+    "schema.common.branchpolicy.negative.closed-missing-denied": {
+      "label": "closed-missing-denied",
+      "profile": "branchPolicy",
+      "value": {
+        "allowed": {
+          "exact": [
+            "refs/heads/synthetic"
+          ],
+          "prefixes": []
+        }
+      }
+    },
+    "schema.common.branchpolicy.negative.closed-unknown": {
+      "label": "closed-unknown",
+      "profile": "branchPolicy",
+      "value": {
+        "allowed": {
+          "exact": [
+            "refs/heads/synthetic"
+          ],
+          "prefixes": []
+        },
+        "denied": {
+          "exact": [],
+          "prefixes": []
+        },
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.branchprefix.negative.heads-only": {
+      "label": "heads-only",
+      "profile": "branchPrefix",
+      "value": "refs/heads"
+    },
+    "schema.common.branchprefix.negative.ref-0": {
+      "label": "ref-0",
+      "profile": "branchPrefix",
+      "value": ""
+    },
+    "schema.common.branchprefix.negative.ref-1": {
+      "label": "ref-1",
+      "profile": "branchPrefix",
+      "value": "main"
+    },
+    "schema.common.branchprefix.negative.ref-10": {
+      "label": "ref-10",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a~b"
+    },
+    "schema.common.branchprefix.negative.ref-11": {
+      "label": "ref-11",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a^b"
+    },
+    "schema.common.branchprefix.negative.ref-12": {
+      "label": "ref-12",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a:b"
+    },
+    "schema.common.branchprefix.negative.ref-13": {
+      "label": "ref-13",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a?b"
+    },
+    "schema.common.branchprefix.negative.ref-14": {
+      "label": "ref-14",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a*b"
+    },
+    "schema.common.branchprefix.negative.ref-15": {
+      "label": "ref-15",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a[b"
+    },
+    "schema.common.branchprefix.negative.ref-16": {
+      "label": "ref-16",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a\\b"
+    },
+    "schema.common.branchprefix.negative.ref-17": {
+      "label": "ref-17",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a\n"
+    },
+    "schema.common.branchprefix.negative.ref-18": {
+      "label": "ref-18",
+      "profile": "branchPrefix",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.branchprefix.negative.ref-19": {
+      "label": "ref-19",
+      "profile": "branchPrefix",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/"
+    },
+    "schema.common.branchprefix.negative.ref-2": {
+      "label": "ref-2",
+      "profile": "branchPrefix",
+      "value": "refs/heads/"
+    },
+    "schema.common.branchprefix.negative.ref-3": {
+      "label": "ref-3",
+      "profile": "branchPrefix",
+      "value": "refs/heads//a"
+    },
+    "schema.common.branchprefix.negative.ref-4": {
+      "label": "ref-4",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a/"
+    },
+    "schema.common.branchprefix.negative.ref-5": {
+      "label": "ref-5",
+      "profile": "branchPrefix",
+      "value": "refs/heads/.a"
+    },
+    "schema.common.branchprefix.negative.ref-6": {
+      "label": "ref-6",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a."
+    },
+    "schema.common.branchprefix.negative.ref-7": {
+      "label": "ref-7",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a.lock"
+    },
+    "schema.common.branchprefix.negative.ref-8": {
+      "label": "ref-8",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a..b"
+    },
+    "schema.common.branchprefix.negative.ref-9": {
+      "label": "ref-9",
+      "profile": "branchPrefix",
+      "value": "refs/heads/a b"
+    },
+    "schema.common.branchref.negative.ref-0": {
+      "label": "ref-0",
+      "profile": "branchRef",
+      "value": ""
+    },
+    "schema.common.branchref.negative.ref-1": {
+      "label": "ref-1",
+      "profile": "branchRef",
+      "value": "main"
+    },
+    "schema.common.branchref.negative.ref-10": {
+      "label": "ref-10",
+      "profile": "branchRef",
+      "value": "refs/heads/a~b"
+    },
+    "schema.common.branchref.negative.ref-11": {
+      "label": "ref-11",
+      "profile": "branchRef",
+      "value": "refs/heads/a^b"
+    },
+    "schema.common.branchref.negative.ref-12": {
+      "label": "ref-12",
+      "profile": "branchRef",
+      "value": "refs/heads/a:b"
+    },
+    "schema.common.branchref.negative.ref-13": {
+      "label": "ref-13",
+      "profile": "branchRef",
+      "value": "refs/heads/a?b"
+    },
+    "schema.common.branchref.negative.ref-14": {
+      "label": "ref-14",
+      "profile": "branchRef",
+      "value": "refs/heads/a*b"
+    },
+    "schema.common.branchref.negative.ref-15": {
+      "label": "ref-15",
+      "profile": "branchRef",
+      "value": "refs/heads/a[b"
+    },
+    "schema.common.branchref.negative.ref-16": {
+      "label": "ref-16",
+      "profile": "branchRef",
+      "value": "refs/heads/a\\b"
+    },
+    "schema.common.branchref.negative.ref-17": {
+      "label": "ref-17",
+      "profile": "branchRef",
+      "value": "refs/heads/a\n"
+    },
+    "schema.common.branchref.negative.ref-18": {
+      "label": "ref-18",
+      "profile": "branchRef",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.branchref.negative.ref-19": {
+      "label": "ref-19",
+      "profile": "branchRef",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/"
+    },
+    "schema.common.branchref.negative.ref-2": {
+      "label": "ref-2",
+      "profile": "branchRef",
+      "value": "refs/heads/"
+    },
+    "schema.common.branchref.negative.ref-3": {
+      "label": "ref-3",
+      "profile": "branchRef",
+      "value": "refs/heads//a"
+    },
+    "schema.common.branchref.negative.ref-4": {
+      "label": "ref-4",
+      "profile": "branchRef",
+      "value": "refs/heads/a/"
+    },
+    "schema.common.branchref.negative.ref-5": {
+      "label": "ref-5",
+      "profile": "branchRef",
+      "value": "refs/heads/.a"
+    },
+    "schema.common.branchref.negative.ref-6": {
+      "label": "ref-6",
+      "profile": "branchRef",
+      "value": "refs/heads/a."
+    },
+    "schema.common.branchref.negative.ref-7": {
+      "label": "ref-7",
+      "profile": "branchRef",
+      "value": "refs/heads/a.lock"
+    },
+    "schema.common.branchref.negative.ref-8": {
+      "label": "ref-8",
+      "profile": "branchRef",
+      "value": "refs/heads/a..b"
+    },
+    "schema.common.branchref.negative.ref-9": {
+      "label": "ref-9",
+      "profile": "branchRef",
+      "value": "refs/heads/a b"
+    },
+    "schema.common.branchref.negative.tag": {
+      "label": "tag",
+      "profile": "branchRef",
+      "value": "refs/tags/synthetic"
+    },
+    "schema.common.branchselection.negative.closed-missing-exact": {
+      "label": "closed-missing-exact",
+      "profile": "branchSelection",
+      "value": {
+        "prefixes": []
+      }
+    },
+    "schema.common.branchselection.negative.closed-missing-prefixes": {
+      "label": "closed-missing-prefixes",
+      "profile": "branchSelection",
+      "value": {
+        "exact": [
+          "refs/heads/synthetic"
+        ]
+      }
+    },
+    "schema.common.branchselection.negative.closed-unknown": {
+      "label": "closed-unknown",
+      "profile": "branchSelection",
+      "value": {
+        "exact": [
+          "refs/heads/synthetic"
+        ],
+        "prefixes": [],
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.branchselection.negative.duplicate-exact": {
+      "label": "duplicate-exact",
+      "profile": "branchSelection",
+      "value": {
+        "exact": [
+          "refs/heads/synthetic",
+          "refs/heads/synthetic"
+        ],
+        "prefixes": []
+      }
+    },
+    "schema.common.branchselection.negative.duplicate-prefix": {
+      "label": "duplicate-prefix",
+      "profile": "branchSelection",
+      "value": {
+        "exact": [],
+        "prefixes": [
+          "refs/heads/synthetic",
+          "refs/heads/synthetic"
+        ]
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.calendar-01": {
+      "label": "calendar-01",
+      "profile": "canonicalUtcTimestamp",
+      "value": "0000-01-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.calendar-02": {
+      "label": "calendar-02",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2001-02-29T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.calendar-03": {
+      "label": "calendar-03",
+      "profile": "canonicalUtcTimestamp",
+      "value": "1900-02-29T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.calendar-04": {
+      "label": "calendar-04",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-04-31T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-0": {
+      "label": "timestamp-0",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01t00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-1": {
+      "label": "timestamp-1",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-10": {
+      "label": "timestamp-10",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T24:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-11": {
+      "label": "timestamp-11",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-13-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-12": {
+      "label": "timestamp-12",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-32T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-13": {
+      "label": "timestamp-13",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-00-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-14": {
+      "label": "timestamp-14",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-00T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-15": {
+      "label": "timestamp-15",
+      "profile": "canonicalUtcTimestamp",
+      "value": "10000-01-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-16": {
+      "label": "timestamp-16",
+      "profile": "canonicalUtcTimestamp",
+      "value": "+2000-01-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-17": {
+      "label": "timestamp-17",
+      "profile": "canonicalUtcTimestamp",
+      "value": " 2000-01-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-18": {
+      "label": "timestamp-18",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00Z "
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-19": {
+      "label": "timestamp-19",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01 00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-2": {
+      "label": "timestamp-2",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00+00:00"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-20": {
+      "label": "timestamp-20",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00Z\n"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-3": {
+      "label": "timestamp-3",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-4": {
+      "label": "timestamp-4",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-1-01T00:00:00Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-5": {
+      "label": "timestamp-5",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00.1Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-6": {
+      "label": "timestamp-6",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00.001Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-7": {
+      "label": "timestamp-7",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00.000001Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-8": {
+      "label": "timestamp-8",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:00.Z"
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-9": {
+      "label": "timestamp-9",
+      "profile": "canonicalUtcTimestamp",
+      "value": "2000-01-01T00:00:60Z"
+    },
+    "schema.common.canonicaluuid.negative.braces": {
+      "label": "braces",
+      "profile": "canonicalUuid",
+      "value": "{01234567-89ab-cdef-0123-456789abcdef}"
+    },
+    "schema.common.canonicaluuid.negative.newline": {
+      "label": "newline",
+      "profile": "canonicalUuid",
+      "value": "01234567-89ab-cdef-0123-456789abcdef\n"
+    },
+    "schema.common.canonicaluuid.negative.no-hyphens": {
+      "label": "no-hyphens",
+      "profile": "canonicalUuid",
+      "value": "0123456789abcdef0123456789abcdef"
+    },
+    "schema.common.canonicaluuid.negative.non-hex": {
+      "label": "non-hex",
+      "profile": "canonicalUuid",
+      "value": "g1234567-89ab-cdef-0123-456789abcdef"
+    },
+    "schema.common.canonicaluuid.negative.uppercase": {
+      "label": "uppercase",
+      "profile": "canonicalUuid",
+      "value": "01234567-89AB-CDEF-0123-456789ABCDEF"
+    },
+    "schema.common.canonicaluuid.negative.urn": {
+      "label": "urn",
+      "profile": "canonicalUuid",
+      "value": "urn:uuid:01234567-89ab-cdef-0123-456789abcdef"
+    },
+    "schema.common.capabilities.negative.duplicate": {
+      "label": "duplicate",
+      "profile": "capabilities",
+      "value": [
+        "inspect",
+        "inspect"
+      ]
+    },
+    "schema.common.capabilities.negative.unknown": {
+      "label": "unknown",
+      "profile": "capabilities",
+      "value": [
+        "write"
+      ]
+    },
+    "schema.common.capabilities.negative.wrong-type": {
+      "label": "wrong-type",
+      "profile": "capabilities",
+      "value": "inspect"
+    },
+    "schema.common.capability.negative.null": {
+      "label": "null",
+      "profile": "capability",
+      "value": null
+    },
+    "schema.common.capability.negative.unknown": {
+      "label": "unknown",
+      "profile": "capability",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.capability.negative.wrong-case-create": {
+      "label": "wrong-case-create",
+      "profile": "capability",
+      "value": "CREATE"
+    },
+    "schema.common.capability.negative.wrong-case-delete": {
+      "label": "wrong-case-delete",
+      "profile": "capability",
+      "value": "DELETE"
+    },
+    "schema.common.capability.negative.wrong-case-execute-build": {
+      "label": "wrong-case-execute-build",
+      "profile": "capability",
+      "value": "EXECUTE-BUILD"
+    },
+    "schema.common.capability.negative.wrong-case-execute-tests": {
+      "label": "wrong-case-execute-tests",
+      "profile": "capability",
+      "value": "EXECUTE-TESTS"
+    },
+    "schema.common.capability.negative.wrong-case-external-secret-use": {
+      "label": "wrong-case-external-secret-use",
+      "profile": "capability",
+      "value": "EXTERNAL-SECRET-USE"
+    },
+    "schema.common.capability.negative.wrong-case-git-branch": {
+      "label": "wrong-case-git-branch",
+      "profile": "capability",
+      "value": "GIT-BRANCH"
+    },
+    "schema.common.capability.negative.wrong-case-git-commit": {
+      "label": "wrong-case-git-commit",
+      "profile": "capability",
+      "value": "GIT-COMMIT"
+    },
+    "schema.common.capability.negative.wrong-case-git-remote": {
+      "label": "wrong-case-git-remote",
+      "profile": "capability",
+      "value": "GIT-REMOTE"
+    },
+    "schema.common.capability.negative.wrong-case-git-stage": {
+      "label": "wrong-case-git-stage",
+      "profile": "capability",
+      "value": "GIT-STAGE"
+    },
+    "schema.common.capability.negative.wrong-case-inspect": {
+      "label": "wrong-case-inspect",
+      "profile": "capability",
+      "value": "INSPECT"
+    },
+    "schema.common.capability.negative.wrong-case-modify": {
+      "label": "wrong-case-modify",
+      "profile": "capability",
+      "value": "MODIFY"
+    },
+    "schema.common.capability.negative.wrong-case-network": {
+      "label": "wrong-case-network",
+      "profile": "capability",
+      "value": "NETWORK"
+    },
+    "schema.common.capability.negative.wrong-case-validate": {
+      "label": "wrong-case-validate",
+      "profile": "capability",
+      "value": "VALIDATE"
+    },
+    "schema.common.checkidentifier.negative.empty-segment": {
+      "label": "empty-segment",
+      "profile": "checkIdentifier",
+      "value": "check..a"
+    },
+    "schema.common.checkidentifier.negative.leading-hyphen": {
+      "label": "leading-hyphen",
+      "profile": "checkIdentifier",
+      "value": "check.-a"
+    },
+    "schema.common.checkidentifier.negative.missing-segment": {
+      "label": "missing-segment",
+      "profile": "checkIdentifier",
+      "value": "check."
+    },
+    "schema.common.checkidentifier.negative.segment-33": {
+      "label": "segment-33",
+      "profile": "checkIdentifier",
+      "value": "check.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.checkidentifier.negative.total-161": {
+      "label": "total-161",
+      "profile": "checkIdentifier",
+      "value": "check.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.checkidentifier.negative.trailing-hyphen": {
+      "label": "trailing-hyphen",
+      "profile": "checkIdentifier",
+      "value": "check.a-"
+    },
+    "schema.common.checkidentifier.negative.trailing-newline": {
+      "label": "trailing-newline",
+      "profile": "checkIdentifier",
+      "value": "check.a\n"
+    },
+    "schema.common.checkidentifier.negative.underscore": {
+      "label": "underscore",
+      "profile": "checkIdentifier",
+      "value": "check.a_b"
+    },
+    "schema.common.checkidentifier.negative.uppercase": {
+      "label": "uppercase",
+      "profile": "checkIdentifier",
+      "value": "check.A"
+    },
+    "schema.common.checkidentifier.negative.wrong-prefix": {
+      "label": "wrong-prefix",
+      "profile": "checkIdentifier",
+      "value": "synthetic.a"
+    },
+    "schema.common.checkoutcome.negative.execution-cancelled": {
+      "label": "execution-cancelled",
+      "profile": "checkOutcome",
+      "value": "cancelled"
+    },
+    "schema.common.checkoutcome.negative.execution-succeeded": {
+      "label": "execution-succeeded",
+      "profile": "checkOutcome",
+      "value": "succeeded"
+    },
+    "schema.common.checkoutcome.negative.null": {
+      "label": "null",
+      "profile": "checkOutcome",
+      "value": null
+    },
+    "schema.common.checkoutcome.negative.unknown": {
+      "label": "unknown",
+      "profile": "checkOutcome",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.checkoutcome.negative.wrong-case-failed": {
+      "label": "wrong-case-failed",
+      "profile": "checkOutcome",
+      "value": "FAILED"
+    },
+    "schema.common.checkoutcome.negative.wrong-case-indeterminate": {
+      "label": "wrong-case-indeterminate",
+      "profile": "checkOutcome",
+      "value": "INDETERMINATE"
+    },
+    "schema.common.checkoutcome.negative.wrong-case-passed": {
+      "label": "wrong-case-passed",
+      "profile": "checkOutcome",
+      "value": "PASSED"
+    },
+    "schema.common.displaytext.negative.control-0": {
+      "label": "control-0",
+      "profile": "displayText",
+      "value": "synthetic\u0000"
+    },
+    "schema.common.displaytext.negative.control-1": {
+      "label": "control-1",
+      "profile": "displayText",
+      "value": "synthetic\u0001"
+    },
+    "schema.common.displaytext.negative.control-10": {
+      "label": "control-10",
+      "profile": "displayText",
+      "value": "synthetic\n"
+    },
+    "schema.common.displaytext.negative.control-11": {
+      "label": "control-11",
+      "profile": "displayText",
+      "value": "synthetic\u000b"
+    },
+    "schema.common.displaytext.negative.control-12": {
+      "label": "control-12",
+      "profile": "displayText",
+      "value": "synthetic\f"
+    },
+    "schema.common.displaytext.negative.control-127": {
+      "label": "control-127",
+      "profile": "displayText",
+      "value": "synthetic\u007f"
+    },
+    "schema.common.displaytext.negative.control-128": {
+      "label": "control-128",
+      "profile": "displayText",
+      "value": "synthetic\u0080"
+    },
+    "schema.common.displaytext.negative.control-129": {
+      "label": "control-129",
+      "profile": "displayText",
+      "value": "synthetic\u0081"
+    },
+    "schema.common.displaytext.negative.control-13": {
+      "label": "control-13",
+      "profile": "displayText",
+      "value": "synthetic\r"
+    },
+    "schema.common.displaytext.negative.control-130": {
+      "label": "control-130",
+      "profile": "displayText",
+      "value": "synthetic\u0082"
+    },
+    "schema.common.displaytext.negative.control-131": {
+      "label": "control-131",
+      "profile": "displayText",
+      "value": "synthetic\u0083"
+    },
+    "schema.common.displaytext.negative.control-132": {
+      "label": "control-132",
+      "profile": "displayText",
+      "value": "synthetic\u0084"
+    },
+    "schema.common.displaytext.negative.control-133": {
+      "label": "control-133",
+      "profile": "displayText",
+      "value": "synthetic\u0085"
+    },
+    "schema.common.displaytext.negative.control-134": {
+      "label": "control-134",
+      "profile": "displayText",
+      "value": "synthetic\u0086"
+    },
+    "schema.common.displaytext.negative.control-135": {
+      "label": "control-135",
+      "profile": "displayText",
+      "value": "synthetic\u0087"
+    },
+    "schema.common.displaytext.negative.control-136": {
+      "label": "control-136",
+      "profile": "displayText",
+      "value": "synthetic\u0088"
+    },
+    "schema.common.displaytext.negative.control-137": {
+      "label": "control-137",
+      "profile": "displayText",
+      "value": "synthetic\u0089"
+    },
+    "schema.common.displaytext.negative.control-138": {
+      "label": "control-138",
+      "profile": "displayText",
+      "value": "synthetic\u008a"
+    },
+    "schema.common.displaytext.negative.control-139": {
+      "label": "control-139",
+      "profile": "displayText",
+      "value": "synthetic\u008b"
+    },
+    "schema.common.displaytext.negative.control-14": {
+      "label": "control-14",
+      "profile": "displayText",
+      "value": "synthetic\u000e"
+    },
+    "schema.common.displaytext.negative.control-140": {
+      "label": "control-140",
+      "profile": "displayText",
+      "value": "synthetic\u008c"
+    },
+    "schema.common.displaytext.negative.control-141": {
+      "label": "control-141",
+      "profile": "displayText",
+      "value": "synthetic\u008d"
+    },
+    "schema.common.displaytext.negative.control-142": {
+      "label": "control-142",
+      "profile": "displayText",
+      "value": "synthetic\u008e"
+    },
+    "schema.common.displaytext.negative.control-143": {
+      "label": "control-143",
+      "profile": "displayText",
+      "value": "synthetic\u008f"
+    },
+    "schema.common.displaytext.negative.control-144": {
+      "label": "control-144",
+      "profile": "displayText",
+      "value": "synthetic\u0090"
+    },
+    "schema.common.displaytext.negative.control-145": {
+      "label": "control-145",
+      "profile": "displayText",
+      "value": "synthetic\u0091"
+    },
+    "schema.common.displaytext.negative.control-146": {
+      "label": "control-146",
+      "profile": "displayText",
+      "value": "synthetic\u0092"
+    },
+    "schema.common.displaytext.negative.control-147": {
+      "label": "control-147",
+      "profile": "displayText",
+      "value": "synthetic\u0093"
+    },
+    "schema.common.displaytext.negative.control-148": {
+      "label": "control-148",
+      "profile": "displayText",
+      "value": "synthetic\u0094"
+    },
+    "schema.common.displaytext.negative.control-149": {
+      "label": "control-149",
+      "profile": "displayText",
+      "value": "synthetic\u0095"
+    },
+    "schema.common.displaytext.negative.control-15": {
+      "label": "control-15",
+      "profile": "displayText",
+      "value": "synthetic\u000f"
+    },
+    "schema.common.displaytext.negative.control-150": {
+      "label": "control-150",
+      "profile": "displayText",
+      "value": "synthetic\u0096"
+    },
+    "schema.common.displaytext.negative.control-151": {
+      "label": "control-151",
+      "profile": "displayText",
+      "value": "synthetic\u0097"
+    },
+    "schema.common.displaytext.negative.control-152": {
+      "label": "control-152",
+      "profile": "displayText",
+      "value": "synthetic\u0098"
+    },
+    "schema.common.displaytext.negative.control-153": {
+      "label": "control-153",
+      "profile": "displayText",
+      "value": "synthetic\u0099"
+    },
+    "schema.common.displaytext.negative.control-154": {
+      "label": "control-154",
+      "profile": "displayText",
+      "value": "synthetic\u009a"
+    },
+    "schema.common.displaytext.negative.control-155": {
+      "label": "control-155",
+      "profile": "displayText",
+      "value": "synthetic\u009b"
+    },
+    "schema.common.displaytext.negative.control-156": {
+      "label": "control-156",
+      "profile": "displayText",
+      "value": "synthetic\u009c"
+    },
+    "schema.common.displaytext.negative.control-157": {
+      "label": "control-157",
+      "profile": "displayText",
+      "value": "synthetic\u009d"
+    },
+    "schema.common.displaytext.negative.control-158": {
+      "label": "control-158",
+      "profile": "displayText",
+      "value": "synthetic\u009e"
+    },
+    "schema.common.displaytext.negative.control-159": {
+      "label": "control-159",
+      "profile": "displayText",
+      "value": "synthetic\u009f"
+    },
+    "schema.common.displaytext.negative.control-16": {
+      "label": "control-16",
+      "profile": "displayText",
+      "value": "synthetic\u0010"
+    },
+    "schema.common.displaytext.negative.control-17": {
+      "label": "control-17",
+      "profile": "displayText",
+      "value": "synthetic\u0011"
+    },
+    "schema.common.displaytext.negative.control-18": {
+      "label": "control-18",
+      "profile": "displayText",
+      "value": "synthetic\u0012"
+    },
+    "schema.common.displaytext.negative.control-19": {
+      "label": "control-19",
+      "profile": "displayText",
+      "value": "synthetic\u0013"
+    },
+    "schema.common.displaytext.negative.control-2": {
+      "label": "control-2",
+      "profile": "displayText",
+      "value": "synthetic\u0002"
+    },
+    "schema.common.displaytext.negative.control-20": {
+      "label": "control-20",
+      "profile": "displayText",
+      "value": "synthetic\u0014"
+    },
+    "schema.common.displaytext.negative.control-21": {
+      "label": "control-21",
+      "profile": "displayText",
+      "value": "synthetic\u0015"
+    },
+    "schema.common.displaytext.negative.control-22": {
+      "label": "control-22",
+      "profile": "displayText",
+      "value": "synthetic\u0016"
+    },
+    "schema.common.displaytext.negative.control-23": {
+      "label": "control-23",
+      "profile": "displayText",
+      "value": "synthetic\u0017"
+    },
+    "schema.common.displaytext.negative.control-24": {
+      "label": "control-24",
+      "profile": "displayText",
+      "value": "synthetic\u0018"
+    },
+    "schema.common.displaytext.negative.control-25": {
+      "label": "control-25",
+      "profile": "displayText",
+      "value": "synthetic\u0019"
+    },
+    "schema.common.displaytext.negative.control-26": {
+      "label": "control-26",
+      "profile": "displayText",
+      "value": "synthetic\u001a"
+    },
+    "schema.common.displaytext.negative.control-27": {
+      "label": "control-27",
+      "profile": "displayText",
+      "value": "synthetic\u001b"
+    },
+    "schema.common.displaytext.negative.control-28": {
+      "label": "control-28",
+      "profile": "displayText",
+      "value": "synthetic\u001c"
+    },
+    "schema.common.displaytext.negative.control-29": {
+      "label": "control-29",
+      "profile": "displayText",
+      "value": "synthetic\u001d"
+    },
+    "schema.common.displaytext.negative.control-3": {
+      "label": "control-3",
+      "profile": "displayText",
+      "value": "synthetic\u0003"
+    },
+    "schema.common.displaytext.negative.control-30": {
+      "label": "control-30",
+      "profile": "displayText",
+      "value": "synthetic\u001e"
+    },
+    "schema.common.displaytext.negative.control-31": {
+      "label": "control-31",
+      "profile": "displayText",
+      "value": "synthetic\u001f"
+    },
+    "schema.common.displaytext.negative.control-4": {
+      "label": "control-4",
+      "profile": "displayText",
+      "value": "synthetic\u0004"
+    },
+    "schema.common.displaytext.negative.control-5": {
+      "label": "control-5",
+      "profile": "displayText",
+      "value": "synthetic\u0005"
+    },
+    "schema.common.displaytext.negative.control-6": {
+      "label": "control-6",
+      "profile": "displayText",
+      "value": "synthetic\u0006"
+    },
+    "schema.common.displaytext.negative.control-7": {
+      "label": "control-7",
+      "profile": "displayText",
+      "value": "synthetic\u0007"
+    },
+    "schema.common.displaytext.negative.control-8": {
+      "label": "control-8",
+      "profile": "displayText",
+      "value": "synthetic\b"
+    },
+    "schema.common.displaytext.negative.control-9": {
+      "label": "control-9",
+      "profile": "displayText",
+      "value": "synthetic\t"
+    },
+    "schema.common.displaytext.negative.empty": {
+      "label": "empty",
+      "profile": "displayText",
+      "value": ""
+    },
+    "schema.common.displaytext.negative.too-long": {
+      "label": "too-long",
+      "profile": "displayText",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "schema.common.displaytext.negative.wrong-type": {
+      "label": "wrong-type",
+      "profile": "displayText",
+      "value": []
+    },
+    "schema.common.executioncheckoutcome.negative.non-execution-passed": {
+      "label": "non-execution-passed",
+      "profile": "executionCheckOutcome",
+      "value": "passed"
+    },
+    "schema.common.executioncheckoutcome.negative.not-attempted": {
+      "label": "not-attempted",
+      "profile": "executionCheckOutcome",
+      "value": "not-attempted"
+    },
+    "schema.common.executioncheckoutcome.negative.null": {
+      "label": "null",
+      "profile": "executionCheckOutcome",
+      "value": null
+    },
+    "schema.common.executioncheckoutcome.negative.unknown": {
+      "label": "unknown",
+      "profile": "executionCheckOutcome",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.executioncheckoutcome.negative.wrong-case-cancelled": {
+      "label": "wrong-case-cancelled",
+      "profile": "executionCheckOutcome",
+      "value": "CANCELLED"
+    },
+    "schema.common.executioncheckoutcome.negative.wrong-case-failed": {
+      "label": "wrong-case-failed",
+      "profile": "executionCheckOutcome",
+      "value": "FAILED"
+    },
+    "schema.common.executioncheckoutcome.negative.wrong-case-indeterminate": {
+      "label": "wrong-case-indeterminate",
+      "profile": "executionCheckOutcome",
+      "value": "INDETERMINATE"
+    },
+    "schema.common.executioncheckoutcome.negative.wrong-case-succeeded": {
+      "label": "wrong-case-succeeded",
+      "profile": "executionCheckOutcome",
+      "value": "SUCCEEDED"
+    },
+    "schema.common.executionoutcome.negative.null": {
+      "label": "null",
+      "profile": "executionOutcome",
+      "value": null
+    },
+    "schema.common.executionoutcome.negative.unknown": {
+      "label": "unknown",
+      "profile": "executionOutcome",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.executionoutcome.negative.wrong-case-cancelled": {
+      "label": "wrong-case-cancelled",
+      "profile": "executionOutcome",
+      "value": "CANCELLED"
+    },
+    "schema.common.executionoutcome.negative.wrong-case-failed": {
+      "label": "wrong-case-failed",
+      "profile": "executionOutcome",
+      "value": "FAILED"
+    },
+    "schema.common.executionoutcome.negative.wrong-case-indeterminate": {
+      "label": "wrong-case-indeterminate",
+      "profile": "executionOutcome",
+      "value": "INDETERMINATE"
+    },
+    "schema.common.executionoutcome.negative.wrong-case-not-attempted": {
+      "label": "wrong-case-not-attempted",
+      "profile": "executionOutcome",
+      "value": "NOT-ATTEMPTED"
+    },
+    "schema.common.executionoutcome.negative.wrong-case-succeeded": {
+      "label": "wrong-case-succeeded",
+      "profile": "executionOutcome",
+      "value": "SUCCEEDED"
+    },
+    "schema.common.freshnessboundary.negative.closed-missing-expiresat": {
+      "label": "closed-missing-expiresAt",
+      "profile": "freshnessBoundary",
+      "value": {
+        "issuedAt": "2000-01-01T00:00:00Z"
+      }
+    },
+    "schema.common.freshnessboundary.negative.closed-missing-issuedat": {
+      "label": "closed-missing-issuedAt",
+      "profile": "freshnessBoundary",
+      "value": {
+        "expiresAt": "2000-01-01T00:00:01Z"
+      }
+    },
+    "schema.common.freshnessboundary.negative.closed-unknown": {
+      "label": "closed-unknown",
+      "profile": "freshnessBoundary",
+      "value": {
+        "expiresAt": "2000-01-01T00:00:01Z",
+        "issuedAt": "2000-01-01T00:00:00Z",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.gitmode.negative.null": {
+      "label": "null",
+      "profile": "gitMode",
+      "value": null
+    },
+    "schema.common.gitmode.negative.number": {
+      "label": "number",
+      "profile": "gitMode",
+      "value": 100644
+    },
+    "schema.common.gitmode.negative.unknown": {
+      "label": "unknown",
+      "profile": "gitMode",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.gitobjectid.negative.sha1-40-a": {
+      "label": "sha1-40-A",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha1",
+        "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha1-40-g": {
+      "label": "sha1-40-g",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha1",
+        "value": "gggggggggggggggggggggggggggggggggggggggg"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha1-64-a": {
+      "label": "sha1-64-a",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha1",
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha1-closed-missing-algorithm": {
+      "label": "sha1-closed-missing-algorithm",
+      "profile": "gitObjectId",
+      "value": {
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha1-closed-missing-value": {
+      "label": "sha1-closed-missing-value",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha1"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha1-closed-unknown": {
+      "label": "sha1-closed-unknown",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha1",
+        "syntheticExtra": true,
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha256-40-a": {
+      "label": "sha256-40-a",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha256",
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha256-closed-missing-algorithm": {
+      "label": "sha256-closed-missing-algorithm",
+      "profile": "gitObjectId",
+      "value": {
+        "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha256-closed-missing-value": {
+      "label": "sha256-closed-missing-value",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha256"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha256-closed-unknown": {
+      "label": "sha256-closed-unknown",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha256",
+        "syntheticExtra": true,
+        "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    "schema.common.gitobjectid.negative.sha512-128-a": {
+      "label": "sha512-128-a",
+      "profile": "gitObjectId",
+      "value": {
+        "algorithm": "sha512",
+        "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-0": {
+      "label": "ref-0",
+      "profile": "gitRefIdentifier",
+      "value": ""
+    },
+    "schema.common.gitrefidentifier.negative.ref-1": {
+      "label": "ref-1",
+      "profile": "gitRefIdentifier",
+      "value": "main"
+    },
+    "schema.common.gitrefidentifier.negative.ref-10": {
+      "label": "ref-10",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a~b"
+    },
+    "schema.common.gitrefidentifier.negative.ref-11": {
+      "label": "ref-11",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a^b"
+    },
+    "schema.common.gitrefidentifier.negative.ref-12": {
+      "label": "ref-12",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a:b"
+    },
+    "schema.common.gitrefidentifier.negative.ref-13": {
+      "label": "ref-13",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a?b"
+    },
+    "schema.common.gitrefidentifier.negative.ref-14": {
+      "label": "ref-14",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a*b"
+    },
+    "schema.common.gitrefidentifier.negative.ref-15": {
+      "label": "ref-15",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a[b"
+    },
+    "schema.common.gitrefidentifier.negative.ref-16": {
+      "label": "ref-16",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a\\b"
+    },
+    "schema.common.gitrefidentifier.negative.ref-17": {
+      "label": "ref-17",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a\n"
+    },
+    "schema.common.gitrefidentifier.negative.ref-18": {
+      "label": "ref-18",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.gitrefidentifier.negative.ref-19": {
+      "label": "ref-19",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/"
+    },
+    "schema.common.gitrefidentifier.negative.ref-2": {
+      "label": "ref-2",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/"
+    },
+    "schema.common.gitrefidentifier.negative.ref-3": {
+      "label": "ref-3",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads//a"
+    },
+    "schema.common.gitrefidentifier.negative.ref-4": {
+      "label": "ref-4",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a/"
+    },
+    "schema.common.gitrefidentifier.negative.ref-5": {
+      "label": "ref-5",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/.a"
+    },
+    "schema.common.gitrefidentifier.negative.ref-6": {
+      "label": "ref-6",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a."
+    },
+    "schema.common.gitrefidentifier.negative.ref-7": {
+      "label": "ref-7",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a.lock"
+    },
+    "schema.common.gitrefidentifier.negative.ref-8": {
+      "label": "ref-8",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a..b"
+    },
+    "schema.common.gitrefidentifier.negative.ref-9": {
+      "label": "ref-9",
+      "profile": "gitRefIdentifier",
+      "value": "refs/heads/a b"
+    },
+    "schema.common.headstate.negative.commit-missing-id": {
+      "label": "commit-missing-id",
+      "profile": "headState",
+      "value": {
+        "state": "commit"
+      }
+    },
+    "schema.common.headstate.negative.commit-missing-objectid": {
+      "label": "commit-missing-objectId",
+      "profile": "headState",
+      "value": {
+        "state": "commit"
+      }
+    },
+    "schema.common.headstate.negative.commit-missing-state": {
+      "label": "commit-missing-state",
+      "profile": "headState",
+      "value": {
+        "objectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      }
+    },
+    "schema.common.headstate.negative.commit-unknown": {
+      "label": "commit-unknown",
+      "profile": "headState",
+      "value": {
+        "objectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "state": "commit",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.headstate.negative.unborn-missing-state": {
+      "label": "unborn-missing-state",
+      "profile": "headState",
+      "value": {}
+    },
+    "schema.common.headstate.negative.unborn-unknown": {
+      "label": "unborn-unknown",
+      "profile": "headState",
+      "value": {
+        "state": "unborn",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.headstate.negative.unborn-with-id": {
+      "label": "unborn-with-id",
+      "profile": "headState",
+      "value": {
+        "objectId": {
+          "algorithm": "sha1",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "state": "unborn"
+      }
+    },
+    "schema.common.indexstage.negative.above": {
+      "label": "above",
+      "profile": "indexStage",
+      "value": 1
+    },
+    "schema.common.indexstage.negative.below": {
+      "label": "below",
+      "profile": "indexStage",
+      "value": -1
+    },
+    "schema.common.indexstage.negative.bool": {
+      "label": "bool",
+      "profile": "indexStage",
+      "value": true
+    },
+    "schema.common.indexstage.negative.fraction": {
+      "label": "fraction",
+      "profile": "indexStage",
+      "value": 0.5
+    },
+    "schema.common.indexstage.negative.null": {
+      "label": "null",
+      "profile": "indexStage",
+      "value": null
+    },
+    "schema.common.indexstage.negative.string": {
+      "label": "string",
+      "profile": "indexStage",
+      "value": "0"
+    },
+    "schema.common.kind.negative.null": {
+      "label": "null",
+      "profile": "kind",
+      "value": null
+    },
+    "schema.common.kind.negative.unknown": {
+      "label": "unknown",
+      "profile": "kind",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.kind.negative.wrong-case-domain": {
+      "label": "wrong-case-Domain",
+      "profile": "kind",
+      "value": "dOMAIN"
+    },
+    "schema.common.kind.negative.wrong-case-executionreceipt": {
+      "label": "wrong-case-ExecutionReceipt",
+      "profile": "kind",
+      "value": "eXECUTIONrECEIPT"
+    },
+    "schema.common.kind.negative.wrong-case-hostoverlay": {
+      "label": "wrong-case-HostOverlay",
+      "profile": "kind",
+      "value": "hOSToVERLAY"
+    },
+    "schema.common.kind.negative.wrong-case-project": {
+      "label": "wrong-case-Project",
+      "profile": "kind",
+      "value": "pROJECT"
+    },
+    "schema.common.kind.negative.wrong-case-routingpolicy": {
+      "label": "wrong-case-RoutingPolicy",
+      "profile": "kind",
+      "value": "rOUTINGpOLICY"
+    },
+    "schema.common.kind.negative.wrong-case-taskcontract": {
+      "label": "wrong-case-TaskContract",
+      "profile": "kind",
+      "value": "tASKcONTRACT"
+    },
+    "schema.common.kind.negative.wrong-case-worktreerole": {
+      "label": "wrong-case-WorktreeRole",
+      "profile": "kind",
+      "value": "wORKTREErOLE"
+    },
+    "schema.common.lifecycleoutcome.negative.null": {
+      "label": "null",
+      "profile": "lifecycleOutcome",
+      "value": null
+    },
+    "schema.common.lifecycleoutcome.negative.unknown": {
+      "label": "unknown",
+      "profile": "lifecycleOutcome",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.lifecycleoutcome.negative.wrong-case-cancelled": {
+      "label": "wrong-case-cancelled",
+      "profile": "lifecycleOutcome",
+      "value": "CANCELLED"
+    },
+    "schema.common.lifecycleoutcome.negative.wrong-case-denied": {
+      "label": "wrong-case-denied",
+      "profile": "lifecycleOutcome",
+      "value": "DENIED"
+    },
+    "schema.common.lifecycleoutcome.negative.wrong-case-failed": {
+      "label": "wrong-case-failed",
+      "profile": "lifecycleOutcome",
+      "value": "FAILED"
+    },
+    "schema.common.lifecycleoutcome.negative.wrong-case-indeterminate": {
+      "label": "wrong-case-indeterminate",
+      "profile": "lifecycleOutcome",
+      "value": "INDETERMINATE"
+    },
+    "schema.common.lifecycleoutcome.negative.wrong-case-succeeded": {
+      "label": "wrong-case-succeeded",
+      "profile": "lifecycleOutcome",
+      "value": "SUCCEEDED"
+    },
+    "schema.common.logicalidentifier.negative.empty": {
+      "label": "empty",
+      "profile": "logicalIdentifier",
+      "value": ""
+    },
+    "schema.common.logicalidentifier.negative.leading-dot": {
+      "label": "leading-dot",
+      "profile": "logicalIdentifier",
+      "value": ".a"
+    },
+    "schema.common.logicalidentifier.negative.leading-hyphen": {
+      "label": "leading-hyphen",
+      "profile": "logicalIdentifier",
+      "value": "-a"
+    },
+    "schema.common.logicalidentifier.negative.number": {
+      "label": "number",
+      "profile": "logicalIdentifier",
+      "value": 1
+    },
+    "schema.common.logicalidentifier.negative.slash": {
+      "label": "slash",
+      "profile": "logicalIdentifier",
+      "value": "a/b"
+    },
+    "schema.common.logicalidentifier.negative.too-long": {
+      "label": "too-long",
+      "profile": "logicalIdentifier",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.logicalidentifier.negative.trailing-dot": {
+      "label": "trailing-dot",
+      "profile": "logicalIdentifier",
+      "value": "a."
+    },
+    "schema.common.logicalidentifier.negative.trailing-hyphen": {
+      "label": "trailing-hyphen",
+      "profile": "logicalIdentifier",
+      "value": "a-"
+    },
+    "schema.common.logicalidentifier.negative.trailing-newline": {
+      "label": "trailing-newline",
+      "profile": "logicalIdentifier",
+      "value": "a\n"
+    },
+    "schema.common.logicalidentifier.negative.underscore": {
+      "label": "underscore",
+      "profile": "logicalIdentifier",
+      "value": "a_b"
+    },
+    "schema.common.logicalidentifier.negative.unicode": {
+      "label": "unicode",
+      "profile": "logicalIdentifier",
+      "value": "\u4f8b"
+    },
+    "schema.common.logicalidentifier.negative.uppercase": {
+      "label": "uppercase",
+      "profile": "logicalIdentifier",
+      "value": "Project"
+    },
+    "schema.common.metadata.negative.description-too-long": {
+      "label": "description-too-long",
+      "profile": "metadata",
+      "value": {
+        "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "id": "synthetic.invalid"
+      }
+    },
+    "schema.common.metadata.negative.display-too-long": {
+      "label": "display-too-long",
+      "profile": "metadata",
+      "value": {
+        "displayName": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "id": "synthetic.invalid"
+      }
+    },
+    "schema.common.metadata.negative.full-missing-id": {
+      "label": "full-missing-id",
+      "profile": "metadata",
+      "value": {
+        "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "displayName": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    },
+    "schema.common.metadata.negative.full-unknown": {
+      "label": "full-unknown",
+      "profile": "metadata",
+      "value": {
+        "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "displayName": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "id": "synthetic.invalid",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.metadata.negative.minimal-missing-id": {
+      "label": "minimal-missing-id",
+      "profile": "metadata",
+      "value": {}
+    },
+    "schema.common.metadata.negative.minimal-unknown": {
+      "label": "minimal-unknown",
+      "profile": "metadata",
+      "value": {
+        "id": "synthetic.invalid",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.metadata.negative.unknown-name": {
+      "label": "unknown-name",
+      "profile": "metadata",
+      "value": {
+        "id": "synthetic.invalid",
+        "name": "Synthetic"
+      }
+    },
+    "schema.common.mode.negative.null": {
+      "label": "null",
+      "profile": "mode",
+      "value": null
+    },
+    "schema.common.mode.negative.unknown": {
+      "label": "unknown",
+      "profile": "mode",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.mode.negative.wrong-case-implementation": {
+      "label": "wrong-case-implementation",
+      "profile": "mode",
+      "value": "IMPLEMENTATION"
+    },
+    "schema.common.mode.negative.wrong-case-plan-only": {
+      "label": "wrong-case-plan-only",
+      "profile": "mode",
+      "value": "PLAN-ONLY"
+    },
+    "schema.common.objectreference.negative.closed-missing-apiversion": {
+      "label": "closed-missing-apiVersion",
+      "profile": "objectReference",
+      "value": {
+        "id": "project.invalid",
+        "kind": "Project"
+      }
+    },
+    "schema.common.objectreference.negative.closed-missing-id": {
+      "label": "closed-missing-id",
+      "profile": "objectReference",
+      "value": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "Project"
+      }
+    },
+    "schema.common.objectreference.negative.closed-missing-kind": {
+      "label": "closed-missing-kind",
+      "profile": "objectReference",
+      "value": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "id": "project.invalid"
+      }
+    },
+    "schema.common.objectreference.negative.closed-unknown": {
+      "label": "closed-unknown",
+      "profile": "objectReference",
+      "value": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "id": "project.invalid",
+        "kind": "Project",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.objectreference.negative.unknown-kind": {
+      "label": "unknown-kind",
+      "profile": "objectReference",
+      "value": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "id": "project.invalid",
+        "kind": "GovernanceBundle"
+      }
+    },
+    "schema.common.pathpattern.negative.pattern-0": {
+      "label": "pattern-0",
+      "profile": "pathPattern",
+      "value": ""
+    },
+    "schema.common.pathpattern.negative.pattern-1": {
+      "label": "pattern-1",
+      "profile": "pathPattern",
+      "value": "/src/a"
+    },
+    "schema.common.pathpattern.negative.pattern-10": {
+      "label": "pattern-10",
+      "profile": "pathPattern",
+      "value": "../src"
+    },
+    "schema.common.pathpattern.negative.pattern-11": {
+      "label": "pattern-11",
+      "profile": "pathPattern",
+      "value": "src/./a"
+    },
+    "schema.common.pathpattern.negative.pattern-12": {
+      "label": "pattern-12",
+      "profile": "pathPattern",
+      "value": "src/../a"
+    },
+    "schema.common.pathpattern.negative.pattern-13": {
+      "label": "pattern-13",
+      "profile": "pathPattern",
+      "value": "src/."
+    },
+    "schema.common.pathpattern.negative.pattern-14": {
+      "label": "pattern-14",
+      "profile": "pathPattern",
+      "value": "src/.."
+    },
+    "schema.common.pathpattern.negative.pattern-15": {
+      "label": "pattern-15",
+      "profile": "pathPattern",
+      "value": ".git"
+    },
+    "schema.common.pathpattern.negative.pattern-16": {
+      "label": "pattern-16",
+      "profile": "pathPattern",
+      "value": ".git/config"
+    },
+    "schema.common.pathpattern.negative.pattern-17": {
+      "label": "pattern-17",
+      "profile": "pathPattern",
+      "value": ".git/hooks/pre-commit"
+    },
+    "schema.common.pathpattern.negative.pattern-18": {
+      "label": "pattern-18",
+      "profile": "pathPattern",
+      "value": ".git/worktrees/x/HEAD"
+    },
+    "schema.common.pathpattern.negative.pattern-19": {
+      "label": "pattern-19",
+      "profile": "pathPattern",
+      "value": "foo/.git"
+    },
+    "schema.common.pathpattern.negative.pattern-2": {
+      "label": "pattern-2",
+      "profile": "pathPattern",
+      "value": "C:relative"
+    },
+    "schema.common.pathpattern.negative.pattern-20": {
+      "label": "pattern-20",
+      "profile": "pathPattern",
+      "value": "foo/.git/config"
+    },
+    "schema.common.pathpattern.negative.pattern-21": {
+      "label": "pattern-21",
+      "profile": "pathPattern",
+      "value": "nested/repository/.git/HEAD"
+    },
+    "schema.common.pathpattern.negative.pattern-22": {
+      "label": "pattern-22",
+      "profile": "pathPattern",
+      "value": "src/\u0000a"
+    },
+    "schema.common.pathpattern.negative.pattern-23": {
+      "label": "pattern-23",
+      "profile": "pathPattern",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "schema.common.pathpattern.negative.pattern-24": {
+      "label": "pattern-24",
+      "profile": "pathPattern",
+      "value": ".git/**"
+    },
+    "schema.common.pathpattern.negative.pattern-25": {
+      "label": "pattern-25",
+      "profile": "pathPattern",
+      "value": "foo/.git/**"
+    },
+    "schema.common.pathpattern.negative.pattern-26": {
+      "label": "pattern-26",
+      "profile": "pathPattern",
+      "value": "!src/**"
+    },
+    "schema.common.pathpattern.negative.pattern-27": {
+      "label": "pattern-27",
+      "profile": "pathPattern",
+      "value": "src/!a"
+    },
+    "schema.common.pathpattern.negative.pattern-28": {
+      "label": "pattern-28",
+      "profile": "pathPattern",
+      "value": "{src,docs}/**"
+    },
+    "schema.common.pathpattern.negative.pattern-29": {
+      "label": "pattern-29",
+      "profile": "pathPattern",
+      "value": "[ab]/*.py"
+    },
+    "schema.common.pathpattern.negative.pattern-3": {
+      "label": "pattern-3",
+      "profile": "pathPattern",
+      "value": "C:/synthetic"
+    },
+    "schema.common.pathpattern.negative.pattern-30": {
+      "label": "pattern-30",
+      "profile": "pathPattern",
+      "value": "@(src)/**"
+    },
+    "schema.common.pathpattern.negative.pattern-31": {
+      "label": "pattern-31",
+      "profile": "pathPattern",
+      "value": "src/**x"
+    },
+    "schema.common.pathpattern.negative.pattern-32": {
+      "label": "pattern-32",
+      "profile": "pathPattern",
+      "value": "src/x**"
+    },
+    "schema.common.pathpattern.negative.pattern-33": {
+      "label": "pattern-33",
+      "profile": "pathPattern",
+      "value": "src/***/a"
+    },
+    "schema.common.pathpattern.negative.pattern-4": {
+      "label": "pattern-4",
+      "profile": "pathPattern",
+      "value": "src\\a"
+    },
+    "schema.common.pathpattern.negative.pattern-5": {
+      "label": "pattern-5",
+      "profile": "pathPattern",
+      "value": "src//a"
+    },
+    "schema.common.pathpattern.negative.pattern-6": {
+      "label": "pattern-6",
+      "profile": "pathPattern",
+      "value": "src/"
+    },
+    "schema.common.pathpattern.negative.pattern-7": {
+      "label": "pattern-7",
+      "profile": "pathPattern",
+      "value": "."
+    },
+    "schema.common.pathpattern.negative.pattern-8": {
+      "label": "pattern-8",
+      "profile": "pathPattern",
+      "value": ".."
+    },
+    "schema.common.pathpattern.negative.pattern-9": {
+      "label": "pattern-9",
+      "profile": "pathPattern",
+      "value": "./src"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-0": {
+      "label": "control-0",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0000x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-1": {
+      "label": "control-1",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0001x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-10": {
+      "label": "control-10",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\nx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-11": {
+      "label": "control-11",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u000bx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-12": {
+      "label": "control-12",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\fx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-127": {
+      "label": "control-127",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u007fx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-128": {
+      "label": "control-128",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0080x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-129": {
+      "label": "control-129",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0081x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-13": {
+      "label": "control-13",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\rx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-130": {
+      "label": "control-130",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0082x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-131": {
+      "label": "control-131",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0083x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-132": {
+      "label": "control-132",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0084x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-133": {
+      "label": "control-133",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0085x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-134": {
+      "label": "control-134",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0086x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-135": {
+      "label": "control-135",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0087x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-136": {
+      "label": "control-136",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0088x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-137": {
+      "label": "control-137",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0089x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-138": {
+      "label": "control-138",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u008ax"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-139": {
+      "label": "control-139",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u008bx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-14": {
+      "label": "control-14",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u000ex"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-140": {
+      "label": "control-140",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u008cx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-141": {
+      "label": "control-141",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u008dx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-142": {
+      "label": "control-142",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u008ex"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-143": {
+      "label": "control-143",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u008fx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-144": {
+      "label": "control-144",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0090x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-145": {
+      "label": "control-145",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0091x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-146": {
+      "label": "control-146",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0092x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-147": {
+      "label": "control-147",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0093x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-148": {
+      "label": "control-148",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0094x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-149": {
+      "label": "control-149",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0095x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-15": {
+      "label": "control-15",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u000fx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-150": {
+      "label": "control-150",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0096x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-151": {
+      "label": "control-151",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0097x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-152": {
+      "label": "control-152",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0098x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-153": {
+      "label": "control-153",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0099x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-154": {
+      "label": "control-154",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u009ax"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-155": {
+      "label": "control-155",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u009bx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-156": {
+      "label": "control-156",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u009cx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-157": {
+      "label": "control-157",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u009dx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-158": {
+      "label": "control-158",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u009ex"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-159": {
+      "label": "control-159",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u009fx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-16": {
+      "label": "control-16",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0010x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-17": {
+      "label": "control-17",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0011x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-18": {
+      "label": "control-18",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0012x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-19": {
+      "label": "control-19",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0013x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-2": {
+      "label": "control-2",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0002x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-20": {
+      "label": "control-20",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0014x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-21": {
+      "label": "control-21",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0015x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-22": {
+      "label": "control-22",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0016x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-23": {
+      "label": "control-23",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0017x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-24": {
+      "label": "control-24",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0018x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-25": {
+      "label": "control-25",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0019x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-26": {
+      "label": "control-26",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u001ax"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-27": {
+      "label": "control-27",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u001bx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-28": {
+      "label": "control-28",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u001cx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-29": {
+      "label": "control-29",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u001dx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-3": {
+      "label": "control-3",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0003x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-30": {
+      "label": "control-30",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u001ex"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-31": {
+      "label": "control-31",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u001fx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-4": {
+      "label": "control-4",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0004x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-5": {
+      "label": "control-5",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0005x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-6": {
+      "label": "control-6",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0006x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-7": {
+      "label": "control-7",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\u0007x"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-8": {
+      "label": "control-8",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\bx"
+    },
+    "schema.common.posixabsolutehostpath.negative.control-9": {
+      "label": "control-9",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/synthetic.invalid/worktree\tx"
+    },
+    "schema.common.posixabsolutehostpath.negative.empty": {
+      "label": "empty",
+      "profile": "posixAbsoluteHostPath",
+      "value": ""
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-0": {
+      "label": "syntax-0",
+      "profile": "posixAbsoluteHostPath",
+      "value": "relative"
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-1": {
+      "label": "syntax-1",
+      "profile": "posixAbsoluteHostPath",
+      "value": "//srv"
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-2": {
+      "label": "syntax-2",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv//x"
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-3": {
+      "label": "syntax-3",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/"
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-4": {
+      "label": "syntax-4",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/."
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-5": {
+      "label": "syntax-5",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/.."
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-6": {
+      "label": "syntax-6",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/./x"
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-7": {
+      "label": "syntax-7",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv/../x"
+    },
+    "schema.common.posixabsolutehostpath.negative.syntax-8": {
+      "label": "syntax-8",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/srv\\x"
+    },
+    "schema.common.posixabsolutehostpath.negative.too-long": {
+      "label": "too-long",
+      "profile": "posixAbsoluteHostPath",
+      "value": "/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.profileidentifier.negative.empty-segment": {
+      "label": "empty-segment",
+      "profile": "profileIdentifier",
+      "value": "profile..a"
+    },
+    "schema.common.profileidentifier.negative.leading-hyphen": {
+      "label": "leading-hyphen",
+      "profile": "profileIdentifier",
+      "value": "profile.-a"
+    },
+    "schema.common.profileidentifier.negative.missing-segment": {
+      "label": "missing-segment",
+      "profile": "profileIdentifier",
+      "value": "profile."
+    },
+    "schema.common.profileidentifier.negative.segment-33": {
+      "label": "segment-33",
+      "profile": "profileIdentifier",
+      "value": "profile.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.profileidentifier.negative.total-161": {
+      "label": "total-161",
+      "profile": "profileIdentifier",
+      "value": "profile.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.profileidentifier.negative.trailing-hyphen": {
+      "label": "trailing-hyphen",
+      "profile": "profileIdentifier",
+      "value": "profile.a-"
+    },
+    "schema.common.profileidentifier.negative.trailing-newline": {
+      "label": "trailing-newline",
+      "profile": "profileIdentifier",
+      "value": "profile.a\n"
+    },
+    "schema.common.profileidentifier.negative.underscore": {
+      "label": "underscore",
+      "profile": "profileIdentifier",
+      "value": "profile.a_b"
+    },
+    "schema.common.profileidentifier.negative.uppercase": {
+      "label": "uppercase",
+      "profile": "profileIdentifier",
+      "value": "profile.A"
+    },
+    "schema.common.profileidentifier.negative.wrong-prefix": {
+      "label": "wrong-prefix",
+      "profile": "profileIdentifier",
+      "value": "synthetic.a"
+    },
+    "schema.common.reasoncode.negative.empty-segment": {
+      "label": "empty-segment",
+      "profile": "reasonCode",
+      "value": "reason..a"
+    },
+    "schema.common.reasoncode.negative.leading-hyphen": {
+      "label": "leading-hyphen",
+      "profile": "reasonCode",
+      "value": "reason.-a"
+    },
+    "schema.common.reasoncode.negative.missing-segment": {
+      "label": "missing-segment",
+      "profile": "reasonCode",
+      "value": "reason."
+    },
+    "schema.common.reasoncode.negative.segment-33": {
+      "label": "segment-33",
+      "profile": "reasonCode",
+      "value": "reason.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.reasoncode.negative.total-161": {
+      "label": "total-161",
+      "profile": "reasonCode",
+      "value": "reason.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.reasoncode.negative.trailing-hyphen": {
+      "label": "trailing-hyphen",
+      "profile": "reasonCode",
+      "value": "reason.a-"
+    },
+    "schema.common.reasoncode.negative.trailing-newline": {
+      "label": "trailing-newline",
+      "profile": "reasonCode",
+      "value": "reason.a\n"
+    },
+    "schema.common.reasoncode.negative.underscore": {
+      "label": "underscore",
+      "profile": "reasonCode",
+      "value": "reason.a_b"
+    },
+    "schema.common.reasoncode.negative.uppercase": {
+      "label": "uppercase",
+      "profile": "reasonCode",
+      "value": "reason.A"
+    },
+    "schema.common.reasoncode.negative.wrong-prefix": {
+      "label": "wrong-prefix",
+      "profile": "reasonCode",
+      "value": "synthetic.a"
+    },
+    "schema.common.receiptdeliveryoutcome.negative.null": {
+      "label": "null",
+      "profile": "receiptDeliveryOutcome",
+      "value": null
+    },
+    "schema.common.receiptdeliveryoutcome.negative.unknown": {
+      "label": "unknown",
+      "profile": "receiptDeliveryOutcome",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.receiptdeliveryoutcome.negative.wrong-case-failed": {
+      "label": "wrong-case-failed",
+      "profile": "receiptDeliveryOutcome",
+      "value": "FAILED"
+    },
+    "schema.common.receiptdeliveryoutcome.negative.wrong-case-indeterminate": {
+      "label": "wrong-case-indeterminate",
+      "profile": "receiptDeliveryOutcome",
+      "value": "INDETERMINATE"
+    },
+    "schema.common.receiptdeliveryoutcome.negative.wrong-case-not-attempted": {
+      "label": "wrong-case-not-attempted",
+      "profile": "receiptDeliveryOutcome",
+      "value": "NOT-ATTEMPTED"
+    },
+    "schema.common.receiptdeliveryoutcome.negative.wrong-case-succeeded": {
+      "label": "wrong-case-succeeded",
+      "profile": "receiptDeliveryOutcome",
+      "value": "SUCCEEDED"
+    },
+    "schema.common.redactioncount.negative.above": {
+      "label": "above",
+      "profile": "redactionCount",
+      "value": 4294967296
+    },
+    "schema.common.redactioncount.negative.below": {
+      "label": "below",
+      "profile": "redactionCount",
+      "value": -1
+    },
+    "schema.common.redactioncount.negative.bool": {
+      "label": "bool",
+      "profile": "redactionCount",
+      "value": true
+    },
+    "schema.common.redactioncount.negative.fraction": {
+      "label": "fraction",
+      "profile": "redactionCount",
+      "value": 0.5
+    },
+    "schema.common.redactioncount.negative.null": {
+      "label": "null",
+      "profile": "redactionCount",
+      "value": null
+    },
+    "schema.common.redactioncount.negative.string": {
+      "label": "string",
+      "profile": "redactionCount",
+      "value": "0"
+    },
+    "schema.common.refstate.negative.branch-missing-branchref": {
+      "label": "branch-missing-branchRef",
+      "profile": "refState",
+      "value": {
+        "state": "branch"
+      }
+    },
+    "schema.common.refstate.negative.branch-missing-ref": {
+      "label": "branch-missing-ref",
+      "profile": "refState",
+      "value": {
+        "state": "branch"
+      }
+    },
+    "schema.common.refstate.negative.branch-missing-state": {
+      "label": "branch-missing-state",
+      "profile": "refState",
+      "value": {
+        "branchRef": "refs/heads/synthetic"
+      }
+    },
+    "schema.common.refstate.negative.branch-unknown": {
+      "label": "branch-unknown",
+      "profile": "refState",
+      "value": {
+        "branchRef": "refs/heads/synthetic",
+        "state": "branch",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.refstate.negative.detached-missing-state": {
+      "label": "detached-missing-state",
+      "profile": "refState",
+      "value": {}
+    },
+    "schema.common.refstate.negative.detached-unknown": {
+      "label": "detached-unknown",
+      "profile": "refState",
+      "value": {
+        "state": "detached",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.refstate.negative.detached-with-ref": {
+      "label": "detached-with-ref",
+      "profile": "refState",
+      "value": {
+        "branchRef": "refs/heads/synthetic",
+        "state": "detached"
+      }
+    },
+    "schema.common.releaseoutcome.negative.null": {
+      "label": "null",
+      "profile": "releaseOutcome",
+      "value": null
+    },
+    "schema.common.releaseoutcome.negative.unknown": {
+      "label": "unknown",
+      "profile": "releaseOutcome",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.releaseoutcome.negative.wrong-case-failed": {
+      "label": "wrong-case-failed",
+      "profile": "releaseOutcome",
+      "value": "FAILED"
+    },
+    "schema.common.releaseoutcome.negative.wrong-case-indeterminate": {
+      "label": "wrong-case-indeterminate",
+      "profile": "releaseOutcome",
+      "value": "INDETERMINATE"
+    },
+    "schema.common.releaseoutcome.negative.wrong-case-not-required": {
+      "label": "wrong-case-not-required",
+      "profile": "releaseOutcome",
+      "value": "NOT-REQUIRED"
+    },
+    "schema.common.releaseoutcome.negative.wrong-case-succeeded": {
+      "label": "wrong-case-succeeded",
+      "profile": "releaseOutcome",
+      "value": "SUCCEEDED"
+    },
+    "schema.common.remotednshost.negative.host-0": {
+      "label": "host-0",
+      "profile": "remoteDnsHost",
+      "value": "Repo.invalid"
+    },
+    "schema.common.remotednshost.negative.host-1": {
+      "label": "host-1",
+      "profile": "remoteDnsHost",
+      "value": "localhost"
+    },
+    "schema.common.remotednshost.negative.host-10": {
+      "label": "host-10",
+      "profile": "remoteDnsHost",
+      "value": "repo.xn--invalid"
+    },
+    "schema.common.remotednshost.negative.host-11": {
+      "label": "host-11",
+      "profile": "remoteDnsHost",
+      "value": "\u4f8b.invalid"
+    },
+    "schema.common.remotednshost.negative.host-12": {
+      "label": "host-12",
+      "profile": "remoteDnsHost",
+      "value": "127.0.0.1"
+    },
+    "schema.common.remotednshost.negative.host-13": {
+      "label": "host-13",
+      "profile": "remoteDnsHost",
+      "value": "::1"
+    },
+    "schema.common.remotednshost.negative.host-14": {
+      "label": "host-14",
+      "profile": "remoteDnsHost",
+      "value": "[::1]"
+    },
+    "schema.common.remotednshost.negative.host-15": {
+      "label": "host-15",
+      "profile": "remoteDnsHost",
+      "value": "fe80::1%eth0"
+    },
+    "schema.common.remotednshost.negative.host-16": {
+      "label": "host-16",
+      "profile": "remoteDnsHost",
+      "value": "user@repo.invalid"
+    },
+    "schema.common.remotednshost.negative.host-17": {
+      "label": "host-17",
+      "profile": "remoteDnsHost",
+      "value": "https://repo.invalid"
+    },
+    "schema.common.remotednshost.negative.host-18": {
+      "label": "host-18",
+      "profile": "remoteDnsHost",
+      "value": "repo.invalid\n"
+    },
+    "schema.common.remotednshost.negative.host-19": {
+      "label": "host-19",
+      "profile": "remoteDnsHost",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.invalid"
+    },
+    "schema.common.remotednshost.negative.host-2": {
+      "label": "host-2",
+      "profile": "remoteDnsHost",
+      "value": "synthetic"
+    },
+    "schema.common.remotednshost.negative.host-20": {
+      "label": "host-20",
+      "profile": "remoteDnsHost",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "schema.common.remotednshost.negative.host-3": {
+      "label": "host-3",
+      "profile": "remoteDnsHost",
+      "value": ".repo.invalid"
+    },
+    "schema.common.remotednshost.negative.host-4": {
+      "label": "host-4",
+      "profile": "remoteDnsHost",
+      "value": "repo.invalid."
+    },
+    "schema.common.remotednshost.negative.host-5": {
+      "label": "host-5",
+      "profile": "remoteDnsHost",
+      "value": "repo..invalid"
+    },
+    "schema.common.remotednshost.negative.host-6": {
+      "label": "host-6",
+      "profile": "remoteDnsHost",
+      "value": "-repo.invalid"
+    },
+    "schema.common.remotednshost.negative.host-7": {
+      "label": "host-7",
+      "profile": "remoteDnsHost",
+      "value": "repo-.invalid"
+    },
+    "schema.common.remotednshost.negative.host-8": {
+      "label": "host-8",
+      "profile": "remoteDnsHost",
+      "value": "re_po.invalid"
+    },
+    "schema.common.remotednshost.negative.host-9": {
+      "label": "host-9",
+      "profile": "remoteDnsHost",
+      "value": "xn--synthetic.invalid"
+    },
+    "schema.common.remotednshost.negative.ipv4-decimal-three-part-16-bit-tail": {
+      "label": "ipv4-decimal-three-part-16-bit-tail",
+      "profile": "remoteDnsHost",
+      "value": "1.0.256"
+    },
+    "schema.common.remotednshost.negative.ipv4-decimal-two-part-16-bit-tail": {
+      "label": "ipv4-decimal-two-part-16-bit-tail",
+      "profile": "remoteDnsHost",
+      "value": "1.256"
+    },
+    "schema.common.remotednshost.negative.ipv4-decimal-two-part-24-bit-tail": {
+      "label": "ipv4-decimal-two-part-24-bit-tail",
+      "profile": "remoteDnsHost",
+      "value": "1.65536"
+    },
+    "schema.common.remotednshost.negative.ipv4-hex-four-part": {
+      "label": "ipv4-hex-four-part",
+      "profile": "remoteDnsHost",
+      "value": "0x7f.0x0.0x0.0x1"
+    },
+    "schema.common.remotednshost.negative.ipv4-hex-label-63": {
+      "label": "ipv4-hex-label-63",
+      "profile": "remoteDnsHost",
+      "value": "0x000000000000000000000000000000000000000000000000000000000007f.1"
+    },
+    "schema.common.remotednshost.negative.ipv4-hex-three-part": {
+      "label": "ipv4-hex-three-part",
+      "profile": "remoteDnsHost",
+      "value": "0x7f.0x0.0x1"
+    },
+    "schema.common.remotednshost.negative.ipv4-hex-two-part": {
+      "label": "ipv4-hex-two-part",
+      "profile": "remoteDnsHost",
+      "value": "0x7f.0x1"
+    },
+    "schema.common.remotednshost.negative.ipv4-hex-zero-padding": {
+      "label": "ipv4-hex-zero-padding",
+      "profile": "remoteDnsHost",
+      "value": "0x0007f.0x000001"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-decimal-2-part": {
+      "label": "ipv4-maximum-decimal-2-part",
+      "profile": "remoteDnsHost",
+      "value": "255.16777215"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-decimal-3-part": {
+      "label": "ipv4-maximum-decimal-3-part",
+      "profile": "remoteDnsHost",
+      "value": "255.255.65535"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-decimal-4-part": {
+      "label": "ipv4-maximum-decimal-4-part",
+      "profile": "remoteDnsHost",
+      "value": "255.255.255.255"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-hex-2-part": {
+      "label": "ipv4-maximum-hex-2-part",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0xffffff"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-hex-3-part": {
+      "label": "ipv4-maximum-hex-3-part",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0xff.0xffff"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-hex-4-part": {
+      "label": "ipv4-maximum-hex-4-part",
+      "profile": "remoteDnsHost",
+      "value": "0xff.0xff.0xff.0xff"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-octal-2-part": {
+      "label": "ipv4-maximum-octal-2-part",
+      "profile": "remoteDnsHost",
+      "value": "0377.077777777"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-octal-3-part": {
+      "label": "ipv4-maximum-octal-3-part",
+      "profile": "remoteDnsHost",
+      "value": "0377.0377.0177777"
+    },
+    "schema.common.remotednshost.negative.ipv4-maximum-octal-4-part": {
+      "label": "ipv4-maximum-octal-4-part",
+      "profile": "remoteDnsHost",
+      "value": "0377.0377.0377.0377"
+    },
+    "schema.common.remotednshost.negative.ipv4-mixed-four-part": {
+      "label": "ipv4-mixed-four-part",
+      "profile": "remoteDnsHost",
+      "value": "127.00.0x0.01"
+    },
+    "schema.common.remotednshost.negative.ipv4-mixed-hex-octal-decimal": {
+      "label": "ipv4-mixed-hex-octal-decimal",
+      "profile": "remoteDnsHost",
+      "value": "0x7f.00.1"
+    },
+    "schema.common.remotednshost.negative.ipv4-mixed-octal-decimal-hex": {
+      "label": "ipv4-mixed-octal-decimal-hex",
+      "profile": "remoteDnsHost",
+      "value": "0177.0.0x1"
+    },
+    "schema.common.remotednshost.negative.ipv4-octal-four-part": {
+      "label": "ipv4-octal-four-part",
+      "profile": "remoteDnsHost",
+      "value": "0177.0.0.01"
+    },
+    "schema.common.remotednshost.negative.ipv4-octal-label-63": {
+      "label": "ipv4-octal-label-63",
+      "profile": "remoteDnsHost",
+      "value": "000000000000000000000000000000000000000000000000000000000000177.1"
+    },
+    "schema.common.remotednshost.negative.ipv4-octal-tail-63": {
+      "label": "ipv4-octal-tail-63",
+      "profile": "remoteDnsHost",
+      "value": "1.000000000000000000000000000000000000000000000000000000000000001"
+    },
+    "schema.common.remotednshost.negative.ipv4-octal-three-part": {
+      "label": "ipv4-octal-three-part",
+      "profile": "remoteDnsHost",
+      "value": "0177.00.01"
+    },
+    "schema.common.remotednshost.negative.ipv4-octal-zero-padding": {
+      "label": "ipv4-octal-zero-padding",
+      "profile": "remoteDnsHost",
+      "value": "000177.000001"
+    },
+    "schema.common.remotednshost.negative.ipv4-review-decimal-three-part": {
+      "label": "ipv4-review-decimal-three-part",
+      "profile": "remoteDnsHost",
+      "value": "127.0.1"
+    },
+    "schema.common.remotednshost.negative.ipv4-review-decimal-two-part": {
+      "label": "ipv4-review-decimal-two-part",
+      "profile": "remoteDnsHost",
+      "value": "127.1"
+    },
+    "schema.common.remotednshost.negative.ipv4-review-hex-two-part": {
+      "label": "ipv4-review-hex-two-part",
+      "profile": "remoteDnsHost",
+      "value": "0x7f.1"
+    },
+    "schema.common.remotednshost.negative.ipv4-review-octal-two-part": {
+      "label": "ipv4-review-octal-two-part",
+      "profile": "remoteDnsHost",
+      "value": "0177.1"
+    },
+    "schema.common.remotednshost.negative.ipv4-single-decimal": {
+      "label": "ipv4-single-decimal",
+      "profile": "remoteDnsHost",
+      "value": "2130706433"
+    },
+    "schema.common.remotednshost.negative.ipv4-single-hex": {
+      "label": "ipv4-single-hex",
+      "profile": "remoteDnsHost",
+      "value": "0x7f000001"
+    },
+    "schema.common.remotednshost.negative.ipv4-single-octal": {
+      "label": "ipv4-single-octal",
+      "profile": "remoteDnsHost",
+      "value": "017700000001"
+    },
+    "schema.common.remotednshost.negative.ipv4-zero-four-part": {
+      "label": "ipv4-zero-four-part",
+      "profile": "remoteDnsHost",
+      "value": "0.0.0.0"
+    },
+    "schema.common.remotednshost.negative.ipv4-zero-host-253": {
+      "label": "ipv4-zero-host-253",
+      "profile": "remoteDnsHost",
+      "value": "000000000000000000000000000000000000000000000000000000000000000.000000000000000000000000000000000000000000000000000000000000000.000000000000000000000000000000000000000000000000000000000000000.0000000000000000000000000000000000000000000000000000000000000"
+    },
+    "schema.common.remotednshost.negative.ipv4-zero-three-part": {
+      "label": "ipv4-zero-three-part",
+      "profile": "remoteDnsHost",
+      "value": "0.0.0"
+    },
+    "schema.common.remotednshost.negative.ipv4-zero-two-part": {
+      "label": "ipv4-zero-two-part",
+      "profile": "remoteDnsHost",
+      "value": "0.0"
+    },
+    "schema.common.remoteexpectation.negative.closed-missing-acceptedremotes": {
+      "label": "closed-missing-acceptedRemotes",
+      "profile": "remoteExpectation",
+      "value": {
+        "remoteName": "origin"
+      }
+    },
+    "schema.common.remoteexpectation.negative.closed-missing-remotename": {
+      "label": "closed-missing-remoteName",
+      "profile": "remoteExpectation",
+      "value": {
+        "acceptedRemotes": [
+          {
+            "host": "repo.invalid",
+            "namespace": [
+              "synthetic"
+            ],
+            "repository": "governance",
+            "transport": "https"
+          }
+        ]
+      }
+    },
+    "schema.common.remoteexpectation.negative.closed-unknown": {
+      "label": "closed-unknown",
+      "profile": "remoteExpectation",
+      "value": {
+        "acceptedRemotes": [
+          {
+            "host": "repo.invalid",
+            "namespace": [
+              "synthetic"
+            ],
+            "repository": "governance",
+            "transport": "https"
+          }
+        ],
+        "remoteName": "origin",
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.remoteexpectation.negative.empty-remotes": {
+      "label": "empty-remotes",
+      "profile": "remoteExpectation",
+      "value": {
+        "acceptedRemotes": [],
+        "remoteName": "origin"
+      }
+    },
+    "schema.common.remotenamespace.negative.bad-item": {
+      "label": "bad-item",
+      "profile": "remoteNamespace",
+      "value": [
+        "A"
+      ]
+    },
+    "schema.common.remotenamespace.negative.empty": {
+      "label": "empty",
+      "profile": "remoteNamespace",
+      "value": []
+    },
+    "schema.common.remotenamespace.negative.too-many": {
+      "label": "too-many",
+      "profile": "remoteNamespace",
+      "value": [
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a",
+        "a"
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-0": {
+      "label": "component-0",
+      "profile": "remoteNamespaceComponent",
+      "value": ""
+    },
+    "schema.common.remotenamespacecomponent.negative.component-1": {
+      "label": "component-1",
+      "profile": "remoteNamespaceComponent",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-10": {
+      "label": "component-10",
+      "profile": "remoteNamespaceComponent",
+      "value": "a\\b"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-11": {
+      "label": "component-11",
+      "profile": "remoteNamespaceComponent",
+      "value": "A"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-12": {
+      "label": "component-12",
+      "profile": "remoteNamespaceComponent",
+      "value": "\u4f8b"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-13": {
+      "label": "component-13",
+      "profile": "remoteNamespaceComponent",
+      "value": "a b"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-14": {
+      "label": "component-14",
+      "profile": "remoteNamespaceComponent",
+      "value": "a\n"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-2": {
+      "label": "component-2",
+      "profile": "remoteNamespaceComponent",
+      "value": "."
+    },
+    "schema.common.remotenamespacecomponent.negative.component-3": {
+      "label": "component-3",
+      "profile": "remoteNamespaceComponent",
+      "value": ".."
+    },
+    "schema.common.remotenamespacecomponent.negative.component-4": {
+      "label": "component-4",
+      "profile": "remoteNamespaceComponent",
+      "value": "a..b"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-5": {
+      "label": "component-5",
+      "profile": "remoteNamespaceComponent",
+      "value": ".a"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-6": {
+      "label": "component-6",
+      "profile": "remoteNamespaceComponent",
+      "value": "a."
+    },
+    "schema.common.remotenamespacecomponent.negative.component-7": {
+      "label": "component-7",
+      "profile": "remoteNamespaceComponent",
+      "value": "-a"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-8": {
+      "label": "component-8",
+      "profile": "remoteNamespaceComponent",
+      "value": "a-"
+    },
+    "schema.common.remotenamespacecomponent.negative.component-9": {
+      "label": "component-9",
+      "profile": "remoteNamespaceComponent",
+      "value": "a/b"
+    },
+    "schema.common.remoteport.negative.above": {
+      "label": "above",
+      "profile": "remotePort",
+      "value": 65536
+    },
+    "schema.common.remoteport.negative.below": {
+      "label": "below",
+      "profile": "remotePort",
+      "value": 0
+    },
+    "schema.common.remoteport.negative.bool": {
+      "label": "bool",
+      "profile": "remotePort",
+      "value": true
+    },
+    "schema.common.remoteport.negative.fraction": {
+      "label": "fraction",
+      "profile": "remotePort",
+      "value": 0.5
+    },
+    "schema.common.remoteport.negative.null": {
+      "label": "null",
+      "profile": "remotePort",
+      "value": null
+    },
+    "schema.common.remoteport.negative.string": {
+      "label": "string",
+      "profile": "remotePort",
+      "value": "1"
+    },
+    "schema.common.remoterepositoryname.negative.component-0": {
+      "label": "component-0",
+      "profile": "remoteRepositoryName",
+      "value": ""
+    },
+    "schema.common.remoterepositoryname.negative.component-1": {
+      "label": "component-1",
+      "profile": "remoteRepositoryName",
+      "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.remoterepositoryname.negative.component-10": {
+      "label": "component-10",
+      "profile": "remoteRepositoryName",
+      "value": "a\\b"
+    },
+    "schema.common.remoterepositoryname.negative.component-11": {
+      "label": "component-11",
+      "profile": "remoteRepositoryName",
+      "value": "A"
+    },
+    "schema.common.remoterepositoryname.negative.component-12": {
+      "label": "component-12",
+      "profile": "remoteRepositoryName",
+      "value": "\u4f8b"
+    },
+    "schema.common.remoterepositoryname.negative.component-13": {
+      "label": "component-13",
+      "profile": "remoteRepositoryName",
+      "value": "a b"
+    },
+    "schema.common.remoterepositoryname.negative.component-14": {
+      "label": "component-14",
+      "profile": "remoteRepositoryName",
+      "value": "a\n"
+    },
+    "schema.common.remoterepositoryname.negative.component-2": {
+      "label": "component-2",
+      "profile": "remoteRepositoryName",
+      "value": "."
+    },
+    "schema.common.remoterepositoryname.negative.component-3": {
+      "label": "component-3",
+      "profile": "remoteRepositoryName",
+      "value": ".."
+    },
+    "schema.common.remoterepositoryname.negative.component-4": {
+      "label": "component-4",
+      "profile": "remoteRepositoryName",
+      "value": "a..b"
+    },
+    "schema.common.remoterepositoryname.negative.component-5": {
+      "label": "component-5",
+      "profile": "remoteRepositoryName",
+      "value": ".a"
+    },
+    "schema.common.remoterepositoryname.negative.component-6": {
+      "label": "component-6",
+      "profile": "remoteRepositoryName",
+      "value": "a."
+    },
+    "schema.common.remoterepositoryname.negative.component-7": {
+      "label": "component-7",
+      "profile": "remoteRepositoryName",
+      "value": "-a"
+    },
+    "schema.common.remoterepositoryname.negative.component-8": {
+      "label": "component-8",
+      "profile": "remoteRepositoryName",
+      "value": "a-"
+    },
+    "schema.common.remoterepositoryname.negative.component-9": {
+      "label": "component-9",
+      "profile": "remoteRepositoryName",
+      "value": "a/b"
+    },
+    "schema.common.remoterepositoryname.negative.git-suffix": {
+      "label": "git-suffix",
+      "profile": "remoteRepositoryName",
+      "value": "synthetic.git"
+    },
+    "schema.common.repositoryidentity.negative.closed-missing-acceptedremotes": {
+      "label": "closed-missing-acceptedRemotes",
+      "profile": "repositoryIdentity",
+      "value": {}
+    },
+    "schema.common.repositoryidentity.negative.closed-unknown": {
+      "label": "closed-unknown",
+      "profile": "repositoryIdentity",
+      "value": {
+        "acceptedRemotes": [
+          {
+            "host": "repo.invalid",
+            "namespace": [
+              "synthetic"
+            ],
+            "repository": "governance",
+            "transport": "https"
+          }
+        ],
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.repositoryidentity.negative.empty-remotes": {
+      "label": "empty-remotes",
+      "profile": "repositoryIdentity",
+      "value": {
+        "acceptedRemotes": []
+      }
+    },
+    "schema.common.repositoryrelativepath.negative.path-0": {
+      "label": "path-0",
+      "profile": "repositoryRelativePath",
+      "value": ""
+    },
+    "schema.common.repositoryrelativepath.negative.path-1": {
+      "label": "path-1",
+      "profile": "repositoryRelativePath",
+      "value": "/src/a"
+    },
+    "schema.common.repositoryrelativepath.negative.path-10": {
+      "label": "path-10",
+      "profile": "repositoryRelativePath",
+      "value": "../src"
+    },
+    "schema.common.repositoryrelativepath.negative.path-11": {
+      "label": "path-11",
+      "profile": "repositoryRelativePath",
+      "value": "src/./a"
+    },
+    "schema.common.repositoryrelativepath.negative.path-12": {
+      "label": "path-12",
+      "profile": "repositoryRelativePath",
+      "value": "src/../a"
+    },
+    "schema.common.repositoryrelativepath.negative.path-13": {
+      "label": "path-13",
+      "profile": "repositoryRelativePath",
+      "value": "src/."
+    },
+    "schema.common.repositoryrelativepath.negative.path-14": {
+      "label": "path-14",
+      "profile": "repositoryRelativePath",
+      "value": "src/.."
+    },
+    "schema.common.repositoryrelativepath.negative.path-15": {
+      "label": "path-15",
+      "profile": "repositoryRelativePath",
+      "value": ".git"
+    },
+    "schema.common.repositoryrelativepath.negative.path-16": {
+      "label": "path-16",
+      "profile": "repositoryRelativePath",
+      "value": ".git/config"
+    },
+    "schema.common.repositoryrelativepath.negative.path-17": {
+      "label": "path-17",
+      "profile": "repositoryRelativePath",
+      "value": ".git/hooks/pre-commit"
+    },
+    "schema.common.repositoryrelativepath.negative.path-18": {
+      "label": "path-18",
+      "profile": "repositoryRelativePath",
+      "value": ".git/worktrees/x/HEAD"
+    },
+    "schema.common.repositoryrelativepath.negative.path-19": {
+      "label": "path-19",
+      "profile": "repositoryRelativePath",
+      "value": "foo/.git"
+    },
+    "schema.common.repositoryrelativepath.negative.path-2": {
+      "label": "path-2",
+      "profile": "repositoryRelativePath",
+      "value": "C:relative"
+    },
+    "schema.common.repositoryrelativepath.negative.path-20": {
+      "label": "path-20",
+      "profile": "repositoryRelativePath",
+      "value": "foo/.git/config"
+    },
+    "schema.common.repositoryrelativepath.negative.path-21": {
+      "label": "path-21",
+      "profile": "repositoryRelativePath",
+      "value": "nested/repository/.git/HEAD"
+    },
+    "schema.common.repositoryrelativepath.negative.path-22": {
+      "label": "path-22",
+      "profile": "repositoryRelativePath",
+      "value": "src/\u0000a"
+    },
+    "schema.common.repositoryrelativepath.negative.path-23": {
+      "label": "path-23",
+      "profile": "repositoryRelativePath",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "schema.common.repositoryrelativepath.negative.path-3": {
+      "label": "path-3",
+      "profile": "repositoryRelativePath",
+      "value": "C:/synthetic"
+    },
+    "schema.common.repositoryrelativepath.negative.path-4": {
+      "label": "path-4",
+      "profile": "repositoryRelativePath",
+      "value": "src\\a"
+    },
+    "schema.common.repositoryrelativepath.negative.path-5": {
+      "label": "path-5",
+      "profile": "repositoryRelativePath",
+      "value": "src//a"
+    },
+    "schema.common.repositoryrelativepath.negative.path-6": {
+      "label": "path-6",
+      "profile": "repositoryRelativePath",
+      "value": "src/"
+    },
+    "schema.common.repositoryrelativepath.negative.path-7": {
+      "label": "path-7",
+      "profile": "repositoryRelativePath",
+      "value": "."
+    },
+    "schema.common.repositoryrelativepath.negative.path-8": {
+      "label": "path-8",
+      "profile": "repositoryRelativePath",
+      "value": ".."
+    },
+    "schema.common.repositoryrelativepath.negative.path-9": {
+      "label": "path-9",
+      "profile": "repositoryRelativePath",
+      "value": "./src"
+    },
+    "schema.common.routingpriority.negative.above": {
+      "label": "above",
+      "profile": "routingPriority",
+      "value": 1001
+    },
+    "schema.common.routingpriority.negative.below": {
+      "label": "below",
+      "profile": "routingPriority",
+      "value": -1
+    },
+    "schema.common.routingpriority.negative.bool": {
+      "label": "bool",
+      "profile": "routingPriority",
+      "value": true
+    },
+    "schema.common.routingpriority.negative.fraction": {
+      "label": "fraction",
+      "profile": "routingPriority",
+      "value": 0.5
+    },
+    "schema.common.routingpriority.negative.null": {
+      "label": "null",
+      "profile": "routingPriority",
+      "value": null
+    },
+    "schema.common.routingpriority.negative.string": {
+      "label": "string",
+      "profile": "routingPriority",
+      "value": "0"
+    },
+    "schema.common.sanitizedsummary.negative.control-0": {
+      "label": "control-0",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0000"
+    },
+    "schema.common.sanitizedsummary.negative.control-1": {
+      "label": "control-1",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0001"
+    },
+    "schema.common.sanitizedsummary.negative.control-10": {
+      "label": "control-10",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\n"
+    },
+    "schema.common.sanitizedsummary.negative.control-11": {
+      "label": "control-11",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u000b"
+    },
+    "schema.common.sanitizedsummary.negative.control-12": {
+      "label": "control-12",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\f"
+    },
+    "schema.common.sanitizedsummary.negative.control-127": {
+      "label": "control-127",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u007f"
+    },
+    "schema.common.sanitizedsummary.negative.control-13": {
+      "label": "control-13",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\r"
+    },
+    "schema.common.sanitizedsummary.negative.control-14": {
+      "label": "control-14",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u000e"
+    },
+    "schema.common.sanitizedsummary.negative.control-15": {
+      "label": "control-15",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u000f"
+    },
+    "schema.common.sanitizedsummary.negative.control-16": {
+      "label": "control-16",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0010"
+    },
+    "schema.common.sanitizedsummary.negative.control-17": {
+      "label": "control-17",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0011"
+    },
+    "schema.common.sanitizedsummary.negative.control-18": {
+      "label": "control-18",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0012"
+    },
+    "schema.common.sanitizedsummary.negative.control-19": {
+      "label": "control-19",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0013"
+    },
+    "schema.common.sanitizedsummary.negative.control-2": {
+      "label": "control-2",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0002"
+    },
+    "schema.common.sanitizedsummary.negative.control-20": {
+      "label": "control-20",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0014"
+    },
+    "schema.common.sanitizedsummary.negative.control-21": {
+      "label": "control-21",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0015"
+    },
+    "schema.common.sanitizedsummary.negative.control-22": {
+      "label": "control-22",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0016"
+    },
+    "schema.common.sanitizedsummary.negative.control-23": {
+      "label": "control-23",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0017"
+    },
+    "schema.common.sanitizedsummary.negative.control-24": {
+      "label": "control-24",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0018"
+    },
+    "schema.common.sanitizedsummary.negative.control-25": {
+      "label": "control-25",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0019"
+    },
+    "schema.common.sanitizedsummary.negative.control-26": {
+      "label": "control-26",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u001a"
+    },
+    "schema.common.sanitizedsummary.negative.control-27": {
+      "label": "control-27",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u001b"
+    },
+    "schema.common.sanitizedsummary.negative.control-28": {
+      "label": "control-28",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u001c"
+    },
+    "schema.common.sanitizedsummary.negative.control-29": {
+      "label": "control-29",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u001d"
+    },
+    "schema.common.sanitizedsummary.negative.control-3": {
+      "label": "control-3",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0003"
+    },
+    "schema.common.sanitizedsummary.negative.control-30": {
+      "label": "control-30",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u001e"
+    },
+    "schema.common.sanitizedsummary.negative.control-31": {
+      "label": "control-31",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u001f"
+    },
+    "schema.common.sanitizedsummary.negative.control-4": {
+      "label": "control-4",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0004"
+    },
+    "schema.common.sanitizedsummary.negative.control-5": {
+      "label": "control-5",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0005"
+    },
+    "schema.common.sanitizedsummary.negative.control-6": {
+      "label": "control-6",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0006"
+    },
+    "schema.common.sanitizedsummary.negative.control-7": {
+      "label": "control-7",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\u0007"
+    },
+    "schema.common.sanitizedsummary.negative.control-8": {
+      "label": "control-8",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\b"
+    },
+    "schema.common.sanitizedsummary.negative.control-9": {
+      "label": "control-9",
+      "profile": "sanitizedSummary",
+      "value": "synthetic\t"
+    },
+    "schema.common.sanitizedsummary.negative.empty": {
+      "label": "empty",
+      "profile": "sanitizedSummary",
+      "value": ""
+    },
+    "schema.common.sanitizedsummary.negative.too-long": {
+      "label": "too-long",
+      "profile": "sanitizedSummary",
+      "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "schema.common.sanitizedsummary.negative.wrong-type": {
+      "label": "wrong-type",
+      "profile": "sanitizedSummary",
+      "value": []
+    },
+    "schema.common.scope.negative.closed-missing-capabilities": {
+      "label": "closed-missing-capabilities",
+      "profile": "scope",
+      "value": {
+        "paths": [
+          "src/**"
+        ]
+      }
+    },
+    "schema.common.scope.negative.closed-missing-paths": {
+      "label": "closed-missing-paths",
+      "profile": "scope",
+      "value": {
+        "capabilities": [
+          "inspect"
+        ]
+      }
+    },
+    "schema.common.scope.negative.closed-unknown": {
+      "label": "closed-unknown",
+      "profile": "scope",
+      "value": {
+        "capabilities": [
+          "inspect"
+        ],
+        "paths": [
+          "src/**"
+        ],
+        "syntheticExtra": true
+      }
+    },
+    "schema.common.scope.negative.duplicate-paths": {
+      "label": "duplicate-paths",
+      "profile": "scope",
+      "value": {
+        "capabilities": [],
+        "paths": [
+          "src/**",
+          "src/**"
+        ]
+      }
+    },
+    "schema.common.sequence.negative.above": {
+      "label": "above",
+      "profile": "sequence",
+      "value": 4096
+    },
+    "schema.common.sequence.negative.below": {
+      "label": "below",
+      "profile": "sequence",
+      "value": -1
+    },
+    "schema.common.sequence.negative.bool": {
+      "label": "bool",
+      "profile": "sequence",
+      "value": true
+    },
+    "schema.common.sequence.negative.fraction": {
+      "label": "fraction",
+      "profile": "sequence",
+      "value": 0.5
+    },
+    "schema.common.sequence.negative.null": {
+      "label": "null",
+      "profile": "sequence",
+      "value": null
+    },
+    "schema.common.sequence.negative.string": {
+      "label": "string",
+      "profile": "sequence",
+      "value": "0"
+    },
+    "schema.common.structuredremote.negative.closed-missing-host": {
+      "label": "closed-missing-host",
+      "profile": "structuredRemote",
+      "value": {
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.closed-missing-namespace": {
+      "label": "closed-missing-namespace",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.closed-missing-repository": {
+      "label": "closed-missing-repository",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.closed-missing-transport": {
+      "label": "closed-missing-transport",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance"
+      }
+    },
+    "schema.common.structuredremote.negative.closed-unknown": {
+      "label": "closed-unknown",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "syntheticExtra": true,
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.https-explicit-default": {
+      "label": "https-explicit-default",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 443,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.port-bool": {
+      "label": "port-bool",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": true,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.port-fraction": {
+      "label": "port-fraction",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 1.5,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.port-negative": {
+      "label": "port-negative",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": -1,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.port-string": {
+      "label": "port-string",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": "8443",
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.port-too-large": {
+      "label": "port-too-large",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 65536,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.port-zero": {
+      "label": "port-zero",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 0,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.common.structuredremote.negative.ssh-explicit-default": {
+      "label": "ssh-explicit-default",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 22,
+        "repository": "governance",
+        "transport": "ssh"
+      }
+    },
+    "schema.common.structuredremote.negative.transport": {
+      "label": "transport",
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "git"
+      }
+    },
+    "schema.common.taggeddigest.negative.long": {
+      "label": "long",
+      "profile": "taggedDigest",
+      "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.taggeddigest.negative.newline": {
+      "label": "newline",
+      "profile": "taggedDigest",
+      "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
+    },
+    "schema.common.taggeddigest.negative.non-hex": {
+      "label": "non-hex",
+      "profile": "taggedDigest",
+      "value": "sha256:gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+    },
+    "schema.common.taggeddigest.negative.short": {
+      "label": "short",
+      "profile": "taggedDigest",
+      "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.taggeddigest.negative.uppercase": {
+      "label": "uppercase",
+      "profile": "taggedDigest",
+      "value": "sha256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "schema.common.taggeddigest.negative.wrong-tag": {
+      "label": "wrong-tag",
+      "profile": "taggedDigest",
+      "value": "sha1:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "schema.common.verificationoutcome.negative.null": {
+      "label": "null",
+      "profile": "verificationOutcome",
+      "value": null
+    },
+    "schema.common.verificationoutcome.negative.unknown": {
+      "label": "unknown",
+      "profile": "verificationOutcome",
+      "value": "synthetic-unknown"
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-failed": {
+      "label": "wrong-case-failed",
+      "profile": "verificationOutcome",
+      "value": "FAILED"
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-indeterminate": {
+      "label": "wrong-case-indeterminate",
+      "profile": "verificationOutcome",
+      "value": "INDETERMINATE"
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-not-performed": {
+      "label": "wrong-case-not-performed",
+      "profile": "verificationOutcome",
+      "value": "NOT-PERFORMED"
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-passed": {
+      "label": "wrong-case-passed",
+      "profile": "verificationOutcome",
+      "value": "PASSED"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-0": {
+      "label": "control-0",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0000x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-1": {
+      "label": "control-1",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0001x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-10": {
+      "label": "control-10",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\nx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-11": {
+      "label": "control-11",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u000bx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-12": {
+      "label": "control-12",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\fx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-127": {
+      "label": "control-127",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u007fx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-128": {
+      "label": "control-128",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0080x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-129": {
+      "label": "control-129",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0081x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-13": {
+      "label": "control-13",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\rx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-130": {
+      "label": "control-130",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0082x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-131": {
+      "label": "control-131",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0083x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-132": {
+      "label": "control-132",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0084x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-133": {
+      "label": "control-133",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0085x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-134": {
+      "label": "control-134",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0086x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-135": {
+      "label": "control-135",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0087x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-136": {
+      "label": "control-136",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0088x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-137": {
+      "label": "control-137",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0089x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-138": {
+      "label": "control-138",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u008ax"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-139": {
+      "label": "control-139",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u008bx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-14": {
+      "label": "control-14",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u000ex"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-140": {
+      "label": "control-140",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u008cx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-141": {
+      "label": "control-141",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u008dx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-142": {
+      "label": "control-142",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u008ex"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-143": {
+      "label": "control-143",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u008fx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-144": {
+      "label": "control-144",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0090x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-145": {
+      "label": "control-145",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0091x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-146": {
+      "label": "control-146",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0092x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-147": {
+      "label": "control-147",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0093x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-148": {
+      "label": "control-148",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0094x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-149": {
+      "label": "control-149",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0095x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-15": {
+      "label": "control-15",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u000fx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-150": {
+      "label": "control-150",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0096x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-151": {
+      "label": "control-151",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0097x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-152": {
+      "label": "control-152",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0098x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-153": {
+      "label": "control-153",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0099x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-154": {
+      "label": "control-154",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u009ax"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-155": {
+      "label": "control-155",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u009bx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-156": {
+      "label": "control-156",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u009cx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-157": {
+      "label": "control-157",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u009dx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-158": {
+      "label": "control-158",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u009ex"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-159": {
+      "label": "control-159",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u009fx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-16": {
+      "label": "control-16",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0010x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-17": {
+      "label": "control-17",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0011x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-18": {
+      "label": "control-18",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0012x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-19": {
+      "label": "control-19",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0013x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-2": {
+      "label": "control-2",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0002x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-20": {
+      "label": "control-20",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0014x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-21": {
+      "label": "control-21",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0015x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-22": {
+      "label": "control-22",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0016x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-23": {
+      "label": "control-23",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0017x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-24": {
+      "label": "control-24",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0018x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-25": {
+      "label": "control-25",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0019x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-26": {
+      "label": "control-26",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u001ax"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-27": {
+      "label": "control-27",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u001bx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-28": {
+      "label": "control-28",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u001cx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-29": {
+      "label": "control-29",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u001dx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-3": {
+      "label": "control-3",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0003x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-30": {
+      "label": "control-30",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u001ex"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-31": {
+      "label": "control-31",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u001fx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-4": {
+      "label": "control-4",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0004x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-5": {
+      "label": "control-5",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0005x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-6": {
+      "label": "control-6",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0006x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-7": {
+      "label": "control-7",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\u0007x"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-8": {
+      "label": "control-8",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\bx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.control-9": {
+      "label": "control-9",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic.Invalid\\Worktree\tx"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-aux": {
+      "label": "device-AUX",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\AUX"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-aux-log": {
+      "label": "device-AUX.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\aux.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-aux-txt": {
+      "label": "device-AUX.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\aux.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-clock": {
+      "label": "device-CLOCK$",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\CLOCK$"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-clock-log": {
+      "label": "device-CLOCK$.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\clock$.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-clock-txt": {
+      "label": "device-CLOCK$.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\clock$.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com1": {
+      "label": "device-COM1",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM1"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com1-log": {
+      "label": "device-COM1.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com1.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com1-txt": {
+      "label": "device-COM1.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com1.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com2": {
+      "label": "device-COM2",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM2"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com2-log": {
+      "label": "device-COM2.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com2.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com2-txt": {
+      "label": "device-COM2.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com2.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com3": {
+      "label": "device-COM3",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM3"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com3-log": {
+      "label": "device-COM3.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com3.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com3-txt": {
+      "label": "device-COM3.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com3.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com4": {
+      "label": "device-COM4",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM4"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com4-log": {
+      "label": "device-COM4.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com4.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com4-txt": {
+      "label": "device-COM4.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com4.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com5": {
+      "label": "device-COM5",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM5"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com5-log": {
+      "label": "device-COM5.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com5.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com5-txt": {
+      "label": "device-COM5.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com5.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com6": {
+      "label": "device-COM6",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM6"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com6-log": {
+      "label": "device-COM6.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com6.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com6-txt": {
+      "label": "device-COM6.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com6.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com7": {
+      "label": "device-COM7",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM7"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com7-log": {
+      "label": "device-COM7.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com7.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com7-txt": {
+      "label": "device-COM7.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com7.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com8": {
+      "label": "device-COM8",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM8"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com8-log": {
+      "label": "device-COM8.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com8.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com8-txt": {
+      "label": "device-COM8.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com8.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com9": {
+      "label": "device-COM9",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\COM9"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com9-log": {
+      "label": "device-COM9.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com9.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-com9-txt": {
+      "label": "device-COM9.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\com9.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-con": {
+      "label": "device-CON",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\CON"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-con-log": {
+      "label": "device-CON.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\con.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-con-txt": {
+      "label": "device-CON.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\con.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt1": {
+      "label": "device-LPT1",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT1"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt1-log": {
+      "label": "device-LPT1.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt1.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt1-txt": {
+      "label": "device-LPT1.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt1.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt2": {
+      "label": "device-LPT2",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT2"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt2-log": {
+      "label": "device-LPT2.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt2.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt2-txt": {
+      "label": "device-LPT2.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt2.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt3": {
+      "label": "device-LPT3",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT3"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt3-log": {
+      "label": "device-LPT3.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt3.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt3-txt": {
+      "label": "device-LPT3.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt3.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt4": {
+      "label": "device-LPT4",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT4"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt4-log": {
+      "label": "device-LPT4.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt4.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt4-txt": {
+      "label": "device-LPT4.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt4.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt5": {
+      "label": "device-LPT5",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT5"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt5-log": {
+      "label": "device-LPT5.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt5.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt5-txt": {
+      "label": "device-LPT5.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt5.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt6": {
+      "label": "device-LPT6",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT6"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt6-log": {
+      "label": "device-LPT6.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt6.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt6-txt": {
+      "label": "device-LPT6.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt6.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt7": {
+      "label": "device-LPT7",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT7"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt7-log": {
+      "label": "device-LPT7.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt7.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt7-txt": {
+      "label": "device-LPT7.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt7.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt8": {
+      "label": "device-LPT8",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT8"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt8-log": {
+      "label": "device-LPT8.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt8.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt8-txt": {
+      "label": "device-LPT8.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt8.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt9": {
+      "label": "device-LPT9",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\LPT9"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt9-log": {
+      "label": "device-LPT9.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt9.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-lpt9-txt": {
+      "label": "device-LPT9.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\lpt9.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-nul": {
+      "label": "device-NUL",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\NUL"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-nul-log": {
+      "label": "device-NUL.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\nul.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-nul-txt": {
+      "label": "device-NUL.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\nul.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-prn": {
+      "label": "device-PRN",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\PRN"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-prn-log": {
+      "label": "device-PRN.log",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\prn.log"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.device-prn-txt": {
+      "label": "device-PRN.txt",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\prn.txt"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.empty": {
+      "label": "empty",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": ""
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.punctuation-124": {
+      "label": "punctuation-124",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a|b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.punctuation-34": {
+      "label": "punctuation-34",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a\"b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.punctuation-42": {
+      "label": "punctuation-42",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a*b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.punctuation-47": {
+      "label": "punctuation-47",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a/b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.punctuation-58": {
+      "label": "punctuation-58",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a:b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.punctuation-60": {
+      "label": "punctuation-60",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a<b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.punctuation-62": {
+      "label": "punctuation-62",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a>b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.punctuation-63": {
+      "label": "punctuation-63",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a?b"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-0": {
+      "label": "syntax-0",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "c:\\Synthetic"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-1": {
+      "label": "syntax-1",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:relative"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-10": {
+      "label": "syntax-10",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\."
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-11": {
+      "label": "syntax-11",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\.."
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-12": {
+      "label": "syntax-12",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a."
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-13": {
+      "label": "syntax-13",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\a "
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-2": {
+      "label": "syntax-2",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "\\relative"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-3": {
+      "label": "syntax-3",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "\\\\host.invalid\\share"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-4": {
+      "label": "syntax-4",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "\\\\?\\C:\\Synthetic"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-5": {
+      "label": "syntax-5",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "\\\\.\\C:\\Synthetic"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-6": {
+      "label": "syntax-6",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:/Synthetic"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-7": {
+      "label": "syntax-7",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic/child"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-8": {
+      "label": "syntax-8",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\\\child"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.syntax-9": {
+      "label": "syntax-9",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "C:\\Synthetic\\"
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.too-long": {
+      "label": "too-long",
+      "profile": "windowsDriveAbsoluteHostPath",
+      "value": "Z:\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

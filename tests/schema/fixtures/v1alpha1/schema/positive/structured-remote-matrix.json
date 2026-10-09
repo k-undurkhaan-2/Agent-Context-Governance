@@ -1,0 +1,171 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.structured-remote.positive.01-https-omitted-default-port": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.positive.02-ssh-omitted-default-port": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "ssh"
+      }
+    },
+    "schema.structured-remote.positive.03-https-non-default-port": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 8443,
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.positive.04-ssh-non-default-port": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "port": 2222,
+        "repository": "governance",
+        "transport": "ssh"
+      }
+    },
+    "schema.structured-remote.positive.05-minimum-two-label-host": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "a.b",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.positive.06-maximum-length-host": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.positive.07-one-segment-namespace": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "a"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.positive.08-multi-segment-namespace": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic",
+          "nested"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.positive.09-minimum-segments": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "a"
+        ],
+        "repository": "a",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.positive.10-maximum-namespace-repository": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ],
+        "repository": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "transport": "https"
+      }
+    },
+    "schema.structured-remote.positive.13-multiple-accepted-one-name": {
+      "profile": "remoteExpectation",
+      "value": {
+        "acceptedRemotes": [
+          {
+            "host": "repo.invalid",
+            "namespace": [
+              "synthetic"
+            ],
+            "repository": "governance",
+            "transport": "https"
+          },
+          {
+            "host": "repo.invalid",
+            "namespace": [
+              "synthetic"
+            ],
+            "repository": "governance",
+            "transport": "ssh"
+          }
+        ],
+        "remoteName": "origin"
+      }
+    },
+    "schema.structured-remote.positive.15-protected-remote": {
+      "profile": "structuredRemote",
+      "value": {
+        "host": "repo.invalid",
+        "namespace": [
+          "synthetic"
+        ],
+        "repository": "governance",
+        "transport": "https"
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

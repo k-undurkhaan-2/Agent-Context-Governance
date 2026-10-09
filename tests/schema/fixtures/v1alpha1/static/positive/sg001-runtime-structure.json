@@ -1,0 +1,149 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.sg001.active-operation.positive.observation-apply-mailbox": {
+      "nonAuthorizing": true,
+      "observation": {
+        "operations": [
+          "apply-mailbox"
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.active-operation.positive.observation-bisect": {
+      "nonAuthorizing": true,
+      "observation": {
+        "operations": [
+          "bisect"
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.active-operation.positive.observation-cherry-pick": {
+      "nonAuthorizing": true,
+      "observation": {
+        "operations": [
+          "cherry-pick"
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.active-operation.positive.observation-merge": {
+      "nonAuthorizing": true,
+      "observation": {
+        "operations": [
+          "merge"
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.active-operation.positive.observation-rebase": {
+      "nonAuthorizing": true,
+      "observation": {
+        "operations": [
+          "rebase"
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.active-operation.positive.observation-revert": {
+      "nonAuthorizing": true,
+      "observation": {
+        "operations": [
+          "revert"
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.active-operation.positive.observation-sequencer": {
+      "nonAuthorizing": true,
+      "observation": {
+        "operations": [
+          "sequencer"
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.administrative-lock.positive.observation-config": {
+      "nonAuthorizing": true,
+      "observation": {
+        "locks": [
+          {
+            "type": "config"
+          }
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.administrative-lock.positive.observation-head": {
+      "nonAuthorizing": true,
+      "observation": {
+        "locks": [
+          {
+            "type": "head"
+          }
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.administrative-lock.positive.observation-index": {
+      "nonAuthorizing": true,
+      "observation": {
+        "locks": [
+          {
+            "type": "index"
+          }
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.administrative-lock.positive.observation-other": {
+      "nonAuthorizing": true,
+      "observation": {
+        "locks": [
+          {
+            "type": "other"
+          }
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.administrative-lock.positive.observation-packed-refs": {
+      "nonAuthorizing": true,
+      "observation": {
+        "locks": [
+          {
+            "type": "packed-refs"
+          }
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.administrative-lock.positive.observation-ref": {
+      "nonAuthorizing": true,
+      "observation": {
+        "locks": [
+          {
+            "ref": "refs/heads/synthetic",
+            "type": "ref"
+          }
+        ],
+        "state": "exact"
+      }
+    },
+    "static.sg001.administrative-lock.positive.observation-shallow": {
+      "nonAuthorizing": true,
+      "observation": {
+        "locks": [
+          {
+            "type": "shallow"
+          }
+        ],
+        "state": "exact"
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

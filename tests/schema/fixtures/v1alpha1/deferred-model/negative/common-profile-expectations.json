@@ -1,0 +1,75 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "deferred.common.acceptedremotes.canonical-order-static": {
+      "label": "canonical-order-static",
+      "profile": "acceptedRemotes",
+      "value": [
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "ssh"
+        },
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        }
+      ]
+    },
+    "deferred.common.displaytext.nfc-model": {
+      "label": "nfc-model",
+      "profile": "displayText",
+      "value": "e\u0301"
+    },
+    "deferred.common.displaytext.unicode-scalar-model": {
+      "label": "unicode-scalar-model",
+      "profile": "displayText",
+      "value": "\ud800"
+    },
+    "deferred.common.freshnessboundary.equal-times-static": {
+      "label": "equal-times-static",
+      "profile": "freshnessBoundary",
+      "value": {
+        "expiresAt": "2000-01-01T00:00:00Z",
+        "issuedAt": "2000-01-01T00:00:00Z"
+      }
+    },
+    "deferred.common.freshnessboundary.reverse-times-static": {
+      "label": "reverse-times-static",
+      "profile": "freshnessBoundary",
+      "value": {
+        "expiresAt": "2000-01-01T00:00:00Z",
+        "issuedAt": "2000-01-01T00:00:01Z"
+      }
+    },
+    "deferred.common.objectreference.reference-existence-static": {
+      "label": "reference-existence-static",
+      "profile": "objectReference",
+      "value": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "id": "absent.invalid",
+        "kind": "Project"
+      }
+    },
+    "deferred.common.scope.pattern-language-static": {
+      "label": "pattern-language-static",
+      "profile": "scope",
+      "value": {
+        "capabilities": [],
+        "paths": [
+          "**"
+        ]
+      }
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

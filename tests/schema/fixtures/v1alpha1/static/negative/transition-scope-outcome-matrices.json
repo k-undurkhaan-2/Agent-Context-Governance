@@ -1,0 +1,281 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "schema.transition.negative.unsupported-former-head-state": {
+      "formerTransitionType": "head-state"
+    },
+    "schema.transition.negative.unsupported-former-ref-state": {
+      "formerTransitionType": "ref-state"
+    },
+    "schema.transition.negative.unsupported-former-submodule-entry": {
+      "formerTransitionType": "submodule-entry"
+    },
+    "static.execution-receipt.d6.negative.01": {
+      "executionOutcome": "succeeded",
+      "verificationOutcome": "not-performed"
+    },
+    "static.execution-receipt.d6.negative.02": {
+      "executionOutcome": "failed",
+      "verificationOutcome": "not-performed"
+    },
+    "static.execution-receipt.d6.negative.03": {
+      "executionOutcome": "cancelled",
+      "verificationOutcome": "not-performed"
+    },
+    "static.execution-receipt.d6.negative.04": {
+      "executionOutcome": "indeterminate",
+      "verificationOutcome": "not-performed"
+    },
+    "static.execution-receipt.d6.negative.05": {
+      "executionOutcome": "not-attempted",
+      "verificationOutcome": "passed"
+    },
+    "static.execution-receipt.d6.negative.06": {
+      "executionOutcome": "not-attempted",
+      "verificationOutcome": "failed"
+    },
+    "static.execution-receipt.d6.negative.07": {
+      "executionOutcome": "not-attempted",
+      "verificationOutcome": "indeterminate"
+    },
+    "static.receipt.oc.negative.01-create-missing": {
+      "family": "OC",
+      "scenario": "create-missing"
+    },
+    "static.receipt.oc.negative.02-delete-missing": {
+      "family": "OC",
+      "scenario": "delete-missing"
+    },
+    "static.receipt.oc.negative.03-modify-missing": {
+      "family": "OC",
+      "scenario": "modify-missing"
+    },
+    "static.receipt.oc.negative.04-git-stage-missing": {
+      "family": "OC",
+      "scenario": "git-stage-missing"
+    },
+    "static.receipt.oc.negative.05-forbidden-capability": {
+      "family": "OC",
+      "scenario": "forbidden-capability"
+    },
+    "static.receipt.oc.negative.06-unlisted-operation": {
+      "family": "OC",
+      "scenario": "unlisted-operation"
+    },
+    "static.receipt.oc.negative.07-partial-union": {
+      "family": "OC",
+      "scenario": "partial-union"
+    },
+    "static.receipt.oc.negative.08-later-record-erasure": {
+      "family": "OC",
+      "scenario": "later-record-erasure"
+    },
+    "static.receipt.oe.negative.01-operation-evidence-fault-01": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-01"
+    },
+    "static.receipt.oe.negative.02-operation-evidence-fault-02": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-02"
+    },
+    "static.receipt.oe.negative.03-operation-evidence-fault-03": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-03"
+    },
+    "static.receipt.oe.negative.04-operation-evidence-fault-04": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-04"
+    },
+    "static.receipt.oe.negative.05-operation-evidence-fault-05": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-05"
+    },
+    "static.receipt.oe.negative.06-operation-evidence-fault-06": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-06"
+    },
+    "static.receipt.oe.negative.07-operation-evidence-fault-07": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-07"
+    },
+    "static.receipt.oe.negative.08-operation-evidence-fault-08": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-08"
+    },
+    "static.receipt.oe.negative.09-operation-evidence-fault-09": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-09"
+    },
+    "static.receipt.oe.negative.10-operation-evidence-fault-10": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-10"
+    },
+    "static.receipt.oe.negative.11-operation-evidence-fault-11": {
+      "family": "OE",
+      "scenario": "operation-evidence-fault-11"
+    },
+    "static.receipt.scope.negative.01-path-outside-authorized": {
+      "family": "SCOPE",
+      "scenario": "path-outside-authorized"
+    },
+    "static.receipt.scope.negative.02-path-inside-prohibited": {
+      "family": "SCOPE",
+      "scenario": "path-inside-prohibited"
+    },
+    "static.receipt.scope.negative.03-changed-path-not-in-carrier": {
+      "family": "SCOPE",
+      "scenario": "changed-path-not-in-carrier"
+    },
+    "static.receipt.scope.negative.04-carrier-path-not-changed": {
+      "family": "SCOPE",
+      "scenario": "carrier-path-not-changed"
+    },
+    "static.receipt.scope.negative.05-passed-verification-with-out-of-scope-path": {
+      "family": "SCOPE",
+      "scenario": "passed-verification-with-out-of-scope-path"
+    },
+    "static.receipt.scope.negative.06-later-passed-verification-does-not-erase-earlier-failure": {
+      "family": "SCOPE",
+      "scenario": "later-passed-verification-does-not-erase-earlier-failure"
+    },
+    "static.task-contract.d5.negative.01": {
+      "allowWrite": false,
+      "effectiveMode": "plan-only",
+      "requestedMode": "plan-only",
+      "transitionType": "index-entry"
+    },
+    "static.task-contract.d5.negative.02": {
+      "allowWrite": false,
+      "effectiveMode": "plan-only",
+      "requestedMode": "plan-only",
+      "transitionType": "tracked-entry"
+    },
+    "static.task-contract.d5.negative.03": {
+      "allowWrite": false,
+      "effectiveMode": "plan-only",
+      "requestedMode": "plan-only",
+      "transitionType": "untracked-path"
+    },
+    "static.task-contract.d5.negative.04": {
+      "allowWrite": false,
+      "effectiveMode": "plan-only",
+      "requestedMode": "plan-only",
+      "transitionType": "ignored-path"
+    },
+    "static.task-contract.d5.negative.05": {
+      "allowWrite": false,
+      "effectiveMode": "plan-only",
+      "requestedMode": "implementation",
+      "transitionType": "index-entry"
+    },
+    "static.task-contract.d5.negative.06": {
+      "allowWrite": false,
+      "effectiveMode": "plan-only",
+      "requestedMode": "implementation",
+      "transitionType": "tracked-entry"
+    },
+    "static.task-contract.d5.negative.07": {
+      "allowWrite": false,
+      "effectiveMode": "plan-only",
+      "requestedMode": "implementation",
+      "transitionType": "untracked-path"
+    },
+    "static.task-contract.d5.negative.08": {
+      "allowWrite": false,
+      "effectiveMode": "plan-only",
+      "requestedMode": "implementation",
+      "transitionType": "ignored-path"
+    },
+    "static.task-contract.d5.negative.09": {
+      "allowWrite": false,
+      "effectiveMode": "implementation",
+      "requestedMode": "implementation",
+      "transitionType": "index-entry"
+    },
+    "static.task-contract.d5.negative.10": {
+      "allowWrite": false,
+      "effectiveMode": "implementation",
+      "requestedMode": "implementation",
+      "transitionType": "tracked-entry"
+    },
+    "static.task-contract.d5.negative.11": {
+      "allowWrite": false,
+      "effectiveMode": "implementation",
+      "requestedMode": "implementation",
+      "transitionType": "untracked-path"
+    },
+    "static.task-contract.d5.negative.12": {
+      "allowWrite": false,
+      "effectiveMode": "implementation",
+      "requestedMode": "implementation",
+      "transitionType": "ignored-path"
+    },
+    "static.transition-capability.negative.inspect-only-ignored-path": {
+      "isolatedMutation": "inspect-only-capability",
+      "transitionType": "ignored-path"
+    },
+    "static.transition-capability.negative.inspect-only-index-entry": {
+      "isolatedMutation": "inspect-only-capability",
+      "transitionType": "index-entry"
+    },
+    "static.transition-capability.negative.inspect-only-tracked-entry": {
+      "isolatedMutation": "inspect-only-capability",
+      "transitionType": "tracked-entry"
+    },
+    "static.transition-capability.negative.inspect-only-untracked-path": {
+      "isolatedMutation": "inspect-only-capability",
+      "transitionType": "untracked-path"
+    },
+    "static.transition-path.negative.ignored-path-inside-prohibited-path": {
+      "isolatedMutation": "inside-prohibited-path",
+      "transitionType": "ignored-path"
+    },
+    "static.transition-path.negative.ignored-path-outside-authorized-path": {
+      "isolatedMutation": "outside-authorized-path",
+      "transitionType": "ignored-path"
+    },
+    "static.transition-path.negative.ignored-path-reserved-dot-git": {
+      "isolatedMutation": "reserved-dot-git",
+      "transitionType": "ignored-path"
+    },
+    "static.transition-path.negative.index-entry-inside-prohibited-path": {
+      "isolatedMutation": "inside-prohibited-path",
+      "transitionType": "index-entry"
+    },
+    "static.transition-path.negative.index-entry-outside-authorized-path": {
+      "isolatedMutation": "outside-authorized-path",
+      "transitionType": "index-entry"
+    },
+    "static.transition-path.negative.index-entry-reserved-dot-git": {
+      "isolatedMutation": "reserved-dot-git",
+      "transitionType": "index-entry"
+    },
+    "static.transition-path.negative.tracked-entry-inside-prohibited-path": {
+      "isolatedMutation": "inside-prohibited-path",
+      "transitionType": "tracked-entry"
+    },
+    "static.transition-path.negative.tracked-entry-outside-authorized-path": {
+      "isolatedMutation": "outside-authorized-path",
+      "transitionType": "tracked-entry"
+    },
+    "static.transition-path.negative.tracked-entry-reserved-dot-git": {
+      "isolatedMutation": "reserved-dot-git",
+      "transitionType": "tracked-entry"
+    },
+    "static.transition-path.negative.untracked-path-inside-prohibited-path": {
+      "isolatedMutation": "inside-prohibited-path",
+      "transitionType": "untracked-path"
+    },
+    "static.transition-path.negative.untracked-path-outside-authorized-path": {
+      "isolatedMutation": "outside-authorized-path",
+      "transitionType": "untracked-path"
+    },
+    "static.transition-path.negative.untracked-path-reserved-dot-git": {
+      "isolatedMutation": "reserved-dot-git",
+      "transitionType": "untracked-path"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

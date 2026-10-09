@@ -1,0 +1,73 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "phase1-static.structured-remote.positive.11-exact-record-equality": {
+      "profile": "structuredRemoteRelation",
+      "value": {
+        "left": {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        },
+        "relation": "equal",
+        "right": {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        }
+      }
+    },
+    "phase1-static.structured-remote.positive.12-one-field-inequality": {
+      "profile": "structuredRemoteRelation",
+      "value": {
+        "left": {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        },
+        "relation": "unequal",
+        "right": {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "another",
+          "transport": "https"
+        }
+      }
+    },
+    "phase1-static.structured-remote.positive.14-canonical-accepted-order": {
+      "profile": "acceptedRemotes",
+      "value": [
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "https"
+        },
+        {
+          "host": "repo.invalid",
+          "namespace": [
+            "synthetic"
+          ],
+          "repository": "governance",
+          "transport": "ssh"
+        }
+      ]
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}

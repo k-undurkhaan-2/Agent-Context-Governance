@@ -1,0 +1,704 @@
+{
+  "apiVersion": "contextctl.dev/v1alpha1",
+  "assetKind": "fixture-case-pack",
+  "cases": {
+    "static.owner-ledger.negative.ai-n01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Omit one G type from a no-lease issued prefix.",
+      "criterion": "Every issued G type is present",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N01"
+    },
+    "static.owner-ledger.negative.ai-n02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "One G fails; a later passed same-type G is a variant, never recovery.",
+      "criterion": "Every issued G is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N02"
+    },
+    "static.owner-ledger.negative.ai-n03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Omit A or add a distinct-ID A; identity/sequence checks require the singleton operand.",
+      "criterion": "Stable-acquired paths have exactly one A",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N03"
+    },
+    "static.owner-ledger.negative.ai-n04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Change its outcome only; controller A denials are outside this predicate.",
+      "criterion": "The stable-acquired singleton A is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N04"
+    },
+    "static.owner-ledger.negative.ai-n05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Omit R or add a distinct-ID passed R; acquired denial R history is not constrained by this issued-only predicate.",
+      "criterion": "Issued lease-required R is singleton",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N05"
+    },
+    "static.owner-ledger.negative.ai-n06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Omit N or add a distinct-ID passed N.",
+      "criterion": "Issued no-lease N is singleton",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N06"
+    },
+    "static.owner-ledger.negative.ai-n07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Omit I or add a distinct-ID passed I; denial I is DP11-owned.",
+      "criterion": "Issued I is singleton",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N07"
+    },
+    "static.owner-ledger.negative.ai-n08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Change one applicable singleton outcome; all type/outcome forms are variants.",
+      "criterion": "Issued singleton R/N/I is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N08"
+    },
+    "static.owner-ledger.negative.ai-n09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Add a wrong-path check without a forbidden compact reference; binding presence is evaluated from C.",
+      "criterion": "Issued lease path forbids N; issued no-lease path forbids A/R",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N09"
+    },
+    "static.owner-ledger.negative.ai-n10": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Move one G after A/N but before every R, I, denial controller, L, and F that is present; preserve valid timestamps. Issued lease, acquired R, acquired I, and no-lease N are non-additive variants.",
+      "criterion": "Every G precedes A on every stable-acquired path, or N on issued no-lease paths",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N10"
+    },
+    "static.owner-ledger.negative.ai-n11": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Acquired R denial: put an earlier passed R before A and keep the controlling R after A; all timestamps equal.",
+      "criterion": "Stable singleton A precedes every R",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N11"
+    },
+    "static.owner-ledger.negative.ai-n12": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Swap the two checks, keeping timestamps equal and G/A before both.",
+      "criterion": "Issued applicable R/N precedes I",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N12"
+    },
+    "static.owner-ledger.negative.ai-n13": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Put an earlier P before I and later P after it; keep E/V empty and times equal.",
+      "criterion": "Every issued I precedes every P",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N13"
+    },
+    "static.owner-ledger.negative.ai-n14": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Omit X with Source retained, or add X on a non-stable path; binding operands are otherwise gated.",
+      "criterion": "X is present iff the stable-acquired condition holds",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N14"
+    },
+    "static.owner-ledger.negative.ai-n15": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Supply zero or two eligible Sources on a stable path, or one on a non-stable path.",
+      "criterion": "Source count is one iff stable-acquired, otherwise zero",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N15"
+    },
+    "static.owner-ledger.negative.ai-n16": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Change Source.taskId, recompute its digest and exact binding copy; keep receipt/C task equality.",
+      "criterion": "Source.taskId equals receipt.taskId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N16"
+    },
+    "static.owner-ledger.negative.ai-n17": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Change Source.checkId; keep X=A and every ref=X; recompute Source and descendant digests.",
+      "criterion": "Source.checkId equals X.checkId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N17"
+    },
+    "static.owner-ledger.negative.ai-n18": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Change Source.leaseId; keep issued X=C.leaseId and every check binding; recompute descendants.",
+      "criterion": "Source.leaseId equals X.leaseId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N18"
+    },
+    "static.owner-ledger.negative.ai-n19": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "digest computation/copy",
+      "construction": "Use a different valid tagged Source digest and copy it exactly into X; rehash descendants.",
+      "criterion": "Source digest matches its closed source-profile computation",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N19"
+    },
+    "static.owner-ledger.negative.ai-n20": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "digest computation/copy",
+      "construction": "Keep valid Source, use a different well-shaped X digest, and rehash descendants.",
+      "criterion": "X digest copies the validated Source digest exactly",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N20"
+    },
+    "static.owner-ledger.negative.ai-n21": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Source and X agree; rename A only, preserving the self-reference value X and all other references.",
+      "criterion": "X.checkId equals the singleton A.checkId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N21"
+    },
+    "static.owner-ledger.negative.ai-n22": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Omit or alter A's compact reference; Source/X/A IDs themselves remain equal.",
+      "criterion": "A compact reference equals {checkId:X.checkId}",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N22"
+    },
+    "static.owner-ledger.negative.ai-n23": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Alter an earlier passed R only, retaining a correctly bound controlling R; issued R and acquired I prerequisite R are variants.",
+      "criterion": "Every R compact reference equals {checkId:X.checkId}",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "AI-N23"
+    },
+    "static.owner-ledger.negative.ch-n01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "TaskContract checkpoint",
+      "construction": "TaskContract alone; checkpoint 2, issuedAt 1, expiry 3.",
+      "criterion": "`checkpoint <= issuedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N01"
+    },
+    "static.owner-ledger.negative.ch-n02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "TaskContract freshness",
+      "construction": "TaskContract alone; checkpoint 0, issuedAt 1, expiry 1.",
+      "criterion": "`issuedAt < expiresAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N02"
+    },
+    "static.owner-ledger.negative.ch-n03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every receipt check q",
+      "construction": "G1-denial; start 2, controller/evidence 1, sanitization 3, F/finish 4.",
+      "criterion": "`startedAt <= q.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N03"
+    },
+    "static.owner-ledger.negative.ch-n04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every non-F check q",
+      "construction": "No-lease issued, no P/E/V; I 2, sanitization 1, F/finish 3, other times 0.",
+      "criterion": "`q.observedAt <= sanitization.completedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N04"
+    },
+    "static.owner-ledger.negative.ch-n05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every passed P, issued",
+      "construction": "No-lease issued; checkpoint/issuedAt 0, expiry 1, I 0, passed P 1, E/V empty, closure 2.",
+      "criterion": "`P.observedAt < expiresAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N05"
+    },
+    "static.owner-ledger.negative.ch-n06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Attempted issued, every E",
+      "construction": "P 2, one E 1, every V 3, expiry 9; prefix 0, closure 4.",
+      "criterion": "`finalP.observedAt <= E.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N06"
+    },
+    "static.owner-ledger.negative.ch-n07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Attempted issued, every E/V pair",
+      "construction": "P 0, E 2, V 1, expiry 9; prefix 0, closure 3.",
+      "criterion": "`E.observedAt <= V.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N07"
+    },
+    "static.owner-ledger.negative.ch-n08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every stable-acquired path, every G",
+      "construction": "Acquired R-denial: one G 2, other G 0, A 1, every R/controller/evidence 3, every L 4, closure 5; keep every G<A by sequence. Issued lease and acquired I are non-additive variants.",
+      "criterion": "`G.observedAt <= A.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N08"
+    },
+    "static.owner-ledger.negative.ch-n09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued no-lease, every G",
+      "construction": "One G 2, N 1, checkpoint/issuedAt/I 3, closure 4.",
+      "criterion": "`G.observedAt <= N.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N09"
+    },
+    "static.owner-ledger.negative.ch-n10": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every stable-acquired path, every R",
+      "construction": "Acquired R-denial; A 2, earlier passed R 1, controller/evidence R 3, L 4, closure 5; sequence A<R<R.",
+      "criterion": "`A.observedAt <= R.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N10"
+    },
+    "static.owner-ledger.negative.ch-n11": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued lease",
+      "construction": "A 0, R 2, checkpoint 1, issuedAt/I 3, L 4, closure 5.",
+      "criterion": "`R.observedAt <= checkpoint`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N11"
+    },
+    "static.owner-ledger.negative.ch-n12": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued no-lease",
+      "construction": "G 0, N 2, checkpoint 1, issuedAt/I 3, closure 4.",
+      "criterion": "`N.observedAt <= checkpoint`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N12"
+    },
+    "static.owner-ledger.negative.ch-n13": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued, singleton I",
+      "construction": "Prefix/checkpoint 0, issuedAt 2, I 1, no P/E/V, expiry 9, closure 3.",
+      "criterion": "`issuedAt <= I.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N13"
+    },
+    "static.owner-ledger.negative.ch-n14": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued, every P",
+      "construction": "Prefix/issuedAt 0, I 2, P 1, expiry 9, no E/V, closure 3.",
+      "criterion": "`I.observedAt <= P.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N14"
+    },
+    "static.owner-ledger.negative.ch-n15": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Issued lease, every pre-release q / every L",
+      "construction": "Prefix/issuedAt 0, I 2, L 1, no P/E/V, closure 3.",
+      "criterion": "`q.observedAt <= L.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N15"
+    },
+    "static.owner-ledger.negative.ch-n16": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Acquired denial, every Dpre / every L",
+      "construction": "Acquired R-denial: every G 0, A 1, every R/controller/evidence 3, every L 2, closure 4; G\u2192A\u2192R sequence/time and pairwise L times remain valid.",
+      "criterion": "`Dpre.observedAt <= L.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N16"
+    },
+    "static.owner-ledger.negative.ch-n17": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every receipt",
+      "construction": "Non-F 0, sanitization 2, F 1, finish 3.",
+      "criterion": "`sanitization.completedAt <= F.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N17"
+    },
+    "static.owner-ledger.negative.ch-n18": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every receipt",
+      "construction": "Non-F/sanitization 0, F 2, finish 1.",
+      "criterion": "`F.observedAt <= finishedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N18"
+    },
+    "static.owner-ledger.negative.ch-n19": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Existing delivery pair only",
+      "construction": "Valid receipt finish 2, delivery attempt 1.",
+      "criterion": "`finishedAt <= attemptedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N19"
+    },
+    "static.owner-ledger.negative.ch-n20": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "Every release-required path; every ordered pair L1<L2",
+      "construction": "Pre-release 0, L1 2, L2 1, sanitization/F/finish 3.",
+      "criterion": "`L1.observedAt <= L2.observedAt`",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "CH-N20"
+    },
+    "static.owner-ledger.negative.dp-n01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Remove one required G/N/R stage; stable A presence remains AI03-owned.",
+      "criterion": "Every denial prerequisite type exists",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N01"
+    },
+    "static.owner-ledger.negative.dp-n02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Fail a prerequisite G while keeping the controller and its same-type history valid.",
+      "criterion": "Every denial prerequisite observation G/N/R is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N02"
+    },
+    "static.owner-ledger.negative.dp-n03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "scope",
+      "construction": "Add unreached P before the controller with all other boundaries valid.",
+      "criterion": "Only row-prerequisite and controller ordinary types occur",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N03"
+    },
+    "static.owner-ledger.negative.dp-n04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "No-acquisition G5 denial: move one repeated passed prerequisite G1 after the controller but before F; all times remain valid.",
+      "criterion": "Every ordinary prerequisite member precedes the controller",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N04"
+    },
+    "static.owner-ledger.negative.dp-n05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Name a different same-receipt check; candidate type/outcome/time/reasons stay valid.",
+      "criterion": "controllerCheckId names the greatest mapped-type candidate",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N05"
+    },
+    "static.owner-ledger.negative.dp-n06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use passed R as the candidate, with otherwise-valid acquired origin and cleanup.",
+      "criterion": "The mapped-type controller candidate is failed or indeterminate",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N06"
+    },
+    "static.owner-ledger.negative.dp-n07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Change only evidence time within all remaining chronology bounds and rehash evidence.",
+      "criterion": "Evidence.observedAt equals controller.observedAt",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N07"
+    },
+    "static.owner-ledger.negative.dp-n08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use another non-empty canonical reason array; summaries remain unconstrained derivatives.",
+      "criterion": "Evidence.reasonCodes exactly equal controller.reasonCodes",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N08"
+    },
+    "static.owner-ledger.negative.dp-n09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use failed or indeterminate earlier same-type observation then failed/indeterminate controller.",
+      "criterion": "Every earlier G/N/R controller-family observation is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N09"
+    },
+    "static.owner-ledger.negative.dp-n10": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Insert earlier passed A before single failed/indeterminate A controller; no X or Source.",
+      "criterion": "A-denial has exactly one A",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N10"
+    },
+    "static.owner-ledger.negative.dp-n11": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Insert earlier passed I before failed/indeterminate I controller, with valid N or acquired A/R prefix.",
+      "criterion": "I-denial has exactly one I",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N11"
+    },
+    "static.owner-ledger.negative.dp-n12": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Duplicate the passed prerequisite N or R with a distinct ID; all refs/times remain valid.",
+      "criterion": "An I-denial's prerequisite N/R has at most one member",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N12"
+    },
+    "static.owner-ledger.negative.dp-n13": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Swap the two permitted states, adapting release/lifecycle/warning claims to that state; only the causal state mapping fails.",
+      "criterion": "A-denial outcome maps failed\u2192not-acquired and indeterminate\u2192indeterminate",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "DP-N13"
+    },
+    "static.owner-ledger.negative.pb-n01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "shape",
+      "construction": "Put an otherwise closed valid reference on one non-V check; all thirteen non-V types are variants.",
+      "criterion": "postconditionRef occurs only on V",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-N01"
+    },
+    "static.owner-ledger.negative.pb-n02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "shape",
+      "construction": "Use one extra member or omit type on V; lexical enum/membership checks require a shaped operand.",
+      "criterion": "postconditionRef has exactly required type",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-N02"
+    },
+    "static.owner-ledger.negative.pb-n03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "shape",
+      "construction": "Use one unknown type on V; closed-contract membership is tested only for well-shaped references.",
+      "criterion": "postconditionRef.type is in the eleven-token enum",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-N03"
+    },
+    "static.owner-ledger.negative.pb-n04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use an allowed enum type absent from C, retaining evidence for every actually required type.",
+      "criterion": "Every well-shaped V reference names a required type in the same C",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-N04"
+    },
+    "static.owner-ledger.negative.pb-n05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Keep general V and all other obligations, but omit the named type; scope-contained and all ten optional types are variants.",
+      "criterion": "Every required type has at least one V(t) on an attempted receipt",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "PB-N05"
+    },
+    "static.owner-ledger.negative.rc-n01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use another valid receipt-origin contract ID.",
+      "criterion": "receipt.contractId equals C.metadata.id",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N01"
+    },
+    "static.owner-ledger.negative.rc-n02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "digest computation/copy",
+      "construction": "Use another tagged digest; keep all duplicated non-digest claims equal.",
+      "criterion": "receipt.contractDigest equals the complete C digest",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N02"
+    },
+    "static.owner-ledger.negative.rc-n03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use another receipt task UUID and a consistently matching Source when applicable.",
+      "criterion": "receipt.taskId equals C.spec.taskId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N03"
+    },
+    "static.owner-ledger.negative.rc-n04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use another canonical Project reference.",
+      "criterion": "receipt target projectRef equals C.spec.projectRef",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N04"
+    },
+    "static.owner-ledger.negative.rc-n05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use another canonical role reference.",
+      "criterion": "receipt target worktreeRoleRef equals C target role",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N05"
+    },
+    "static.owner-ledger.negative.rc-n06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use another logical worktree ID.",
+      "criterion": "receipt target worktreeId equals C target worktree",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N06"
+    },
+    "static.owner-ledger.negative.rc-n07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Omit, add, or substitute a Domain while keeping canonical array order.",
+      "criterion": "receipt domainRefs equal the entire canonical C Domain set",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N07"
+    },
+    "static.owner-ledger.negative.rc-n08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Use the other valid mode without altering C.",
+      "criterion": "receipt effectiveMode equals C.spec.effectiveMode",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N08"
+    },
+    "static.owner-ledger.negative.rc-n09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Source and X agree on another lease, with valid source digest and exact copy; C remains unchanged.",
+      "criterion": "Issued X.leaseId equals C.spec.leaseId",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RC-N09"
+    },
+    "static.owner-ledger.negative.rf-n01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Remove every L; finalL-dependent checks are gated, not separately counted.",
+      "criterion": "Release-required paths have at least one L",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N01"
+    },
+    "static.owner-ledger.negative.rf-n02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Add unreferenced L to a no-lease receipt, preserving not-required release and F.",
+      "criterion": "No-release paths have no L",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N02"
+    },
+    "static.owner-ledger.negative.rf-n03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Change top-level release outcome and its lifecycle consequences, retaining valid warnings.",
+      "criterion": "releaseOutcome equals the finalL mapping",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N03"
+    },
+    "static.owner-ledger.negative.rf-n04": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Remove F; maximum-one is derived from exact F ID and check-ID uniqueness.",
+      "criterion": "Every serialized receipt has at least one F",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N04"
+    },
+    "static.owner-ledger.negative.rf-n05": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "outcome",
+      "construction": "Use failed or indeterminate F with its exact identity tuple.",
+      "criterion": "The singleton F is passed",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N05"
+    },
+    "static.owner-ledger.negative.rf-n06": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "finalization",
+      "construction": "Change one identity member to a valid alternative; F outcome remains passed.",
+      "criterion": "F uses exact reserved checkId/profileId/empty reasonCodes",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N06"
+    },
+    "static.owner-ledger.negative.rf-n07": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "shape",
+      "construction": "Add expectedSummary or observedSummary; unknown fields remain generic-owned, postconditionRef is PB01-owned, and compact placement is generic-owned.",
+      "criterion": "F forbids generic-check summary fields",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N07"
+    },
+    "static.owner-ledger.negative.rf-n08": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Put one otherwise-permitted non-F check after F with valid timestamps.",
+      "criterion": "F is terminal",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N08"
+    },
+    "static.owner-ledger.negative.rf-n09": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Put an L before I while retaining G/A/R/I order and terminal F.",
+      "criterion": "Every issued pre-release check precedes every L",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N09"
+    },
+    "static.owner-ledger.negative.rf-n10": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "sequence",
+      "construction": "Put L before the controller but after all prerequisites; all times equal.",
+      "criterion": "Every acquired-denial Dpre precedes every L",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N10"
+    },
+    "static.owner-ledger.negative.rf-n11": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Retain only a warning naming an earlier valid check, not finalL.",
+      "criterion": "Failed/indeterminate finalL has an exactly related warning",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N11"
+    },
+    "static.owner-ledger.negative.rf-n12": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "identity equality",
+      "construction": "Alter an earlier L only; finalL remains correctly bound. Both stable origins are variants.",
+      "criterion": "Every L compact reference equals {checkId:X.checkId}",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N12"
+    },
+    "static.owner-ledger.negative.rf-n13": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "finalization",
+      "construction": "Use false with otherwise-valid times, exact F tuple, zero or positive redactionCount, and rehashed receipt.",
+      "criterion": "sanitization.applied is true",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N13"
+    },
+    "static.owner-ledger.negative.rf-n14": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "presence/cardinality",
+      "construction": "Use an indeterminate A-denial with empty warnings and otherwise-correct indeterminate outcomes.",
+      "criterion": "Indeterminate acquisition retains an unresolved coordination warning",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "RF-N14"
+    },
+    "static.owner-ledger.negative.ta-n01": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "transition authorization",
+      "construction": "Supported index-effect witness at p with Qpath empty and all capabilities/Domain authority valid; omit p from Apath, then restore it.",
+      "criterion": "Ptrans subset Apath",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "TA-N01"
+    },
+    "static.owner-ledger.negative.ta-n02": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "transition authorization",
+      "construction": "Same witness with p=src/private/item and authorized pattern src/**; prohibit src/private/**, then remove it. Distinct pattern tokens preserve literal-set disjointness while their matched languages overlap.",
+      "criterion": "Ptrans intersection Qpath is empty",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "TA-N02"
+    },
+    "static.owner-ledger.negative.ta-n03": {
+      "baseScenario": "complete closed synthetic contract/receipt pair",
+      "classification": "transition authorization",
+      "construction": "Same witness with Oplan empty, valid paths, and Qcap empty; omit git-stage, then authorize it.",
+      "criterion": "Iplan subset Acap, the index projection of RequiredPlanCaps inclusion",
+      "fixtureKind": "isolated-static-conformance-construction",
+      "ownerId": "TA-N03"
+    }
+  },
+  "ordering": "case IDs are strictly ascending ASCII strings",
+  "schemaSetRevision": "v1alpha1-r1"
+}
