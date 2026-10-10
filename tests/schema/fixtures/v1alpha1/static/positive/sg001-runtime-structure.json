@@ -1,149 +1,724 @@
 {
   "apiVersion": "contextctl.dev/v1alpha1",
-  "assetKind": "fixture-case-pack",
-  "cases": {
-    "static.sg001.active-operation.positive.observation-apply-mailbox": {
-      "nonAuthorizing": true,
+  "assetKind": "coverage-obligation-pack",
+  "obligations": [
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_06",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Active Git operations",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "operations": [
-          "apply-mailbox"
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "operations": [
+            "apply-mailbox"
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "active-operation",
+      "originalCaseId": "static.sg001.active-operation.positive.observation-apply-mailbox",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.active-operation.positive.observation-apply-mailbox",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.active-operation.positive.observation-bisect": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_06",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Active Git operations",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "operations": [
-          "bisect"
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "operations": [
+            "bisect"
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "active-operation",
+      "originalCaseId": "static.sg001.active-operation.positive.observation-bisect",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.active-operation.positive.observation-bisect",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.active-operation.positive.observation-cherry-pick": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_06",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Active Git operations",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "operations": [
-          "cherry-pick"
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "operations": [
+            "cherry-pick"
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "active-operation",
+      "originalCaseId": "static.sg001.active-operation.positive.observation-cherry-pick",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.active-operation.positive.observation-cherry-pick",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.active-operation.positive.observation-merge": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_06",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Active Git operations",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "operations": [
-          "merge"
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "operations": [
+            "merge"
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "active-operation",
+      "originalCaseId": "static.sg001.active-operation.positive.observation-merge",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.active-operation.positive.observation-merge",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.active-operation.positive.observation-rebase": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_06",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Active Git operations",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "operations": [
-          "rebase"
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "operations": [
+            "rebase"
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "active-operation",
+      "originalCaseId": "static.sg001.active-operation.positive.observation-rebase",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.active-operation.positive.observation-rebase",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.active-operation.positive.observation-revert": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_06",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Active Git operations",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "operations": [
-          "revert"
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "operations": [
+            "revert"
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "active-operation",
+      "originalCaseId": "static.sg001.active-operation.positive.observation-revert",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.active-operation.positive.observation-revert",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.active-operation.positive.observation-sequencer": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_06",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Active Git operations",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "operations": [
-          "sequencer"
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "operations": [
+            "sequencer"
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "active-operation",
+      "originalCaseId": "static.sg001.active-operation.positive.observation-sequencer",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.active-operation.positive.observation-sequencer",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.administrative-lock.positive.observation-config": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_07",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Git administrative locks",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "locks": [
-          {
-            "type": "config"
-          }
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "locks": [
+            {
+              "type": "config"
+            }
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "administrative-lock",
+      "originalCaseId": "static.sg001.administrative-lock.positive.observation-config",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.administrative-lock.positive.observation-config",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.administrative-lock.positive.observation-head": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_07",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Git administrative locks",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "locks": [
-          {
-            "type": "head"
-          }
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "locks": [
+            {
+              "type": "head"
+            }
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "administrative-lock",
+      "originalCaseId": "static.sg001.administrative-lock.positive.observation-head",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.administrative-lock.positive.observation-head",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.administrative-lock.positive.observation-index": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_07",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Git administrative locks",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "locks": [
-          {
-            "type": "index"
-          }
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "locks": [
+            {
+              "type": "index"
+            }
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "administrative-lock",
+      "originalCaseId": "static.sg001.administrative-lock.positive.observation-index",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.administrative-lock.positive.observation-index",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.administrative-lock.positive.observation-other": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_07",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Git administrative locks",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "locks": [
-          {
-            "type": "other"
-          }
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "locks": [
+            {
+              "type": "other"
+            }
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "administrative-lock",
+      "originalCaseId": "static.sg001.administrative-lock.positive.observation-other",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.administrative-lock.positive.observation-other",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.administrative-lock.positive.observation-packed-refs": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_07",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Git administrative locks",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "locks": [
-          {
-            "type": "packed-refs"
-          }
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "locks": [
+            {
+              "type": "packed-refs"
+            }
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "administrative-lock",
+      "originalCaseId": "static.sg001.administrative-lock.positive.observation-packed-refs",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.administrative-lock.positive.observation-packed-refs",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.administrative-lock.positive.observation-ref": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_07",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Git administrative locks",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "locks": [
-          {
-            "ref": "refs/heads/synthetic",
-            "type": "ref"
-          }
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "locks": [
+            {
+              "ref": "refs/heads/synthetic",
+              "type": "ref"
+            }
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "administrative-lock",
+      "originalCaseId": "static.sg001.administrative-lock.positive.observation-ref",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.administrative-lock.positive.observation-ref",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     },
-    "static.sg001.administrative-lock.positive.observation-shallow": {
-      "nonAuthorizing": true,
+    {
+      "authorizesExecution": false,
+      "correctedOwner": "phase3-live-deferred",
+      "correctedStage": "phase3-live",
+      "countedInCorrectedInventory": true,
+      "coverageStatus": "PRESERVED_NON_AUTHORIZING_LATER_OBSERVATION",
+      "existingConcreteExecutableCoverage": [],
+      "futureOwningWorkstreams": [
+        "phase3-live"
+      ],
+      "genericPhase1ShapeCoverage": "OPEN_VIA_SG001_MATRIX_ROW_07",
+      "inventoryDisposition": "TRACE_ONLY",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "missingCoverageObligations": [],
+      "normativeRequirement": {
+        "branchOrInvariant": "Git administrative locks",
+        "requiredVectors": "preserve the exact synthetic non-authorizing observation operand for later live validation",
+        "responsibility": "Phase 3 owns live observation; Phase 4 may consume evidence; Phase 1 does not execute or authorize this observation"
+      },
       "observation": {
-        "locks": [
-          {
-            "type": "shallow"
-          }
-        ],
-        "state": "exact"
+        "nonAuthorizing": true,
+        "observation": {
+          "locks": [
+            {
+              "type": "shallow"
+            }
+          ],
+          "state": "exact"
+        }
+      },
+      "observationFamily": "administrative-lock",
+      "originalCaseId": "static.sg001.administrative-lock.positive.observation-shallow",
+      "originalDeclaration": {
+        "expectedDisposition": "ACCEPT",
+        "expectedStage": "phase1-static",
+        "intendedSemanticDisposition": "DEFERRED",
+        "layer": "phase1-static",
+        "owner": "phase3-live-deferred"
+      },
+      "responsiblePhasesOrWorkstreams": [
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
+        "sourceAssetPointer": "/cases/static.sg001.administrative-lock.positive.observation-shallow",
+        "sourceAssetSha256": "6ab5d333803561cf2db2af99571eae27667e4c3de59eba36db6fce055af8c115",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
       }
     }
-  },
-  "ordering": "case IDs are strictly ascending ASCII strings",
+  ],
+  "ordering": "obligations are strictly ascending ASCII originalCaseId values",
+  "purpose": "non-authorizing TRACE_ONLY observations for approved later operational phases",
   "schemaSetRevision": "v1alpha1-r1"
 }
