@@ -1,183 +1,1382 @@
 {
   "apiVersion": "contextctl.dev/v1alpha1",
-  "assetKind": "fixture-case-pack",
-  "cases": {
-    "static.sg001.matrix-row-01.positive": {
-      "branchOrInvariant": "Reference, branch policy, and HEAD",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "branch plus commit; branch plus unborn; detached plus commit; all seven required positive `branchPrefix` and branch-policy vectors",
-      "responsibility": "Schema enforces closed branches, four required policy arrays, and required/forbidden fields; Phase 1 static validates exact `branchRef`/`branchPrefix` syntax, `S(branchRef)`/`S(branchPrefix)` order and the recorded predicate vectors; Phase 3 live selects the symbolic branch or denies detached/unborn as specified, then compares actual ref and HEAD",
-      "row": 1
+  "assetKind": "coverage-obligation-pack",
+  "obligations": [
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 1,
+      "missingCoverageObligations": [
+        "branch plus commit; branch plus unborn; detached plus commit; all seven required positive `branchPrefix` and branch-policy vectors"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Reference, branch policy, and HEAD",
+        "requiredVectors": "branch plus commit; branch plus unborn; detached plus commit; all seven required positive `branchPrefix` and branch-policy vectors",
+        "responsibility": "Schema enforces closed branches, four required policy arrays, and required/forbidden fields; Phase 1 static validates exact `branchRef`/`branchPrefix` syntax, `S(branchRef)`/`S(branchPrefix)` order and the recorded predicate vectors; Phase 3 live selects the symbolic branch or denies detached/unborn as specified, then compares actual ref and HEAD"
+      },
+      "originalCaseId": "static.sg001.matrix-row-01.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:01",
+          "SG-001-ROW:01:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-01.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-02.positive": {
-      "branchOrInvariant": "Conflict-free index",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "clean conflict-free index; exact non-empty stage-0 complete inventory; exact empty complete inventory representing removal of all HEAD paths",
-      "responsibility": "Schema fixes stage and flags and closes entries; Phase 1 static enforces path identity, order, and complete explicit inventory; Phase 3 live selects clean versus exact and denies unrepresentable state; Phase 4 evidence may record sanitized pre-contract denial only",
-      "row": 2
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 2,
+      "missingCoverageObligations": [
+        "clean conflict-free index; exact non-empty stage-0 complete inventory; exact empty complete inventory representing removal of all HEAD paths"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Conflict-free index",
+        "requiredVectors": "clean conflict-free index; exact non-empty stage-0 complete inventory; exact empty complete inventory representing removal of all HEAD paths",
+        "responsibility": "Schema fixes stage and flags and closes entries; Phase 1 static enforces path identity, order, and complete explicit inventory; Phase 3 live selects clean versus exact and denies unrepresentable state; Phase 4 evidence may record sanitized pre-contract denial only"
+      },
+      "originalCaseId": "static.sg001.matrix-row-02.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:02",
+          "SG-001-ROW:02:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-02.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-03.positive": {
-      "branchOrInvariant": "Tracked",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "tracked clean; exact inventory containing clean; modified with equal `worktreeMode` and `indexMode`; deleted; type-changed with unequal modes",
-      "responsibility": "Schema enforces status branches and fields; Phase 1 static enforces mode relations and explicit index equality/coverage; Phase 3 live confirms content, deletion, type, HEAD-dependent equality, and completeness; Phase 4 evidence verifies postconditions",
-      "row": 3
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 3,
+      "missingCoverageObligations": [
+        "tracked clean; exact inventory containing clean; modified with equal `worktreeMode` and `indexMode`; deleted; type-changed with unequal modes"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Tracked",
+        "requiredVectors": "tracked clean; exact inventory containing clean; modified with equal `worktreeMode` and `indexMode`; deleted; type-changed with unequal modes",
+        "responsibility": "Schema enforces status branches and fields; Phase 1 static enforces mode relations and explicit index equality/coverage; Phase 3 live confirms content, deletion, type, HEAD-dependent equality, and completeness; Phase 4 evidence verifies postconditions"
+      },
+      "originalCaseId": "static.sg001.matrix-row-03.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:03",
+          "SG-001-ROW:03:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-03.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-04.positive": {
-      "branchOrInvariant": "Untracked and ignored / D3 path inventory",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "`none` for each category; non-empty exact complete inventories; regular, executable, and non-dereferenced symlink leaves; recursive ignored-directory leaves; ignore negation; empty directory emitting no member; registered submodule and Git-administrative boundary exclusion; valid `.gitignore`, `.gitmodules`, `.github`, `foo.git`, and nested similar-name paths",
-      "responsibility": "Schema enforces unions, non-empty exact arrays, and the revised path profile; Phase 1 static enforces `.git`-component rejection, `S(path)`, explicit disjointness, and directory/collapsed rejection; Phase 3 executes the leaf-only profile while resolving top-level indirection, linked/common Git dirs, aliases, registered-submodule roots, and nested repositories; Phase 4 evidence verifies postconditions without a weaker encoding",
-      "row": 4
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 4,
+      "missingCoverageObligations": [
+        "`none` for each category; non-empty exact complete inventories; regular, executable, and non-dereferenced symlink leaves; recursive ignored-directory leaves; ignore negation; empty directory emitting no member; registered submodule and Git-administrative boundary exclusion; valid `.gitignore`, `.gitmodules`, `.github`, `foo.git`, and nested similar-name paths"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Untracked and ignored / D3 path inventory",
+        "requiredVectors": "`none` for each category; non-empty exact complete inventories; regular, executable, and non-dereferenced symlink leaves; recursive ignored-directory leaves; ignore negation; empty directory emitting no member; registered submodule and Git-administrative boundary exclusion; valid `.gitignore`, `.gitmodules`, `.github`, `foo.git`, and nested similar-name paths",
+        "responsibility": "Schema enforces unions, non-empty exact arrays, and the revised path profile; Phase 1 static enforces `.git`-component rejection, `S(path)`, explicit disjointness, and directory/collapsed rejection; Phase 3 executes the leaf-only profile while resolving top-level indirection, linked/common Git dirs, aliases, registered-submodule roots, and nested repositories; Phase 4 evidence verifies postconditions without a weaker encoding"
+      },
+      "originalCaseId": "static.sg001.matrix-row-04.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:04",
+          "SG-001-ROW:04:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-04.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-05.positive": {
-      "branchOrInvariant": "Submodules / D2 orthogonal state",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "`none`; absent/unavailable; uninitialized/unavailable; initialized/observed with each of all eight Boolean triples; initialized checkout ID equal to and different from `recordedObjectId`",
-      "responsibility": "Schema enforces the closed checkout and observation unions; Phase 1 static enforces all pairings, explicit gitlink equality, coverage, and disjointness; Phase 3 live denies inconclusive initialized observation with one of the four D2 reason codes; Phase 4 observes the complete checkout/observation value, preserves the baseline submodule projection, and checks optional baseline-equal submodule-state postconditions; submodule-entry transitions reject",
-      "row": 5
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 5,
+      "missingCoverageObligations": [
+        "`none`; absent/unavailable; uninitialized/unavailable; initialized/observed with each of all eight Boolean triples; initialized checkout ID equal to and different from `recordedObjectId`"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Submodules / D2 orthogonal state",
+        "requiredVectors": "`none`; absent/unavailable; uninitialized/unavailable; initialized/observed with each of all eight Boolean triples; initialized checkout ID equal to and different from `recordedObjectId`",
+        "responsibility": "Schema enforces the closed checkout and observation unions; Phase 1 static enforces all pairings, explicit gitlink equality, coverage, and disjointness; Phase 3 live denies inconclusive initialized observation with one of the four D2 reason codes; Phase 4 observes the complete checkout/observation value, preserves the baseline submodule projection, and checks optional baseline-equal submodule-state postconditions; submodule-entry transitions reject"
+      },
+      "originalCaseId": "static.sg001.matrix-row-05.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:05",
+          "SG-001-ROW:05:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-05.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-06.positive": {
-      "branchOrInvariant": "Active operations",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "TaskContract baseline `none`; optional none-only postcondition; all seven `merge`, `rebase`, `cherry-pick`, `revert`, `bisect`, `sequencer`, and `apply-mailbox` identities as non-authorizing observations; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence",
-      "responsibility": "Schema enforces the reusable observation/evidence union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy contract cases and separately validates generic observation shape; Phase 3 live observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence",
-      "row": 6
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 6,
+      "missingCoverageObligations": [
+        "TaskContract baseline `none`; optional none-only postcondition; all seven `merge`, `rebase`, `cherry-pick`, `revert`, `bisect`, `sequencer`, and `apply-mailbox` identities as non-authorizing observations; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Active operations",
+        "requiredVectors": "TaskContract baseline `none`; optional none-only postcondition; all seven `merge`, `rebase`, `cherry-pick`, `revert`, `bisect`, `sequencer`, and `apply-mailbox` identities as non-authorizing observations; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence",
+        "responsibility": "Schema enforces the reusable observation/evidence union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy contract cases and separately validates generic observation shape; Phase 3 live observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence"
+      },
+      "originalCaseId": "static.sg001.matrix-row-06.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:06",
+          "SG-001-ROW:06:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-06.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-07.positive": {
-      "branchOrInvariant": "Administrative locks",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "none-only TaskContract baseline and postcondition; all seven `index`, `packed-refs`, `shallow`, `config`, `head`, `ref`, and `other` branches as reusable observations/evidence; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence",
-      "responsibility": "Schema enforces the reusable closed union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy cases and separately validates `L(lock)` identity/order; Phase 3 observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence",
-      "row": 7
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 7,
+      "missingCoverageObligations": [
+        "none-only TaskContract baseline and postcondition; all seven `index`, `packed-refs`, `shallow`, `config`, `head`, `ref`, and `other` branches as reusable observations/evidence; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Administrative locks",
+        "requiredVectors": "none-only TaskContract baseline and postcondition; all seven `index`, `packed-refs`, `shallow`, `config`, `head`, `ref`, and `other` branches as reusable observations/evidence; pre-contract denial; post-contract/pre-action `not-attempted`; post-execution failed or indeterminate evidence",
+        "responsibility": "Schema enforces the reusable closed union but fixes TaskContract baseline and optional postcondition to `none`; Phase 1 rejects the 21 legacy cases and separately validates `L(lock)` identity/order; Phase 3 observes and denies; Phase 4 retains only non-authorizing denial or terminal evidence"
+      },
+      "originalCaseId": "static.sg001.matrix-row-07.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:07",
+          "SG-001-ROW:07:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-07.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-08.positive": {
-      "branchOrInvariant": "Permitted transitions",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "one positive vector for each of exactly four supported branches: index-entry, tracked-entry, untracked-path, and ignored-path; all targets in Apath and outside Qpath; complete upstream authority and RequiredPlanCaps closure",
-      "responsibility": "Schema enforces the four closed shapes; Phase 1 checks target identity/order, direct Ptrans path membership, Iplan/Oplan conjunction, and explicit closed-data invariants before contract acceptance; Phases 3/4 retain live observation and actual attribution",
-      "row": 8
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 8,
+      "missingCoverageObligations": [
+        "one positive vector for each of exactly four supported branches: index-entry, tracked-entry, untracked-path, and ignored-path; all targets in Apath and outside Qpath; complete upstream authority and RequiredPlanCaps closure"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Permitted transitions",
+        "requiredVectors": "one positive vector for each of exactly four supported branches: index-entry, tracked-entry, untracked-path, and ignored-path; all targets in Apath and outside Qpath; complete upstream authority and RequiredPlanCaps closure",
+        "responsibility": "Schema enforces the four closed shapes; Phase 1 checks target identity/order, direct Ptrans path membership, Iplan/Oplan conjunction, and explicit closed-data invariants before contract acceptance; Phases 3/4 retain live observation and actual attribution"
+      },
+      "originalCaseId": "static.sg001.matrix-row-08.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:08",
+          "SG-001-ROW:08:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-08.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-09.positive": {
-      "branchOrInvariant": "Required postconditions",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "one positive vector for each of eleven branches; optional ref-state/head-state/submodule-state describe unchanged B only; optional `active-operations` and `administrative-locks` each expect `none`; path-keyed expected state uses the revised valid universe; successful writing `scope-contained` evidence has both path and operation-capability containment",
-      "responsibility": "Schema enforces eleven closed branches, both none-only expectations, and valid paths; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 resolves administrative locations; Phase 4 requires an administrative, path-scope, or operation-capability violation to make `scope-contained` failed or indeterminate and verifies every postcondition",
-      "row": 9
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 9,
+      "missingCoverageObligations": [
+        "one positive vector for each of eleven branches; optional ref-state/head-state/submodule-state describe unchanged B only; optional `active-operations` and `administrative-locks` each expect `none`; path-keyed expected state uses the revised valid universe; successful writing `scope-contained` evidence has both path and operation-capability containment"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Required postconditions",
+        "requiredVectors": "one positive vector for each of eleven branches; optional ref-state/head-state/submodule-state describe unchanged B only; optional `active-operations` and `administrative-locks` each expect `none`; path-keyed expected state uses the revised valid universe; successful writing `scope-contained` evidence has both path and operation-capability containment",
+        "responsibility": "Schema enforces eleven closed branches, both none-only expectations, and valid paths; Phase 1 static enforces type uniqueness and reused baseline semantics; Phase 3 resolves administrative locations; Phase 4 requires an administrative, path-scope, or operation-capability violation to make `scope-contained` failed or indeterminate and verifies every postcondition"
+      },
+      "originalCaseId": "static.sg001.matrix-row-09.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:09",
+          "SG-001-ROW:09:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-09.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-10.positive": {
-      "branchOrInvariant": "Warnings and checks",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "warning without optional fields; warning with summary only; warning with an earlier or later `relatedCheckId`; check without optional summaries; every one of 14 check types with its permitted outcomes; F with exactly its seven closed fields and reserved identity tuple; ordinary non-F generic IDs; general V without `postconditionRef`; referenced V for each of all eleven required-postcondition types",
-      "responsibility": "Schema enforces closed record shapes, the F-implies-exact-tuple specialization, 14 check types, exact 4/3 outcome conditional, and the V-only closed reference object; Phase 1 enforces sequences, globally unique IDs and the derived non-F reserved-ID exclusion, reason-code order, same-receipt warning references, complete-contract postcondition reference resolution, and per-type greatest-sequence selection; Phase 4 produces and sanitizes evidence",
-      "row": 10
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 10,
+      "missingCoverageObligations": [
+        "warning without optional fields; warning with summary only; warning with an earlier or later `relatedCheckId`; check without optional summaries; every one of 14 check types with its permitted outcomes; F with exactly its seven closed fields and reserved identity tuple; ordinary non-F generic IDs; general V without `postconditionRef`; referenced V for each of all eleven required-postcondition types"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Warnings and checks",
+        "requiredVectors": "warning without optional fields; warning with summary only; warning with an earlier or later `relatedCheckId`; check without optional summaries; every one of 14 check types with its permitted outcomes; F with exactly its seven closed fields and reserved identity tuple; ordinary non-F generic IDs; general V without `postconditionRef`; referenced V for each of all eleven required-postcondition types",
+        "responsibility": "Schema enforces closed record shapes, the F-implies-exact-tuple specialization, 14 check types, exact 4/3 outcome conditional, and the V-only closed reference object; Phase 1 enforces sequences, globally unique IDs and the derived non-F reserved-ID exclusion, reason-code order, same-receipt warning references, complete-contract postcondition reference resolution, and per-type greatest-sequence selection; Phase 4 produces and sanitizes evidence"
+      },
+      "originalCaseId": "static.sg001.matrix-row-10.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:10",
+          "SG-001-ROW:10:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-10.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-11.positive": {
-      "branchOrInvariant": "Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "Every origin/outcome; RC 9/9, CH 20/20 with 31 displayed relations, PB 5/5, AI 23/23, DP 13/13, RF 14/14 and their mandatory variants; retained lexical 10/24, P 8/37, final-E 8/22, verification 10/20, scope 5/6, OC 3/8, OE 10/11 case inventories; complete acquired-R/I and single-state controls",
-      "responsibility": "Static checks and the dependency DAG precede receipt digest acceptance; operational truth remains Phase 3/4",
-      "row": 11
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 11,
+      "missingCoverageObligations": [
+        "Every origin/outcome; RC 9/9, CH 20/20 with 31 displayed relations, PB 5/5, AI 23/23, DP 13/13, RF 14/14 and their mandatory variants; retained lexical 10/24, P 8/37, final-E 8/22, verification 10/20, scope 5/6, OC 3/8, OE 10/11 case inventories; complete acquired-R/I and single-state controls"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Receipt outcomes, issued-contract binding, lease acquisition, cumulative denial, timestamp chronology, and attempted-execution checks",
+        "requiredVectors": "Every origin/outcome; RC 9/9, CH 20/20 with 31 displayed relations, PB 5/5, AI 23/23, DP 13/13, RF 14/14 and their mandatory variants; retained lexical 10/24, P 8/37, final-E 8/22, verification 10/20, scope 5/6, OC 3/8, OE 10/11 case inventories; complete acquired-R/I and single-state controls",
+        "responsibility": "Static checks and the dependency DAG precede receipt digest acceptance; operational truth remains Phase 3/4"
+      },
+      "originalCaseId": "static.sg001.matrix-row-11.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:11",
+          "SG-001-ROW:11:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-11.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-12.positive": {
-      "branchOrInvariant": "TaskContract truth table",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition",
-      "responsibility": "Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions",
-      "row": 12
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 12,
+      "missingCoverageObligations": [
+        "each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "TaskContract truth table",
+        "requiredVectors": "each of the four allowed rows: plan-only/plan-only/non-writing; implementation/plan-only/non-writing; implementation/implementation/non-writing; implementation/implementation/writing with required lease and owned postcondition",
+        "responsibility": "Schema and Phase 1 static enforce the closed four-row invariant; Phase 3 live validates required ownership; Phase 4 evidence validates authority, binding, release, and postconditions"
+      },
+      "originalCaseId": "static.sg001.matrix-row-12.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:12",
+          "SG-001-ROW:12:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-12.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-13.positive": {
-      "branchOrInvariant": "D1 validated canonical instance representation",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation",
-      "responsibility": "`schema-contracts` specifies the representation contract and records its vectors; future `model-implementation` implements and tests decoding, construction, provenance binding, typed round trips, serialization, and Schema/model conformance; Phase 4 owns trusted operational replay and authenticity",
-      "row": 13
+    {
+      "blocksS6Acceptance": false,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "FUTURE_OWNER_OPEN",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts-specification",
+        "model-implementation",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "FUTURE_MODEL_OBLIGATION",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "matrixRow": 13,
+      "missingCoverageObligations": [
+        "strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D1 validated canonical instance representation",
+        "requiredVectors": "strict UTF-8 source produces one immutable closed JSON value bound to the selected schema-set revision and root `$id`, complete strict-parse/number/NFC/Schema/static/array proof, and retained original bytes or same-process provenance; digest replay uses that representation",
+        "responsibility": "`schema-contracts` specifies the representation contract and records its vectors; future `model-implementation` implements and tests decoding, construction, provenance binding, typed round trips, serialization, and Schema/model conformance; Phase 4 owns trusted operational replay and authenticity"
+      },
+      "originalCaseId": "static.sg001.matrix-row-13.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:13",
+          "SG-001-ROW:13:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "model-implementation",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts-specification",
+        "model-implementation",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-13.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-14.positive": {
-      "branchOrInvariant": "D4 raw worktree-content digest",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation",
-      "responsibility": "Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile",
-      "row": 14
+    {
+      "blocksS6Acceptance": false,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "FUTURE_OWNER_OPEN",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "model-implementation",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "FUTURE_MODEL_OBLIGATION",
+      "laterOperationalConsumers": [
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "matrixRow": 14,
+      "missingCoverageObligations": [
+        "exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D4 raw worktree-content digest",
+        "requiredVectors": "exact empty, binary regular, executable, and link-target byte vectors reproduce their fixed tagged hashes; stable identity, kind, length, and metadata before/after observation",
+        "responsibility": "Schema binds `trackedEntry.contentDigest` to one catalog profile; Phase 3 supplies identity-bound raw bytes; Phase 4 replays the same raw profile"
+      },
+      "originalCaseId": "static.sg001.matrix-row-14.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:14",
+          "SG-001-ROW:14:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "model-implementation",
+      "responsiblePhasesOrWorkstreams": [
+        "model-implementation",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-14.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-15.positive": {
-      "branchOrInvariant": "D5 non-writing contracts",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "all three non-writing truth-table rows have exactly empty transitions, baseline-equal state postconditions, no lease identity, optional `lease-state: not-required`, and issued-receipt `changedPaths: []`; observed drift is evidence only",
-      "responsibility": "Schema and Phase 1 static reject the closed contract and compare explicit postconditions with the immutable baseline; Phase 4 enforces empty changed paths and classifies drift as failed or indeterminate verification; the non-empty changed-path case is cross-referenced, not duplicated, by the focused scope family",
-      "row": 15
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 15,
+      "missingCoverageObligations": [
+        "all three non-writing truth-table rows have exactly empty transitions, baseline-equal state postconditions, no lease identity, optional `lease-state: not-required`, and issued-receipt `changedPaths: []`; observed drift is evidence only"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D5 non-writing contracts",
+        "requiredVectors": "all three non-writing truth-table rows have exactly empty transitions, baseline-equal state postconditions, no lease identity, optional `lease-state: not-required`, and issued-receipt `changedPaths: []`; observed drift is evidence only",
+        "responsibility": "Schema and Phase 1 static reject the closed contract and compare explicit postconditions with the immutable baseline; Phase 4 enforces empty changed paths and classifies drift as failed or indeterminate verification; the non-empty changed-path case is cross-referenced, not duplicated, by the focused scope family"
+      },
+      "originalCaseId": "static.sg001.matrix-row-15.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:15",
+          "SG-001-ROW:15:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-15.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-16.positive": {
-      "branchOrInvariant": "D6 execution/verification biconditional",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "exactly 13 pairs: `not-attempted/not-performed`; each of `succeeded`, `failed`, `cancelled`, and `indeterminate` with each of `passed`, `failed`, and `indeterminate`",
-      "responsibility": "Phase 1 static applies the unchanged 13/7 biconditional, then the separate final-`E` and final-`V` bindings and not-attempted E/V-empty rules, before the existing lifecycle-precedence table; Phase 4 supplies evidence claims",
-      "row": 16
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 16,
+      "missingCoverageObligations": [
+        "exactly 13 pairs: `not-attempted/not-performed`; each of `succeeded`, `failed`, `cancelled`, and `indeterminate` with each of `passed`, `failed`, and `indeterminate`"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D6 execution/verification biconditional",
+        "requiredVectors": "exactly 13 pairs: `not-attempted/not-performed`; each of `succeeded`, `failed`, `cancelled`, and `indeterminate` with each of `passed`, `failed`, and `indeterminate`",
+        "responsibility": "Phase 1 static applies the unchanged 13/7 biconditional, then the separate final-`E` and final-`V` bindings and not-attempted E/V-empty rules, before the existing lifecycle-precedence table; Phase 4 supplies evidence claims"
+      },
+      "originalCaseId": "static.sg001.matrix-row-16.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:16",
+          "SG-001-ROW:16:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-16.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-17.positive": {
-      "branchOrInvariant": "D7 simultaneous transition composition",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "complete nine-dimension B; every supported from equals B(target); four supported types apply simultaneously; one canonical valid F; ref/HEAD/submodules remain baseline-equal and active operations/locks none; exact changed-dimension postconditions; RequiredPlanCaps = Oplan(B,F) union Iplan is authorized and non-prohibited",
-      "responsibility": "Phase 1 applies the four supported types, validates all nine dimensions, checks direct Ptrans scope and conjunctive capability closure; Phase 3 materializes live-dependent B; trusted Phase 4 compares F and attributes actual effects under TA-A",
-      "row": 17
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 17,
+      "missingCoverageObligations": [
+        "complete nine-dimension B; every supported from equals B(target); four supported types apply simultaneously; one canonical valid F; ref/HEAD/submodules remain baseline-equal and active operations/locks none; exact changed-dimension postconditions; RequiredPlanCaps = Oplan(B,F) union Iplan is authorized and non-prohibited"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D7 simultaneous transition composition",
+        "requiredVectors": "complete nine-dimension B; every supported from equals B(target); four supported types apply simultaneously; one canonical valid F; ref/HEAD/submodules remain baseline-equal and active operations/locks none; exact changed-dimension postconditions; RequiredPlanCaps = Oplan(B,F) union Iplan is authorized and non-prohibited",
+        "responsibility": "Phase 1 applies the four supported types, validates all nine dimensions, checks direct Ptrans scope and conjunctive capability closure; Phase 3 materializes live-dependent B; trusted Phase 4 compares F and attributes actual effects under TA-A"
+      },
+      "originalCaseId": "static.sg001.matrix-row-17.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:17",
+          "SG-001-ROW:17:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-17.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-18.positive": {
-      "branchOrInvariant": "D8 closed HostOverlay binding and host-resource exclusivity",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once; one coherent snapshot proves the complete trusted same-host overlay set, every member validates individually, and all five HX positives pass",
-      "responsibility": "Schema closes the unchanged five-field record and ref branches; Phase 1 enforces binding identity, unchanged array canon, name resolution, individual resource validity followed by complete snapshot-bound same-host union `worktreeId` and exact-root injectivity, fail-closed completeness and coherence, and static coordination-root exclusion; Phase 3 compares live canonical root, registration, ref, and every named remote and fails closed on physical-worktree or containment ambiguity",
-      "row": 18
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 18,
+      "missingCoverageObligations": [
+        "complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once; one coherent snapshot proves the complete trusted same-host overlay set, every member validates individually, and all five HX positives pass"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D8 closed HostOverlay binding and host-resource exclusivity",
+        "requiredVectors": "complete branch and detached records with exactly `roleRef`, `worktreeId`, `repositoryRoot`, `expectedRef`, and non-empty canonical `remoteNames`; every name resolves once; one coherent snapshot proves the complete trusted same-host overlay set, every member validates individually, and all five HX positives pass",
+        "responsibility": "Schema closes the unchanged five-field record and ref branches; Phase 1 enforces binding identity, unchanged array canon, name resolution, individual resource validity followed by complete snapshot-bound same-host union `worktreeId` and exact-root injectivity, fail-closed completeness and coherence, and static coordination-root exclusion; Phase 3 compares live canonical root, registration, ref, and every named remote and fails closed on physical-worktree or containment ambiguity"
+      },
+      "originalCaseId": "static.sg001.matrix-row-18.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:18",
+          "SG-001-ROW:18:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-18.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-19.positive": {
-      "branchOrInvariant": "D9 RoutingPolicy projection equality and complete-set contract",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "all six required complete-set positive vectors; different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification",
-      "responsibility": "`schema-contracts` records projection equality, `Drule`/`Dresolved`/`Owned(R)` semantics, exact Phase 2 order, and vectors; executable projection/JCS comparison belongs to future `model-implementation`; Phase 2 alone resolves and routes the complete set, denies top-priority ambiguity or incomplete ownership, and never falls through or unions roles",
-      "row": 19
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts-specification",
+        "model-implementation-projection",
+        "phase2-routing"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 19,
+      "missingCoverageObligations": [
+        "all six required complete-set positive vectors; different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D9 RoutingPolicy projection equality and complete-set contract",
+        "requiredVectors": "all six required complete-set positive vectors; different priorities; case- or pattern-different matches; sample-equivalent but structurally different patterns; equal match at different priorities reaches its assigned classification",
+        "responsibility": "`schema-contracts` records projection equality, `Drule`/`Dresolved`/`Owned(R)` semantics, exact Phase 2 order, and vectors; executable projection/JCS comparison belongs to future `model-implementation`; Phase 2 alone resolves and routes the complete set, denies top-priority ambiguity or incomplete ownership, and never falls through or unions roles"
+      },
+      "originalCaseId": "static.sg001.matrix-row-19.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:19",
+          "SG-001-ROW:19:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts-specification",
+        "model-implementation-projection",
+        "phase2-routing"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-19.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-20.positive": {
-      "branchOrInvariant": "D10 HostOverlay narrowing proof and canonical structured remotes",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; all 15 structured-remote positives; repository and remote subsets by exact validated `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**`; broad `**` remains valid but excludes reserved paths",
-      "responsibility": "Schema enforces the closed record, path profiles, named host/repository profiles, namespace and port rules; Phase 1 rejects literal `.git` components and performs exact lexical, `J(remote)`, set/reference, membership, order, and automata checks relative to revised `U`; only after Phase 2 selects one role that owns all of `Dresolved` may Phase 3 compare the live remote and reject administrative aliases; HostOverlay and runtime state can narrow or deny but never widen routing eligibility",
-      "row": 20
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase2-routing",
+        "phase3-live"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 20,
+      "missingCoverageObligations": [
+        "exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; all 15 structured-remote positives; repository and remote subsets by exact validated `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**`; broad `**` remains valid but excludes reserved paths"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D10 HostOverlay narrowing proof and canonical structured remotes",
+        "requiredVectors": "exact Project/role consistency; capabilities satisfying `Cportable` and `Cbinding`; all 15 structured-remote positives; repository and remote subsets by exact validated `J(remote)`; all binding names resolve; `src/lib/**` is included within Project `src/**`; broad `**` remains valid but excludes reserved paths",
+        "responsibility": "Schema enforces the closed record, path profiles, named host/repository profiles, namespace and port rules; Phase 1 rejects literal `.git` components and performs exact lexical, `J(remote)`, set/reference, membership, order, and automata checks relative to revised `U`; only after Phase 2 selects one role that owns all of `Dresolved` may Phase 3 compare the live remote and reject administrative aliases; HostOverlay and runtime state can narrow or deny but never widen routing eligibility"
+      },
+      "originalCaseId": "static.sg001.matrix-row-20.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:20",
+          "SG-001-ROW:20:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase2-routing",
+        "phase3-live"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-20.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-21.positive": {
-      "branchOrInvariant": "D11 digest catalog and golden corpus",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "Twelve paths, ten computations, two exact copies; exact separators and raw/JCS bytes; unified Source, binding, conditional evidence, complete acquired-R/I and no-lease receipt/delivery values",
-      "responsibility": "Future model-implementation owns executable codec/hash/replay; Phase 3/4 own production, provenance, ownership, and truth",
-      "row": 21
+    {
+      "blocksS6Acceptance": false,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "FUTURE_OWNER_OPEN",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "model-implementation",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "FUTURE_MODEL_OBLIGATION",
+      "laterOperationalConsumers": [
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "matrixRow": 21,
+      "missingCoverageObligations": [
+        "Twelve paths, ten computations, two exact copies; exact separators and raw/JCS bytes; unified Source, binding, conditional evidence, complete acquired-R/I and no-lease receipt/delivery values"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D11 digest catalog and golden corpus",
+        "requiredVectors": "Twelve paths, ten computations, two exact copies; exact separators and raw/JCS bytes; unified Source, binding, conditional evidence, complete acquired-R/I and no-lease receipt/delivery values",
+        "responsibility": "Future model-implementation owns executable codec/hash/replay; Phase 3/4 own production, provenance, ownership, and truth"
+      },
+      "originalCaseId": "static.sg001.matrix-row-21.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:21",
+          "SG-001-ROW:21:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "model-implementation",
+      "responsiblePhasesOrWorkstreams": [
+        "model-implementation",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-21.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-22.positive": {
-      "branchOrInvariant": "D12 review-only capability complement",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "exactly four permitted sets: empty, inspect, validate, and inspect-plus-validate; each has `roleClass: review`, only plan-only mode, exact `C \u2212 P` prohibited set, and no exclusive write",
-      "responsibility": "Schema and Phase 1 static enforce the complete five-class partition and exact equations; later intersections may only narrow the result and cannot restore a forbidden capability",
-      "row": 22
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "later-control-plane-intersections"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 22,
+      "missingCoverageObligations": [
+        "exactly four permitted sets: empty, inspect, validate, and inspect-plus-validate; each has `roleClass: review`, only plan-only mode, exact `C \u2212 P` prohibited set, and no exclusive write"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "D12 review-only capability complement",
+        "requiredVectors": "exactly four permitted sets: empty, inspect, validate, and inspect-plus-validate; each has `roleClass: review`, only plan-only mode, exact `C \u2212 P` prohibited set, and no exclusive write",
+        "responsibility": "Schema and Phase 1 static enforce the complete five-class partition and exact equations; later intersections may only narrow the result and cannot restore a forbidden capability"
+      },
+      "originalCaseId": "static.sg001.matrix-row-22.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:22",
+          "SG-001-ROW:22:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "later-control-plane-intersections"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-22.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-23.positive": {
-      "branchOrInvariant": "Cross-dimension baselines",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "complete inventories rather than deltas; index/tracked field equality; gitlink/submodule object equality; tracked/submodule and untracked/ignored disjointness; canonical clean/none versus exact selection",
-      "responsibility": "Schema enforces local shape; Phase 1 static enforces relationships over explicit closed data; Phase 3 live owns HEAD-, object-, ignore-, filesystem-, checkout-, and index-dependent checks; Phase 4 evidence reuses the same postcondition semantics",
-      "row": 23
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 23,
+      "missingCoverageObligations": [
+        "complete inventories rather than deltas; index/tracked field equality; gitlink/submodule object equality; tracked/submodule and untracked/ignored disjointness; canonical clean/none versus exact selection"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Cross-dimension baselines",
+        "requiredVectors": "complete inventories rather than deltas; index/tracked field equality; gitlink/submodule object equality; tracked/submodule and untracked/ignored disjointness; canonical clean/none versus exact selection",
+        "responsibility": "Schema enforces local shape; Phase 1 static enforces relationships over explicit closed data; Phase 3 live owns HEAD-, object-, ignore-, filesystem-, checkout-, and index-dependent checks; Phase 4 evidence reuses the same postcondition semantics"
+      },
+      "originalCaseId": "static.sg001.matrix-row-23.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:23",
+          "SG-001-ROW:23:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-23.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-24.positive": {
-      "branchOrInvariant": "Required denial bindings, safe summaries, and five-state correction",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "Exact controller/evidence binding; state-only origin; unified acquisitionBinding and external Source on acquired paths; no binding/Source on the other states; all A/every-R/every-L compact refs; exact summary/warning/F placement",
-      "responsibility": "Five states and the ten-row lifecycle matrix are exhaustive; schema/static evidence checks confer no operational truth or authority",
-      "row": 24
+    {
+      "blocksS6Acceptance": true,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "OPEN_PHASE1_COVERAGE_GAP",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "COVERAGE_LEDGER_OPEN",
+      "laterOperationalConsumers": [],
+      "matrixRow": 24,
+      "missingCoverageObligations": [
+        "Exact controller/evidence binding; state-only origin; unified acquisitionBinding and external Source on acquired paths; no binding/Source on the other states; all A/every-R/every-L compact refs; exact summary/warning/F placement"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "Required denial bindings, safe summaries, and five-state correction",
+        "requiredVectors": "Exact controller/evidence binding; state-only origin; unified acquisitionBinding and external Source on acquired paths; no binding/Source on the other states; all A/every-R/every-L compact refs; exact summary/warning/F placement",
+        "responsibility": "Five states and the ten-row lifecycle matrix are exhaustive; schema/static evidence checks confer no operational truth or authority"
+      },
+      "originalCaseId": "static.sg001.matrix-row-24.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:24",
+          "SG-001-ROW:24:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "split-or-map-by-normative-responsibility",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts",
+        "phase3-live",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-24.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     },
-    "static.sg001.matrix-row-25.positive": {
-      "branchOrInvariant": "SG-002 numeric profile",
-      "fixtureKind": "normative-coverage-trace",
-      "requiredVectors": "every existing canonical-token, field-minimum, and field-maximum vector, with Git stage `0` as its only valid stage",
-      "responsibility": "`schema-contracts` specifies the six-field profile, exact bounds, and vectors; future `model-implementation` enforces raw tokens before conversion and proves precision-safe representation/JCS/replay across runtimes; Phase 4 verification requires raw-token replay or the complete validated-representation proof",
-      "row": 25
+    {
+      "blocksS6Acceptance": false,
+      "countedInCorrectedInventory": false,
+      "coverageStatus": "FUTURE_OWNER_OPEN",
+      "existingConcreteExecutableCoverage": [],
+      "existingCoverageAssessment": "UNPROVEN_IN_ACCEPTED_INPUTS; aggregate-row existence is not coverage",
+      "futureOwningWorkstreams": [
+        "schema-contracts-specification",
+        "model-implementation",
+        "phase4-evidence"
+      ],
+      "inventoryDisposition": "FUTURE_MODEL_OBLIGATION",
+      "laterOperationalConsumers": [
+        "phase4-evidence"
+      ],
+      "matrixRow": 25,
+      "missingCoverageObligations": [
+        "every existing canonical-token, field-minimum, and field-maximum vector, with Git stage `0` as its only valid stage"
+      ],
+      "normativeRequirement": {
+        "branchOrInvariant": "SG-002 numeric profile",
+        "requiredVectors": "every existing canonical-token, field-minimum, and field-maximum vector, with Git stage `0` as its only valid stage",
+        "responsibility": "`schema-contracts` specifies the six-field profile, exact bounds, and vectors; future `model-implementation` enforces raw tokens before conversion and proves precision-safe representation/JCS/replay across runtimes; Phase 4 verification requires raw-token replay or the complete validated-representation proof"
+      },
+      "originalCaseId": "static.sg001.matrix-row-25.positive",
+      "originalDeclaration": {
+        "coverage": [
+          "SG-001-MATRIX",
+          "SG-001-ROW:25",
+          "SG-001-ROW:25:POSITIVE"
+        ],
+        "designReferences": [
+          "Section 15 mandatory exhaustive SG-001 fixture/conformance matrix"
+        ],
+        "expectedDisposition": "ACCEPT",
+        "expectedFailureIdentity": null,
+        "expectedStage": "phase1-static",
+        "layer": "phase1-static",
+        "owner": "phase1-static"
+      },
+      "polarity": "positive",
+      "primaryFutureOwner": "model-implementation",
+      "responsiblePhasesOrWorkstreams": [
+        "schema-contracts-specification",
+        "model-implementation",
+        "phase4-evidence"
+      ],
+      "sourceIdentity": {
+        "repository": "k-undurkhaan-2/Agent-Context-Governance",
+        "sourceAsset": "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
+        "sourceAssetByteLength": 19501,
+        "sourceAssetPointer": "/cases/static.sg001.matrix-row-25.positive",
+        "sourceAssetSha256": "1666eb5408a9a576970344e76f71091ccfe1f4546d90bdad3998a36ace75c5e1",
+        "sourceCommit": "44b41272b56ebadb4ddb557e23593c22f6b0c2b9",
+        "sourceManifestSha256": "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
+      }
     }
-  },
-  "ordering": "case IDs are strictly ascending ASCII strings",
+  ],
+  "ordering": "obligations are strictly ascending ASCII originalCaseId values",
+  "purpose": "non-executable positive SG-001 aggregate coverage obligations",
   "schemaSetRevision": "v1alpha1-r1"
 }
