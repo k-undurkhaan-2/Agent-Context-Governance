@@ -7,6 +7,7 @@ import pytest
 from contextctl_schema import _static_core as static_core
 from tests.schema.s6_fixture_runner import (
     CASES_BY_ID,
+    DiagnosticAttributionError,
     ValidatorCapabilityError,
     collect_schema_diagnostics,
     evaluate_case,
@@ -40,12 +41,95 @@ def test_schema_diagnostics_are_structured_and_deterministic() -> None:
         assert diagnostic.keyword
 
 
+@pytest.mark.parametrize(
+    "case_id,expected_identity",
+    [
+        (
+            "schema.resource.domain.negative.envelope-wrong-api",
+            "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864"
+            "|/apiVersion|/$defs/apiVersion/const|const",
+        ),
+        (
+            "schema.resource.domain.negative.unknown-depth-006",
+            "urn:uuid:d5cecdb5-eadf-491d-80c6-869a7f4d10d9"
+            "|/spec/permissions|/$defs/permissions/additionalProperties"
+            "|additionalProperties",
+        ),
+        (
+            "schema.resource.hostoverlay.negative.unknown-depth-006",
+            "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864"
+            "|/spec/repositoryIdentity/acceptedRemotes/0"
+            "|/$defs/structuredRemote/additionalProperties|additionalProperties",
+        ),
+    ],
+)
+def test_cross_resource_ref_diagnostics_retain_exact_catalog_attribution(
+    case_id: str, expected_identity: str
+) -> None:
+    diagnostics = run_schema_case(case_id)
+    assert tuple(item.identity for item in diagnostics) == (expected_identity,)
+
+
+def test_unknown_schema_object_attribution_fails_explicitly() -> None:
+    unknown_schema = {"type": "integer"}
+
+    class UnknownLocationError:
+        schema = unknown_schema
+        validator = "type"
+        absolute_path = ()
+
+    class UnknownLocationValidator:
+        def iter_errors(self, _instance):
+            return (UnknownLocationError(),)
+
+    with pytest.raises(
+        DiagnosticAttributionError, match="unknown Schema object location"
+    ):
+        collect_schema_diagnostics(
+            "not-an-integer",
+            "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion",
+            validator=UnknownLocationValidator(),
+        )
+
+
+def test_ambiguous_schema_object_attribution_fails_explicitly() -> None:
+    ambiguous_schema = {"type": "integer"}
+
+    class AmbiguousLocationError:
+        schema = ambiguous_schema
+        validator = "type"
+        absolute_path = ()
+
+    class AmbiguousLocationValidator:
+        def iter_errors(self, _instance):
+            return (AmbiguousLocationError(),)
+
+    ambiguous_locations = {
+        id(ambiguous_schema): (
+            ("urn:uuid:00000000-0000-4000-8000-000000000001", "/$defs/a"),
+            ("urn:uuid:00000000-0000-4000-8000-000000000002", "/$defs/b"),
+        )
+    }
+    with patch(
+        "tests.schema.s6_fixture_runner._schema_locations",
+        return_value=ambiguous_locations,
+    ):
+        with pytest.raises(
+            DiagnosticAttributionError, match="ambiguous Schema object location"
+        ):
+            collect_schema_diagnostics(
+                "not-an-integer",
+                "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/apiVersion",
+                validator=AmbiguousLocationValidator(),
+            )
+
+
 def test_static_negative_uses_stable_diagnostic_code() -> None:
     result = evaluate_case("static.sg001.index.negative.duplicate-path-different-content")
     assert result.actual_result == "REJECT"
     assert result.static_status == "INVALID"
     assert result.declared_diagnostic_identity == "S4.ARRAY.31"
-    assert "S4.ARRAY.31" in result.actual_diagnostic_identities
+    assert result.actual_diagnostic_identities == ("S4.ARRAY.31",)
 
 
 def test_ordinary_decoded_input_cannot_claim_full_static_acceptance() -> None:

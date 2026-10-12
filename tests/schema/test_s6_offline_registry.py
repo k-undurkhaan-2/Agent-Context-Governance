@@ -39,6 +39,17 @@ def _walk_keys(value):
             yield from _walk_keys(child)
 
 
+def _walk_refs(value):
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key == "$ref":
+                yield child
+            yield from _walk_refs(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from _walk_refs(child)
+
+
 def test_approved_interpreter_and_dependency_profile_is_exact() -> None:
     assert sys.version_info[:2] == (3, 13)
     assert version("jsonschema") == "4.26.0"
@@ -71,6 +82,21 @@ def test_missing_registry_resource_fails_without_network_fallback() -> None:
     with patch("socket.create_connection", side_effect=AssertionError("network attempted")):
         with pytest.raises(NoSuchResource):
             registry.get_or_retrieve("https://network.invalid/missing-schema")
+
+
+def test_every_cross_resource_ref_closes_over_the_fixed_eleven_resource_catalog() -> None:
+    documents = source_schema_documents()
+    catalog_ids = set(documents)
+    external_ref_bases = {
+        reference.split("#", 1)[0]
+        for document in documents.values()
+        for reference in _walk_refs(document)
+        if not reference.startswith("#")
+    }
+    assert external_ref_bases
+    assert external_ref_bases <= catalog_ids
+    assert len(catalog_ids) == 11
+    assert all(resource_id.startswith("urn:uuid:") for resource_id in catalog_ids)
 
 
 def test_adopted_formats_are_explicit_and_mandatory() -> None:
