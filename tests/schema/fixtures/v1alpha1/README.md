@@ -6,11 +6,14 @@ authority, proves that an event occurred, or constitutes a production receipt.
 Schema acceptance and static acceptance are not authorization, and a correct digest
 does not establish event truth.
 
-`manifest.json` uses inventory format version 2. It separates executable or
-explicitly deferred case rows from non-executable coverage-obligation records.
-The corpus contains 138 physical assets: 135 case-pack assets and three
-`coverage-obligation-pack` assets. Together with this README and the manifest,
-the corpus contains 140 paths.
+`manifest.json` uses forward-only inventory format version 3. It separates
+executable or explicitly deferred case rows from non-executable
+coverage-obligation records and adds a versioned three-case Fixture Contract
+pilot. Historical Manifest-v2 identity remains preserved through Git history.
+The corpus contains 142 physical assets: 135 case-pack assets, three
+`coverage-obligation-pack` assets, and four authenticated Fixture Contract
+schema/operand/oracle assets. Together with this README and the manifest, the
+corpus contains 144 paths.
 
 The manifest has 2,166 case rows: 516 `ACCEPT`, 1,535 `REJECT`, and 115
 `DEFERRED`. Their inventory dispositions are 1,566 `DIRECT_SCHEMA`, 485
@@ -22,6 +25,21 @@ later operational owners, producing the corrected inventory total of 2,180:
 1566 DIRECT_SCHEMA + 485 DIRECT_STATIC = 2051 DIRECT_TOTAL
 2051 DIRECT_TOTAL + 14 TRACE_ONLY + 115 DEFERRED = 2180 TOTAL
 ```
+
+Manifest v3 preserves every historical case identity, descriptor reference,
+disposition, owner, coverage identity, and S5 provenance value. It adds an
+authenticated `fixture-contract-v1` operand for exactly three branch-policy
+pilot cases and exact typed negative oracles for exactly two of them. The
+Schema diagnostic identity is `schema-diagnostic-v1`; the static identity is
+`static-diagnostic-v1` and uses all existing public static diagnostic fields.
+`expectedFailureIdentity` remains historical design metadata, never a
+substitute oracle.
+
+The pilot materializes two formerly blocked static operands and supplies two
+formerly missing exact negative oracles. The remaining 426 non-pilot static
+operand gaps and 1,533 non-pilot negative-oracle gaps remain fail-closed S6
+acceptance blockers. The pilot does not change the 42 open Phase-1 coverage
+obligations, row-19 responsibility, or the eight future-model obligations.
 
 The two SG-001 aggregate matrix packs contain 50 non-executable obligations, not
 cases. Forty-two are `COVERAGE_LEDGER_OPEN` Phase-1 coverage gaps and remain

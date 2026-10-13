@@ -1,4 +1,4 @@
-"""S6 integrity checks for the immutable authenticated Manifest v2 inventory."""
+"""S6 integrity checks for the authenticated forward-only Manifest v3 inventory."""
 
 from collections import Counter
 from copy import deepcopy
@@ -7,8 +7,8 @@ import hashlib
 import pytest
 
 from tests.schema.s6_fixture_runner import (
-    APPROVED_MANIFEST_GIT_BLOB,
-    APPROVED_MANIFEST_SHA256,
+    CANDIDATE_MANIFEST_GIT_BLOB,
+    CANDIDATE_MANIFEST_SHA256,
     CASES,
     CONTROL_PATHS,
     EXPECTED_ASSET_COUNT,
@@ -24,12 +24,14 @@ from tests.schema.s6_fixture_runner import (
     EXPECTED_TRACE_ONLY_COUNT,
     EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT,
     EXPECTED_UTF8_JSON_ASSET_COUNT,
+    FIXTURE_CONTRACT,
     MANIFEST,
     MANIFEST_EOL_ADJUSTED,
     MANIFEST_GIT_BLOB,
     MANIFEST_PHYSICAL_SHA256,
     MANIFEST_SHA256,
     V2_CORRECTION_ASSET_PATHS,
+    V3_PILOT_ASSET_PATHS,
     DuplicateJsonKeyError,
     FixtureContractError,
     audit_current_corpus,
@@ -38,19 +40,20 @@ from tests.schema.s6_fixture_runner import (
     compare_asset_inventory,
     execution_mode,
     future_model_obligation_ids,
+    fixture_contract_structure_problems,
     manifest_structure_problems,
     strict_json_loads,
     trace_only_obligation_ids,
 )
 
 
-def test_approved_manifest_identity_and_complete_corpus() -> None:
+def test_candidate_manifest_identity_and_complete_corpus() -> None:
     audit = audit_current_corpus()
-    assert MANIFEST_SHA256 == APPROVED_MANIFEST_SHA256
-    assert MANIFEST_GIT_BLOB == APPROVED_MANIFEST_GIT_BLOB
-    assert MANIFEST["inventoryFormatVersion"] == EXPECTED_INVENTORY_FORMAT_VERSION == 2
+    assert MANIFEST_SHA256 == CANDIDATE_MANIFEST_SHA256
+    assert MANIFEST_GIT_BLOB == CANDIDATE_MANIFEST_GIT_BLOB
+    assert MANIFEST["inventoryFormatVersion"] == EXPECTED_INVENTORY_FORMAT_VERSION == 3
     assert audit.problems == ()
-    assert audit.asset_count == EXPECTED_ASSET_COUNT == 138
+    assert audit.asset_count == EXPECTED_ASSET_COUNT == 142
     assert audit.control_count == EXPECTED_CONTROL_COUNT == 2
     assert audit.case_count == EXPECTED_CASE_COUNT == 2166
     assert audit.deferred_count == EXPECTED_DEFERRED_COUNT == 115
@@ -65,7 +68,7 @@ def test_approved_manifest_identity_and_complete_corpus() -> None:
     )
 
 
-def test_execution_modes_reconcile_manifest_v2_without_key_inference() -> None:
+def test_execution_modes_reconcile_manifest_v3_without_key_inference() -> None:
     observed = Counter(execution_mode(case) for case in CASES)
     assert observed == Counter(EXPECTED_EXECUTION_MODE_COUNTS)
     assert sum(observed.values()) == EXPECTED_CASE_COUNT
@@ -113,18 +116,19 @@ def test_windows_checkout_eol_handling_preserves_authenticated_canonical_bytes()
         for asset in MANIFEST["assets"]
         if asset["encoding"] == "utf-8-json"
     }
-    assert len(utf8_paths) == EXPECTED_UTF8_JSON_ASSET_COUNT == 36
+    assert len(utf8_paths) == EXPECTED_UTF8_JSON_ASSET_COUNT == 40
     assert V2_CORRECTION_ASSET_PATHS <= utf8_paths
+    assert V3_PILOT_ASSET_PATHS <= utf8_paths
     assert (
-        len(utf8_paths - V2_CORRECTION_ASSET_PATHS)
+        len(utf8_paths - V2_CORRECTION_ASSET_PATHS - V3_PILOT_ASSET_PATHS)
         == EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT
         == 31
     )
     assert 0 <= audit.checkout_eol_adjusted_count <= EXPECTED_UTF8_JSON_ASSET_COUNT
     if MANIFEST_EOL_ADJUSTED:
-        assert MANIFEST_PHYSICAL_SHA256 != APPROVED_MANIFEST_SHA256
+        assert MANIFEST_PHYSICAL_SHA256 != CANDIDATE_MANIFEST_SHA256
     else:
-        assert MANIFEST_PHYSICAL_SHA256 == APPROVED_MANIFEST_SHA256
+        assert MANIFEST_PHYSICAL_SHA256 == CANDIDATE_MANIFEST_SHA256
 
 
 def test_checkout_eol_arrangement_is_exact_and_never_applies_to_raw_bytes() -> None:
@@ -177,6 +181,22 @@ def test_control_files_are_exactly_the_two_approved_paths() -> None:
         "tests/schema/fixtures/v1alpha1/README.md",
         "tests/schema/fixtures/v1alpha1/manifest.json",
     }
+
+
+def test_fixture_contract_v3_is_exact_authenticated_and_has_no_self_digest() -> None:
+    assert fixture_contract_structure_problems() == ()
+    assert FIXTURE_CONTRACT["contractVersion"] == "fixture-contract-v1"
+    assert [item["caseId"] for item in FIXTURE_CONTRACT["pilotCases"]] == [
+        "phase1-static.branch-policy.negative.16-no-allow-match",
+        "schema.branch-policy.negative.01-empty-prefix",
+        "static.branch-policy.positive.01-exact-allow-no-deny",
+    ]
+    assert not any(
+        key in MANIFEST
+        for key in ("manifestDigest", "manifestSha256", "manifestGitBlob", "selfDigest")
+    )
+    assert MANIFEST["inventory"]["fixtureContractAssets"] == 4
+    assert MANIFEST["inventory"]["pilotCaseCount"] == 3
 
 
 @pytest.mark.parametrize(
@@ -260,6 +280,20 @@ def test_structure_audit_detects_provenance_or_inventory_tampering() -> None:
     assert "manifest inventory aggregates mismatch" in manifest_structure_problems(
         inventory
     )
+
+
+def test_structure_audit_detects_fixture_contract_reference_tampering() -> None:
+    candidate = deepcopy(MANIFEST)
+    candidate["fixtureContract"]["pilotCases"][0]["operandRef"]["sha256"] = "0" * 64
+    assert "manifest fixture-contract metadata mismatch" in manifest_structure_problems(
+        candidate
+    )
+
+    self_digest = deepcopy(MANIFEST)
+    self_digest["manifestSha256"] = "0" * 64
+    problems = manifest_structure_problems(self_digest)
+    assert "manifest top-level key set differs from the frozen contract" in problems
+    assert "manifest must not contain a self-digest" in problems
 
 
 def test_structure_audit_detects_invalid_case_inventory_disposition() -> None:

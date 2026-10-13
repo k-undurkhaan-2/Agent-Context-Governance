@@ -889,6 +889,34 @@
       "sha256": "16c63bddb910905c4ee8abf36273baa20dba53020dbaf265da5936013ded185d"
     },
     {
+      "byteLength": 14450,
+      "encoding": "utf-8-json",
+      "inventoryClass": "fixture-contract-schema",
+      "path": "tests/schema/fixtures/v1alpha1/s6/fixture-contract-v1.schema.json",
+      "sha256": "887b79afd12950bad428fda4b2d3402ee5f3e7e82a75991f25cbabb53a14ed71"
+    },
+    {
+      "byteLength": 31786,
+      "encoding": "utf-8-json",
+      "inventoryClass": "operand-sidecar",
+      "path": "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json",
+      "sha256": "8375e157311c2aa04be3297efaf6cf85d998a06fcc0b85ce7fcc30d31cdec2dc"
+    },
+    {
+      "byteLength": 1059,
+      "encoding": "utf-8-json",
+      "inventoryClass": "oracle-sidecar",
+      "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-branch-policy-pilot.json",
+      "sha256": "a3bbea2f6834ca0511e370b51e71c32c0e6854cecf24d2869cea7698c4c571ae"
+    },
+    {
+      "byteLength": 727,
+      "encoding": "utf-8-json",
+      "inventoryClass": "oracle-sidecar",
+      "path": "tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json",
+      "sha256": "3e5ebd6ddc07e1695cacb2d8610621c7173b4ce37023ed81af55570a3240b0a6"
+    },
+    {
       "byteLength": 2772,
       "caseCount": 16,
       "encoding": "utf-8-json",
@@ -50850,6 +50878,88 @@
   "designBlob": "c77bbc39da8a631918bde5cf4041659ddada8998",
   "designPath": "docs/schema-contract-v1alpha1.md",
   "evidenceClaim": false,
+  "fixtureContract": {
+    "contractSchema": {
+      "byteLength": 14450,
+      "path": "tests/schema/fixtures/v1alpha1/s6/fixture-contract-v1.schema.json",
+      "schemaId": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+      "sha256": "887b79afd12950bad428fda4b2d3402ee5f3e7e82a75991f25cbabb53a14ed71"
+    },
+    "contractVersion": "fixture-contract-v1",
+    "diagnosticIdentityVersions": [
+      "schema-diagnostic-v1",
+      "static-diagnostic-v1"
+    ],
+    "pilotCases": [
+      {
+        "caseId": "phase1-static.branch-policy.negative.16-no-allow-match",
+        "descriptorRef": {
+          "byteLength": 6758,
+          "path": "tests/schema/fixtures/v1alpha1/static/negative/branch-policy-matrix.json",
+          "pointer": "/cases/phase1-static.branch-policy.negative.16-no-allow-match",
+          "sha256": "4e96e524af2426e480719a23cb2b54609fba87db6f008164ed3c0cf93b8b3e99"
+        },
+        "diagnosticIdentityVersion": "static-diagnostic-v1",
+        "expectedValidationStatus": "INVALID",
+        "operandRef": {
+          "byteLength": 31786,
+          "path": "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json",
+          "pointer": "/cases/phase1-static.branch-policy.negative.16-no-allow-match",
+          "sha256": "8375e157311c2aa04be3297efaf6cf85d998a06fcc0b85ce7fcc30d31cdec2dc"
+        },
+        "oracleRef": {
+          "byteLength": 727,
+          "path": "tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json",
+          "pointer": "/cases/phase1-static.branch-policy.negative.16-no-allow-match",
+          "sha256": "3e5ebd6ddc07e1695cacb2d8610621c7173b4ce37023ed81af55570a3240b0a6"
+        },
+        "validatorEntryPoint": "contextctl_schema.static_validation.validate_task_contract_static"
+      },
+      {
+        "caseId": "schema.branch-policy.negative.01-empty-prefix",
+        "descriptorRef": {
+          "byteLength": 2772,
+          "path": "tests/schema/fixtures/v1alpha1/schema/negative/branch-policy-matrix.json",
+          "pointer": "/cases/schema.branch-policy.negative.01-empty-prefix",
+          "sha256": "47296d0c2f514c51e754a3dae2df2fb3220dcdb1da7fb7bba98123e701309690"
+        },
+        "diagnosticIdentityVersion": "schema-diagnostic-v1",
+        "expectedValidationStatus": "INVALID",
+        "operandRef": {
+          "byteLength": 31786,
+          "path": "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json",
+          "pointer": "/cases/schema.branch-policy.negative.01-empty-prefix",
+          "sha256": "8375e157311c2aa04be3297efaf6cf85d998a06fcc0b85ce7fcc30d31cdec2dc"
+        },
+        "oracleRef": {
+          "byteLength": 1059,
+          "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-branch-policy-pilot.json",
+          "pointer": "/cases/schema.branch-policy.negative.01-empty-prefix",
+          "sha256": "a3bbea2f6834ca0511e370b51e71c32c0e6854cecf24d2869cea7698c4c571ae"
+        },
+        "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+      },
+      {
+        "caseId": "static.branch-policy.positive.01-exact-allow-no-deny",
+        "descriptorRef": {
+          "byteLength": 2932,
+          "path": "tests/schema/fixtures/v1alpha1/static/positive/branch-policy-matrix.json",
+          "pointer": "/cases/static.branch-policy.positive.01-exact-allow-no-deny",
+          "sha256": "64249db00a085ed0e6287a7618fac860621f65ecbae73425453298769f3c0dfa"
+        },
+        "diagnosticIdentityVersion": "static-diagnostic-v1",
+        "expectedValidationStatus": "PASS",
+        "operandRef": {
+          "byteLength": 31786,
+          "path": "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json",
+          "pointer": "/cases/static.branch-policy.positive.01-exact-allow-no-deny",
+          "sha256": "8375e157311c2aa04be3297efaf6cf85d998a06fcc0b85ce7fcc30d31cdec2dc"
+        },
+        "oracleRef": null,
+        "validatorEntryPoint": "contextctl_schema.static_validation.validate_task_contract_static"
+      }
+    ]
+  },
   "fixtureRoot": "tests/schema/fixtures/v1alpha1",
   "implementationBaseline": "3619ce3f21731241ccec6b989452e57da2f14e12",
   "inventory": {
@@ -50866,11 +50976,13 @@
       "DEFERRED": 115,
       "REJECT": 1535
     },
+    "fixtureContractAssets": 4,
     "futureModelObligations": 8,
     "manifestCaseRows": 2166,
     "openPhase1CoverageGaps": 42,
-    "physicalAssets": 138,
-    "totalCorpusPaths": 140,
+    "physicalAssets": 142,
+    "pilotCaseCount": 3,
+    "totalCorpusPaths": 144,
     "traceOnly": 14,
     "withdrawnClaims": {
       "correctedCaseInventoryCount": 2230,
@@ -50878,7 +50990,7 @@
       "status": "withdrawn; neither value is an active acceptance count"
     }
   },
-  "inventoryFormatVersion": 2,
+  "inventoryFormatVersion": 3,
   "inventoryProvenance": {
     "acceptedDecision": "SCHEMA-S5-POST-INTEGRATION-INVENTORY-DISPOSITION-R1",
     "acceptedDecisionArtifactManifestSha256": "164fb5c1c4a71707a6e83e0a95c18889c0b01e2e4eeebc1ae47b62c7015aa810",
@@ -50897,6 +51009,8 @@
     "cases": "strict ascending ASCII id",
     "coverageObligations": "strict ascending ASCII originalCaseId",
     "coverageWithinCase": "sorted unique ASCII strings",
+    "fixtureContractPilotCases": "strict ascending ASCII caseId",
+    "oracleDiagnostics": "diagnostic-version canonical order; unique exact identities",
     "packCases": "strict ascending ASCII case id",
     "packObligations": "strict ascending ASCII originalCaseId"
   },

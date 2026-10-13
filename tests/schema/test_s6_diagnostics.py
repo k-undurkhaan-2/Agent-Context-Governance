@@ -1,5 +1,6 @@
 """S6 structured diagnostics and Phase-1 proof-boundary checks."""
 
+from dataclasses import replace
 from unittest.mock import patch
 
 import pytest
@@ -8,9 +9,13 @@ from contextctl_schema import _static_core as static_core
 from tests.schema.s6_fixture_runner import (
     CASES_BY_ID,
     DiagnosticAttributionError,
+    SchemaDiagnostic,
+    StaticDiagnosticIdentity,
     ValidatorCapabilityError,
     collect_schema_diagnostics,
+    compare_diagnostic_identity_sets,
     evaluate_case,
+    expected_typed_diagnostics,
     json_pointer,
     run_schema_case,
     run_static_case_without_proofs,
@@ -130,6 +135,66 @@ def test_static_negative_uses_stable_diagnostic_code() -> None:
     assert result.static_status == "INVALID"
     assert result.declared_diagnostic_identity == "S4.ARRAY.31"
     assert result.actual_diagnostic_identities == ("S4.ARRAY.31",)
+
+
+def test_schema_diagnostic_v1_reports_missing_and_unexpected_identities() -> None:
+    case_id = "schema.branch-policy.negative.01-empty-prefix"
+    expected = expected_typed_diagnostics(case_id)
+    assert expected is not None and len(expected) == 3
+
+    missing = compare_diagnostic_identity_sets(
+        "schema-diagnostic-v1", expected, expected[1:]
+    )
+    assert missing.status == "EXACT_SET_MISMATCH"
+    assert missing.missing == (expected[0],)
+    assert missing.unexpected == ()
+
+    extra = SchemaDiagnostic(
+        schema_resource_id="urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        instance_pointer="",
+        schema_pointer="/$defs/branchPrefix/description",
+        keyword="description",
+    )
+    unexpected = compare_diagnostic_identity_sets(
+        "schema-diagnostic-v1", expected, (*expected, extra)
+    )
+    assert unexpected.status == "EXACT_SET_MISMATCH"
+    assert unexpected.missing == ()
+    assert unexpected.unexpected == (extra,)
+
+
+def test_static_diagnostic_v1_uses_every_public_field_and_exact_sets() -> None:
+    case_id = "phase1-static.branch-policy.negative.16-no-allow-match"
+    expected = expected_typed_diagnostics(case_id)
+    assert expected is not None and len(expected) == 1
+    identity = expected[0]
+    assert isinstance(identity, StaticDiagnosticIdentity)
+    assert identity == StaticDiagnosticIdentity(
+        code="S4.BRANCH.STATIC",
+        subject_id="00000000-0000-4000-8000-000000000116",
+        instance_pointer="/spec/expectedBaseline/ref",
+        predicate_family="branch-policy",
+        schema_id=None,
+        schema_pointer=None,
+        keyword="BRANCH.STATIC",
+    )
+
+    missing = compare_diagnostic_identity_sets("static-diagnostic-v1", expected, ())
+    assert missing.status == "EXACT_SET_MISMATCH"
+    assert missing.missing == expected
+    assert missing.unexpected == ()
+
+    extra = replace(identity, code="S4.BRANCH.UNEXPECTED")
+    unexpected = compare_diagnostic_identity_sets(
+        "static-diagnostic-v1", expected, (*expected, extra)
+    )
+    assert unexpected.status == "EXACT_SET_MISMATCH"
+    assert unexpected.missing == ()
+    assert unexpected.unexpected == (extra,)
+
+    result = evaluate_case(case_id)
+    assert result.static_diagnostics == expected
+    assert result.oracle_status == "EXACT_MATCH"
 
 
 def test_ordinary_decoded_input_cannot_claim_full_static_acceptance() -> None:

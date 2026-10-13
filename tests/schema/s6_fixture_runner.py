@@ -1,9 +1,10 @@
-"""Deterministic S6 runner for the immutable v1alpha1 fixture manifest.
+"""Deterministic S6 runner for the authenticated v1alpha1 Manifest v3 corpus.
 
 This module is test-only.  It does not expose a production validator, create a
 trusted proof source, or turn fixture acceptance into operational authority.
-The synthetic proof adapter below is used only to exercise the already-public
-S4 validation surface with explicitly synthetic operands.
+The synthetic proof adapters below are used only to exercise the already-public
+S4 validation surface with explicitly synthetic operands.  Pilot proof
+responses are sidecar-declared and never inherit generic success defaults.
 """
 
 from __future__ import annotations
@@ -16,6 +17,7 @@ import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
+from types import MappingProxyType
 from typing import Any, Mapping
 from unittest.mock import patch
 
@@ -23,6 +25,7 @@ from jsonschema import Draft202012Validator
 
 from contextctl_schema import build_format_checker
 from contextctl_schema import _static_core as static_core
+from contextctl_schema._static_baseline import _MaterializedBaselineView
 from contextctl_schema.catalog import (
     API_VERSION,
     CATALOG,
@@ -52,12 +55,12 @@ CONTROL_PATHS = frozenset(
         "tests/schema/fixtures/v1alpha1/manifest.json",
     }
 )
-APPROVED_MANIFEST_SHA256 = (
-    "4bbda197993111e95d9f7a96e003a107afe1d052bf99418fd99b8060305ef382"
+CANDIDATE_MANIFEST_SHA256 = (
+    "1af4fd6048d3276505818b299592c3d892478a206164a981527e326f95ac2901"
 )
-APPROVED_MANIFEST_GIT_BLOB = "9f584eec14f1e3fc969829403cfd057c15ff693b"
-EXPECTED_INVENTORY_FORMAT_VERSION = 2
-EXPECTED_ASSET_COUNT = 138
+CANDIDATE_MANIFEST_GIT_BLOB = "92468824b7cd51b8a94507f25dfa62109ae36a65"
+EXPECTED_INVENTORY_FORMAT_VERSION = 3
+EXPECTED_ASSET_COUNT = 142
 EXPECTED_CONTROL_COUNT = 2
 EXPECTED_CASE_COUNT = 2166
 EXPECTED_ACCEPT_COUNT = 516
@@ -71,7 +74,7 @@ EXPECTED_CORRECTED_INVENTORY_COUNT = 2180
 EXPECTED_OPEN_PHASE1_GAP_COUNT = 42
 EXPECTED_FUTURE_MODEL_OBLIGATION_COUNT = 8
 EXPECTED_COVERAGE_OBLIGATION_COUNT = 64
-EXPECTED_UTF8_JSON_ASSET_COUNT = 36
+EXPECTED_UTF8_JSON_ASSET_COUNT = 40
 # Five v2 correction assets changed at the accepted correction commit.  The
 # other 31 UTF-8 JSON assets retain the known checkout-only LF/CRLF exposure.
 EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT = 31
@@ -83,6 +86,30 @@ V2_CORRECTION_ASSET_PATHS = frozenset(
         "tests/schema/fixtures/v1alpha1/static/positive/sg001-matrix-trace.json",
         "tests/schema/fixtures/v1alpha1/static/positive/sg001-runtime-structure.json",
     }
+)
+V3_PILOT_ASSET_PATHS = frozenset(
+    {
+        "tests/schema/fixtures/v1alpha1/s6/fixture-contract-v1.schema.json",
+        "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json",
+        "tests/schema/fixtures/v1alpha1/s6/oracles/schema-branch-policy-pilot.json",
+        "tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json",
+    }
+)
+
+FIXTURE_CONTRACT_VERSION = "fixture-contract-v1"
+FIXTURE_CONTRACT_SCHEMA_ID = "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1"
+SCHEMA_DIAGNOSTIC_V1 = "schema-diagnostic-v1"
+STATIC_DIAGNOSTIC_V1 = "static-diagnostic-v1"
+SCHEMA_VALIDATOR_ENTRY_POINT = (
+    "jsonschema.validators.Draft202012Validator.iter_errors"
+)
+STATIC_VALIDATOR_ENTRY_POINT = (
+    "contextctl_schema.static_validation.validate_task_contract_static"
+)
+PILOT_CASE_IDS = (
+    "phase1-static.branch-policy.negative.16-no-allow-match",
+    "schema.branch-policy.negative.01-empty-prefix",
+    "static.branch-policy.positive.01-exact-allow-no-deny",
 )
 
 SCHEMA_DIRECT = "schema-direct"
@@ -107,6 +134,7 @@ _EXPECTED_TOP_LEVEL_KEYS = frozenset(
         "designBlob",
         "designPath",
         "evidenceClaim",
+        "fixtureContract",
         "fixtureRoot",
         "implementationBaseline",
         "inventory",
@@ -207,10 +235,12 @@ _EXPECTED_INVENTORY = {
         "DEFERRED": EXPECTED_DEFERRED_COUNT,
         "REJECT": EXPECTED_REJECT_COUNT,
     },
+    "fixtureContractAssets": len(V3_PILOT_ASSET_PATHS),
     "futureModelObligations": EXPECTED_FUTURE_MODEL_OBLIGATION_COUNT,
     "manifestCaseRows": EXPECTED_CASE_COUNT,
     "openPhase1CoverageGaps": EXPECTED_OPEN_PHASE1_GAP_COUNT,
     "physicalAssets": EXPECTED_ASSET_COUNT,
+    "pilotCaseCount": len(PILOT_CASE_IDS),
     "totalCorpusPaths": EXPECTED_ASSET_COUNT + EXPECTED_CONTROL_COUNT,
     "traceOnly": EXPECTED_TRACE_ONLY_COUNT,
     "withdrawnClaims": {
@@ -218,6 +248,85 @@ _EXPECTED_INVENTORY = {
         "executableAcceptanceCount": 2115,
         "status": "withdrawn; neither value is an active acceptance count",
     },
+}
+_EXPECTED_FIXTURE_CONTRACT = {
+    "contractSchema": {
+        "byteLength": 14450,
+        "path": "tests/schema/fixtures/v1alpha1/s6/fixture-contract-v1.schema.json",
+        "schemaId": FIXTURE_CONTRACT_SCHEMA_ID,
+        "sha256": "887b79afd12950bad428fda4b2d3402ee5f3e7e82a75991f25cbabb53a14ed71",
+    },
+    "contractVersion": FIXTURE_CONTRACT_VERSION,
+    "diagnosticIdentityVersions": [SCHEMA_DIAGNOSTIC_V1, STATIC_DIAGNOSTIC_V1],
+    "pilotCases": [
+        {
+            "caseId": "phase1-static.branch-policy.negative.16-no-allow-match",
+            "descriptorRef": {
+                "byteLength": 6758,
+                "path": "tests/schema/fixtures/v1alpha1/static/negative/branch-policy-matrix.json",
+                "pointer": "/cases/phase1-static.branch-policy.negative.16-no-allow-match",
+                "sha256": "4e96e524af2426e480719a23cb2b54609fba87db6f008164ed3c0cf93b8b3e99",
+            },
+            "diagnosticIdentityVersion": STATIC_DIAGNOSTIC_V1,
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+                "byteLength": 31786,
+                "path": "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json",
+                "pointer": "/cases/phase1-static.branch-policy.negative.16-no-allow-match",
+                "sha256": "8375e157311c2aa04be3297efaf6cf85d998a06fcc0b85ce7fcc30d31cdec2dc",
+            },
+            "oracleRef": {
+                "byteLength": 727,
+                "path": "tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json",
+                "pointer": "/cases/phase1-static.branch-policy.negative.16-no-allow-match",
+                "sha256": "3e5ebd6ddc07e1695cacb2d8610621c7173b4ce37023ed81af55570a3240b0a6",
+            },
+            "validatorEntryPoint": STATIC_VALIDATOR_ENTRY_POINT,
+        },
+        {
+            "caseId": "schema.branch-policy.negative.01-empty-prefix",
+            "descriptorRef": {
+                "byteLength": 2772,
+                "path": "tests/schema/fixtures/v1alpha1/schema/negative/branch-policy-matrix.json",
+                "pointer": "/cases/schema.branch-policy.negative.01-empty-prefix",
+                "sha256": "47296d0c2f514c51e754a3dae2df2fb3220dcdb1da7fb7bba98123e701309690",
+            },
+            "diagnosticIdentityVersion": SCHEMA_DIAGNOSTIC_V1,
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+                "byteLength": 31786,
+                "path": "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json",
+                "pointer": "/cases/schema.branch-policy.negative.01-empty-prefix",
+                "sha256": "8375e157311c2aa04be3297efaf6cf85d998a06fcc0b85ce7fcc30d31cdec2dc",
+            },
+            "oracleRef": {
+                "byteLength": 1059,
+                "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-branch-policy-pilot.json",
+                "pointer": "/cases/schema.branch-policy.negative.01-empty-prefix",
+                "sha256": "a3bbea2f6834ca0511e370b51e71c32c0e6854cecf24d2869cea7698c4c571ae",
+            },
+            "validatorEntryPoint": SCHEMA_VALIDATOR_ENTRY_POINT,
+        },
+        {
+            "caseId": "static.branch-policy.positive.01-exact-allow-no-deny",
+            "descriptorRef": {
+                "byteLength": 2932,
+                "path": "tests/schema/fixtures/v1alpha1/static/positive/branch-policy-matrix.json",
+                "pointer": "/cases/static.branch-policy.positive.01-exact-allow-no-deny",
+                "sha256": "64249db00a085ed0e6287a7618fac860621f65ecbae73425453298769f3c0dfa",
+            },
+            "diagnosticIdentityVersion": STATIC_DIAGNOSTIC_V1,
+            "expectedValidationStatus": "PASS",
+            "operandRef": {
+                "byteLength": 31786,
+                "path": "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json",
+                "pointer": "/cases/static.branch-policy.positive.01-exact-allow-no-deny",
+                "sha256": "8375e157311c2aa04be3297efaf6cf85d998a06fcc0b85ce7fcc30d31cdec2dc",
+            },
+            "oracleRef": None,
+            "validatorEntryPoint": STATIC_VALIDATOR_ENTRY_POINT,
+        },
+    ],
 }
 _COVERAGE_DISPOSITION_CONTRACT = {
     "TRACE_ONLY": (
@@ -292,6 +401,41 @@ class SchemaDiagnostic:
 
 
 @dataclass(frozen=True, slots=True)
+class StaticDiagnosticIdentity:
+    code: str
+    subject_id: str | None
+    instance_pointer: str
+    predicate_family: str
+    schema_id: str | None
+    schema_pointer: str | None
+    keyword: str
+
+    @property
+    def identity(self) -> str:
+        return "|".join(
+            (
+                self.code,
+                self.subject_id or "<null>",
+                self.instance_pointer,
+                self.predicate_family,
+                self.schema_id or "<null>",
+                self.schema_pointer or "<null>",
+                self.keyword,
+            )
+        )
+
+
+DiagnosticIdentity = SchemaDiagnostic | StaticDiagnosticIdentity
+
+
+@dataclass(frozen=True, slots=True)
+class DiagnosticSetComparison:
+    status: str
+    missing: tuple[DiagnosticIdentity, ...]
+    unexpected: tuple[DiagnosticIdentity, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class CaseResult:
     case_id: str
     source_asset: str | None
@@ -306,6 +450,12 @@ class CaseResult:
     execution_status: str = "EXECUTED"
     oracle_status: str = "NOT_APPLICABLE"
     schema_diagnostics: tuple[SchemaDiagnostic, ...] = ()
+    static_diagnostics: tuple[StaticDiagnosticIdentity, ...] = ()
+    diagnostic_identity_version: str | None = None
+    expected_typed_diagnostics: tuple[DiagnosticIdentity, ...] | None = None
+    missing_diagnostics: tuple[DiagnosticIdentity, ...] = ()
+    unexpected_diagnostics: tuple[DiagnosticIdentity, ...] = ()
+    validation_status: str | None = None
     static_status: str | None = None
     proof_treatment: str | None = None
 
@@ -410,7 +560,7 @@ MANIFEST_PHYSICAL_BYTES = MANIFEST_PATH.read_bytes()
 MANIFEST_PHYSICAL_SHA256 = _sha256(MANIFEST_PHYSICAL_BYTES)
 MANIFEST_BYTES, MANIFEST_EOL_ADJUSTED = canonical_checkout_bytes(
     MANIFEST_PHYSICAL_BYTES,
-    expected_sha256=APPROVED_MANIFEST_SHA256,
+    expected_sha256=CANDIDATE_MANIFEST_SHA256,
     expected_length=None,
     encoding="utf-8-json",
     identity="fixture manifest",
@@ -418,6 +568,10 @@ MANIFEST_BYTES, MANIFEST_EOL_ADJUSTED = canonical_checkout_bytes(
 MANIFEST_SHA256 = _sha256(MANIFEST_BYTES)
 MANIFEST_GIT_BLOB = git_blob_oid(MANIFEST_BYTES)
 MANIFEST: dict[str, Any] = strict_json_loads(MANIFEST_BYTES)
+FIXTURE_CONTRACT = MANIFEST["fixtureContract"]
+FIXTURE_CONTRACTS_BY_CASE = {
+    item["caseId"]: item for item in FIXTURE_CONTRACT["pilotCases"]
+}
 
 
 def _make_case(item: Mapping[str, Any]) -> FixtureCase:
@@ -564,6 +718,185 @@ def _asset_document(relative_path: str) -> Any:
     return strict_json_loads(_asset_bytes(relative_path))
 
 
+def fixture_contract_binding(case: FixtureCase | str) -> Mapping[str, Any] | None:
+    case_id = case if isinstance(case, str) else case.id
+    return FIXTURE_CONTRACTS_BY_CASE.get(case_id)
+
+
+def _authenticated_reference_payload(
+    reference: Mapping[str, Any], *, validate_sidecar: bool = False
+) -> Any:
+    path = reference.get("path")
+    record = ASSETS_BY_PATH.get(path)
+    if record is None:
+        raise FixtureContractError(f"fixture-contract reference is not an asset: {path!r}")
+    if (
+        record.get("byteLength") != reference.get("byteLength")
+        or record.get("sha256") != reference.get("sha256")
+    ):
+        raise FixtureContractError(
+            f"fixture-contract reference identity differs from its asset: {path!r}"
+        )
+    document = (
+        _validated_fixture_sidecar_document(path)
+        if validate_sidecar
+        else _asset_document(path)
+    )
+    pointer = reference.get("pointer")
+    return resolve_json_pointer(document, pointer) if pointer is not None else document
+
+
+@lru_cache(maxsize=1)
+def _fixture_contract_validator() -> Draft202012Validator:
+    schema_reference = FIXTURE_CONTRACT["contractSchema"]
+    schema = _authenticated_reference_payload(schema_reference)
+    if not isinstance(schema, dict) or schema.get("$id") != FIXTURE_CONTRACT_SCHEMA_ID:
+        raise FixtureContractError("fixture-contract schema identity mismatch")
+    Draft202012Validator.check_schema(schema)
+    return Draft202012Validator(
+        schema,
+        registry=source_registry(),
+        format_checker=build_format_checker(),
+    )
+
+
+@lru_cache(maxsize=None)
+def _validated_fixture_sidecar_document(relative_path: str) -> Mapping[str, Any]:
+    if relative_path == FIXTURE_CONTRACT["contractSchema"]["path"]:
+        raise FixtureContractError("the contract schema is not an operand or oracle sidecar")
+    document = _asset_document(relative_path)
+    if not isinstance(document, dict):
+        raise FixtureContractError(f"fixture sidecar is not an object: {relative_path}")
+    errors = tuple(_fixture_contract_validator().iter_errors(document))
+    if errors:
+        raise FixtureContractError(
+            f"fixture sidecar violates fixture-contract-v1: {relative_path}"
+        )
+    return document
+
+
+@lru_cache(maxsize=None)
+def fixture_operand(case: FixtureCase | str) -> Mapping[str, Any] | None:
+    if isinstance(case, str):
+        case = CASES_BY_ID[case]
+    binding = fixture_contract_binding(case)
+    if binding is None:
+        return None
+    payload = _authenticated_reference_payload(
+        binding["operandRef"], validate_sidecar=True
+    )
+    if not isinstance(payload, dict) or payload.get("caseId") != case.id:
+        raise FixtureContractError(f"pilot operand identity mismatch: {case.id}")
+    return payload
+
+
+def _diagnostic_sort_key(
+    version: str, diagnostic: DiagnosticIdentity
+) -> tuple[str, ...]:
+    if version == SCHEMA_DIAGNOSTIC_V1 and isinstance(diagnostic, SchemaDiagnostic):
+        return (
+            diagnostic.instance_pointer,
+            diagnostic.schema_resource_id,
+            diagnostic.schema_pointer,
+            diagnostic.keyword,
+        )
+    if version == STATIC_DIAGNOSTIC_V1 and isinstance(
+        diagnostic, StaticDiagnosticIdentity
+    ):
+        return (
+            diagnostic.instance_pointer,
+            diagnostic.schema_id or "",
+            diagnostic.schema_pointer or "",
+            diagnostic.keyword,
+            diagnostic.code,
+            diagnostic.subject_id or "",
+            diagnostic.predicate_family,
+        )
+    raise FixtureContractError(
+        f"diagnostic does not match identity version {version!r}"
+    )
+
+
+def _parse_typed_diagnostic(
+    version: str, item: Mapping[str, Any]
+) -> DiagnosticIdentity:
+    if version == SCHEMA_DIAGNOSTIC_V1:
+        return SchemaDiagnostic(
+            schema_resource_id=item["schemaResourceId"],
+            instance_pointer=item["instancePointer"],
+            schema_pointer=item["schemaPointer"],
+            keyword=item["keyword"],
+        )
+    if version == STATIC_DIAGNOSTIC_V1:
+        return StaticDiagnosticIdentity(
+            code=item["code"],
+            subject_id=item["subjectId"],
+            instance_pointer=item["instancePointer"],
+            predicate_family=item["predicateFamily"],
+            schema_id=item["schemaId"],
+            schema_pointer=item["schemaPointer"],
+            keyword=item["keyword"],
+        )
+    raise FixtureContractError(f"unsupported diagnostic identity version: {version!r}")
+
+
+@lru_cache(maxsize=None)
+def expected_typed_diagnostics(
+    case: FixtureCase | str,
+) -> tuple[DiagnosticIdentity, ...] | None:
+    if isinstance(case, str):
+        case = CASES_BY_ID[case]
+    binding = fixture_contract_binding(case)
+    if binding is None or binding["oracleRef"] is None:
+        return None
+    document = _validated_fixture_sidecar_document(binding["oracleRef"]["path"])
+    if document.get("diagnosticIdentityVersion") != binding[
+        "diagnosticIdentityVersion"
+    ]:
+        raise FixtureContractError(f"oracle identity-version mismatch: {case.id}")
+    payload = _authenticated_reference_payload(
+        binding["oracleRef"], validate_sidecar=True
+    )
+    if not isinstance(payload, dict) or payload.get("caseId") != case.id:
+        raise FixtureContractError(f"pilot oracle identity mismatch: {case.id}")
+    version = binding["diagnosticIdentityVersion"]
+    expected = tuple(
+        _parse_typed_diagnostic(version, item)
+        for item in payload["expectedDiagnostics"]
+    )
+    if not expected or expected != tuple(
+        sorted(set(expected), key=lambda item: _diagnostic_sort_key(version, item))
+    ):
+        raise FixtureContractError(
+            f"pilot oracle is not nonempty, unique, and canonically ordered: {case.id}"
+        )
+    return expected
+
+
+def compare_diagnostic_identity_sets(
+    version: str,
+    expected: tuple[DiagnosticIdentity, ...],
+    actual: tuple[DiagnosticIdentity, ...],
+) -> DiagnosticSetComparison:
+    if not expected:
+        raise FixtureContractError("an exact negative oracle must be nonempty")
+    for diagnostic in (*expected, *actual):
+        _diagnostic_sort_key(version, diagnostic)
+    expected_set = set(expected)
+    actual_set = set(actual)
+    missing = tuple(
+        sorted(expected_set - actual_set, key=lambda item: _diagnostic_sort_key(version, item))
+    )
+    unexpected = tuple(
+        sorted(actual_set - expected_set, key=lambda item: _diagnostic_sort_key(version, item))
+    )
+    return DiagnosticSetComparison(
+        status="EXACT_MATCH" if not missing and not unexpected else "EXACT_SET_MISMATCH",
+        missing=missing,
+        unexpected=unexpected,
+    )
+
+
 def case_payload(case: FixtureCase | str) -> Any:
     if isinstance(case, str):
         case = CASES_BY_ID[case]
@@ -612,6 +945,7 @@ def missing_negative_oracle_case_ids() -> tuple[str, ...]:
         if case.inventory_disposition in {"DIRECT_SCHEMA", "DIRECT_STATIC"}
         and case.expected_disposition == "REJECT"
         and case.expected_diagnostic_identities is None
+        and expected_typed_diagnostics(case) is None
     )
 
 
@@ -620,6 +954,11 @@ def direct_execution_gap_case_ids() -> tuple[str, ...]:
     gaps: list[str] = []
     for case in CASES:
         if case.inventory_disposition != "DIRECT_STATIC":
+            continue
+        pilot_operand = fixture_operand(case)
+        if pilot_operand is not None:
+            if pilot_operand.get("operandKind") != "static":
+                gaps.append(case.id)
             continue
         payload = case_payload(case)
         if not isinstance(payload, dict) or "subject" not in payload:
@@ -665,6 +1004,19 @@ def future_model_obligation_ids() -> tuple[str, ...]:
     )
 
 
+def _has_top_level_manifest_self_digest(value: Any) -> bool:
+    if not isinstance(value, dict):
+        return False
+    for key in value:
+        folded = key.casefold()
+        manifest_identity = "manifest" in folded and any(
+            token in folded for token in ("sha", "digest", "blob")
+        )
+        if manifest_identity or ("self" in folded and "digest" in folded):
+            return True
+    return False
+
+
 def manifest_structure_problems(manifest: Mapping[str, Any]) -> tuple[str, ...]:
     """Return deterministic structural problems without touching fixture files."""
     problems: list[str] = []
@@ -688,6 +1040,10 @@ def manifest_structure_problems(manifest: Mapping[str, Any]) -> tuple[str, ...]:
         problems.append("manifest inventory provenance mismatch")
     if manifest.get("inventory") != _EXPECTED_INVENTORY:
         problems.append("manifest inventory aggregates mismatch")
+    if manifest.get("fixtureContract") != _EXPECTED_FIXTURE_CONTRACT:
+        problems.append("manifest fixture-contract metadata mismatch")
+    if _has_top_level_manifest_self_digest(manifest):
+        problems.append("manifest must not contain a self-digest")
 
     assets = manifest.get("assets")
     cases = manifest.get("cases")
@@ -834,8 +1190,167 @@ def manifest_structure_problems(manifest: Mapping[str, Any]) -> tuple[str, ...]:
     return tuple(sorted(set(problems)))
 
 
+def fixture_contract_structure_problems() -> tuple[str, ...]:
+    """Authenticate and validate the exact three-case v3 pilot without executing it."""
+    problems: list[str] = []
+    try:
+        schema = _authenticated_reference_payload(FIXTURE_CONTRACT["contractSchema"])
+        if not isinstance(schema, dict) or schema.get("$id") != FIXTURE_CONTRACT_SCHEMA_ID:
+            problems.append("fixture-contract schema identity mismatch")
+        _fixture_contract_validator()
+
+        expected_classes = {
+            "tests/schema/fixtures/v1alpha1/s6/fixture-contract-v1.schema.json": (
+                "fixture-contract-schema"
+            ),
+            "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json": (
+                "operand-sidecar"
+            ),
+            "tests/schema/fixtures/v1alpha1/s6/oracles/schema-branch-policy-pilot.json": (
+                "oracle-sidecar"
+            ),
+            "tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json": (
+                "oracle-sidecar"
+            ),
+        }
+        for path, expected_class in expected_classes.items():
+            if ASSETS_BY_PATH[path].get("inventoryClass") != expected_class:
+                problems.append(f"fixture-contract asset class mismatch: {path}")
+            _asset_bytes(path)
+
+        operand_path = (
+            "tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json"
+        )
+        operand_document = _validated_fixture_sidecar_document(operand_path)
+        if tuple(operand_document["cases"]) != PILOT_CASE_IDS:
+            problems.append("pilot operand case identities or ordering mismatch")
+
+        schema_oracle_path = (
+            "tests/schema/fixtures/v1alpha1/s6/oracles/schema-branch-policy-pilot.json"
+        )
+        static_oracle_path = (
+            "tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json"
+        )
+        schema_oracles = _validated_fixture_sidecar_document(schema_oracle_path)
+        static_oracles = _validated_fixture_sidecar_document(static_oracle_path)
+        if tuple(schema_oracles["cases"]) != (
+            "schema.branch-policy.negative.01-empty-prefix",
+        ):
+            problems.append("Schema pilot oracle case inventory mismatch")
+        if tuple(static_oracles["cases"]) != (
+            "phase1-static.branch-policy.negative.16-no-allow-match",
+        ):
+            problems.append("static pilot oracle case inventory mismatch")
+
+        if tuple(FIXTURE_CONTRACTS_BY_CASE) != PILOT_CASE_IDS:
+            problems.append("manifest pilot case identities or ordering mismatch")
+
+        for case_id in PILOT_CASE_IDS:
+            case = CASES_BY_ID[case_id]
+            binding = FIXTURE_CONTRACTS_BY_CASE[case_id]
+            descriptor_reference = binding["descriptorRef"]
+            if (
+                descriptor_reference["path"] != case.asset
+                or descriptor_reference["pointer"] != case.asset_pointer
+            ):
+                problems.append(f"historical descriptor binding changed: {case_id}")
+                continue
+            descriptor = _authenticated_reference_payload(descriptor_reference)
+            if descriptor != case_payload(case):
+                problems.append(f"descriptor reference payload mismatch: {case_id}")
+                continue
+
+            operand = fixture_operand(case)
+            if operand is None:
+                problems.append(f"pilot operand is absent: {case_id}")
+                continue
+            if case.owner == "schema":
+                schema_operand = operand.get("schemaOperand", {})
+                if (
+                    operand.get("operandKind") != "schema"
+                    or binding["validatorEntryPoint"] != SCHEMA_VALIDATOR_ENTRY_POINT
+                    or binding["diagnosticIdentityVersion"] != SCHEMA_DIAGNOSTIC_V1
+                    or descriptor != {"prefix": schema_operand.get("instance")}
+                ):
+                    problems.append(f"Schema pilot operand projection mismatch: {case_id}")
+            else:
+                if (
+                    operand.get("operandKind") != "static"
+                    or binding["validatorEntryPoint"] != STATIC_VALIDATOR_ENTRY_POINT
+                    or binding["diagnosticIdentityVersion"] != STATIC_DIAGNOSTIC_V1
+                ):
+                    problems.append(f"static pilot dispatch mismatch: {case_id}")
+                    continue
+                subject = operand["subject"]
+                context = operand["validationContext"]
+                roles = [
+                    role
+                    for role in context["governanceBundle"]["worktreeRoles"]
+                    if role["metadata"]["id"]
+                    == subject["spec"]["target"]["worktreeRoleRef"]["id"]
+                ]
+                if len(roles) != 1:
+                    problems.append(f"static pilot role binding is not exact: {case_id}")
+                    continue
+                expected_ref = subject["spec"]["expectedBaseline"]["ref"]
+                if (
+                    roles[0]["spec"]["branchPolicy"] != descriptor.get("branchPolicy")
+                    or expected_ref.get("branchRef") != descriptor.get("branchRef")
+                ):
+                    problems.append(f"static pilot descriptor projection mismatch: {case_id}")
+                if "headState" in descriptor and subject["spec"]["expectedBaseline"][
+                    "head"
+                ]["state"] != descriptor["headState"]:
+                    problems.append(f"static pilot HEAD projection mismatch: {case_id}")
+
+                proof_responses = context["proofResponses"]
+                expected_provenance = {
+                    ("#/subject", get_resource("task-contract.schema.json").schema_id),
+                    (
+                        "#/validationContext/governanceBundle",
+                        get_resource("governance-bundle.schema.json").schema_id,
+                    ),
+                    (
+                        "#/validationContext/hostOverlay",
+                        get_resource("host-overlay.schema.json").schema_id,
+                    ),
+                }
+                observed_provenance = {
+                    (item["subjectRef"], item["schemaResourceId"])
+                    for item in proof_responses["inputProvenance"]
+                    if item["schemaSetRevision"] == SCHEMA_SET_REVISION
+                }
+                if observed_provenance != expected_provenance:
+                    problems.append(f"pilot input-provenance inventory mismatch: {case_id}")
+
+                materialized = proof_responses["baselineMaterialization"]
+                baseline = subject["spec"]["expectedBaseline"]
+                if (
+                    materialized["values"]["ref"] != baseline["ref"]
+                    or materialized["values"]["head"] != baseline["head"]
+                    or materialized["values"]["activeOperations"]
+                    != baseline["activeOperations"]
+                    or materialized["values"]["administrativeLocks"]
+                    != baseline["administrativeLocks"]
+                ):
+                    problems.append(f"pilot baseline materialization mismatch: {case_id}")
+
+            expected = expected_typed_diagnostics(case)
+            if case.expected_disposition == "REJECT" and expected is None:
+                problems.append(f"negative pilot lacks a typed oracle: {case_id}")
+            if case.expected_disposition == "ACCEPT" and expected is not None:
+                problems.append(f"positive pilot unexpectedly has an oracle: {case_id}")
+    except Exception as error:
+        problems.append(
+            "fixture-contract validation failure: "
+            f"{type(error).__name__}: {error}"
+        )
+    return tuple(sorted(set(problems)))
+
+
 def audit_current_corpus() -> ManifestAudit:
     problems = list(manifest_structure_problems(MANIFEST))
+    problems.extend(fixture_contract_structure_problems())
     assets = MANIFEST["assets"]
     cases = MANIFEST["cases"]
     obligations = MANIFEST["coverageObligations"]
@@ -848,10 +1363,10 @@ def audit_current_corpus() -> ManifestAudit:
         path: [] for path in asset_paths
     }
 
-    if MANIFEST_SHA256 != APPROVED_MANIFEST_SHA256:
-        problems.append("fixture manifest SHA-256 differs from the approved v2 identity")
-    if MANIFEST_GIT_BLOB != APPROVED_MANIFEST_GIT_BLOB:
-        problems.append("fixture manifest Git blob differs from the approved v2 identity")
+    if MANIFEST_SHA256 != CANDIDATE_MANIFEST_SHA256:
+        problems.append("fixture manifest SHA-256 differs from the candidate v3 identity")
+    if MANIFEST_GIT_BLOB != CANDIDATE_MANIFEST_GIT_BLOB:
+        problems.append("fixture manifest Git blob differs from the candidate v3 identity")
     if len(assets) != EXPECTED_ASSET_COUNT:
         problems.append(f"fixture asset count is {len(assets)}, expected {EXPECTED_ASSET_COUNT}")
     if len(cases) != EXPECTED_CASE_COUNT:
@@ -884,8 +1399,10 @@ def audit_current_corpus() -> ManifestAudit:
         problems.append("UTF-8 JSON asset count mismatch")
     if not V2_CORRECTION_ASSET_PATHS <= utf8_json_paths:
         problems.append("v2 correction paths are not all UTF-8 JSON assets")
+    if not V3_PILOT_ASSET_PATHS <= utf8_json_paths:
+        problems.append("v3 pilot paths are not all UTF-8 JSON assets")
     if (
-        len(utf8_json_paths - V2_CORRECTION_ASSET_PATHS)
+        len(utf8_json_paths - V2_CORRECTION_ASSET_PATHS - V3_PILOT_ASSET_PATHS)
         != EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT
     ):
         problems.append("unchanged LF/CRLF-sensitive asset count mismatch")
@@ -1375,6 +1892,20 @@ def collect_schema_diagnostics(
 def run_schema_case(case: FixtureCase | str) -> tuple[SchemaDiagnostic, ...]:
     if isinstance(case, str):
         case = CASES_BY_ID[case]
+    binding = fixture_contract_binding(case)
+    if binding is not None:
+        if binding["validatorEntryPoint"] != SCHEMA_VALIDATOR_ENTRY_POINT:
+            raise FixtureContractError(
+                f"pilot Schema validator entry point mismatch: {case.id}"
+            )
+        operand = fixture_operand(case)
+        if operand is None or operand.get("operandKind") != "schema":
+            raise FixtureContractError(f"pilot Schema operand is missing: {case.id}")
+        schema_operand = operand["schemaOperand"]
+        schema_ref = (
+            schema_operand["schemaResourceId"] + "#" + schema_operand["schemaPointer"]
+        )
+        return collect_schema_diagnostics(schema_operand["instance"], schema_ref)
     payload = case_payload(case)
     if not isinstance(payload, dict):
         raise FixtureContractError(f"case {case.id} payload is not an object")
@@ -1419,6 +1950,115 @@ def _synthetic_proof_environment():
         yield ports
 
 
+@contextmanager
+def _explicit_pilot_proof_environment(operand: Mapping[str, Any]):
+    """Consume only proof responses explicitly frozen in one pilot operand."""
+    ports = SyntheticPorts()
+    subject = operand["subject"]
+    validation_context = operand["validationContext"]
+    bundle = validation_context["governanceBundle"]
+    overlay = validation_context["hostOverlay"]
+    inventory_context = validation_context["inventoryContext"]
+    responses = validation_context["proofResponses"]
+
+    subjects = {
+        "#/subject": subject,
+        "#/validationContext/governanceBundle": bundle,
+        "#/validationContext/hostOverlay": overlay,
+    }
+    declared_provenance = {
+        (
+            id(subjects[item["subjectRef"]]),
+            item["schemaResourceId"],
+            item["schemaSetRevision"],
+        )
+        for item in responses["inputProvenance"]
+    }
+
+    baseline = responses["baselineMaterialization"]
+    values = {
+        key: tuple(value)
+        if key in {"index", "tracked", "untracked", "ignored", "submodules"}
+        else value
+        for key, value in baseline["values"].items()
+    }
+    baseline_view = _MaterializedBaselineView(
+        subject,
+        MappingProxyType(values),
+        tuple(baseline["headEntries"]),
+        MappingProxyType(dict(baseline["leafKinds"])),
+        MappingProxyType({}),
+    )
+
+    snapshot = responses["completeHostSnapshot"]
+
+    def input_provenance(candidate: Any, root_id: str, revision: str) -> Any:
+        return True if (id(candidate), root_id, revision) in declared_provenance else None
+
+    def complete_host_snapshot(host_id: str, marker: Any) -> Any:
+        if (
+            host_id != snapshot["hostId"]
+            or marker is not inventory_context
+            or snapshot["inventoryContextRef"]
+            != "#/validationContext/inventoryContext"
+        ):
+            return None
+        members = []
+        for member in snapshot["members"]:
+            if member != {
+                "hostOverlayRef": "#/validationContext/hostOverlay",
+                "governanceBundleRef": "#/validationContext/governanceBundle",
+            }:
+                return None
+            members.append((overlay, bundle))
+        return tuple(members), tuple(snapshot["trustedRoots"])
+
+    def baseline_materialization(candidate: Any, dimensions: Any) -> Any:
+        return (
+            baseline_view
+            if candidate is subject and tuple(dimensions) == tuple(baseline["dimensions"])
+            else None
+        )
+
+    def undeclared_response(*_args: Any) -> None:
+        return None
+
+    ports.overrides.update(
+        {
+            "require_input_provenance": input_provenance,
+            "require_canonical_comparison": undeclared_response,
+            "require_digest": undeclared_response,
+            "require_complete_host_snapshot": complete_host_snapshot,
+            "require_baseline_materialization": baseline_materialization,
+            "require_completed_static_validation": undeclared_response,
+        }
+    )
+
+    operations = tuple(ports.overrides)
+    with ExitStack() as stack:
+        stack.enter_context(patch.object(static_core, "build_registry", source_registry))
+        for operation in operations:
+            stack.enter_context(
+                patch.object(
+                    static_core._ProofContext,
+                    operation,
+                    lambda _self, *args, _operation=operation: ports.issue(
+                        _operation, args
+                    ),
+                )
+            )
+        stack.enter_context(
+            patch.object(
+                static_core._ProofContext,
+                "_validate_handle",
+                lambda _self, handle, operation, args: ports.validate(
+                    handle, operation, args
+                ),
+            )
+        )
+        yield ports, baseline_view
+
+
 def _invoke_static(payload: Mapping[str, Any], proof_context: Any, ports: Any = None):
     validation = payload.get("validation")
     subject = payload["subject"]
@@ -1450,6 +2090,28 @@ def _invoke_static(payload: Mapping[str, Any], proof_context: Any, ports: Any = 
 def run_static_case(case: FixtureCase | str):
     if isinstance(case, str):
         case = CASES_BY_ID[case]
+    binding = fixture_contract_binding(case)
+    if binding is not None:
+        if binding["validatorEntryPoint"] != STATIC_VALIDATOR_ENTRY_POINT:
+            raise FixtureContractError(
+                f"pilot static validator entry point mismatch: {case.id}"
+            )
+        operand = fixture_operand(case)
+        if operand is None or operand.get("operandKind") != "static":
+            raise FixtureContractError(f"pilot static operand is missing: {case.id}")
+        context = operand["validationContext"]
+        with _explicit_pilot_proof_environment(operand) as (
+            ports,
+            baseline_context,
+        ):
+            return validate_task_contract_static(
+                operand["subject"],
+                bundle=context["governanceBundle"],
+                host_overlay=context["hostOverlay"],
+                inventory_context=context["inventoryContext"],
+                proof_context=ports.context,
+                baseline_context=baseline_context,
+            )
     payload = case_payload(case)
     if not isinstance(payload, dict) or "subject" not in payload:
         raise FixtureContractError(f"case {case.id} is not a materialized static case")
@@ -1470,7 +2132,7 @@ def run_static_case_without_proofs(case: FixtureCase | str):
         return _invoke_static(payload, None)
 
 
-def _oracle_status(
+def _legacy_oracle_status(
     case: FixtureCase, actual_diagnostic_identities: tuple[str, ...]
 ) -> str:
     if case.expected_disposition != "REJECT":
@@ -1483,10 +2145,42 @@ def _oracle_status(
     return "EXACT_SET_MISMATCH"
 
 
+def _static_diagnostic_identity(diagnostic: Any) -> StaticDiagnosticIdentity:
+    return StaticDiagnosticIdentity(
+        code=diagnostic.code,
+        subject_id=diagnostic.subject_id,
+        instance_pointer=diagnostic.instance_pointer,
+        predicate_family=diagnostic.predicate_family,
+        schema_id=diagnostic.schema_id,
+        schema_pointer=diagnostic.schema_pointer,
+        keyword=diagnostic.keyword,
+    )
+
+
+def _pilot_oracle_comparison(
+    case: FixtureCase,
+    actual: tuple[DiagnosticIdentity, ...],
+) -> DiagnosticSetComparison | None:
+    binding = fixture_contract_binding(case)
+    if binding is None or case.expected_disposition != "REJECT":
+        return None
+    expected = expected_typed_diagnostics(case)
+    if expected is None:
+        return DiagnosticSetComparison("MISSING_EXPECTED_SET", (), ())
+    return compare_diagnostic_identity_sets(
+        binding["diagnosticIdentityVersion"], expected, actual
+    )
+
+
 @lru_cache(maxsize=None)
 def evaluate_case(case_id: str) -> CaseResult:
     case = CASES_BY_ID[case_id]
     mode = execution_mode(case)
+    binding = fixture_contract_binding(case)
+    diagnostic_version = (
+        binding["diagnosticIdentityVersion"] if binding is not None else None
+    )
+    expected_typed = expected_typed_diagnostics(case)
     if mode == DEFERRED_PRESERVED:
         declared = set(MANIFEST["coverageReconciliation"]["deferredCases"])
         if case.id not in declared:
@@ -1508,7 +2202,7 @@ def evaluate_case(case_id: str) -> CaseResult:
     payload = case_payload(case)
     if mode == STATIC_DIRECT and (
         not isinstance(payload, dict) or "subject" not in payload
-    ):
+    ) and fixture_operand(case) is None:
         return CaseResult(
             case_id=case.id,
             source_asset=case.asset,
@@ -1525,6 +2219,7 @@ def evaluate_case(case_id: str) -> CaseResult:
                 "MISSING_EXPECTED_SET"
                 if case.expected_disposition == "REJECT"
                 and case.expected_diagnostic_identities is None
+                and expected_typed is None
                 else "NOT_EVALUATED"
             ),
         )
@@ -1535,6 +2230,14 @@ def evaluate_case(case_id: str) -> CaseResult:
         and payload.get("validation") == "delivery-shape"
     ):
         diagnostics = run_schema_case(case)
+        validation_status = "INVALID" if diagnostics else "PASS"
+        if binding is not None and validation_status != binding[
+            "expectedValidationStatus"
+        ]:
+            raise FixtureContractError(
+                f"case {case.id} expected validation status "
+                f"{binding['expectedValidationStatus']}, got {validation_status}"
+            )
         actual = "REJECT" if diagnostics else "ACCEPT"
         if actual != case.expected_disposition:
             raise FixtureContractError(
@@ -1543,6 +2246,7 @@ def evaluate_case(case_id: str) -> CaseResult:
         if actual == "REJECT" and not case.expected_failure_identity:
             raise FixtureContractError(f"negative Schema case {case.id} lacks declared identity")
         identities = tuple(item.identity for item in diagnostics)
+        comparison = _pilot_oracle_comparison(case, diagnostics)
         return CaseResult(
             case_id=case.id,
             source_asset=case.asset,
@@ -1554,11 +2258,29 @@ def evaluate_case(case_id: str) -> CaseResult:
             declared_diagnostic_identity=case.expected_failure_identity,
             actual_diagnostic_identities=identities,
             expected_diagnostic_identities=case.expected_diagnostic_identities,
-            oracle_status=_oracle_status(case, identities),
+            oracle_status=(
+                comparison.status
+                if comparison is not None
+                else _legacy_oracle_status(case, identities)
+            ),
             schema_diagnostics=diagnostics,
+            diagnostic_identity_version=diagnostic_version,
+            expected_typed_diagnostics=expected_typed,
+            missing_diagnostics=comparison.missing if comparison is not None else (),
+            unexpected_diagnostics=(
+                comparison.unexpected if comparison is not None else ()
+            ),
+            validation_status=validation_status,
         )
 
     static_result = run_static_case(case)
+    if binding is not None and static_result.status != binding[
+        "expectedValidationStatus"
+    ]:
+        raise FixtureContractError(
+            f"case {case.id} expected validation status "
+            f"{binding['expectedValidationStatus']}, got {static_result.status}"
+        )
     actual = {
         "PASS": "ACCEPT",
         "INVALID": "REJECT",
@@ -1569,6 +2291,11 @@ def evaluate_case(case_id: str) -> CaseResult:
             f"case {case.id} expected {case.expected_disposition}, got {actual}"
         )
     identities = tuple(sorted({diagnostic.code for diagnostic in static_result.diagnostics}))
+    typed_diagnostics = tuple(
+        _static_diagnostic_identity(diagnostic)
+        for diagnostic in static_result.diagnostics
+    )
+    comparison = _pilot_oracle_comparison(case, typed_diagnostics)
     return CaseResult(
         case_id=case.id,
         source_asset=case.asset,
@@ -1580,9 +2307,25 @@ def evaluate_case(case_id: str) -> CaseResult:
         declared_diagnostic_identity=case.expected_failure_identity,
         actual_diagnostic_identities=identities,
         expected_diagnostic_identities=case.expected_diagnostic_identities,
-        oracle_status=_oracle_status(case, identities),
+        oracle_status=(
+            comparison.status
+            if comparison is not None
+            else _legacy_oracle_status(case, identities)
+        ),
+        static_diagnostics=typed_diagnostics,
+        diagnostic_identity_version=diagnostic_version,
+        expected_typed_diagnostics=expected_typed,
+        missing_diagnostics=comparison.missing if comparison is not None else (),
+        unexpected_diagnostics=(
+            comparison.unexpected if comparison is not None else ()
+        ),
+        validation_status=static_result.status,
         static_status=static_result.status,
-        proof_treatment="explicit-test-only-synthetic-proof",
+        proof_treatment=(
+            "fixture-contract-v1-explicit-test-only-synthetic-proof"
+            if binding is not None
+            else "explicit-test-only-synthetic-proof"
+        ),
     )
 
 

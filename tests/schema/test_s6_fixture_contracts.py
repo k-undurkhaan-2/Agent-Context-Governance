@@ -1,4 +1,4 @@
-"""Manifest-v2 execution, oracle, and unresolved-obligation S6 contracts."""
+"""Manifest-v3 execution, oracle, and unresolved-obligation S6 contracts."""
 
 from collections import Counter
 
@@ -10,6 +10,7 @@ from tests.schema.s6_fixture_runner import (
     EXPECTED_CASE_COUNT,
     EXPECTED_EXECUTABLE_COUNT,
     EXPECTED_EXECUTION_MODE_COUNTS,
+    PILOT_CASE_IDS,
     SCHEMA_DIRECT,
     STATIC_DIRECT,
     coverage_gap_dispositions,
@@ -32,6 +33,14 @@ def test_s6_manifest_logical_case(case) -> None:
     assert result.expected_stage == case.expected_stage
     assert result.declared_diagnostic_identity == case.expected_failure_identity
     assert result.expected_diagnostic_identities == case.expected_diagnostic_identities
+
+    if case.id in PILOT_CASE_IDS:
+        assert result.execution_status == "EXECUTED"
+        assert result.validation_status in {"PASS", "INVALID"}
+        assert result.diagnostic_identity_version in {
+            "schema-diagnostic-v1",
+            "static-diagnostic-v1",
+        }
 
     if result.execution_mode in (SCHEMA_DIRECT, STATIC_DIRECT) and (
         result.execution_status == "EXECUTED"
@@ -70,7 +79,7 @@ def test_every_non_deferred_case_has_an_actual_s6_result() -> None:
         record.case_id for record in executable if record.execution_status != "EXECUTED"
     )
     assert blocked == (), (
-        "Manifest v2 declares DIRECT execution, but immutable fixture payloads do not "
+        "Manifest v3 declares DIRECT execution, but authenticated fixture contracts do not "
         f"materialize validator operands for {len(blocked)} cases: {blocked!r}"
     )
 
@@ -158,7 +167,8 @@ def test_direct_execution_gap_detector_reports_exact_nonmaterialized_rows() -> N
         if record.execution_status == "BLOCKED_MISSING_EXECUTABLE_OPERAND"
     )
     assert blocked == direct_execution_gap_case_ids()
-    assert len(blocked) == 428
+    assert len(blocked) == 426
+    assert not set(PILOT_CASE_IDS).intersection(blocked)
     blocked_set = set(blocked)
     assert all(
         record.execution_mode == STATIC_DIRECT
@@ -167,7 +177,49 @@ def test_direct_execution_gap_detector_reports_exact_nonmaterialized_rows() -> N
     )
     assert sum(
         record.execution_status == "EXECUTED" for record in coverage_inventory()
-    ) == 1623
+    ) == 1625
+
+
+def test_exact_three_case_fixture_contract_pilot_executes_with_strict_oracles() -> None:
+    assert tuple(case_id for case_id in PILOT_CASE_IDS) == (
+        "phase1-static.branch-policy.negative.16-no-allow-match",
+        "schema.branch-policy.negative.01-empty-prefix",
+        "static.branch-policy.positive.01-exact-allow-no-deny",
+    )
+    results = {case_id: evaluate_case(case_id) for case_id in PILOT_CASE_IDS}
+
+    static_negative = results[
+        "phase1-static.branch-policy.negative.16-no-allow-match"
+    ]
+    assert static_negative.actual_result == "REJECT"
+    assert static_negative.validation_status == "INVALID"
+    assert static_negative.oracle_status == "EXACT_MATCH"
+    assert static_negative.expected_typed_diagnostics == static_negative.static_diagnostics
+    assert static_negative.missing_diagnostics == ()
+    assert static_negative.unexpected_diagnostics == ()
+
+    schema_negative = results["schema.branch-policy.negative.01-empty-prefix"]
+    assert schema_negative.actual_result == "REJECT"
+    assert schema_negative.validation_status == "INVALID"
+    assert schema_negative.oracle_status == "EXACT_MATCH"
+    assert schema_negative.expected_typed_diagnostics == schema_negative.schema_diagnostics
+    assert schema_negative.missing_diagnostics == ()
+    assert schema_negative.unexpected_diagnostics == ()
+
+    positive = results["static.branch-policy.positive.01-exact-allow-no-deny"]
+    assert positive.actual_result == "ACCEPT"
+    assert positive.validation_status == "PASS"
+    assert positive.static_status == "PASS"
+    assert positive.oracle_status == "NOT_APPLICABLE"
+    assert positive.static_diagnostics == ()
+    assert positive.expected_typed_diagnostics is None
+
+
+def test_nonpilot_acceptance_blocker_counts_remain_fail_closed() -> None:
+    assert len(direct_execution_gap_case_ids()) == 426
+    assert len(missing_negative_oracle_case_ids()) == 1533
+    assert not set(PILOT_CASE_IDS).intersection(direct_execution_gap_case_ids())
+    assert not set(PILOT_CASE_IDS).intersection(missing_negative_oracle_case_ids())
 
 
 def test_trace_only_and_future_model_obligations_stay_outside_direct_inventory() -> None:
