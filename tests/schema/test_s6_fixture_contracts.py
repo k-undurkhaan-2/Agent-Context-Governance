@@ -11,6 +11,7 @@ from tests.schema.s6_fixture_runner import (
     EXPECTED_EXECUTABLE_COUNT,
     EXPECTED_EXECUTION_MODE_COUNTS,
     PILOT_CASE_IDS,
+    SCHEMA_REF_BATCH01_CASE_IDS,
     SCHEMA_DIRECT,
     STATIC_DIRECT,
     coverage_gap_dispositions,
@@ -34,7 +35,7 @@ def test_s6_manifest_logical_case(case) -> None:
     assert result.declared_diagnostic_identity == case.expected_failure_identity
     assert result.expected_diagnostic_identities == case.expected_diagnostic_identities
 
-    if case.id in PILOT_CASE_IDS:
+    if case.id in PILOT_CASE_IDS or case.id in SCHEMA_REF_BATCH01_CASE_IDS:
         assert result.execution_status == "EXECUTED"
         assert result.validation_status in {"PASS", "INVALID"}
         assert result.diagnostic_identity_version in {
@@ -215,11 +216,42 @@ def test_exact_three_case_fixture_contract_pilot_executes_with_strict_oracles() 
     assert positive.expected_typed_diagnostics is None
 
 
-def test_nonpilot_acceptance_blocker_counts_remain_fail_closed() -> None:
+def test_schema_ref_batch01_executes_with_exact_typed_oracles() -> None:
+    assert len(SCHEMA_REF_BATCH01_CASE_IDS) == 62
+    assert SCHEMA_REF_BATCH01_CASE_IDS == tuple(sorted(SCHEMA_REF_BATCH01_CASE_IDS))
+    assert len(set(SCHEMA_REF_BATCH01_CASE_IDS)) == 62
+
+    results = tuple(evaluate_case(case_id) for case_id in SCHEMA_REF_BATCH01_CASE_IDS)
+    assert all(result.execution_status == "EXECUTED" for result in results)
+    assert all(result.validation_status == "INVALID" for result in results)
+    assert all(result.actual_result == "REJECT" for result in results)
+    assert all(result.oracle_status == "EXACT_MATCH" for result in results)
+    assert all(
+        result.diagnostic_identity_version == "schema-diagnostic-v1"
+        for result in results
+    )
+    assert all(
+        result.expected_typed_diagnostics == result.schema_diagnostics
+        for result in results
+    )
+    assert all(result.missing_diagnostics == () for result in results)
+    assert all(result.unexpected_diagnostics == () for result in results)
+    assert Counter(len(result.schema_diagnostics) for result in results) == {
+        1: 53,
+        2: 5,
+        3: 4,
+    }
+    assert sum(len(result.schema_diagnostics) for result in results) == 75
+
+
+def test_remaining_acceptance_blocker_counts_remain_fail_closed() -> None:
     assert len(direct_execution_gap_case_ids()) == 426
-    assert len(missing_negative_oracle_case_ids()) == 1533
+    assert len(missing_negative_oracle_case_ids()) == 1471
     assert not set(PILOT_CASE_IDS).intersection(direct_execution_gap_case_ids())
     assert not set(PILOT_CASE_IDS).intersection(missing_negative_oracle_case_ids())
+    assert not set(SCHEMA_REF_BATCH01_CASE_IDS).intersection(
+        missing_negative_oracle_case_ids()
+    )
 
 
 def test_trace_only_and_future_model_obligations_stay_outside_direct_inventory() -> None:

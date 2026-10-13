@@ -56,11 +56,11 @@ CONTROL_PATHS = frozenset(
     }
 )
 CANDIDATE_MANIFEST_SHA256 = (
-    "1af4fd6048d3276505818b299592c3d892478a206164a981527e326f95ac2901"
+    "bd3c5c4369a8c9a4161183c1e008cc3bc9875f700724ac745a57d548dcc27cde"
 )
-CANDIDATE_MANIFEST_GIT_BLOB = "92468824b7cd51b8a94507f25dfa62109ae36a65"
+CANDIDATE_MANIFEST_GIT_BLOB = "929cc6ee663661ffe4afcce728e12e9b166bf19a"
 EXPECTED_INVENTORY_FORMAT_VERSION = 3
-EXPECTED_ASSET_COUNT = 142
+EXPECTED_ASSET_COUNT = 144
 EXPECTED_CONTROL_COUNT = 2
 EXPECTED_CASE_COUNT = 2166
 EXPECTED_ACCEPT_COUNT = 516
@@ -74,7 +74,7 @@ EXPECTED_CORRECTED_INVENTORY_COUNT = 2180
 EXPECTED_OPEN_PHASE1_GAP_COUNT = 42
 EXPECTED_FUTURE_MODEL_OBLIGATION_COUNT = 8
 EXPECTED_COVERAGE_OBLIGATION_COUNT = 64
-EXPECTED_UTF8_JSON_ASSET_COUNT = 40
+EXPECTED_UTF8_JSON_ASSET_COUNT = 42
 # Five v2 correction assets changed at the accepted correction commit.  The
 # other 31 UTF-8 JSON assets retain the known checkout-only LF/CRLF exposure.
 EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT = 31
@@ -95,6 +95,13 @@ V3_PILOT_ASSET_PATHS = frozenset(
         "tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json",
     }
 )
+V3_BATCH01_ASSET_PATHS = frozenset(
+    {
+        "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-ref-batch01.json",
+        "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-ref-batch01.json",
+    }
+)
+FIXTURE_CONTRACT_ASSET_PATHS = V3_PILOT_ASSET_PATHS | V3_BATCH01_ASSET_PATHS
 
 FIXTURE_CONTRACT_VERSION = "fixture-contract-v1"
 FIXTURE_CONTRACT_SCHEMA_ID = "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1"
@@ -111,6 +118,72 @@ PILOT_CASE_IDS = (
     "schema.branch-policy.negative.01-empty-prefix",
     "static.branch-policy.positive.01-exact-allow-no-deny",
 )
+SCHEMA_REF_BATCH01_ID = "schema-common-ref-batch01"
+SCHEMA_REF_BATCH01_CASE_IDS = (
+    "schema.common.branchprefix.negative.heads-only",
+    "schema.common.branchprefix.negative.ref-0",
+    "schema.common.branchprefix.negative.ref-1",
+    "schema.common.branchprefix.negative.ref-10",
+    "schema.common.branchprefix.negative.ref-11",
+    "schema.common.branchprefix.negative.ref-12",
+    "schema.common.branchprefix.negative.ref-13",
+    "schema.common.branchprefix.negative.ref-14",
+    "schema.common.branchprefix.negative.ref-15",
+    "schema.common.branchprefix.negative.ref-16",
+    "schema.common.branchprefix.negative.ref-17",
+    "schema.common.branchprefix.negative.ref-18",
+    "schema.common.branchprefix.negative.ref-19",
+    "schema.common.branchprefix.negative.ref-2",
+    "schema.common.branchprefix.negative.ref-3",
+    "schema.common.branchprefix.negative.ref-4",
+    "schema.common.branchprefix.negative.ref-5",
+    "schema.common.branchprefix.negative.ref-6",
+    "schema.common.branchprefix.negative.ref-7",
+    "schema.common.branchprefix.negative.ref-8",
+    "schema.common.branchprefix.negative.ref-9",
+    "schema.common.branchref.negative.ref-0",
+    "schema.common.branchref.negative.ref-1",
+    "schema.common.branchref.negative.ref-10",
+    "schema.common.branchref.negative.ref-11",
+    "schema.common.branchref.negative.ref-12",
+    "schema.common.branchref.negative.ref-13",
+    "schema.common.branchref.negative.ref-14",
+    "schema.common.branchref.negative.ref-15",
+    "schema.common.branchref.negative.ref-16",
+    "schema.common.branchref.negative.ref-17",
+    "schema.common.branchref.negative.ref-18",
+    "schema.common.branchref.negative.ref-19",
+    "schema.common.branchref.negative.ref-2",
+    "schema.common.branchref.negative.ref-3",
+    "schema.common.branchref.negative.ref-4",
+    "schema.common.branchref.negative.ref-5",
+    "schema.common.branchref.negative.ref-6",
+    "schema.common.branchref.negative.ref-7",
+    "schema.common.branchref.negative.ref-8",
+    "schema.common.branchref.negative.ref-9",
+    "schema.common.branchref.negative.tag",
+    "schema.common.gitrefidentifier.negative.ref-0",
+    "schema.common.gitrefidentifier.negative.ref-1",
+    "schema.common.gitrefidentifier.negative.ref-10",
+    "schema.common.gitrefidentifier.negative.ref-11",
+    "schema.common.gitrefidentifier.negative.ref-12",
+    "schema.common.gitrefidentifier.negative.ref-13",
+    "schema.common.gitrefidentifier.negative.ref-14",
+    "schema.common.gitrefidentifier.negative.ref-15",
+    "schema.common.gitrefidentifier.negative.ref-16",
+    "schema.common.gitrefidentifier.negative.ref-17",
+    "schema.common.gitrefidentifier.negative.ref-18",
+    "schema.common.gitrefidentifier.negative.ref-19",
+    "schema.common.gitrefidentifier.negative.ref-2",
+    "schema.common.gitrefidentifier.negative.ref-3",
+    "schema.common.gitrefidentifier.negative.ref-4",
+    "schema.common.gitrefidentifier.negative.ref-5",
+    "schema.common.gitrefidentifier.negative.ref-6",
+    "schema.common.gitrefidentifier.negative.ref-7",
+    "schema.common.gitrefidentifier.negative.ref-8",
+    "schema.common.gitrefidentifier.negative.ref-9",
+)
+FIXTURE_CONTRACT_CASE_IDS = PILOT_CASE_IDS + SCHEMA_REF_BATCH01_CASE_IDS
 
 SCHEMA_DIRECT = "schema-direct"
 STATIC_DIRECT = "static-direct"
@@ -219,6 +292,53 @@ _EXPECTED_INVENTORY_PROVENANCE = {
         "45187054fec6d52b74790438e07b14bf0c1da8835dee0bec8f0e6dc638d87b9c"
     ),
 }
+
+
+def _schema_ref_batch01_binding(case_id: str) -> dict[str, Any]:
+    descriptor_path = (
+        "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json"
+    )
+    operand_path = (
+        "tests/schema/fixtures/v1alpha1/s6/operands/"
+        "schema-common-ref-batch01.json"
+    )
+    oracle_path = (
+        "tests/schema/fixtures/v1alpha1/s6/oracles/"
+        "schema-common-ref-batch01.json"
+    )
+    pointer = f"/cases/{case_id}"
+    return {
+        "caseId": case_id,
+        "descriptorRef": {
+            "byteLength": 179081,
+            "path": descriptor_path,
+            "pointer": pointer,
+            "sha256": (
+                "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            ),
+        },
+        "diagnosticIdentityVersion": SCHEMA_DIAGNOSTIC_V1,
+        "expectedValidationStatus": "INVALID",
+        "operandRef": {
+            "byteLength": 25393,
+            "path": operand_path,
+            "pointer": pointer,
+            "sha256": (
+                "f37015ee29a6933278b898a0953c0e4f97688f7fa0e6e1b7d68867b69496b038"
+            ),
+        },
+        "oracleRef": {
+            "byteLength": 26997,
+            "path": oracle_path,
+            "pointer": pointer,
+            "sha256": (
+                "f603ee91c4859e58539f7b5bbcf133a0dabb18fbcdd20231fe65d1355ee7effc"
+            ),
+        },
+        "validatorEntryPoint": SCHEMA_VALIDATOR_ENTRY_POINT,
+    }
+
+
 _EXPECTED_INVENTORY = {
     "casePackAssets": 135,
     "controlFiles": EXPECTED_CONTROL_COUNT,
@@ -235,12 +355,14 @@ _EXPECTED_INVENTORY = {
         "DEFERRED": EXPECTED_DEFERRED_COUNT,
         "REJECT": EXPECTED_REJECT_COUNT,
     },
-    "fixtureContractAssets": len(V3_PILOT_ASSET_PATHS),
+    "fixtureContractAssets": len(FIXTURE_CONTRACT_ASSET_PATHS),
     "futureModelObligations": EXPECTED_FUTURE_MODEL_OBLIGATION_COUNT,
     "manifestCaseRows": EXPECTED_CASE_COUNT,
     "openPhase1CoverageGaps": EXPECTED_OPEN_PHASE1_GAP_COUNT,
     "physicalAssets": EXPECTED_ASSET_COUNT,
     "pilotCaseCount": len(PILOT_CASE_IDS),
+    "schemaOracleBatchCaseCount": len(SCHEMA_REF_BATCH01_CASE_IDS),
+    "schemaOracleBatchCount": 1,
     "totalCorpusPaths": EXPECTED_ASSET_COUNT + EXPECTED_CONTROL_COUNT,
     "traceOnly": EXPECTED_TRACE_ONLY_COUNT,
     "withdrawnClaims": {
@@ -326,6 +448,16 @@ _EXPECTED_FIXTURE_CONTRACT = {
             "oracleRef": None,
             "validatorEntryPoint": STATIC_VALIDATOR_ENTRY_POINT,
         },
+    ],
+    "schemaOracleBatches": [
+        {
+            "batchId": SCHEMA_REF_BATCH01_ID,
+            "caseCount": len(SCHEMA_REF_BATCH01_CASE_IDS),
+            "cases": [
+                _schema_ref_batch01_binding(case_id)
+                for case_id in SCHEMA_REF_BATCH01_CASE_IDS
+            ],
+        }
     ],
 }
 _COVERAGE_DISPOSITION_CONTRACT = {
@@ -569,8 +701,16 @@ MANIFEST_SHA256 = _sha256(MANIFEST_BYTES)
 MANIFEST_GIT_BLOB = git_blob_oid(MANIFEST_BYTES)
 MANIFEST: dict[str, Any] = strict_json_loads(MANIFEST_BYTES)
 FIXTURE_CONTRACT = MANIFEST["fixtureContract"]
+PILOT_BINDINGS = tuple(FIXTURE_CONTRACT["pilotCases"])
+SCHEMA_ORACLE_BATCHES = tuple(FIXTURE_CONTRACT["schemaOracleBatches"])
+SCHEMA_ORACLE_BATCH_BINDINGS = tuple(
+    binding
+    for batch in SCHEMA_ORACLE_BATCHES
+    for binding in batch["cases"]
+)
+FIXTURE_CONTRACT_BINDINGS = PILOT_BINDINGS + SCHEMA_ORACLE_BATCH_BINDINGS
 FIXTURE_CONTRACTS_BY_CASE = {
-    item["caseId"]: item for item in FIXTURE_CONTRACT["pilotCases"]
+    item["caseId"]: item for item in FIXTURE_CONTRACT_BINDINGS
 }
 
 
@@ -786,7 +926,9 @@ def fixture_operand(case: FixtureCase | str) -> Mapping[str, Any] | None:
         binding["operandRef"], validate_sidecar=True
     )
     if not isinstance(payload, dict) or payload.get("caseId") != case.id:
-        raise FixtureContractError(f"pilot operand identity mismatch: {case.id}")
+        raise FixtureContractError(
+            f"fixture-contract operand identity mismatch: {case.id}"
+        )
     return payload
 
 
@@ -858,7 +1000,9 @@ def expected_typed_diagnostics(
         binding["oracleRef"], validate_sidecar=True
     )
     if not isinstance(payload, dict) or payload.get("caseId") != case.id:
-        raise FixtureContractError(f"pilot oracle identity mismatch: {case.id}")
+        raise FixtureContractError(
+            f"fixture-contract oracle identity mismatch: {case.id}"
+        )
     version = binding["diagnosticIdentityVersion"]
     expected = tuple(
         _parse_typed_diagnostic(version, item)
@@ -868,7 +1012,8 @@ def expected_typed_diagnostics(
         sorted(set(expected), key=lambda item: _diagnostic_sort_key(version, item))
     ):
         raise FixtureContractError(
-            f"pilot oracle is not nonempty, unique, and canonically ordered: {case.id}"
+            "fixture-contract oracle is not nonempty, unique, and canonically "
+            f"ordered: {case.id}"
         )
     return expected
 
@@ -955,9 +1100,9 @@ def direct_execution_gap_case_ids() -> tuple[str, ...]:
     for case in CASES:
         if case.inventory_disposition != "DIRECT_STATIC":
             continue
-        pilot_operand = fixture_operand(case)
-        if pilot_operand is not None:
-            if pilot_operand.get("operandKind") != "static":
+        contract_operand = fixture_operand(case)
+        if contract_operand is not None:
+            if contract_operand.get("operandKind") != "static":
                 gaps.append(case.id)
             continue
         payload = case_payload(case)
@@ -1191,7 +1336,7 @@ def manifest_structure_problems(manifest: Mapping[str, Any]) -> tuple[str, ...]:
 
 
 def fixture_contract_structure_problems() -> tuple[str, ...]:
-    """Authenticate and validate the exact three-case v3 pilot without executing it."""
+    """Authenticate the historical pilot and Schema Oracle Batch 01."""
     problems: list[str] = []
     try:
         schema = _authenticated_reference_payload(FIXTURE_CONTRACT["contractSchema"])
@@ -1210,6 +1355,12 @@ def fixture_contract_structure_problems() -> tuple[str, ...]:
                 "oracle-sidecar"
             ),
             "tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json": (
+                "oracle-sidecar"
+            ),
+            "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-ref-batch01.json": (
+                "operand-sidecar"
+            ),
+            "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-ref-batch01.json": (
                 "oracle-sidecar"
             ),
         }
@@ -1242,8 +1393,42 @@ def fixture_contract_structure_problems() -> tuple[str, ...]:
         ):
             problems.append("static pilot oracle case inventory mismatch")
 
-        if tuple(FIXTURE_CONTRACTS_BY_CASE) != PILOT_CASE_IDS:
+        if tuple(item["caseId"] for item in PILOT_BINDINGS) != PILOT_CASE_IDS:
             problems.append("manifest pilot case identities or ordering mismatch")
+
+        if len(SCHEMA_ORACLE_BATCHES) != 1:
+            problems.append("Schema Oracle batch inventory mismatch")
+        else:
+            batch = SCHEMA_ORACLE_BATCHES[0]
+            if (
+                batch.get("batchId") != SCHEMA_REF_BATCH01_ID
+                or batch.get("caseCount") != len(SCHEMA_REF_BATCH01_CASE_IDS)
+                or tuple(item["caseId"] for item in batch.get("cases", ()))
+                != SCHEMA_REF_BATCH01_CASE_IDS
+            ):
+                problems.append("Schema Oracle Batch 01 metadata mismatch")
+
+        batch_operand_path = (
+            "tests/schema/fixtures/v1alpha1/s6/operands/"
+            "schema-common-ref-batch01.json"
+        )
+        batch_oracle_path = (
+            "tests/schema/fixtures/v1alpha1/s6/oracles/"
+            "schema-common-ref-batch01.json"
+        )
+        batch_operands = _validated_fixture_sidecar_document(batch_operand_path)
+        batch_oracles = _validated_fixture_sidecar_document(batch_oracle_path)
+        if tuple(batch_operands["cases"]) != SCHEMA_REF_BATCH01_CASE_IDS:
+            problems.append("Schema Oracle Batch 01 operand inventory mismatch")
+        if tuple(batch_oracles["cases"]) != SCHEMA_REF_BATCH01_CASE_IDS:
+            problems.append("Schema Oracle Batch 01 oracle inventory mismatch")
+
+        if (
+            len(FIXTURE_CONTRACT_BINDINGS) != len(FIXTURE_CONTRACT_CASE_IDS)
+            or len(FIXTURE_CONTRACTS_BY_CASE) != len(FIXTURE_CONTRACT_CASE_IDS)
+            or set(FIXTURE_CONTRACTS_BY_CASE) != set(FIXTURE_CONTRACT_CASE_IDS)
+        ):
+            problems.append("fixture-contract case identities are missing or duplicated")
 
         for case_id in PILOT_CASE_IDS:
             case = CASES_BY_ID[case_id]
@@ -1340,6 +1525,63 @@ def fixture_contract_structure_problems() -> tuple[str, ...]:
                 problems.append(f"negative pilot lacks a typed oracle: {case_id}")
             if case.expected_disposition == "ACCEPT" and expected is not None:
                 problems.append(f"positive pilot unexpectedly has an oracle: {case_id}")
+
+        profile_roots = {
+            "gitRefIdentifier": "/$defs/gitRefIdentifier",
+            "branchRef": "/$defs/branchRef",
+            "branchPrefix": "/$defs/branchPrefix",
+        }
+        common_schema_id = get_resource("common.schema.json").schema_id
+        for case_id in SCHEMA_REF_BATCH01_CASE_IDS:
+            case = CASES_BY_ID[case_id]
+            binding = FIXTURE_CONTRACTS_BY_CASE[case_id]
+            descriptor_reference = binding["descriptorRef"]
+            if (
+                descriptor_reference["path"] != case.asset
+                or descriptor_reference["pointer"] != case.asset_pointer
+            ):
+                problems.append(f"historical descriptor binding changed: {case_id}")
+                continue
+            descriptor = _authenticated_reference_payload(descriptor_reference)
+            if descriptor != case_payload(case):
+                problems.append(f"descriptor reference payload mismatch: {case_id}")
+                continue
+            if (
+                case.inventory_disposition != "DIRECT_SCHEMA"
+                or case.owner != "schema"
+                or case.layer != "schema"
+                or case.polarity != "negative"
+                or case.expected_disposition != "REJECT"
+                or case.expected_diagnostic_identities is not None
+                or binding["validatorEntryPoint"] != SCHEMA_VALIDATOR_ENTRY_POINT
+                or binding["diagnosticIdentityVersion"] != SCHEMA_DIAGNOSTIC_V1
+                or binding["expectedValidationStatus"] != "INVALID"
+            ):
+                problems.append(f"Schema Oracle Batch 01 dispatch mismatch: {case_id}")
+                continue
+
+            operand = fixture_operand(case)
+            if operand is None or operand.get("operandKind") != "schema":
+                problems.append(f"Schema Oracle Batch 01 operand is absent: {case_id}")
+                continue
+            schema_operand = operand["schemaOperand"]
+            profile = descriptor.get("profile") if isinstance(descriptor, dict) else None
+            if (
+                operand.get("caseId") != case_id
+                or schema_operand.get("instance") != descriptor.get("value")
+                or schema_operand.get("schemaResourceId") != common_schema_id
+                or schema_operand.get("schemaPointer") != profile_roots.get(profile)
+            ):
+                problems.append(f"Schema Oracle Batch 01 projection mismatch: {case_id}")
+                continue
+
+            expected = expected_typed_diagnostics(case)
+            if not expected or any(
+                not isinstance(item, SchemaDiagnostic) for item in expected
+            ):
+                problems.append(
+                    f"Schema Oracle Batch 01 lacks a typed Schema oracle: {case_id}"
+                )
     except Exception as error:
         problems.append(
             "fixture-contract validation failure: "
@@ -1401,8 +1643,15 @@ def audit_current_corpus() -> ManifestAudit:
         problems.append("v2 correction paths are not all UTF-8 JSON assets")
     if not V3_PILOT_ASSET_PATHS <= utf8_json_paths:
         problems.append("v3 pilot paths are not all UTF-8 JSON assets")
+    if not V3_BATCH01_ASSET_PATHS <= utf8_json_paths:
+        problems.append("Schema Oracle Batch 01 paths are not all UTF-8 JSON assets")
     if (
-        len(utf8_json_paths - V2_CORRECTION_ASSET_PATHS - V3_PILOT_ASSET_PATHS)
+        len(
+            utf8_json_paths
+            - V2_CORRECTION_ASSET_PATHS
+            - V3_PILOT_ASSET_PATHS
+            - V3_BATCH01_ASSET_PATHS
+        )
         != EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT
     ):
         problems.append("unchanged LF/CRLF-sensitive asset count mismatch")
@@ -1896,11 +2145,13 @@ def run_schema_case(case: FixtureCase | str) -> tuple[SchemaDiagnostic, ...]:
     if binding is not None:
         if binding["validatorEntryPoint"] != SCHEMA_VALIDATOR_ENTRY_POINT:
             raise FixtureContractError(
-                f"pilot Schema validator entry point mismatch: {case.id}"
+                f"fixture-contract Schema validator entry point mismatch: {case.id}"
             )
         operand = fixture_operand(case)
         if operand is None or operand.get("operandKind") != "schema":
-            raise FixtureContractError(f"pilot Schema operand is missing: {case.id}")
+            raise FixtureContractError(
+                f"fixture-contract Schema operand is missing: {case.id}"
+            )
         schema_operand = operand["schemaOperand"]
         schema_ref = (
             schema_operand["schemaResourceId"] + "#" + schema_operand["schemaPointer"]
@@ -2094,11 +2345,13 @@ def run_static_case(case: FixtureCase | str):
     if binding is not None:
         if binding["validatorEntryPoint"] != STATIC_VALIDATOR_ENTRY_POINT:
             raise FixtureContractError(
-                f"pilot static validator entry point mismatch: {case.id}"
+                f"fixture-contract static validator entry point mismatch: {case.id}"
             )
         operand = fixture_operand(case)
         if operand is None or operand.get("operandKind") != "static":
-            raise FixtureContractError(f"pilot static operand is missing: {case.id}")
+            raise FixtureContractError(
+                f"fixture-contract static operand is missing: {case.id}"
+            )
         context = operand["validationContext"]
         with _explicit_pilot_proof_environment(operand) as (
             ports,
@@ -2157,7 +2410,7 @@ def _static_diagnostic_identity(diagnostic: Any) -> StaticDiagnosticIdentity:
     )
 
 
-def _pilot_oracle_comparison(
+def _fixture_contract_oracle_comparison(
     case: FixtureCase,
     actual: tuple[DiagnosticIdentity, ...],
 ) -> DiagnosticSetComparison | None:
@@ -2246,7 +2499,7 @@ def evaluate_case(case_id: str) -> CaseResult:
         if actual == "REJECT" and not case.expected_failure_identity:
             raise FixtureContractError(f"negative Schema case {case.id} lacks declared identity")
         identities = tuple(item.identity for item in diagnostics)
-        comparison = _pilot_oracle_comparison(case, diagnostics)
+        comparison = _fixture_contract_oracle_comparison(case, diagnostics)
         return CaseResult(
             case_id=case.id,
             source_asset=case.asset,
@@ -2295,7 +2548,7 @@ def evaluate_case(case_id: str) -> CaseResult:
         _static_diagnostic_identity(diagnostic)
         for diagnostic in static_result.diagnostics
     )
-    comparison = _pilot_oracle_comparison(case, typed_diagnostics)
+    comparison = _fixture_contract_oracle_comparison(case, typed_diagnostics)
     return CaseResult(
         case_id=case.id,
         source_asset=case.asset,

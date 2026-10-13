@@ -163,6 +163,36 @@ def test_schema_diagnostic_v1_reports_missing_and_unexpected_identities() -> Non
     assert unexpected.unexpected == (extra,)
 
 
+def test_schema_ref_batch01_rejects_missing_and_unexpected_diagnostics() -> None:
+    case_id = "schema.common.branchref.negative.ref-0"
+    expected = expected_typed_diagnostics(case_id)
+    assert expected is not None and len(expected) == 3
+
+    missing = compare_diagnostic_identity_sets(
+        "schema-diagnostic-v1", expected, expected[1:]
+    )
+    assert missing.status == "EXACT_SET_MISMATCH"
+    assert missing.missing == (expected[0],)
+    assert missing.unexpected == ()
+
+    extra = SchemaDiagnostic(
+        schema_resource_id="urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        instance_pointer="",
+        schema_pointer="/$defs/branchRef/description",
+        keyword="description",
+    )
+    unexpected = compare_diagnostic_identity_sets(
+        "schema-diagnostic-v1", expected, (*expected, extra)
+    )
+    assert unexpected.status == "EXACT_SET_MISMATCH"
+    assert unexpected.missing == ()
+    assert unexpected.unexpected == (extra,)
+
+    result = evaluate_case(case_id)
+    assert result.schema_diagnostics == expected
+    assert result.oracle_status == "EXACT_MATCH"
+
+
 def test_static_diagnostic_v1_uses_every_public_field_and_exact_sets() -> None:
     case_id = "phase1-static.branch-policy.negative.16-no-allow-match"
     expected = expected_typed_diagnostics(case_id)
