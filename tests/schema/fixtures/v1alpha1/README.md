@@ -10,12 +10,13 @@ does not establish event truth.
 executable or explicitly deferred case rows from non-executable
 coverage-obligation records and adds a versioned Fixture Contract containing
 the historical three-case Pilot, the distinct 62-case Schema Ref-Identifier
-Oracle Batch 01, and the distinct 104-case Schema Text Oracle Batch 02.
+Oracle Batch 01, the distinct 104-case Schema Text Oracle Batch 02, and the
+distinct 73-case Schema Identifier Lexical Oracle Batch 03.
 Historical Manifest-v2 identity remains preserved through Git history. The
-corpus contains 146 physical assets: 135 case-pack assets, three
-`coverage-obligation-pack` assets, and eight authenticated Fixture Contract
+corpus contains 148 physical assets: 135 case-pack assets, three
+`coverage-obligation-pack` assets, and 10 authenticated Fixture Contract
 schema/operand/oracle assets. Together with this README and the manifest, the
-corpus contains 148 paths.
+corpus contains 150 paths.
 
 The manifest has 2,166 case rows: 516 `ACCEPT`, 1,535 `REJECT`, and 115
 `DEFERRED`. Their inventory dispositions are 1,566 `DIRECT_SCHEMA`, 485
@@ -32,8 +33,8 @@ Manifest v3 preserves every historical case identity, descriptor reference,
 disposition, owner, coverage identity, and S5 provenance value. It adds an
 authenticated `fixture-contract-v1` operand for exactly three branch-policy
 Pilot cases and exact typed negative oracles for exactly two of them. Those
-three bindings remain unchanged. Both Oracle batches are recorded separately
-under `schemaOracleBatches`; they do not relabel their 166 cases as Pilot cases
+three bindings remain unchanged. The three Oracle batches are recorded separately under `schemaOracleBatches`; they do not relabel their 239 cases as
+Pilot cases
 or alter their historical descriptors. The Schema diagnostic identity is
 `schema-diagnostic-v1`; the static identity is `static-diagnostic-v1` and uses
 all existing public static diagnostic fields. `expectedFailureIdentity`
@@ -51,10 +52,16 @@ operands and independently derived exact Oracles for 104 existing
 106 identities comprise 102 single-diagnostic cases and the two empty-string
 cases that violate both `minLength` and `pattern`; it preserves the distinct C1
 boundaries and string-only assertion applicability of the two Schema roots.
-The remaining 426 static operand gaps and 1,367 negative-oracle gaps remain
-fail-closed S6 acceptance blockers. Neither the Pilot nor either Oracle batch
-changes the 42 open Phase-1 coverage obligations, row-19 responsibility, or the
-eight future-model obligations.
+Batch 03 adds authenticated operands and independently derived exact Oracles
+for 73 existing `DIRECT_SCHEMA` negatives covering
+`remoteRepositoryName`, `remoteNamespaceComponent`, `logicalIdentifier`,
+`checkIdentifier`, `profileIdentifier`, and `reasonCode`. Its 82 identities
+comprise 64 one-diagnostic cases and nine two-diagnostic cases, preserving
+string-only assertion applicability and every simultaneously violated length
+and pattern assertion. The remaining 426 static operand gaps and 1,294
+negative-oracle gaps remain fail-closed S6 acceptance blockers. Neither the
+Pilot nor any Oracle batch changes the 42 open Phase-1 coverage obligations,
+row-19 responsibility, or the eight future-model obligations.
 
 The two SG-001 aggregate matrix packs contain 50 non-executable obligations, not
 cases. Forty-two are `COVERAGE_LEDGER_OPEN` Phase-1 coverage gaps and remain

@@ -1,0 +1,865 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "oracle-set",
+  "diagnosticIdentityVersion": "schema-diagnostic-v1",
+  "cases": {
+    "schema.common.checkidentifier.negative.empty-segment": {
+      "caseId": "schema.common.checkidentifier.negative.empty-segment",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.leading-hyphen": {
+      "caseId": "schema.common.checkidentifier.negative.leading-hyphen",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.missing-segment": {
+      "caseId": "schema.common.checkidentifier.negative.missing-segment",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.segment-33": {
+      "caseId": "schema.common.checkidentifier.negative.segment-33",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.total-161": {
+      "caseId": "schema.common.checkidentifier.negative.total-161",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.trailing-hyphen": {
+      "caseId": "schema.common.checkidentifier.negative.trailing-hyphen",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.trailing-newline": {
+      "caseId": "schema.common.checkidentifier.negative.trailing-newline",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.underscore": {
+      "caseId": "schema.common.checkidentifier.negative.underscore",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.uppercase": {
+      "caseId": "schema.common.checkidentifier.negative.uppercase",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.checkidentifier.negative.wrong-prefix": {
+      "caseId": "schema.common.checkidentifier.negative.wrong-prefix",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/checkIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.empty": {
+      "caseId": "schema.common.logicalidentifier.negative.empty",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.leading-dot": {
+      "caseId": "schema.common.logicalidentifier.negative.leading-dot",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.leading-hyphen": {
+      "caseId": "schema.common.logicalidentifier.negative.leading-hyphen",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.number": {
+      "caseId": "schema.common.logicalidentifier.negative.number",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.slash": {
+      "caseId": "schema.common.logicalidentifier.negative.slash",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.too-long": {
+      "caseId": "schema.common.logicalidentifier.negative.too-long",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.trailing-dot": {
+      "caseId": "schema.common.logicalidentifier.negative.trailing-dot",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.trailing-hyphen": {
+      "caseId": "schema.common.logicalidentifier.negative.trailing-hyphen",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.trailing-newline": {
+      "caseId": "schema.common.logicalidentifier.negative.trailing-newline",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.underscore": {
+      "caseId": "schema.common.logicalidentifier.negative.underscore",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.unicode": {
+      "caseId": "schema.common.logicalidentifier.negative.unicode",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.logicalidentifier.negative.uppercase": {
+      "caseId": "schema.common.logicalidentifier.negative.uppercase",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/logicalIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.empty-segment": {
+      "caseId": "schema.common.profileidentifier.negative.empty-segment",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.leading-hyphen": {
+      "caseId": "schema.common.profileidentifier.negative.leading-hyphen",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.missing-segment": {
+      "caseId": "schema.common.profileidentifier.negative.missing-segment",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.segment-33": {
+      "caseId": "schema.common.profileidentifier.negative.segment-33",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.total-161": {
+      "caseId": "schema.common.profileidentifier.negative.total-161",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.trailing-hyphen": {
+      "caseId": "schema.common.profileidentifier.negative.trailing-hyphen",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.trailing-newline": {
+      "caseId": "schema.common.profileidentifier.negative.trailing-newline",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.underscore": {
+      "caseId": "schema.common.profileidentifier.negative.underscore",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.uppercase": {
+      "caseId": "schema.common.profileidentifier.negative.uppercase",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.profileidentifier.negative.wrong-prefix": {
+      "caseId": "schema.common.profileidentifier.negative.wrong-prefix",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/profileIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.empty-segment": {
+      "caseId": "schema.common.reasoncode.negative.empty-segment",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.leading-hyphen": {
+      "caseId": "schema.common.reasoncode.negative.leading-hyphen",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.missing-segment": {
+      "caseId": "schema.common.reasoncode.negative.missing-segment",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.segment-33": {
+      "caseId": "schema.common.reasoncode.negative.segment-33",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.total-161": {
+      "caseId": "schema.common.reasoncode.negative.total-161",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.trailing-hyphen": {
+      "caseId": "schema.common.reasoncode.negative.trailing-hyphen",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.trailing-newline": {
+      "caseId": "schema.common.reasoncode.negative.trailing-newline",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.underscore": {
+      "caseId": "schema.common.reasoncode.negative.underscore",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.uppercase": {
+      "caseId": "schema.common.reasoncode.negative.uppercase",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.reasoncode.negative.wrong-prefix": {
+      "caseId": "schema.common.reasoncode.negative.wrong-prefix",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/reasonCode/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-0": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-0",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-1": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-1",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-10": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-10",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-11": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-11",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-12": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-12",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-13": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-13",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-14": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-14",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-2": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-2",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-3": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-3",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-4": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-4",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-5": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-5",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-6": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-6",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-7": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-7",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-8": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-8",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remotenamespacecomponent.negative.component-9": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-9",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteNamespaceComponent/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-0": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-0",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-1": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-1",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-10": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-10",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-11": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-11",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-12": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-12",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-13": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-13",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-14": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-14",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-2": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-2",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-3": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-3",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-4": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-4",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-5": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-5",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-6": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-6",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-7": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-7",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-8": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-8",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.component-9": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-9",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.remoterepositoryname.negative.git-suffix": {
+      "caseId": "schema.common.remoterepositoryname.negative.git-suffix",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteRepositoryName/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    }
+  }
+}

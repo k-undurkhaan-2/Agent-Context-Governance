@@ -4,14 +4,15 @@
 
 This document describes the forward-only Manifest v3 Fixture Contract: the
 historical three-case Pilot, the distinct 62-case Schema Ref-Identifier Oracle
-Batch 01, and the distinct 104-case Schema Text Oracle Batch 02. The combined
+Batch 01, the distinct 104-case Schema Text Oracle Batch 02, and the distinct
+73-case Schema Identifier Lexical Oracle Batch 03. The combined
 contract is a candidate for independent review only. It does not grant
 authority, establish production proof, accept S6, close a coverage obligation,
 activate S7, or authorize model work. Every operand, proof response, path,
 identity, digest, and timestamp is conspicuously synthetic.
 
 Manifest v3 preserves all 2,166 historical logical case rows and their
-Manifest-v2 descriptor bindings. The Pilot and both Oracle batches add
+Manifest-v2 descriptor bindings. The Pilot and all three Oracle batches add
 authenticated operand and oracle sidecars without replacing the S5
 descriptors. Historical Manifest-v2 identity remains available through Git
 history; Manifest v3 intentionally has no self-digest.
@@ -44,9 +45,26 @@ The exact ASCII-sorted Batch 02 membership is frozen as one case ID per line,
 with LF endings and a final LF: 4,964 bytes and SHA-256
 `3e23bb284e58ccc5bbbc7d0d3646aca36065fe4cfda90579732c3caf030fe708`.
 The explicit list is duplicated fail-closed in the runner, operand, Oracle, and
-104 Manifest bindings. All cases outside the Pilot and Batches 01 and 02 retain
-their prior operand, oracle, execution, disposition, and ownership state. Both
-batches preserve every source value and historical descriptor binding.
+104 Manifest bindings.
+
+Batch 03 contains exactly the negative cases selected by these authenticated
+source profiles:
+
+- `remoteRepositoryName` — 16 cases;
+- `remoteNamespaceComponent` — 15 cases;
+- `logicalIdentifier` — 12 cases;
+- `checkIdentifier` — 10 cases;
+- `profileIdentifier` — 10 cases; and
+- `reasonCode` — 10 cases.
+
+The exact ASCII-sorted Batch 03 membership is frozen as one case ID per line,
+with LF endings and a final LF: 3,966 bytes and SHA-256
+`68f1bcc6d39e769249b065d20ab0ee45c3e0418e45b95aa4cda1df8210444638`.
+The explicit list is duplicated fail-closed in the runner, operand, Oracle, and
+73 Manifest bindings. Batch 03 is disjoint from the Pilot and Batches 01 and
+02. All cases outside the Pilot and Batches 01 through 03 retain their prior
+operand, oracle, execution, disposition, and ownership state. All three batches
+preserve every source value and historical descriptor binding.
 
 ## Contract and authentication
 
@@ -57,7 +75,7 @@ Pointer, the operand path and JSON Pointer, the selected validator entry point,
 the diagnostic identity version, the expected validation status, and the
 oracle path and JSON Pointer when the case is negative. Every referenced file
 is bound by canonical UTF-8 byte length and SHA-256. Historical Pilot bindings
-and both Oracle-batch memberships remain distinct.
+and all three Oracle-batch memberships remain distinct.
 
 Canonical sidecar bytes are UTF-8 without a BOM, use LF line endings, and end
 with one LF byte. Authentication detects mutation; it does not establish
@@ -68,7 +86,7 @@ Manifest and therefore does not create a self-digest:
 
 | Artifact | Canonical bytes | SHA-256 | Git Blob |
 | --- | ---: | --- | --- |
-| `tests/schema/fixtures/v1alpha1/manifest.json` | 2,051,222 | `348d7a9bc979c4d842c632e6738946cebcec15c49c9cedc22a4c61ade547af6f` | `2ce128ddff37d6e395cb074692799d59d221d944` |
+| `tests/schema/fixtures/v1alpha1/manifest.json` | 2,154,383 | `bb01d416d897ea347e6d4266321d0b987307945f0aa8644586dbbaf9bb2f4ae0` | `ec50b913f257b30ff52d721e7921bc80c60af643` |
 
 ## Frozen operand identities
 
@@ -83,6 +101,7 @@ set.
 | `tests/schema/fixtures/v1alpha1/s6/operands/branch-policy-pilot.json` | 31,786 | `8375e157311c2aa04be3297efaf6cf85d998a06fcc0b85ce7fcc30d31cdec2dc` | `732e147330244873261611ccdde8678db58352a7` |
 | `tests/schema/fixtures/v1alpha1/s6/operands/schema-common-ref-batch01.json` | 25,393 | `f37015ee29a6933278b898a0953c0e4f97688f7fa0e6e1b7d68867b69496b038` | `a196f812ddb1d1bed1611cf7426a01e7c7925b2f` |
 | `tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json` | 39,337 | `7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89` | `5236bb13bb085d791201632f4c49d860c16dc946` |
+| `tests/schema/fixtures/v1alpha1/s6/operands/schema-common-identifiers-batch03.json` | 27,747 | `057699046579a57a5da528eab3b0cf0cb30f4a0cfa310e9d12d2f77bf6ddb48b` | `1abd86416e434d078b16e4369e3b8aebc3223602` |
 
 The Schema operand freezes the empty string and the exact
 `common.schema.json#/$defs/branchPrefix` root. Each static operand freezes a
@@ -116,6 +135,15 @@ Git blob `94b503faf31f6115e354bdac5c77116af2f727c1`. The normative
 `common.schema.json` remains 19,205 bytes, SHA-256
 `28bebf46eaf4dbeaa5314b713801b6ddf3039589de56a9eeee321dc1387f577d`,
 Git blob `b1469d6c09e37284426ee97c5b1ab870dd6911b7`.
+
+The Batch 03 operand freezes 73 authenticated descriptive values against
+exactly one of the `remoteRepositoryName`, `remoteNamespaceComponent`,
+`logicalIdentifier`, `checkIdentifier`, `profileIdentifier`, or `reasonCode`
+roots in `common.schema.json`. It was frozen before the Batch 03 derivation
+ledger and Oracle were authored. Its case map is strictly ASCII-sorted,
+matches the authenticated source values exactly, and contains no case outside
+the authorized membership. The same authenticated source and normative Schema
+identities shown above remain unchanged.
 
 ## Diagnostic identity contracts
 
@@ -158,8 +186,9 @@ branch-policy requirements in `docs/schema-contract-v1alpha1.md`, the approved
 public Schema resources, and the public static diagnostic construction. Batch
 01 additionally uses only the exact `gitRefIdentifier`, `branchRef`, and
 `branchPrefix` definitions in `common.schema.json`. Batch 02 uses only the exact
-`displayText` and `sanitizedSummary` definitions. Actual validator diagnostics,
-prior observed output, and existing regression results are excluded as
+`displayText` and `sanitizedSummary` definitions. Batch 03 uses only the exact
+six identifier definitions named above. Actual validator diagnostics, prior
+observed output, and existing regression results are excluded as
 oracle-authoring inputs.
 
 The independently drafted oracle sidecars have these canonical identities:
@@ -169,6 +198,7 @@ The independently drafted oracle sidecars have these canonical identities:
 | `tests/schema/fixtures/v1alpha1/s6/oracles/schema-branch-policy-pilot.json` | 1,059 | `a3bbea2f6834ca0511e370b51e71c32c0e6854cecf24d2869cea7698c4c571ae` | `4443327b766aa177585f7c0618cd0ac8051efcdc` |
 | `tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-ref-batch01.json` | 26,997 | `f603ee91c4859e58539f7b5bbcf133a0dabb18fbcdd20231fe65d1355ee7effc` | `19a227b4122ba4021c32348904fbecf2ddd875b2` |
 | `tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json` | 41,354 | `e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17` | `0d5d3fe7103a2a7b9210d97ac90bc8183ec2c6bd` |
+| `tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-identifiers-batch03.json` | 32,210 | `452b14fc97e2730ac815efa306c9804fe57fa3f8bf4815a32db507b1e81ce050` | `7bd9d3e5959f51c3a88d2e46de9006f8a0e7a25e` |
 | `tests/schema/fixtures/v1alpha1/s6/oracles/static-branch-policy-pilot.json` | 727 | `3e5ebd6ddc07e1695cacb2d8610621c7173b4ce37023ed81af55570a3240b0a6` | `ec802cd113289b1d5bc15150b3520a5858ad8bbc` |
 
 For the empty prefix, the frozen Schema root composes `branchRef` and
@@ -207,18 +237,36 @@ exercise missing- and unexpected-identity rejection, sidecar and Manifest
 authentication, historical Pilot and Batch 01 preservation, offline registry
 and cross-resource attribution, and the unchanged global blocker accounting.
 
+Before the Batch 03 Oracle was written, a task-local derivation ledger outside
+the repository recorded all 73 case-keyed derivations from the frozen operand
+and exact Schema assertions. The ledger is 55,711 canonical bytes with SHA-256
+`2c052c797abf1f4a0c5202c36a78134baedc10ca78e105c516e721a91526cfcb`.
+Its 82 identities comprise 64 one-diagnostic cases and nine two-diagnostic
+cases: 69 `pattern`, six `minLength`, six `maxLength`, and one `type` identity.
+String-only assertions do not apply to the wrong-type operand. The applicable
+minimum- or maximum-length failures remain distinct from pattern failures, and
+the three 161-character prefixed identifiers violate only `maxLength` because
+their segments still satisfy the declared pattern.
+
+Only after the Batch 03 Oracle was frozen and authenticated, 73 bounded
+Validator executions returned `INVALID` and matched all 82 identities exactly.
+Targeted contract tests exercise missing- and unexpected-identity rejection,
+sidecar and Manifest authentication, historical Pilot and Batches 01 and 02
+preservation, offline registry and cross-resource attribution, explicit
+membership, and unchanged fail-closed blocker accounting.
+
 ## Status meanings and remaining blockers
 
 `PASS`, `INVALID`, and `PROOF_REQUIRED` remain distinct. A positive Pilot case
-must return `PASS`; every negative Pilot, Batch 01, or Batch 02 case must return
+must return `PASS`; every negative Pilot or Batch 01, 02, or 03 case must return
 `INVALID` and an exact typed oracle match. `PROOF_REQUIRED` is neither
 acceptance nor an invalid-data result.
 
-Neither the Pilot nor either Oracle batch weakens aggregate S6 gates. Batch 02
-adds two physical assets and 104 exact bindings without changing any historical
-logical case: the corpus now has 146 physical assets, 148 total corpus paths,
-eight Fixture Contract assets, two Schema Oracle batches, and 166 Oracle-batch
-bindings. The remaining 426 missing executable operands and 1,367 missing exact
+Neither the Pilot nor any Oracle batch weakens aggregate S6 gates. Batch 03
+adds two physical assets and 73 exact bindings without changing any historical
+logical case: the corpus now has 148 physical assets, 150 total corpus paths,
+10 Fixture Contract assets, three Schema Oracle batches, and 239 Oracle-batch
+bindings. The remaining 426 missing executable operands and 1,294 missing exact
 negative oracles remain blocking. All 42 open Phase-1 coverage obligations
 remain open and blocking, row-19 responsibility remains unchanged, and all
 eight future-model obligations remain outside S6. S6 acceptance remains

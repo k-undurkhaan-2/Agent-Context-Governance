@@ -1,0 +1,664 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "operand-set",
+  "cases": {
+    "schema.common.checkidentifier.negative.empty-segment": {
+      "caseId": "schema.common.checkidentifier.negative.empty-segment",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check..a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.leading-hyphen": {
+      "caseId": "schema.common.checkidentifier.negative.leading-hyphen",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check.-a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.missing-segment": {
+      "caseId": "schema.common.checkidentifier.negative.missing-segment",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.segment-33": {
+      "caseId": "schema.common.checkidentifier.negative.segment-33",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.total-161": {
+      "caseId": "schema.common.checkidentifier.negative.total-161",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.trailing-hyphen": {
+      "caseId": "schema.common.checkidentifier.negative.trailing-hyphen",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check.a-",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.trailing-newline": {
+      "caseId": "schema.common.checkidentifier.negative.trailing-newline",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check.a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.underscore": {
+      "caseId": "schema.common.checkidentifier.negative.underscore",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check.a_b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.uppercase": {
+      "caseId": "schema.common.checkidentifier.negative.uppercase",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "check.A",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.checkidentifier.negative.wrong-prefix": {
+      "caseId": "schema.common.checkidentifier.negative.wrong-prefix",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic.a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/checkIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.empty": {
+      "caseId": "schema.common.logicalidentifier.negative.empty",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.leading-dot": {
+      "caseId": "schema.common.logicalidentifier.negative.leading-dot",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": ".a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.leading-hyphen": {
+      "caseId": "schema.common.logicalidentifier.negative.leading-hyphen",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "-a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.number": {
+      "caseId": "schema.common.logicalidentifier.negative.number",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": 1,
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.slash": {
+      "caseId": "schema.common.logicalidentifier.negative.slash",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a/b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.too-long": {
+      "caseId": "schema.common.logicalidentifier.negative.too-long",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.trailing-dot": {
+      "caseId": "schema.common.logicalidentifier.negative.trailing-dot",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.trailing-hyphen": {
+      "caseId": "schema.common.logicalidentifier.negative.trailing-hyphen",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a-",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.trailing-newline": {
+      "caseId": "schema.common.logicalidentifier.negative.trailing-newline",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.underscore": {
+      "caseId": "schema.common.logicalidentifier.negative.underscore",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a_b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.unicode": {
+      "caseId": "schema.common.logicalidentifier.negative.unicode",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "\u4f8b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.logicalidentifier.negative.uppercase": {
+      "caseId": "schema.common.logicalidentifier.negative.uppercase",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "Project",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/logicalIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.empty-segment": {
+      "caseId": "schema.common.profileidentifier.negative.empty-segment",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile..a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.leading-hyphen": {
+      "caseId": "schema.common.profileidentifier.negative.leading-hyphen",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile.-a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.missing-segment": {
+      "caseId": "schema.common.profileidentifier.negative.missing-segment",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.segment-33": {
+      "caseId": "schema.common.profileidentifier.negative.segment-33",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.total-161": {
+      "caseId": "schema.common.profileidentifier.negative.total-161",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.trailing-hyphen": {
+      "caseId": "schema.common.profileidentifier.negative.trailing-hyphen",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile.a-",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.trailing-newline": {
+      "caseId": "schema.common.profileidentifier.negative.trailing-newline",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile.a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.underscore": {
+      "caseId": "schema.common.profileidentifier.negative.underscore",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile.a_b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.uppercase": {
+      "caseId": "schema.common.profileidentifier.negative.uppercase",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "profile.A",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.profileidentifier.negative.wrong-prefix": {
+      "caseId": "schema.common.profileidentifier.negative.wrong-prefix",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic.a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/profileIdentifier"
+      }
+    },
+    "schema.common.reasoncode.negative.empty-segment": {
+      "caseId": "schema.common.reasoncode.negative.empty-segment",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason..a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.leading-hyphen": {
+      "caseId": "schema.common.reasoncode.negative.leading-hyphen",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason.-a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.missing-segment": {
+      "caseId": "schema.common.reasoncode.negative.missing-segment",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.segment-33": {
+      "caseId": "schema.common.reasoncode.negative.segment-33",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.total-161": {
+      "caseId": "schema.common.reasoncode.negative.total-161",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.trailing-hyphen": {
+      "caseId": "schema.common.reasoncode.negative.trailing-hyphen",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason.a-",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.trailing-newline": {
+      "caseId": "schema.common.reasoncode.negative.trailing-newline",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason.a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.underscore": {
+      "caseId": "schema.common.reasoncode.negative.underscore",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason.a_b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.uppercase": {
+      "caseId": "schema.common.reasoncode.negative.uppercase",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "reason.A",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.reasoncode.negative.wrong-prefix": {
+      "caseId": "schema.common.reasoncode.negative.wrong-prefix",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic.a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/reasonCode"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-0": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-1": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-1",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-10": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-10",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a\\b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-11": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-11",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "A",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-12": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-12",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "\u4f8b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-13": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-13",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-14": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-14",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-2": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": ".",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-3": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "..",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-4": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-4",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a..b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-5": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-5",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": ".a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-6": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-6",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-7": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-7",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "-a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-8": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-8",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a-",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remotenamespacecomponent.negative.component-9": {
+      "caseId": "schema.common.remotenamespacecomponent.negative.component-9",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a/b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteNamespaceComponent"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-0": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-1": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-1",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-10": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-10",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a\\b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-11": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-11",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "A",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-12": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-12",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "\u4f8b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-13": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-13",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-14": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-14",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-2": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": ".",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-3": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "..",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-4": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-4",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a..b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-5": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-5",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": ".a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-6": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-6",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-7": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-7",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "-a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-8": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-8",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a-",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.component-9": {
+      "caseId": "schema.common.remoterepositoryname.negative.component-9",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "a/b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    },
+    "schema.common.remoterepositoryname.negative.git-suffix": {
+      "caseId": "schema.common.remoterepositoryname.negative.git-suffix",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic.git",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteRepositoryName"
+      }
+    }
+  }
+}
