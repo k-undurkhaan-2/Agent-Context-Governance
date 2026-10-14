@@ -1,0 +1,943 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "operand-set",
+  "cases": {
+    "schema.common.displaytext.negative.control-0": {
+      "caseId": "schema.common.displaytext.negative.control-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0000",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-1": {
+      "caseId": "schema.common.displaytext.negative.control-1",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0001",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-10": {
+      "caseId": "schema.common.displaytext.negative.control-10",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-11": {
+      "caseId": "schema.common.displaytext.negative.control-11",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u000b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-12": {
+      "caseId": "schema.common.displaytext.negative.control-12",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-127": {
+      "caseId": "schema.common.displaytext.negative.control-127",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u007f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-128": {
+      "caseId": "schema.common.displaytext.negative.control-128",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0080",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-129": {
+      "caseId": "schema.common.displaytext.negative.control-129",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0081",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-13": {
+      "caseId": "schema.common.displaytext.negative.control-13",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\r",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-130": {
+      "caseId": "schema.common.displaytext.negative.control-130",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0082",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-131": {
+      "caseId": "schema.common.displaytext.negative.control-131",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0083",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-132": {
+      "caseId": "schema.common.displaytext.negative.control-132",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0084",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-133": {
+      "caseId": "schema.common.displaytext.negative.control-133",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0085",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-134": {
+      "caseId": "schema.common.displaytext.negative.control-134",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0086",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-135": {
+      "caseId": "schema.common.displaytext.negative.control-135",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0087",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-136": {
+      "caseId": "schema.common.displaytext.negative.control-136",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0088",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-137": {
+      "caseId": "schema.common.displaytext.negative.control-137",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0089",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-138": {
+      "caseId": "schema.common.displaytext.negative.control-138",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u008a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-139": {
+      "caseId": "schema.common.displaytext.negative.control-139",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u008b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-14": {
+      "caseId": "schema.common.displaytext.negative.control-14",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u000e",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-140": {
+      "caseId": "schema.common.displaytext.negative.control-140",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u008c",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-141": {
+      "caseId": "schema.common.displaytext.negative.control-141",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u008d",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-142": {
+      "caseId": "schema.common.displaytext.negative.control-142",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u008e",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-143": {
+      "caseId": "schema.common.displaytext.negative.control-143",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u008f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-144": {
+      "caseId": "schema.common.displaytext.negative.control-144",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0090",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-145": {
+      "caseId": "schema.common.displaytext.negative.control-145",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0091",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-146": {
+      "caseId": "schema.common.displaytext.negative.control-146",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0092",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-147": {
+      "caseId": "schema.common.displaytext.negative.control-147",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0093",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-148": {
+      "caseId": "schema.common.displaytext.negative.control-148",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0094",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-149": {
+      "caseId": "schema.common.displaytext.negative.control-149",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0095",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-15": {
+      "caseId": "schema.common.displaytext.negative.control-15",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u000f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-150": {
+      "caseId": "schema.common.displaytext.negative.control-150",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0096",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-151": {
+      "caseId": "schema.common.displaytext.negative.control-151",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0097",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-152": {
+      "caseId": "schema.common.displaytext.negative.control-152",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0098",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-153": {
+      "caseId": "schema.common.displaytext.negative.control-153",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0099",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-154": {
+      "caseId": "schema.common.displaytext.negative.control-154",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u009a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-155": {
+      "caseId": "schema.common.displaytext.negative.control-155",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u009b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-156": {
+      "caseId": "schema.common.displaytext.negative.control-156",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u009c",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-157": {
+      "caseId": "schema.common.displaytext.negative.control-157",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u009d",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-158": {
+      "caseId": "schema.common.displaytext.negative.control-158",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u009e",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-159": {
+      "caseId": "schema.common.displaytext.negative.control-159",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u009f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-16": {
+      "caseId": "schema.common.displaytext.negative.control-16",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0010",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-17": {
+      "caseId": "schema.common.displaytext.negative.control-17",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0011",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-18": {
+      "caseId": "schema.common.displaytext.negative.control-18",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0012",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-19": {
+      "caseId": "schema.common.displaytext.negative.control-19",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0013",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-2": {
+      "caseId": "schema.common.displaytext.negative.control-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0002",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-20": {
+      "caseId": "schema.common.displaytext.negative.control-20",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0014",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-21": {
+      "caseId": "schema.common.displaytext.negative.control-21",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0015",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-22": {
+      "caseId": "schema.common.displaytext.negative.control-22",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0016",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-23": {
+      "caseId": "schema.common.displaytext.negative.control-23",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0017",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-24": {
+      "caseId": "schema.common.displaytext.negative.control-24",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0018",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-25": {
+      "caseId": "schema.common.displaytext.negative.control-25",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0019",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-26": {
+      "caseId": "schema.common.displaytext.negative.control-26",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-27": {
+      "caseId": "schema.common.displaytext.negative.control-27",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-28": {
+      "caseId": "schema.common.displaytext.negative.control-28",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001c",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-29": {
+      "caseId": "schema.common.displaytext.negative.control-29",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001d",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-3": {
+      "caseId": "schema.common.displaytext.negative.control-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0003",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-30": {
+      "caseId": "schema.common.displaytext.negative.control-30",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001e",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-31": {
+      "caseId": "schema.common.displaytext.negative.control-31",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-4": {
+      "caseId": "schema.common.displaytext.negative.control-4",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0004",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-5": {
+      "caseId": "schema.common.displaytext.negative.control-5",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0005",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-6": {
+      "caseId": "schema.common.displaytext.negative.control-6",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0006",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-7": {
+      "caseId": "schema.common.displaytext.negative.control-7",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0007",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-8": {
+      "caseId": "schema.common.displaytext.negative.control-8",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.control-9": {
+      "caseId": "schema.common.displaytext.negative.control-9",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\t",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.empty": {
+      "caseId": "schema.common.displaytext.negative.empty",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.too-long": {
+      "caseId": "schema.common.displaytext.negative.too-long",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.displaytext.negative.wrong-type": {
+      "caseId": "schema.common.displaytext.negative.wrong-type",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": [],
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/displayText"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-0": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0000",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-1": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-1",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0001",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-10": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-10",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-11": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-11",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u000b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-12": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-12",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-127": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-127",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u007f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-13": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-13",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\r",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-14": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-14",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u000e",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-15": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-15",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u000f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-16": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-16",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0010",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-17": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-17",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0011",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-18": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-18",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0012",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-19": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-19",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0013",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-2": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0002",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-20": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-20",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0014",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-21": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-21",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0015",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-22": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-22",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0016",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-23": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-23",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0017",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-24": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-24",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0018",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-25": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-25",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0019",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-26": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-26",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-27": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-27",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-28": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-28",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001c",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-29": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-29",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001d",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-3": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0003",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-30": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-30",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001e",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-31": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-31",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u001f",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-4": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-4",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0004",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-5": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-5",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0005",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-6": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-6",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0006",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-7": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-7",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\u0007",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-8": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-8",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.control-9": {
+      "caseId": "schema.common.sanitizedsummary.negative.control-9",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic\t",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.empty": {
+      "caseId": "schema.common.sanitizedsummary.negative.empty",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.too-long": {
+      "caseId": "schema.common.sanitizedsummary.negative.too-long",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    },
+    "schema.common.sanitizedsummary.negative.wrong-type": {
+      "caseId": "schema.common.sanitizedsummary.negative.wrong-type",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": [],
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/sanitizedSummary"
+      }
+    }
+  }
+}

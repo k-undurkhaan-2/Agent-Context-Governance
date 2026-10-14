@@ -910,6 +910,13 @@
       "sha256": "f37015ee29a6933278b898a0953c0e4f97688f7fa0e6e1b7d68867b69496b038"
     },
     {
+      "byteLength": 39337,
+      "encoding": "utf-8-json",
+      "inventoryClass": "operand-sidecar",
+      "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+      "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+    },
+    {
       "byteLength": 1059,
       "encoding": "utf-8-json",
       "inventoryClass": "oracle-sidecar",
@@ -922,6 +929,13 @@
       "inventoryClass": "oracle-sidecar",
       "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-ref-batch01.json",
       "sha256": "f603ee91c4859e58539f7b5bbcf133a0dabb18fbcdd20231fe65d1355ee7effc"
+    },
+    {
+      "byteLength": 41354,
+      "encoding": "utf-8-json",
+      "inventoryClass": "oracle-sidecar",
+      "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+      "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
     },
     {
       "byteLength": 727,
@@ -52467,6 +52481,2508 @@
             "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
           }
         ]
+      },
+      {
+        "batchId": "schema-common-text-batch02",
+        "caseCount": 104,
+        "cases": [
+          {
+            "caseId": "schema.common.displaytext.negative.control-0",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-0",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-0",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-0",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-1",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-1",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-1",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-1",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-10",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-10",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-10",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-10",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-11",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-11",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-11",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-11",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-12",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-12",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-12",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-12",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-127",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-127",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-127",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-127",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-128",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-128",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-128",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-128",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-129",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-129",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-129",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-129",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-13",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-13",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-13",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-13",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-130",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-130",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-130",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-130",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-131",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-131",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-131",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-131",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-132",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-132",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-132",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-132",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-133",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-133",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-133",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-133",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-134",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-134",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-134",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-134",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-135",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-135",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-135",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-135",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-136",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-136",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-136",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-136",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-137",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-137",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-137",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-137",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-138",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-138",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-138",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-138",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-139",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-139",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-139",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-139",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-14",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-14",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-14",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-14",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-140",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-140",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-140",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-140",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-141",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-141",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-141",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-141",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-142",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-142",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-142",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-142",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-143",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-143",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-143",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-143",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-144",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-144",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-144",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-144",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-145",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-145",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-145",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-145",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-146",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-146",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-146",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-146",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-147",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-147",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-147",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-147",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-148",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-148",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-148",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-148",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-149",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-149",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-149",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-149",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-15",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-15",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-15",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-15",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-150",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-150",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-150",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-150",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-151",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-151",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-151",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-151",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-152",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-152",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-152",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-152",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-153",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-153",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-153",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-153",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-154",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-154",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-154",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-154",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-155",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-155",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-155",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-155",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-156",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-156",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-156",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-156",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-157",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-157",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-157",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-157",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-158",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-158",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-158",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-158",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-159",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-159",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-159",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-159",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-16",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-16",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-16",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-16",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-17",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-17",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-17",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-17",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-18",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-18",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-18",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-18",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-19",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-19",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-19",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-19",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-2",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-2",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-2",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-2",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-20",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-20",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-20",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-20",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-21",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-21",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-21",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-21",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-22",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-22",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-22",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-22",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-23",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-23",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-23",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-23",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-24",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-24",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-24",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-24",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-25",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-25",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-25",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-25",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-26",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-26",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-26",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-26",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-27",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-27",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-27",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-27",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-28",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-28",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-28",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-28",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-29",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-29",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-29",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-29",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-3",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-3",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-3",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-3",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-30",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-30",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-30",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-30",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-31",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-31",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-31",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-31",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-4",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-4",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-4",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-4",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-5",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-5",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-5",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-5",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-6",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-6",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-6",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-6",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-7",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-7",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-7",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-7",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-8",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-8",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-8",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-8",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.control-9",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-9",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-9",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.control-9",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.empty",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.empty",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.empty",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.empty",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.too-long",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.too-long",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.too-long",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.too-long",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.displaytext.negative.wrong-type",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.displaytext.negative.wrong-type",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.wrong-type",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.displaytext.negative.wrong-type",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-0",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-0",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-0",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-0",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-1",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-1",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-1",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-1",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-10",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-10",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-10",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-10",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-11",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-11",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-11",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-11",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-12",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-12",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-12",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-12",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-127",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-127",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-127",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-127",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-13",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-13",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-13",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-13",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-14",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-14",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-14",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-14",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-15",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-15",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-15",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-15",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-16",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-16",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-16",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-16",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-17",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-17",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-17",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-17",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-18",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-18",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-18",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-18",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-19",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-19",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-19",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-19",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-2",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-2",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-2",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-2",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-20",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-20",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-20",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-20",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-21",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-21",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-21",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-21",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-22",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-22",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-22",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-22",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-23",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-23",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-23",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-23",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-24",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-24",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-24",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-24",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-25",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-25",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-25",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-25",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-26",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-26",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-26",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-26",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-27",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-27",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-27",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-27",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-28",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-28",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-28",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-28",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-29",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-29",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-29",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-29",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-3",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-3",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-3",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-3",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-30",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-30",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-30",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-30",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-31",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-31",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-31",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-31",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-4",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-4",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-4",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-4",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-5",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-5",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-5",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-5",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-6",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-6",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-6",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-6",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-7",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-7",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-7",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-7",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-8",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-8",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-8",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-8",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.control-9",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-9",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-9",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.control-9",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.empty",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.empty",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.empty",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.empty",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.too-long",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.too-long",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.too-long",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.too-long",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          },
+          {
+            "caseId": "schema.common.sanitizedsummary.negative.wrong-type",
+            "descriptorRef": {
+              "byteLength": 179081,
+              "path": "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.wrong-type",
+              "sha256": "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            },
+            "diagnosticIdentityVersion": "schema-diagnostic-v1",
+            "expectedValidationStatus": "INVALID",
+            "operandRef": {
+              "byteLength": 39337,
+              "path": "tests/schema/fixtures/v1alpha1/s6/operands/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.wrong-type",
+              "sha256": "7dee52bb82d5187d6e7a933973c129d3103982828d295ba09d29de26ebe4ff89"
+            },
+            "oracleRef": {
+              "byteLength": 41354,
+              "path": "tests/schema/fixtures/v1alpha1/s6/oracles/schema-common-text-batch02.json",
+              "pointer": "/cases/schema.common.sanitizedsummary.negative.wrong-type",
+              "sha256": "e16613e4d3dcfd712fc6902a37a064799fa61f045974a6d6e41611bec7b74b17"
+            },
+            "validatorEntryPoint": "jsonschema.validators.Draft202012Validator.iter_errors"
+          }
+        ]
       }
     ]
   },
@@ -52486,15 +55002,15 @@
       "DEFERRED": 115,
       "REJECT": 1535
     },
-    "fixtureContractAssets": 6,
+    "fixtureContractAssets": 8,
     "futureModelObligations": 8,
     "manifestCaseRows": 2166,
     "openPhase1CoverageGaps": 42,
-    "physicalAssets": 144,
+    "physicalAssets": 146,
     "pilotCaseCount": 3,
-    "schemaOracleBatchCaseCount": 62,
-    "schemaOracleBatchCount": 1,
-    "totalCorpusPaths": 146,
+    "schemaOracleBatchCaseCount": 166,
+    "schemaOracleBatchCount": 2,
+    "totalCorpusPaths": 148,
     "traceOnly": 14,
     "withdrawnClaims": {
       "correctedCaseInventoryCount": 2230,

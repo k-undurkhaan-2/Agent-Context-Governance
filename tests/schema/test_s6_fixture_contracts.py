@@ -1,6 +1,7 @@
 """Manifest-v3 execution, oracle, and unresolved-obligation S6 contracts."""
 
 from collections import Counter
+import hashlib
 
 import pytest
 
@@ -12,6 +13,8 @@ from tests.schema.s6_fixture_runner import (
     EXPECTED_EXECUTION_MODE_COUNTS,
     PILOT_CASE_IDS,
     SCHEMA_REF_BATCH01_CASE_IDS,
+    SCHEMA_TEXT_BATCH02_CASE_IDS,
+    SCHEMA_TEXT_BATCH02_MEMBERSHIP_SHA256,
     SCHEMA_DIRECT,
     STATIC_DIRECT,
     coverage_gap_dispositions,
@@ -35,7 +38,11 @@ def test_s6_manifest_logical_case(case) -> None:
     assert result.declared_diagnostic_identity == case.expected_failure_identity
     assert result.expected_diagnostic_identities == case.expected_diagnostic_identities
 
-    if case.id in PILOT_CASE_IDS or case.id in SCHEMA_REF_BATCH01_CASE_IDS:
+    if case.id in (
+        set(PILOT_CASE_IDS)
+        | set(SCHEMA_REF_BATCH01_CASE_IDS)
+        | set(SCHEMA_TEXT_BATCH02_CASE_IDS)
+    ):
         assert result.execution_status == "EXECUTED"
         assert result.validation_status in {"PASS", "INVALID"}
         assert result.diagnostic_identity_version in {
@@ -244,12 +251,52 @@ def test_schema_ref_batch01_executes_with_exact_typed_oracles() -> None:
     assert sum(len(result.schema_diagnostics) for result in results) == 75
 
 
+def test_schema_text_batch02_executes_with_exact_typed_oracles() -> None:
+    assert len(SCHEMA_TEXT_BATCH02_CASE_IDS) == 104
+    assert SCHEMA_TEXT_BATCH02_CASE_IDS == tuple(sorted(SCHEMA_TEXT_BATCH02_CASE_IDS))
+    assert len(set(SCHEMA_TEXT_BATCH02_CASE_IDS)) == 104
+    membership_bytes = (
+        "\n".join(SCHEMA_TEXT_BATCH02_CASE_IDS) + "\n"
+    ).encode("ascii")
+    assert (
+        hashlib.sha256(membership_bytes).hexdigest()
+        == SCHEMA_TEXT_BATCH02_MEMBERSHIP_SHA256
+    )
+    assert SCHEMA_TEXT_BATCH02_MEMBERSHIP_SHA256 == (
+        "3e23bb284e58ccc5bbbc7d0d3646aca36065fe4cfda90579732c3caf030fe708"
+    )
+
+    results = tuple(evaluate_case(case_id) for case_id in SCHEMA_TEXT_BATCH02_CASE_IDS)
+    assert all(result.execution_status == "EXECUTED" for result in results)
+    assert all(result.validation_status == "INVALID" for result in results)
+    assert all(result.actual_result == "REJECT" for result in results)
+    assert all(result.oracle_status == "EXACT_MATCH" for result in results)
+    assert all(
+        result.diagnostic_identity_version == "schema-diagnostic-v1"
+        for result in results
+    )
+    assert all(
+        result.expected_typed_diagnostics == result.schema_diagnostics
+        for result in results
+    )
+    assert all(result.missing_diagnostics == () for result in results)
+    assert all(result.unexpected_diagnostics == () for result in results)
+    assert Counter(len(result.schema_diagnostics) for result in results) == {
+        1: 102,
+        2: 2,
+    }
+    assert sum(len(result.schema_diagnostics) for result in results) == 106
+
+
 def test_remaining_acceptance_blocker_counts_remain_fail_closed() -> None:
     assert len(direct_execution_gap_case_ids()) == 426
-    assert len(missing_negative_oracle_case_ids()) == 1471
+    assert len(missing_negative_oracle_case_ids()) == 1367
     assert not set(PILOT_CASE_IDS).intersection(direct_execution_gap_case_ids())
     assert not set(PILOT_CASE_IDS).intersection(missing_negative_oracle_case_ids())
     assert not set(SCHEMA_REF_BATCH01_CASE_IDS).intersection(
+        missing_negative_oracle_case_ids()
+    )
+    assert not set(SCHEMA_TEXT_BATCH02_CASE_IDS).intersection(
         missing_negative_oracle_case_ids()
     )
 
