@@ -1,0 +1,403 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "operand-set",
+  "cases": {
+    "schema.common.allowwrite.negative.type-0": {
+      "caseId": "schema.common.allowwrite.negative.type-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": 0,
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/allowWrite"
+      }
+    },
+    "schema.common.allowwrite.negative.type-1": {
+      "caseId": "schema.common.allowwrite.negative.type-1",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": 1,
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/allowWrite"
+      }
+    },
+    "schema.common.allowwrite.negative.type-2": {
+      "caseId": "schema.common.allowwrite.negative.type-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "true",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/allowWrite"
+      }
+    },
+    "schema.common.allowwrite.negative.type-3": {
+      "caseId": "schema.common.allowwrite.negative.type-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": null,
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/allowWrite"
+      }
+    },
+    "schema.common.apiversion.negative.missing-string": {
+      "caseId": "schema.common.apiversion.negative.missing-string",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": null,
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/apiVersion"
+      }
+    },
+    "schema.common.apiversion.negative.unknown-version": {
+      "caseId": "schema.common.apiversion.negative.unknown-version",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "contextctl.dev/v1alpha2",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/apiVersion"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-15": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-15",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "10000-01-01T00:00:00Z",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-16": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-16",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "+2000-01-01T00:00:00Z",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-17": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-17",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": " 2000-01-01T00:00:00Z",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-18": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-18",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-01-01T00:00:00Z ",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-2": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-01-01T00:00:00+00:00",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-20": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-20",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-01-01T00:00:00Z\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-3": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-01-01T00:00:00",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-4": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-4",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-1-01T00:00:00Z",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-5": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-5",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-01-01T00:00:00.1Z",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-6": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-6",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-01-01T00:00:00.001Z",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-7": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-7",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-01-01T00:00:00.000001Z",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-8": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-8",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "2000-01-01T00:00:00.Z",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUtcTimestamp"
+      }
+    },
+    "schema.common.canonicaluuid.negative.braces": {
+      "caseId": "schema.common.canonicaluuid.negative.braces",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "{01234567-89ab-cdef-0123-456789abcdef}",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUuid"
+      }
+    },
+    "schema.common.canonicaluuid.negative.newline": {
+      "caseId": "schema.common.canonicaluuid.negative.newline",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "01234567-89ab-cdef-0123-456789abcdef\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUuid"
+      }
+    },
+    "schema.common.canonicaluuid.negative.no-hyphens": {
+      "caseId": "schema.common.canonicaluuid.negative.no-hyphens",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "0123456789abcdef0123456789abcdef",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUuid"
+      }
+    },
+    "schema.common.canonicaluuid.negative.urn": {
+      "caseId": "schema.common.canonicaluuid.negative.urn",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "urn:uuid:01234567-89ab-cdef-0123-456789abcdef",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/canonicalUuid"
+      }
+    },
+    "schema.common.capabilities.negative.wrong-type": {
+      "caseId": "schema.common.capabilities.negative.wrong-type",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "inspect",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/capabilities"
+      }
+    },
+    "schema.common.mode.negative.null": {
+      "caseId": "schema.common.mode.negative.null",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": null,
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/mode"
+      }
+    },
+    "schema.common.mode.negative.unknown": {
+      "caseId": "schema.common.mode.negative.unknown",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic-unknown",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/mode"
+      }
+    },
+    "schema.common.mode.negative.wrong-case-implementation": {
+      "caseId": "schema.common.mode.negative.wrong-case-implementation",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "IMPLEMENTATION",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/mode"
+      }
+    },
+    "schema.common.mode.negative.wrong-case-plan-only": {
+      "caseId": "schema.common.mode.negative.wrong-case-plan-only",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "PLAN-ONLY",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/mode"
+      }
+    },
+    "schema.common.posixabsolutehostpath.negative.empty": {
+      "caseId": "schema.common.posixabsolutehostpath.negative.empty",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/posixAbsoluteHostPath"
+      }
+    },
+    "schema.common.posixabsolutehostpath.negative.too-long": {
+      "caseId": "schema.common.posixabsolutehostpath.negative.too-long",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/posixAbsoluteHostPath"
+      }
+    },
+    "schema.common.remotednshost.negative.host-20": {
+      "caseId": "schema.common.remotednshost.negative.host-20",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/remoteDnsHost"
+      }
+    },
+    "schema.common.repositoryrelativepath.negative.path-0": {
+      "caseId": "schema.common.repositoryrelativepath.negative.path-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/repositoryRelativePath"
+      }
+    },
+    "schema.common.repositoryrelativepath.negative.path-23": {
+      "caseId": "schema.common.repositoryrelativepath.negative.path-23",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/repositoryRelativePath"
+      }
+    },
+    "schema.common.taggeddigest.negative.long": {
+      "caseId": "schema.common.taggeddigest.negative.long",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/taggedDigest"
+      }
+    },
+    "schema.common.taggeddigest.negative.newline": {
+      "caseId": "schema.common.taggeddigest.negative.newline",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/taggedDigest"
+      }
+    },
+    "schema.common.taggeddigest.negative.short": {
+      "caseId": "schema.common.taggeddigest.negative.short",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/taggedDigest"
+      }
+    },
+    "schema.common.taggeddigest.negative.wrong-tag": {
+      "caseId": "schema.common.taggeddigest.negative.wrong-tag",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "sha1:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/taggedDigest"
+      }
+    },
+    "schema.common.verificationoutcome.negative.null": {
+      "caseId": "schema.common.verificationoutcome.negative.null",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": null,
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/verificationOutcome"
+      }
+    },
+    "schema.common.verificationoutcome.negative.unknown": {
+      "caseId": "schema.common.verificationoutcome.negative.unknown",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "synthetic-unknown",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/verificationOutcome"
+      }
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-failed": {
+      "caseId": "schema.common.verificationoutcome.negative.wrong-case-failed",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "FAILED",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/verificationOutcome"
+      }
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-indeterminate": {
+      "caseId": "schema.common.verificationoutcome.negative.wrong-case-indeterminate",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "INDETERMINATE",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/verificationOutcome"
+      }
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-not-performed": {
+      "caseId": "schema.common.verificationoutcome.negative.wrong-case-not-performed",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "NOT-PERFORMED",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/verificationOutcome"
+      }
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-passed": {
+      "caseId": "schema.common.verificationoutcome.negative.wrong-case-passed",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "PASSED",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/verificationOutcome"
+      }
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.empty": {
+      "caseId": "schema.common.windowsdriveabsolutehostpath.negative.empty",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/windowsDriveAbsoluteHostPath"
+      }
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.too-long": {
+      "caseId": "schema.common.windowsdriveabsolutehostpath.negative.too-long",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "Z:\\aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/windowsDriveAbsoluteHostPath"
+      }
+    }
+  }
+}

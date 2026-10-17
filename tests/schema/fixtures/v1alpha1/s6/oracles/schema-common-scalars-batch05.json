@@ -1,0 +1,726 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "oracle-set",
+  "diagnosticIdentityVersion": "schema-diagnostic-v1",
+  "cases": {
+    "schema.common.allowwrite.negative.type-0": {
+      "caseId": "schema.common.allowwrite.negative.type-0",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/allowWrite/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.allowwrite.negative.type-1": {
+      "caseId": "schema.common.allowwrite.negative.type-1",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/allowWrite/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.allowwrite.negative.type-2": {
+      "caseId": "schema.common.allowwrite.negative.type-2",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/allowWrite/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.allowwrite.negative.type-3": {
+      "caseId": "schema.common.allowwrite.negative.type-3",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/allowWrite/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.apiversion.negative.missing-string": {
+      "caseId": "schema.common.apiversion.negative.missing-string",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/apiVersion/const",
+          "keyword": "const"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/apiVersion/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.apiversion.negative.unknown-version": {
+      "caseId": "schema.common.apiversion.negative.unknown-version",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/apiVersion/const",
+          "keyword": "const"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-15": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-15",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-16": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-16",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-17": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-17",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-18": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-18",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-2": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-2",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-20": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-20",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-3": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-3",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-4": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-4",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-5": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-5",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-6": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-6",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-7": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-7",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicalutctimestamp.negative.timestamp-8": {
+      "caseId": "schema.common.canonicalutctimestamp.negative.timestamp-8",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUtcTimestamp/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicaluuid.negative.braces": {
+      "caseId": "schema.common.canonicaluuid.negative.braces",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicaluuid.negative.newline": {
+      "caseId": "schema.common.canonicaluuid.negative.newline",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.canonicaluuid.negative.no-hyphens": {
+      "caseId": "schema.common.canonicaluuid.negative.no-hyphens",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.canonicaluuid.negative.urn": {
+      "caseId": "schema.common.canonicaluuid.negative.urn",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/format",
+          "keyword": "format"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/canonicalUuid/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.capabilities.negative.wrong-type": {
+      "caseId": "schema.common.capabilities.negative.wrong-type",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/capabilities/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.mode.negative.null": {
+      "caseId": "schema.common.mode.negative.null",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/mode/enum",
+          "keyword": "enum"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/mode/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.mode.negative.unknown": {
+      "caseId": "schema.common.mode.negative.unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/mode/enum",
+          "keyword": "enum"
+        }
+      ]
+    },
+    "schema.common.mode.negative.wrong-case-implementation": {
+      "caseId": "schema.common.mode.negative.wrong-case-implementation",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/mode/enum",
+          "keyword": "enum"
+        }
+      ]
+    },
+    "schema.common.mode.negative.wrong-case-plan-only": {
+      "caseId": "schema.common.mode.negative.wrong-case-plan-only",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/mode/enum",
+          "keyword": "enum"
+        }
+      ]
+    },
+    "schema.common.posixabsolutehostpath.negative.empty": {
+      "caseId": "schema.common.posixabsolutehostpath.negative.empty",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/posixAbsoluteHostPath/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/posixAbsoluteHostPath/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.posixabsolutehostpath.negative.too-long": {
+      "caseId": "schema.common.posixabsolutehostpath.negative.too-long",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/posixAbsoluteHostPath/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.remotednshost.negative.host-20": {
+      "caseId": "schema.common.remotednshost.negative.host-20",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/remoteDnsHost/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.repositoryrelativepath.negative.path-0": {
+      "caseId": "schema.common.repositoryrelativepath.negative.path-0",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/repositoryRelativePath/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/repositoryRelativePath/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.repositoryrelativepath.negative.path-23": {
+      "caseId": "schema.common.repositoryrelativepath.negative.path-23",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/repositoryRelativePath/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.taggeddigest.negative.long": {
+      "caseId": "schema.common.taggeddigest.negative.long",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/taggedDigest/maxLength",
+          "keyword": "maxLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/taggedDigest/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.taggeddigest.negative.newline": {
+      "caseId": "schema.common.taggeddigest.negative.newline",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/taggedDigest/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    },
+    "schema.common.taggeddigest.negative.short": {
+      "caseId": "schema.common.taggeddigest.negative.short",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/taggedDigest/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/taggedDigest/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.taggeddigest.negative.wrong-tag": {
+      "caseId": "schema.common.taggeddigest.negative.wrong-tag",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/taggedDigest/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/taggedDigest/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.verificationoutcome.negative.null": {
+      "caseId": "schema.common.verificationoutcome.negative.null",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/verificationOutcome/enum",
+          "keyword": "enum"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/verificationOutcome/type",
+          "keyword": "type"
+        }
+      ]
+    },
+    "schema.common.verificationoutcome.negative.unknown": {
+      "caseId": "schema.common.verificationoutcome.negative.unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/verificationOutcome/enum",
+          "keyword": "enum"
+        }
+      ]
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-failed": {
+      "caseId": "schema.common.verificationoutcome.negative.wrong-case-failed",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/verificationOutcome/enum",
+          "keyword": "enum"
+        }
+      ]
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-indeterminate": {
+      "caseId": "schema.common.verificationoutcome.negative.wrong-case-indeterminate",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/verificationOutcome/enum",
+          "keyword": "enum"
+        }
+      ]
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-not-performed": {
+      "caseId": "schema.common.verificationoutcome.negative.wrong-case-not-performed",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/verificationOutcome/enum",
+          "keyword": "enum"
+        }
+      ]
+    },
+    "schema.common.verificationoutcome.negative.wrong-case-passed": {
+      "caseId": "schema.common.verificationoutcome.negative.wrong-case-passed",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/verificationOutcome/enum",
+          "keyword": "enum"
+        }
+      ]
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.empty": {
+      "caseId": "schema.common.windowsdriveabsolutehostpath.negative.empty",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/windowsDriveAbsoluteHostPath/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/windowsDriveAbsoluteHostPath/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    },
+    "schema.common.windowsdriveabsolutehostpath.negative.too-long": {
+      "caseId": "schema.common.windowsdriveabsolutehostpath.negative.too-long",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/windowsDriveAbsoluteHostPath/maxLength",
+          "keyword": "maxLength"
+        }
+      ]
+    }
+  }
+}

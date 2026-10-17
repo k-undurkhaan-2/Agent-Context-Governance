@@ -56,11 +56,11 @@ CONTROL_PATHS = frozenset(
     }
 )
 CANDIDATE_MANIFEST_SHA256 = (
-    "ef7c753aa8629696584cddde5f66521dd1e9b974b777679c7c828f374be39e24"
+    "6663562fb501efde3a103941ae76430e360eabc727d81a0a7f6c076c230e4643"
 )
-CANDIDATE_MANIFEST_GIT_BLOB = "f07e260ffe96dab65ed1f4d65a1fe3d6c960fa1f"
+CANDIDATE_MANIFEST_GIT_BLOB = "7ba65b49c9d6e53e8d1aebe53b699624ad588f76"
 EXPECTED_INVENTORY_FORMAT_VERSION = 3
-EXPECTED_ASSET_COUNT = 150
+EXPECTED_ASSET_COUNT = 152
 EXPECTED_CONTROL_COUNT = 2
 EXPECTED_CASE_COUNT = 2166
 EXPECTED_ACCEPT_COUNT = 516
@@ -74,7 +74,7 @@ EXPECTED_CORRECTED_INVENTORY_COUNT = 2180
 EXPECTED_OPEN_PHASE1_GAP_COUNT = 42
 EXPECTED_FUTURE_MODEL_OBLIGATION_COUNT = 8
 EXPECTED_COVERAGE_OBLIGATION_COUNT = 64
-EXPECTED_UTF8_JSON_ASSET_COUNT = 48
+EXPECTED_UTF8_JSON_ASSET_COUNT = 50
 # Five v2 correction assets changed at the accepted correction commit.  The
 # other 31 UTF-8 JSON assets retain the known checkout-only LF/CRLF exposure.
 EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT = 31
@@ -123,12 +123,21 @@ V3_BATCH04_ASSET_PATHS = frozenset(
         "schema-common-scalars-batch04.json",
     }
 )
+V3_BATCH05_ASSET_PATHS = frozenset(
+    {
+        "tests/schema/fixtures/v1alpha1/s6/operands/"
+        "schema-common-scalars-batch05.json",
+        "tests/schema/fixtures/v1alpha1/s6/oracles/"
+        "schema-common-scalars-batch05.json",
+    }
+)
 FIXTURE_CONTRACT_ASSET_PATHS = (
     V3_PILOT_ASSET_PATHS
     | V3_BATCH01_ASSET_PATHS
     | V3_BATCH02_ASSET_PATHS
     | V3_BATCH03_ASSET_PATHS
     | V3_BATCH04_ASSET_PATHS
+    | V3_BATCH05_ASSET_PATHS
 )
 
 FIXTURE_CONTRACT_VERSION = "fixture-contract-v1"
@@ -504,12 +513,63 @@ SCHEMA_SCALAR_BATCH04_CASE_IDS = (
     "schema.common.sequence.negative.null",
     "schema.common.sequence.negative.string",
 )
+SCHEMA_SCALAR_BATCH05_ID = "schema-common-scalars-batch05"
+SCHEMA_SCALAR_BATCH05_MEMBERSHIP_SHA256 = (
+    "24b46a203b26ce928c5c953c172e520fda7b034d7f41449dda96709c6b0ef5a6"
+)
+SCHEMA_SCALAR_BATCH05_CASE_IDS = (
+    "schema.common.allowwrite.negative.type-0",
+    "schema.common.allowwrite.negative.type-1",
+    "schema.common.allowwrite.negative.type-2",
+    "schema.common.allowwrite.negative.type-3",
+    "schema.common.apiversion.negative.missing-string",
+    "schema.common.apiversion.negative.unknown-version",
+    "schema.common.canonicalutctimestamp.negative.timestamp-15",
+    "schema.common.canonicalutctimestamp.negative.timestamp-16",
+    "schema.common.canonicalutctimestamp.negative.timestamp-17",
+    "schema.common.canonicalutctimestamp.negative.timestamp-18",
+    "schema.common.canonicalutctimestamp.negative.timestamp-2",
+    "schema.common.canonicalutctimestamp.negative.timestamp-20",
+    "schema.common.canonicalutctimestamp.negative.timestamp-3",
+    "schema.common.canonicalutctimestamp.negative.timestamp-4",
+    "schema.common.canonicalutctimestamp.negative.timestamp-5",
+    "schema.common.canonicalutctimestamp.negative.timestamp-6",
+    "schema.common.canonicalutctimestamp.negative.timestamp-7",
+    "schema.common.canonicalutctimestamp.negative.timestamp-8",
+    "schema.common.canonicaluuid.negative.braces",
+    "schema.common.canonicaluuid.negative.newline",
+    "schema.common.canonicaluuid.negative.no-hyphens",
+    "schema.common.canonicaluuid.negative.urn",
+    "schema.common.capabilities.negative.wrong-type",
+    "schema.common.mode.negative.null",
+    "schema.common.mode.negative.unknown",
+    "schema.common.mode.negative.wrong-case-implementation",
+    "schema.common.mode.negative.wrong-case-plan-only",
+    "schema.common.posixabsolutehostpath.negative.empty",
+    "schema.common.posixabsolutehostpath.negative.too-long",
+    "schema.common.remotednshost.negative.host-20",
+    "schema.common.repositoryrelativepath.negative.path-0",
+    "schema.common.repositoryrelativepath.negative.path-23",
+    "schema.common.taggeddigest.negative.long",
+    "schema.common.taggeddigest.negative.newline",
+    "schema.common.taggeddigest.negative.short",
+    "schema.common.taggeddigest.negative.wrong-tag",
+    "schema.common.verificationoutcome.negative.null",
+    "schema.common.verificationoutcome.negative.unknown",
+    "schema.common.verificationoutcome.negative.wrong-case-failed",
+    "schema.common.verificationoutcome.negative.wrong-case-indeterminate",
+    "schema.common.verificationoutcome.negative.wrong-case-not-performed",
+    "schema.common.verificationoutcome.negative.wrong-case-passed",
+    "schema.common.windowsdriveabsolutehostpath.negative.empty",
+    "schema.common.windowsdriveabsolutehostpath.negative.too-long",
+)
 FIXTURE_CONTRACT_CASE_IDS = (
     PILOT_CASE_IDS
     + SCHEMA_REF_BATCH01_CASE_IDS
     + SCHEMA_TEXT_BATCH02_CASE_IDS
     + SCHEMA_IDENTIFIER_BATCH03_CASE_IDS
     + SCHEMA_SCALAR_BATCH04_CASE_IDS
+    + SCHEMA_SCALAR_BATCH05_CASE_IDS
 )
 
 SCHEMA_DIRECT = "schema-direct"
@@ -801,6 +861,51 @@ def _schema_scalar_batch04_binding(case_id: str) -> dict[str, Any]:
     }
 
 
+def _schema_scalar_batch05_binding(case_id: str) -> dict[str, Any]:
+    descriptor_path = (
+        "tests/schema/fixtures/v1alpha1/schema/negative/common-profile-vectors.json"
+    )
+    operand_path = (
+        "tests/schema/fixtures/v1alpha1/s6/operands/"
+        "schema-common-scalars-batch05.json"
+    )
+    oracle_path = (
+        "tests/schema/fixtures/v1alpha1/s6/oracles/"
+        "schema-common-scalars-batch05.json"
+    )
+    pointer = f"/cases/{case_id}"
+    return {
+        "caseId": case_id,
+        "descriptorRef": {
+            "byteLength": 179081,
+            "path": descriptor_path,
+            "pointer": pointer,
+            "sha256": (
+                "62d6ad159d10ceb89e212852aa57af5af2b430f7637be25aa601bdca7609c749"
+            ),
+        },
+        "diagnosticIdentityVersion": SCHEMA_DIAGNOSTIC_V1,
+        "expectedValidationStatus": "INVALID",
+        "operandRef": {
+            "byteLength": 29105,
+            "path": operand_path,
+            "pointer": pointer,
+            "sha256": (
+                "069f9715e259969c8272fc83f75b86888a01ad91c226241834d67bb4a385078b"
+            ),
+        },
+        "oracleRef": {
+            "byteLength": 26754,
+            "path": oracle_path,
+            "pointer": pointer,
+            "sha256": (
+                "ca7eba0e46f1f68dff2eb6f65c43c16aa73588dff927d170138ef1e9aff83678"
+            ),
+        },
+        "validatorEntryPoint": SCHEMA_VALIDATOR_ENTRY_POINT,
+    }
+
+
 _EXPECTED_INVENTORY = {
     "casePackAssets": 135,
     "controlFiles": EXPECTED_CONTROL_COUNT,
@@ -828,8 +933,9 @@ _EXPECTED_INVENTORY = {
         + len(SCHEMA_TEXT_BATCH02_CASE_IDS)
         + len(SCHEMA_IDENTIFIER_BATCH03_CASE_IDS)
         + len(SCHEMA_SCALAR_BATCH04_CASE_IDS)
+        + len(SCHEMA_SCALAR_BATCH05_CASE_IDS)
     ),
-    "schemaOracleBatchCount": 4,
+    "schemaOracleBatchCount": 5,
     "totalCorpusPaths": EXPECTED_ASSET_COUNT + EXPECTED_CONTROL_COUNT,
     "traceOnly": EXPECTED_TRACE_ONLY_COUNT,
     "withdrawnClaims": {
@@ -947,6 +1053,14 @@ _EXPECTED_FIXTURE_CONTRACT = {
             "cases": [
                 _schema_scalar_batch04_binding(case_id)
                 for case_id in SCHEMA_SCALAR_BATCH04_CASE_IDS
+            ],
+        },
+        {
+            "batchId": SCHEMA_SCALAR_BATCH05_ID,
+            "caseCount": len(SCHEMA_SCALAR_BATCH05_CASE_IDS),
+            "cases": [
+                _schema_scalar_batch05_binding(case_id)
+                for case_id in SCHEMA_SCALAR_BATCH05_CASE_IDS
             ],
         },
     ],
@@ -1905,10 +2019,10 @@ def fixture_contract_structure_problems() -> tuple[str, ...]:
         if tuple(item["caseId"] for item in PILOT_BINDINGS) != PILOT_CASE_IDS:
             problems.append("manifest pilot case identities or ordering mismatch")
 
-        if len(SCHEMA_ORACLE_BATCHES) != 4:
+        if len(SCHEMA_ORACLE_BATCHES) != 5:
             problems.append("Schema Oracle batch inventory mismatch")
         else:
-            batch01, batch02, batch03, batch04 = SCHEMA_ORACLE_BATCHES
+            batch01, batch02, batch03, batch04, batch05 = SCHEMA_ORACLE_BATCHES
             if (
                 batch01.get("batchId") != SCHEMA_REF_BATCH01_ID
                 or batch01.get("caseCount") != len(SCHEMA_REF_BATCH01_CASE_IDS)
@@ -1938,6 +2052,13 @@ def fixture_contract_structure_problems() -> tuple[str, ...]:
                 != SCHEMA_SCALAR_BATCH04_CASE_IDS
             ):
                 problems.append("Schema Oracle Batch 04 metadata mismatch")
+            if (
+                batch05.get("batchId") != SCHEMA_SCALAR_BATCH05_ID
+                or batch05.get("caseCount") != len(SCHEMA_SCALAR_BATCH05_CASE_IDS)
+                or tuple(item["caseId"] for item in batch05.get("cases", ()))
+                != SCHEMA_SCALAR_BATCH05_CASE_IDS
+            ):
+                problems.append("Schema Oracle Batch 05 metadata mismatch")
 
         batch_operand_path = (
             "tests/schema/fixtures/v1alpha1/s6/operands/"
@@ -2002,6 +2123,21 @@ def fixture_contract_structure_problems() -> tuple[str, ...]:
             problems.append("Schema Oracle Batch 04 operand inventory mismatch")
         if tuple(scalar_oracles["cases"]) != SCHEMA_SCALAR_BATCH04_CASE_IDS:
             problems.append("Schema Oracle Batch 04 oracle inventory mismatch")
+
+        batch05_operand_path = (
+            "tests/schema/fixtures/v1alpha1/s6/operands/"
+            "schema-common-scalars-batch05.json"
+        )
+        batch05_oracle_path = (
+            "tests/schema/fixtures/v1alpha1/s6/oracles/"
+            "schema-common-scalars-batch05.json"
+        )
+        batch05_operands = _validated_fixture_sidecar_document(batch05_operand_path)
+        batch05_oracles = _validated_fixture_sidecar_document(batch05_oracle_path)
+        if tuple(batch05_operands["cases"]) != SCHEMA_SCALAR_BATCH05_CASE_IDS:
+            problems.append("Schema Oracle Batch 05 operand inventory mismatch")
+        if tuple(batch05_oracles["cases"]) != SCHEMA_SCALAR_BATCH05_CASE_IDS:
+            problems.append("Schema Oracle Batch 05 oracle inventory mismatch")
 
         if (
             len(FIXTURE_CONTRACT_BINDINGS) != len(FIXTURE_CONTRACT_CASE_IDS)
@@ -2127,6 +2263,15 @@ def fixture_contract_structure_problems() -> tuple[str, ...]:
         if _sha256(scalar_membership_bytes) != SCHEMA_SCALAR_BATCH04_MEMBERSHIP_SHA256:
             problems.append("Schema Oracle Batch 04 membership identity mismatch")
 
+        batch05_membership_bytes = (
+            "\n".join(SCHEMA_SCALAR_BATCH05_CASE_IDS) + "\n"
+        ).encode("ascii")
+        if (
+            _sha256(batch05_membership_bytes)
+            != SCHEMA_SCALAR_BATCH05_MEMBERSHIP_SHA256
+        ):
+            problems.append("Schema Oracle Batch 05 membership identity mismatch")
+
         batch_contracts = (
             (
                 "Batch 01",
@@ -2175,6 +2320,26 @@ def fixture_contract_structure_problems() -> tuple[str, ...]:
                     "remotePort": "/$defs/remotePort",
                     "routingPriority": "/$defs/routingPriority",
                     "sequence": "/$defs/sequence",
+                },
+            ),
+            (
+                "Batch 05",
+                SCHEMA_SCALAR_BATCH05_CASE_IDS,
+                {
+                    "allowWrite": "/$defs/allowWrite",
+                    "apiVersion": "/$defs/apiVersion",
+                    "canonicalUtcTimestamp": "/$defs/canonicalUtcTimestamp",
+                    "canonicalUuid": "/$defs/canonicalUuid",
+                    "capabilities": "/$defs/capabilities",
+                    "mode": "/$defs/mode",
+                    "posixAbsoluteHostPath": "/$defs/posixAbsoluteHostPath",
+                    "remoteDnsHost": "/$defs/remoteDnsHost",
+                    "repositoryRelativePath": "/$defs/repositoryRelativePath",
+                    "taggedDigest": "/$defs/taggedDigest",
+                    "verificationOutcome": "/$defs/verificationOutcome",
+                    "windowsDriveAbsoluteHostPath": (
+                        "/$defs/windowsDriveAbsoluteHostPath"
+                    ),
                 },
             ),
         )
@@ -2308,6 +2473,8 @@ def audit_current_corpus() -> ManifestAudit:
         problems.append("Schema Oracle Batch 03 paths are not all UTF-8 JSON assets")
     if not V3_BATCH04_ASSET_PATHS <= utf8_json_paths:
         problems.append("Schema Oracle Batch 04 paths are not all UTF-8 JSON assets")
+    if not V3_BATCH05_ASSET_PATHS <= utf8_json_paths:
+        problems.append("Schema Oracle Batch 05 paths are not all UTF-8 JSON assets")
     if (
         len(
             utf8_json_paths
@@ -2317,6 +2484,7 @@ def audit_current_corpus() -> ManifestAudit:
             - V3_BATCH02_ASSET_PATHS
             - V3_BATCH03_ASSET_PATHS
             - V3_BATCH04_ASSET_PATHS
+            - V3_BATCH05_ASSET_PATHS
         )
         != EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT
     ):

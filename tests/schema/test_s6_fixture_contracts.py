@@ -17,6 +17,8 @@ from tests.schema.s6_fixture_runner import (
     SCHEMA_REF_BATCH01_CASE_IDS,
     SCHEMA_SCALAR_BATCH04_CASE_IDS,
     SCHEMA_SCALAR_BATCH04_MEMBERSHIP_SHA256,
+    SCHEMA_SCALAR_BATCH05_CASE_IDS,
+    SCHEMA_SCALAR_BATCH05_MEMBERSHIP_SHA256,
     SCHEMA_TEXT_BATCH02_CASE_IDS,
     SCHEMA_TEXT_BATCH02_MEMBERSHIP_SHA256,
     SCHEMA_DIRECT,
@@ -48,6 +50,7 @@ def test_s6_manifest_logical_case(case) -> None:
         | set(SCHEMA_TEXT_BATCH02_CASE_IDS)
         | set(SCHEMA_IDENTIFIER_BATCH03_CASE_IDS)
         | set(SCHEMA_SCALAR_BATCH04_CASE_IDS)
+        | set(SCHEMA_SCALAR_BATCH05_CASE_IDS)
     ):
         assert result.execution_status == "EXECUTED"
         assert result.validation_status in {"PASS", "INVALID"}
@@ -434,9 +437,83 @@ def test_schema_scalar_batch04_executes_with_exact_typed_oracles() -> None:
     ) == ("enum", "type")
 
 
+def test_schema_scalar_batch05_executes_with_exact_typed_oracles() -> None:
+    assert len(SCHEMA_SCALAR_BATCH05_CASE_IDS) == 44
+    assert SCHEMA_SCALAR_BATCH05_CASE_IDS == tuple(
+        sorted(SCHEMA_SCALAR_BATCH05_CASE_IDS)
+    )
+    assert len(set(SCHEMA_SCALAR_BATCH05_CASE_IDS)) == 44
+    membership_bytes = (
+        "\n".join(SCHEMA_SCALAR_BATCH05_CASE_IDS) + "\n"
+    ).encode("ascii")
+    assert len(membership_bytes) == 2255
+    assert (
+        hashlib.sha256(membership_bytes).hexdigest()
+        == SCHEMA_SCALAR_BATCH05_MEMBERSHIP_SHA256
+    )
+    assert SCHEMA_SCALAR_BATCH05_MEMBERSHIP_SHA256 == (
+        "24b46a203b26ce928c5c953c172e520fda7b034d7f41449dda96709c6b0ef5a6"
+    )
+
+    results = tuple(
+        evaluate_case(case_id) for case_id in SCHEMA_SCALAR_BATCH05_CASE_IDS
+    )
+    assert all(result.execution_status == "EXECUTED" for result in results)
+    assert all(result.validation_status == "INVALID" for result in results)
+    assert all(result.actual_result == "REJECT" for result in results)
+    assert all(result.oracle_status == "EXACT_MATCH" for result in results)
+    assert all(
+        result.diagnostic_identity_version == "schema-diagnostic-v1"
+        for result in results
+    )
+    assert all(
+        result.expected_typed_diagnostics == result.schema_diagnostics
+        for result in results
+    )
+    assert all(result.missing_diagnostics == () for result in results)
+    assert all(result.unexpected_diagnostics == () for result in results)
+    assert Counter(len(result.schema_diagnostics) for result in results) == {
+        1: 19,
+        2: 11,
+        3: 14,
+    }
+    assert sum(len(result.schema_diagnostics) for result in results) == 83
+    assert Counter(
+        diagnostic.keyword
+        for result in results
+        for diagnostic in result.schema_diagnostics
+    ) == {
+        "const": 2,
+        "enum": 10,
+        "format": 16,
+        "maxLength": 19,
+        "minLength": 8,
+        "pattern": 20,
+        "type": 8,
+    }
+
+    by_id = {result.case_id: result for result in results}
+    protected_attributions = {
+        "schema.common.canonicalutctimestamp.negative.timestamp-20": (
+            "format",
+            "maxLength",
+        ),
+        "schema.common.canonicaluuid.negative.newline": ("format", "maxLength"),
+        "schema.common.capabilities.negative.wrong-type": ("type",),
+        "schema.common.remotednshost.negative.host-20": ("maxLength",),
+        "schema.common.taggeddigest.negative.newline": ("maxLength",),
+    }
+    assert {
+        case_id: tuple(
+            diagnostic.keyword for diagnostic in by_id[case_id].schema_diagnostics
+        )
+        for case_id in protected_attributions
+    } == protected_attributions
+
+
 def test_remaining_acceptance_blocker_counts_remain_fail_closed() -> None:
     assert len(direct_execution_gap_case_ids()) == 426
-    assert len(missing_negative_oracle_case_ids()) == 1196
+    assert len(missing_negative_oracle_case_ids()) == 1152
     assert not set(PILOT_CASE_IDS).intersection(direct_execution_gap_case_ids())
     assert not set(PILOT_CASE_IDS).intersection(missing_negative_oracle_case_ids())
     assert not set(SCHEMA_REF_BATCH01_CASE_IDS).intersection(
@@ -449,6 +526,9 @@ def test_remaining_acceptance_blocker_counts_remain_fail_closed() -> None:
         missing_negative_oracle_case_ids()
     )
     assert not set(SCHEMA_SCALAR_BATCH04_CASE_IDS).intersection(
+        missing_negative_oracle_case_ids()
+    )
+    assert not set(SCHEMA_SCALAR_BATCH05_CASE_IDS).intersection(
         missing_negative_oracle_case_ids()
     )
 
