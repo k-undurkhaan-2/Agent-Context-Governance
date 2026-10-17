@@ -1,0 +1,581 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "title": "Synthetic S6 Fixture Contract v1 sidecars",
+  "description": "Strict test-only operand and exact diagnostic-oracle sidecars. These records grant no authority and are not production governance resources.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/operandSet"
+    },
+    {
+      "$ref": "#/$defs/schemaOracleSet"
+    },
+    {
+      "$ref": "#/$defs/staticOracleSet"
+    }
+  ],
+  "$defs": {
+    "jsonPointer": {
+      "type": "string",
+      "anyOf": [
+        {
+          "const": ""
+        },
+        {
+          "pattern": "^/(?:[^~/]|~0|~1)*(?:/(?:[^~/]|~0|~1)*)*$"
+        }
+      ]
+    },
+    "nonemptyJsonPointer": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^/(?:[^~/]|~0|~1)*(?:/(?:[^~/]|~0|~1)*)*$"
+    },
+    "schemaResourceId": {
+      "type": "string",
+      "pattern": "^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "inputProvenance": {
+      "type": "object",
+      "properties": {
+        "subjectRef": {
+          "enum": [
+            "#/subject",
+            "#/validationContext/governanceBundle",
+            "#/validationContext/hostOverlay"
+          ]
+        },
+        "schemaResourceId": {
+          "$ref": "#/$defs/schemaResourceId"
+        },
+        "schemaSetRevision": {
+          "const": "v1alpha1-r1"
+        }
+      },
+      "required": [
+        "subjectRef",
+        "schemaResourceId",
+        "schemaSetRevision"
+      ],
+      "additionalProperties": false
+    },
+    "materializedBaseline": {
+      "type": "object",
+      "properties": {
+        "contractRef": {
+          "const": "#/subject"
+        },
+        "dimensions": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "ref"
+            },
+            {
+              "const": "head"
+            },
+            {
+              "const": "index"
+            },
+            {
+              "const": "tracked"
+            },
+            {
+              "const": "untracked"
+            },
+            {
+              "const": "ignored"
+            },
+            {
+              "const": "submodules"
+            },
+            {
+              "const": "activeOperations"
+            },
+            {
+              "const": "administrativeLocks"
+            }
+          ],
+          "minItems": 9,
+          "maxItems": 9
+        },
+        "values": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/refState"
+            },
+            "head": {
+              "$ref": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864#/$defs/headState"
+            },
+            "index": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "tracked": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "untracked": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "ignored": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "submodules": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "activeOperations": {
+              "const": {
+                "state": "none"
+              }
+            },
+            "administrativeLocks": {
+              "const": {
+                "state": "none"
+              }
+            }
+          },
+          "required": [
+            "ref",
+            "head",
+            "index",
+            "tracked",
+            "untracked",
+            "ignored",
+            "submodules",
+            "activeOperations",
+            "administrativeLocks"
+          ],
+          "additionalProperties": false
+        },
+        "headEntries": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "leafKinds": {
+          "type": "object",
+          "maxProperties": 0,
+          "additionalProperties": false
+        },
+        "ordinaryIdentities": {
+          "type": "array",
+          "maxItems": 0
+        }
+      },
+      "required": [
+        "contractRef",
+        "dimensions",
+        "values",
+        "headEntries",
+        "leafKinds",
+        "ordinaryIdentities"
+      ],
+      "additionalProperties": false
+    },
+    "staticValidationContext": {
+      "type": "object",
+      "properties": {
+        "governanceBundle": {
+          "$ref": "urn:uuid:e1293323-8af3-41ed-a55e-dc0c27f35206"
+        },
+        "hostOverlay": {
+          "$ref": "urn:uuid:c0de9354-1096-4cea-9cde-a33ad38ab313"
+        },
+        "inventoryContext": {
+          "type": "object",
+          "properties": {
+            "snapshotId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "pattern": "^[A-Za-z0-9._-]+$"
+            }
+          },
+          "required": [
+            "snapshotId"
+          ],
+          "additionalProperties": false
+        },
+        "proofResponses": {
+          "type": "object",
+          "properties": {
+            "inputProvenance": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/inputProvenance"
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "uniqueItems": true
+            },
+            "completeHostSnapshot": {
+              "type": "object",
+              "properties": {
+                "hostId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "inventoryContextRef": {
+                  "const": "#/validationContext/inventoryContext"
+                },
+                "members": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "hostOverlayRef": {
+                          "const": "#/validationContext/hostOverlay"
+                        },
+                        "governanceBundleRef": {
+                          "const": "#/validationContext/governanceBundle"
+                        }
+                      },
+                      "required": [
+                        "hostOverlayRef",
+                        "governanceBundleRef"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ],
+                  "minItems": 1,
+                  "maxItems": 1
+                },
+                "trustedRoots": {
+                  "type": "array",
+                  "maxItems": 0
+                }
+              },
+              "required": [
+                "hostId",
+                "inventoryContextRef",
+                "members",
+                "trustedRoots"
+              ],
+              "additionalProperties": false
+            },
+            "baselineMaterialization": {
+              "$ref": "#/$defs/materializedBaseline"
+            },
+            "canonicalComparisons": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "digests": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "completedStaticValidations": {
+              "type": "array",
+              "maxItems": 0
+            }
+          },
+          "required": [
+            "inputProvenance",
+            "completeHostSnapshot",
+            "baselineMaterialization",
+            "canonicalComparisons",
+            "digests",
+            "completedStaticValidations"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "governanceBundle",
+        "hostOverlay",
+        "inventoryContext",
+        "proofResponses"
+      ],
+      "additionalProperties": false
+    },
+    "schemaOperandCase": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operandKind": {
+          "const": "schema"
+        },
+        "schemaOperand": {
+          "type": "object",
+          "properties": {
+            "instance": true,
+            "schemaResourceId": {
+              "$ref": "#/$defs/schemaResourceId"
+            },
+            "schemaPointer": {
+              "$ref": "#/$defs/nonemptyJsonPointer"
+            }
+          },
+          "required": [
+            "instance",
+            "schemaResourceId",
+            "schemaPointer"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "caseId",
+        "operandKind",
+        "schemaOperand"
+      ],
+      "additionalProperties": false
+    },
+    "staticOperandCase": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operandKind": {
+          "const": "static"
+        },
+        "subject": {
+          "$ref": "urn:uuid:314c8f9e-2554-4ebc-b688-d48598693282"
+        },
+        "validationContext": {
+          "$ref": "#/$defs/staticValidationContext"
+        }
+      },
+      "required": [
+        "caseId",
+        "operandKind",
+        "subject",
+        "validationContext"
+      ],
+      "additionalProperties": false
+    },
+    "operandCase": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/schemaOperandCase"
+        },
+        {
+          "$ref": "#/$defs/staticOperandCase"
+        }
+      ]
+    },
+    "operandSet": {
+      "type": "object",
+      "properties": {
+        "contractSchema": {
+          "const": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1"
+        },
+        "contractVersion": {
+          "const": "fixture-contract-v1"
+        },
+        "sidecarKind": {
+          "const": "operand-set"
+        },
+        "cases": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/operandCase"
+          }
+        }
+      },
+      "required": [
+        "contractSchema",
+        "contractVersion",
+        "sidecarKind",
+        "cases"
+      ],
+      "additionalProperties": false
+    },
+    "schemaDiagnostic": {
+      "type": "object",
+      "properties": {
+        "schemaResourceId": {
+          "$ref": "#/$defs/schemaResourceId"
+        },
+        "instancePointer": {
+          "$ref": "#/$defs/jsonPointer"
+        },
+        "schemaPointer": {
+          "$ref": "#/$defs/nonemptyJsonPointer"
+        },
+        "keyword": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "schemaResourceId",
+        "instancePointer",
+        "schemaPointer",
+        "keyword"
+      ],
+      "additionalProperties": false
+    },
+    "staticDiagnostic": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subjectId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instancePointer": {
+          "$ref": "#/$defs/jsonPointer"
+        },
+        "predicateFamily": {
+          "type": "string",
+          "minLength": 1
+        },
+        "schemaId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schemaPointer": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/nonemptyJsonPointer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "keyword": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "code",
+        "subjectId",
+        "instancePointer",
+        "predicateFamily",
+        "schemaId",
+        "schemaPointer",
+        "keyword"
+      ],
+      "additionalProperties": false
+    },
+    "schemaOracleCase": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expectedDiagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schemaDiagnostic"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "caseId",
+        "expectedDiagnostics"
+      ],
+      "additionalProperties": false
+    },
+    "staticOracleCase": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expectedDiagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/staticDiagnostic"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "caseId",
+        "expectedDiagnostics"
+      ],
+      "additionalProperties": false
+    },
+    "schemaOracleSet": {
+      "type": "object",
+      "properties": {
+        "contractSchema": {
+          "const": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1"
+        },
+        "contractVersion": {
+          "const": "fixture-contract-v1"
+        },
+        "sidecarKind": {
+          "const": "oracle-set"
+        },
+        "diagnosticIdentityVersion": {
+          "const": "schema-diagnostic-v1"
+        },
+        "cases": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/schemaOracleCase"
+          }
+        }
+      },
+      "required": [
+        "contractSchema",
+        "contractVersion",
+        "sidecarKind",
+        "diagnosticIdentityVersion",
+        "cases"
+      ],
+      "additionalProperties": false
+    },
+    "staticOracleSet": {
+      "type": "object",
+      "properties": {
+        "contractSchema": {
+          "const": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1"
+        },
+        "contractVersion": {
+          "const": "fixture-contract-v1"
+        },
+        "sidecarKind": {
+          "const": "oracle-set"
+        },
+        "diagnosticIdentityVersion": {
+          "const": "static-diagnostic-v1"
+        },
+        "cases": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/staticOracleCase"
+          }
+        }
+      },
+      "required": [
+        "contractSchema",
+        "contractVersion",
+        "sidecarKind",
+        "diagnosticIdentityVersion",
+        "cases"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

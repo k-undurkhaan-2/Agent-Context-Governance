@@ -1,0 +1,31 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "oracle-set",
+  "diagnosticIdentityVersion": "schema-diagnostic-v1",
+  "cases": {
+    "schema.branch-policy.negative.01-empty-prefix": {
+      "caseId": "schema.branch-policy.negative.01-empty-prefix",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/branchRef/pattern",
+          "keyword": "pattern"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitRefIdentifier/minLength",
+          "keyword": "minLength"
+        },
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitRefIdentifier/pattern",
+          "keyword": "pattern"
+        }
+      ]
+    }
+  }
+}

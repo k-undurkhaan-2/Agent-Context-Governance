@@ -1,0 +1,565 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "operand-set",
+  "cases": {
+    "schema.common.branchprefix.negative.heads-only": {
+      "caseId": "schema.common.branchprefix.negative.heads-only",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-0": {
+      "caseId": "schema.common.branchprefix.negative.ref-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-1": {
+      "caseId": "schema.common.branchprefix.negative.ref-1",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "main",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-10": {
+      "caseId": "schema.common.branchprefix.negative.ref-10",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a~b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-11": {
+      "caseId": "schema.common.branchprefix.negative.ref-11",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a^b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-12": {
+      "caseId": "schema.common.branchprefix.negative.ref-12",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a:b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-13": {
+      "caseId": "schema.common.branchprefix.negative.ref-13",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a?b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-14": {
+      "caseId": "schema.common.branchprefix.negative.ref-14",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a*b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-15": {
+      "caseId": "schema.common.branchprefix.negative.ref-15",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a[b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-16": {
+      "caseId": "schema.common.branchprefix.negative.ref-16",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a\\b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-17": {
+      "caseId": "schema.common.branchprefix.negative.ref-17",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-18": {
+      "caseId": "schema.common.branchprefix.negative.ref-18",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-19": {
+      "caseId": "schema.common.branchprefix.negative.ref-19",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-2": {
+      "caseId": "schema.common.branchprefix.negative.ref-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-3": {
+      "caseId": "schema.common.branchprefix.negative.ref-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads//a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-4": {
+      "caseId": "schema.common.branchprefix.negative.ref-4",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-5": {
+      "caseId": "schema.common.branchprefix.negative.ref-5",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/.a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-6": {
+      "caseId": "schema.common.branchprefix.negative.ref-6",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-7": {
+      "caseId": "schema.common.branchprefix.negative.ref-7",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a.lock",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-8": {
+      "caseId": "schema.common.branchprefix.negative.ref-8",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a..b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchprefix.negative.ref-9": {
+      "caseId": "schema.common.branchprefix.negative.ref-9",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "schema.common.branchref.negative.ref-0": {
+      "caseId": "schema.common.branchref.negative.ref-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-1": {
+      "caseId": "schema.common.branchref.negative.ref-1",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "main",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-10": {
+      "caseId": "schema.common.branchref.negative.ref-10",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a~b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-11": {
+      "caseId": "schema.common.branchref.negative.ref-11",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a^b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-12": {
+      "caseId": "schema.common.branchref.negative.ref-12",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a:b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-13": {
+      "caseId": "schema.common.branchref.negative.ref-13",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a?b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-14": {
+      "caseId": "schema.common.branchref.negative.ref-14",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a*b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-15": {
+      "caseId": "schema.common.branchref.negative.ref-15",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a[b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-16": {
+      "caseId": "schema.common.branchref.negative.ref-16",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a\\b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-17": {
+      "caseId": "schema.common.branchref.negative.ref-17",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-18": {
+      "caseId": "schema.common.branchref.negative.ref-18",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-19": {
+      "caseId": "schema.common.branchref.negative.ref-19",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-2": {
+      "caseId": "schema.common.branchref.negative.ref-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-3": {
+      "caseId": "schema.common.branchref.negative.ref-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads//a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-4": {
+      "caseId": "schema.common.branchref.negative.ref-4",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-5": {
+      "caseId": "schema.common.branchref.negative.ref-5",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/.a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-6": {
+      "caseId": "schema.common.branchref.negative.ref-6",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-7": {
+      "caseId": "schema.common.branchref.negative.ref-7",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a.lock",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-8": {
+      "caseId": "schema.common.branchref.negative.ref-8",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a..b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.ref-9": {
+      "caseId": "schema.common.branchref.negative.ref-9",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.branchref.negative.tag": {
+      "caseId": "schema.common.branchref.negative.tag",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/tags/synthetic",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchRef"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-0": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-0",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-1": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-1",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "main",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-10": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-10",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a~b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-11": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-11",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a^b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-12": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-12",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a:b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-13": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-13",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a?b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-14": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-14",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a*b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-15": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-15",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a[b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-16": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-16",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a\\b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-17": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-17",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a\n",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-18": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-18",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-19": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-19",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-2": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-2",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-3": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-3",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads//a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-4": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-4",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a/",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-5": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-5",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/.a",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-6": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-6",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a.",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-7": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-7",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a.lock",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-8": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-8",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a..b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    },
+    "schema.common.gitrefidentifier.negative.ref-9": {
+      "caseId": "schema.common.gitrefidentifier.negative.ref-9",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "refs/heads/a b",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/gitRefIdentifier"
+      }
+    }
+  }
+}

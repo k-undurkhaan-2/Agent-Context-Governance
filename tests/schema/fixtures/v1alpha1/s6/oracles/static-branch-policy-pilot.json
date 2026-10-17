@@ -1,0 +1,22 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "oracle-set",
+  "diagnosticIdentityVersion": "static-diagnostic-v1",
+  "cases": {
+    "phase1-static.branch-policy.negative.16-no-allow-match": {
+      "caseId": "phase1-static.branch-policy.negative.16-no-allow-match",
+      "expectedDiagnostics": [
+        {
+          "code": "S4.BRANCH.STATIC",
+          "subjectId": "00000000-0000-4000-8000-000000000116",
+          "instancePointer": "/spec/expectedBaseline/ref",
+          "predicateFamily": "branch-policy",
+          "schemaId": null,
+          "schemaPointer": null,
+          "keyword": "BRANCH.STATIC"
+        }
+      ]
+    }
+  }
+}
