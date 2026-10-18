@@ -13,12 +13,13 @@ the historical three-case Pilot, the distinct 62-case Schema Ref-Identifier
 Oracle Batch 01, the distinct 104-case Schema Text Oracle Batch 02, and the
 distinct 73-case Schema Identifier Lexical Oracle Batch 03, and the distinct
 98-case Schema Scalar Negative Oracle Batch 04, and the distinct 44-case Schema
-Common Scalar and Format Negative Oracle Batch 05.
+Common Scalar and Format Negative Oracle Batch 05, and the distinct 34-case
+Schema Common `oneOf` Negative Oracle Batch 06.
 Historical Manifest-v2 identity remains preserved through Git history. The
-candidate corpus contains 152 physical assets: 135 case-pack assets, three
-`coverage-obligation-pack` assets, and 14 authenticated Fixture Contract
+candidate corpus contains 154 physical assets: 135 case-pack assets, three
+`coverage-obligation-pack` assets, and 16 authenticated Fixture Contract
 schema/operand/oracle assets. Together with this README and the manifest, the
-candidate corpus contains 154 paths.
+candidate corpus contains 156 paths.
 
 The manifest has 2,166 case rows: 516 `ACCEPT`, 1,535 `REJECT`, and 115
 `DEFERRED`. Their inventory dispositions are 1,566 `DIRECT_SCHEMA`, 485
@@ -35,8 +36,8 @@ Manifest v3 preserves every historical case identity, descriptor reference,
 disposition, owner, coverage identity, and S5 provenance value. It adds an
 authenticated `fixture-contract-v1` operand for exactly three branch-policy
 Pilot cases and exact typed negative oracles for exactly two of them. Those
-three bindings remain unchanged. The five Oracle batches are recorded
-separately under `schemaOracleBatches`; they do not relabel their 381 cases as
+three bindings remain unchanged. The six Oracle batches are recorded
+separately under `schemaOracleBatches`; they do not relabel their 415 cases as
 Pilot cases or alter their historical descriptors. The Schema diagnostic identity is
 `schema-diagnostic-v1`; the static identity is `static-diagnostic-v1` and uses
 all existing public static diagnostic fields. `expectedFailureIdentity`
@@ -66,16 +67,25 @@ integer-range profiles and nine string-enum profiles. Its 110 identities
 comprise 86 one-diagnostic cases and 12 two-diagnostic cases, preserving
 independent `type`, `minimum`, `maximum`, and `enum` applicability, including
 the two fractional boundary cases, null enum operands, and numeric `gitMode`.
-Batch 05 adds candidate operands and normatively derived exact Oracles for 44
+Batch 05 adds published, independently verified operands and exact Oracles for 44
 existing `DIRECT_SCHEMA` negatives covering 12 common scalar, enum, path,
 digest, timestamp, UUID, and format profiles. Its 83 identities comprise 19
 one-diagnostic, 11 two-diagnostic, and 14 three-diagnostic cases, with exact
 totals of two `const`, ten `enum`, 16 `format`, 19 `maxLength`, eight
 `minLength`, 20 `pattern`, and eight `type` identities. The expected
 identities came from authenticated normative evidence, not Validator output.
-Batch 05 remains a candidate for separate independent verification; it does
-not accept S6. The remaining 426 static operand gaps and 1,152
-negative-oracle gaps, including 830 direct-Schema oracle gaps, remain
+Batch 05 publication is `VERIFIED`; that historical status does not verify a
+later batch or accept S6. Batch 06 adds candidate operands and normatively
+derived exact Oracles for 34 existing `DIRECT_SCHEMA` negatives covering
+`absoluteHostPath`, `gitObjectId`, `headState`, and `refState`. Every frozen
+operand satisfies zero alternatives of its selected root `oneOf`, producing
+one exact root `oneOf` identity per case. Its 9/11/7/7 profile membership is
+ASCII-sorted and frozen at 1,881 bytes with SHA-256
+`1243b68a4d5fc1904a4cb0c3026f8c988dd201df220c74c301c2739f96397a22`.
+The expected identities came from authenticated normative evidence before any
+Validator execution. Batch 06 remains a candidate for separate independent
+verification; it does not accept S6. The remaining 426 static operand gaps and
+1,118 negative-oracle gaps, including 796 direct-Schema oracle gaps, remain
 fail-closed S6 acceptance blockers. Neither the Pilot nor any Oracle batch
 changes the 42 open Phase-1 coverage obligations, row-19 responsibility, or
 the eight future-model obligations.

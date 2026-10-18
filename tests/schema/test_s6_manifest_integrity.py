@@ -31,6 +31,7 @@ from tests.schema.s6_fixture_runner import (
     MANIFEST_PHYSICAL_SHA256,
     MANIFEST_SHA256,
     SCHEMA_IDENTIFIER_BATCH03_CASE_IDS,
+    SCHEMA_ONEOF_BATCH06_CASE_IDS,
     SCHEMA_REF_BATCH01_CASE_IDS,
     SCHEMA_SCALAR_BATCH04_CASE_IDS,
     SCHEMA_SCALAR_BATCH05_CASE_IDS,
@@ -41,6 +42,7 @@ from tests.schema.s6_fixture_runner import (
     V3_BATCH03_ASSET_PATHS,
     V3_BATCH04_ASSET_PATHS,
     V3_BATCH05_ASSET_PATHS,
+    V3_BATCH06_ASSET_PATHS,
     V3_PILOT_ASSET_PATHS,
     DuplicateJsonKeyError,
     FixtureContractError,
@@ -63,7 +65,7 @@ def test_candidate_manifest_identity_and_complete_corpus() -> None:
     assert MANIFEST_GIT_BLOB == CANDIDATE_MANIFEST_GIT_BLOB
     assert MANIFEST["inventoryFormatVersion"] == EXPECTED_INVENTORY_FORMAT_VERSION == 3
     assert audit.problems == ()
-    assert audit.asset_count == EXPECTED_ASSET_COUNT == 152
+    assert audit.asset_count == EXPECTED_ASSET_COUNT == 154
     assert audit.control_count == EXPECTED_CONTROL_COUNT == 2
     assert audit.case_count == EXPECTED_CASE_COUNT == 2166
     assert audit.deferred_count == EXPECTED_DEFERRED_COUNT == 115
@@ -126,13 +128,15 @@ def test_windows_checkout_eol_handling_preserves_authenticated_canonical_bytes()
         for asset in MANIFEST["assets"]
         if asset["encoding"] == "utf-8-json"
     }
-    assert len(utf8_paths) == EXPECTED_UTF8_JSON_ASSET_COUNT == 48
+    assert len(utf8_paths) == EXPECTED_UTF8_JSON_ASSET_COUNT == 52
     assert V2_CORRECTION_ASSET_PATHS <= utf8_paths
     assert V3_PILOT_ASSET_PATHS <= utf8_paths
     assert V3_BATCH01_ASSET_PATHS <= utf8_paths
     assert V3_BATCH02_ASSET_PATHS <= utf8_paths
     assert V3_BATCH03_ASSET_PATHS <= utf8_paths
     assert V3_BATCH04_ASSET_PATHS <= utf8_paths
+    assert V3_BATCH05_ASSET_PATHS <= utf8_paths
+    assert V3_BATCH06_ASSET_PATHS <= utf8_paths
     assert (
         len(
             utf8_paths
@@ -142,6 +146,8 @@ def test_windows_checkout_eol_handling_preserves_authenticated_canonical_bytes()
             - V3_BATCH02_ASSET_PATHS
             - V3_BATCH03_ASSET_PATHS
             - V3_BATCH04_ASSET_PATHS
+            - V3_BATCH05_ASSET_PATHS
+            - V3_BATCH06_ASSET_PATHS
         )
         == EXPECTED_UNCHANGED_EOL_SENSITIVE_ASSET_COUNT
         == 31
@@ -213,8 +219,8 @@ def test_fixture_contract_v3_is_exact_authenticated_and_has_no_self_digest() -> 
         "schema.branch-policy.negative.01-empty-prefix",
         "static.branch-policy.positive.01-exact-allow-no-deny",
     ]
-    assert len(FIXTURE_CONTRACT["schemaOracleBatches"]) == 5
-    batch01, batch02, batch03, batch04, batch05 = FIXTURE_CONTRACT[
+    assert len(FIXTURE_CONTRACT["schemaOracleBatches"]) == 6
+    batch01, batch02, batch03, batch04, batch05, batch06 = FIXTURE_CONTRACT[
         "schemaOracleBatches"
     ]
     assert batch01["batchId"] == "schema-common-ref-batch01"
@@ -242,18 +248,23 @@ def test_fixture_contract_v3_is_exact_authenticated_and_has_no_self_digest() -> 
     assert tuple(item["caseId"] for item in batch05["cases"]) == (
         SCHEMA_SCALAR_BATCH05_CASE_IDS
     )
+    assert batch06["batchId"] == "schema-common-oneof-batch06"
+    assert batch06["caseCount"] == 34
+    assert tuple(item["caseId"] for item in batch06["cases"]) == (
+        SCHEMA_ONEOF_BATCH06_CASE_IDS
+    )
     assert not any(
         key in MANIFEST
         for key in ("manifestDigest", "manifestSha256", "manifestGitBlob", "selfDigest")
     )
-    assert MANIFEST["inventory"]["fixtureContractAssets"] == 14
+    assert MANIFEST["inventory"]["fixtureContractAssets"] == 16
     assert MANIFEST["inventory"]["pilotCaseCount"] == 3
-    assert MANIFEST["inventory"]["schemaOracleBatchCount"] == 5
-    assert MANIFEST["inventory"]["schemaOracleBatchCaseCount"] == 381
+    assert MANIFEST["inventory"]["schemaOracleBatchCount"] == 6
+    assert MANIFEST["inventory"]["schemaOracleBatchCaseCount"] == 415
     assert (
         len(FIXTURE_CONTRACT["pilotCases"])
         + sum(batch["caseCount"] for batch in FIXTURE_CONTRACT["schemaOracleBatches"])
-        == 384
+        == 418
     )
 
 
@@ -385,6 +396,14 @@ def test_structure_audit_detects_fixture_contract_reference_tampering() -> None:
     ]["byteLength"] += 1
     assert "manifest fixture-contract metadata mismatch" in manifest_structure_problems(
         batch05_candidate
+    )
+
+    batch06_candidate = deepcopy(MANIFEST)
+    batch06_candidate["fixtureContract"]["schemaOracleBatches"][5]["cases"][0][
+        "operandRef"
+    ]["sha256"] = "0" * 64
+    assert "manifest fixture-contract metadata mismatch" in manifest_structure_problems(
+        batch06_candidate
     )
 
     self_digest = deepcopy(MANIFEST)

@@ -1,0 +1,382 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "oracle-set",
+  "diagnosticIdentityVersion": "schema-diagnostic-v1",
+  "cases": {
+    "schema.common.absolutehostpath.negative.platform-mismatch": {
+      "caseId": "schema.common.absolutehostpath.negative.platform-mismatch",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.absolutehostpath.negative.posix-closed-missing-platform": {
+      "caseId": "schema.common.absolutehostpath.negative.posix-closed-missing-platform",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.absolutehostpath.negative.posix-closed-missing-value": {
+      "caseId": "schema.common.absolutehostpath.negative.posix-closed-missing-value",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.absolutehostpath.negative.posix-closed-unknown": {
+      "caseId": "schema.common.absolutehostpath.negative.posix-closed-unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.absolutehostpath.negative.unc": {
+      "caseId": "schema.common.absolutehostpath.negative.unc",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.absolutehostpath.negative.unknown-platform": {
+      "caseId": "schema.common.absolutehostpath.negative.unknown-platform",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.absolutehostpath.negative.windows-closed-missing-platform": {
+      "caseId": "schema.common.absolutehostpath.negative.windows-closed-missing-platform",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.absolutehostpath.negative.windows-closed-missing-value": {
+      "caseId": "schema.common.absolutehostpath.negative.windows-closed-missing-value",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.absolutehostpath.negative.windows-closed-unknown": {
+      "caseId": "schema.common.absolutehostpath.negative.windows-closed-unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/absoluteHostPath/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha1-40-a": {
+      "caseId": "schema.common.gitobjectid.negative.sha1-40-a",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha1-40-g": {
+      "caseId": "schema.common.gitobjectid.negative.sha1-40-g",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha1-64-a": {
+      "caseId": "schema.common.gitobjectid.negative.sha1-64-a",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha1-closed-missing-algorithm": {
+      "caseId": "schema.common.gitobjectid.negative.sha1-closed-missing-algorithm",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha1-closed-missing-value": {
+      "caseId": "schema.common.gitobjectid.negative.sha1-closed-missing-value",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha1-closed-unknown": {
+      "caseId": "schema.common.gitobjectid.negative.sha1-closed-unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha256-40-a": {
+      "caseId": "schema.common.gitobjectid.negative.sha256-40-a",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha256-closed-missing-algorithm": {
+      "caseId": "schema.common.gitobjectid.negative.sha256-closed-missing-algorithm",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha256-closed-missing-value": {
+      "caseId": "schema.common.gitobjectid.negative.sha256-closed-missing-value",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha256-closed-unknown": {
+      "caseId": "schema.common.gitobjectid.negative.sha256-closed-unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.gitobjectid.negative.sha512-128-a": {
+      "caseId": "schema.common.gitobjectid.negative.sha512-128-a",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/gitObjectId/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.headstate.negative.commit-missing-id": {
+      "caseId": "schema.common.headstate.negative.commit-missing-id",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/headState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.headstate.negative.commit-missing-objectid": {
+      "caseId": "schema.common.headstate.negative.commit-missing-objectid",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/headState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.headstate.negative.commit-missing-state": {
+      "caseId": "schema.common.headstate.negative.commit-missing-state",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/headState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.headstate.negative.commit-unknown": {
+      "caseId": "schema.common.headstate.negative.commit-unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/headState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.headstate.negative.unborn-missing-state": {
+      "caseId": "schema.common.headstate.negative.unborn-missing-state",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/headState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.headstate.negative.unborn-unknown": {
+      "caseId": "schema.common.headstate.negative.unborn-unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/headState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.headstate.negative.unborn-with-id": {
+      "caseId": "schema.common.headstate.negative.unborn-with-id",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/headState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.refstate.negative.branch-missing-branchref": {
+      "caseId": "schema.common.refstate.negative.branch-missing-branchref",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/refState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.refstate.negative.branch-missing-ref": {
+      "caseId": "schema.common.refstate.negative.branch-missing-ref",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/refState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.refstate.negative.branch-missing-state": {
+      "caseId": "schema.common.refstate.negative.branch-missing-state",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/refState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.refstate.negative.branch-unknown": {
+      "caseId": "schema.common.refstate.negative.branch-unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/refState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.refstate.negative.detached-missing-state": {
+      "caseId": "schema.common.refstate.negative.detached-missing-state",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/refState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.refstate.negative.detached-unknown": {
+      "caseId": "schema.common.refstate.negative.detached-unknown",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/refState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    },
+    "schema.common.refstate.negative.detached-with-ref": {
+      "caseId": "schema.common.refstate.negative.detached-with-ref",
+      "expectedDiagnostics": [
+        {
+          "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+          "instancePointer": "",
+          "schemaPointer": "/$defs/refState/oneOf",
+          "keyword": "oneOf"
+        }
+      ]
+    }
+  }
+}

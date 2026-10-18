@@ -14,6 +14,8 @@ from tests.schema.s6_fixture_runner import (
     PILOT_CASE_IDS,
     SCHEMA_IDENTIFIER_BATCH03_CASE_IDS,
     SCHEMA_IDENTIFIER_BATCH03_MEMBERSHIP_SHA256,
+    SCHEMA_ONEOF_BATCH06_CASE_IDS,
+    SCHEMA_ONEOF_BATCH06_MEMBERSHIP_SHA256,
     SCHEMA_REF_BATCH01_CASE_IDS,
     SCHEMA_SCALAR_BATCH04_CASE_IDS,
     SCHEMA_SCALAR_BATCH04_MEMBERSHIP_SHA256,
@@ -51,6 +53,7 @@ def test_s6_manifest_logical_case(case) -> None:
         | set(SCHEMA_IDENTIFIER_BATCH03_CASE_IDS)
         | set(SCHEMA_SCALAR_BATCH04_CASE_IDS)
         | set(SCHEMA_SCALAR_BATCH05_CASE_IDS)
+        | set(SCHEMA_ONEOF_BATCH06_CASE_IDS)
     ):
         assert result.execution_status == "EXECUTED"
         assert result.validation_status in {"PASS", "INVALID"}
@@ -511,9 +514,65 @@ def test_schema_scalar_batch05_executes_with_exact_typed_oracles() -> None:
     } == protected_attributions
 
 
+def test_schema_oneof_batch06_executes_with_exact_typed_oracles() -> None:
+    assert len(SCHEMA_ONEOF_BATCH06_CASE_IDS) == 34
+    assert SCHEMA_ONEOF_BATCH06_CASE_IDS == tuple(
+        sorted(SCHEMA_ONEOF_BATCH06_CASE_IDS)
+    )
+    assert len(set(SCHEMA_ONEOF_BATCH06_CASE_IDS)) == 34
+    membership_bytes = (
+        "\n".join(SCHEMA_ONEOF_BATCH06_CASE_IDS) + "\n"
+    ).encode("ascii")
+    assert len(membership_bytes) == 1881
+    assert (
+        hashlib.sha256(membership_bytes).hexdigest()
+        == SCHEMA_ONEOF_BATCH06_MEMBERSHIP_SHA256
+    )
+    assert SCHEMA_ONEOF_BATCH06_MEMBERSHIP_SHA256 == (
+        "1243b68a4d5fc1904a4cb0c3026f8c988dd201df220c74c301c2739f96397a22"
+    )
+
+    results = tuple(
+        evaluate_case(case_id) for case_id in SCHEMA_ONEOF_BATCH06_CASE_IDS
+    )
+    assert all(result.execution_status == "EXECUTED" for result in results)
+    assert all(result.validation_status == "INVALID" for result in results)
+    assert all(result.actual_result == "REJECT" for result in results)
+    assert all(result.oracle_status == "EXACT_MATCH" for result in results)
+    assert all(
+        result.diagnostic_identity_version == "schema-diagnostic-v1"
+        for result in results
+    )
+    assert all(
+        result.expected_typed_diagnostics == result.schema_diagnostics
+        for result in results
+    )
+    assert all(result.missing_diagnostics == () for result in results)
+    assert all(result.unexpected_diagnostics == () for result in results)
+    assert all(len(result.schema_diagnostics) == 1 for result in results)
+
+    profile_contracts = {
+        "absolutehostpath": (9, "/$defs/absoluteHostPath/oneOf"),
+        "gitobjectid": (11, "/$defs/gitObjectId/oneOf"),
+        "headstate": (7, "/$defs/headState/oneOf"),
+        "refstate": (7, "/$defs/refState/oneOf"),
+    }
+    assert Counter(case_id.split(".")[2] for case_id in SCHEMA_ONEOF_BATCH06_CASE_IDS) == {
+        profile: count for profile, (count, _) in profile_contracts.items()
+    }
+    common_schema_id = "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864"
+    for result in results:
+        diagnostic = result.schema_diagnostics[0]
+        profile = result.case_id.split(".")[2]
+        assert diagnostic.schema_resource_id == common_schema_id
+        assert diagnostic.instance_pointer == ""
+        assert diagnostic.schema_pointer == profile_contracts[profile][1]
+        assert diagnostic.keyword == "oneOf"
+
+
 def test_remaining_acceptance_blocker_counts_remain_fail_closed() -> None:
     assert len(direct_execution_gap_case_ids()) == 426
-    assert len(missing_negative_oracle_case_ids()) == 1152
+    assert len(missing_negative_oracle_case_ids()) == 1118
     assert not set(PILOT_CASE_IDS).intersection(direct_execution_gap_case_ids())
     assert not set(PILOT_CASE_IDS).intersection(missing_negative_oracle_case_ids())
     assert not set(SCHEMA_REF_BATCH01_CASE_IDS).intersection(
@@ -529,6 +588,9 @@ def test_remaining_acceptance_blocker_counts_remain_fail_closed() -> None:
         missing_negative_oracle_case_ids()
     )
     assert not set(SCHEMA_SCALAR_BATCH05_CASE_IDS).intersection(
+        missing_negative_oracle_case_ids()
+    )
+    assert not set(SCHEMA_ONEOF_BATCH06_CASE_IDS).intersection(
         missing_negative_oracle_case_ids()
     )
 

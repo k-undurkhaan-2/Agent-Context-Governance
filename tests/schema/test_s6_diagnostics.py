@@ -313,6 +313,34 @@ def test_schema_scalar_batch05_rejects_missing_and_unexpected_diagnostics() -> N
     assert result.oracle_status == "EXACT_MATCH"
 
 
+def test_schema_oneof_batch06_rejects_missing_and_unexpected_diagnostics() -> None:
+    case_id = "schema.common.absolutehostpath.negative.platform-mismatch"
+    expected = expected_typed_diagnostics(case_id)
+    assert expected is not None and len(expected) == 1
+
+    missing = compare_diagnostic_identity_sets("schema-diagnostic-v1", expected, ())
+    assert missing.status == "EXACT_SET_MISMATCH"
+    assert missing.missing == expected
+    assert missing.unexpected == ()
+
+    extra = SchemaDiagnostic(
+        schema_resource_id="urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        instance_pointer="/platform",
+        schema_pointer="/$defs/absoluteHostPath/oneOf/0/properties/platform/const",
+        keyword="const",
+    )
+    unexpected = compare_diagnostic_identity_sets(
+        "schema-diagnostic-v1", expected, (*expected, extra)
+    )
+    assert unexpected.status == "EXACT_SET_MISMATCH"
+    assert unexpected.missing == ()
+    assert unexpected.unexpected == (extra,)
+
+    result = evaluate_case(case_id)
+    assert result.schema_diagnostics == expected
+    assert result.oracle_status == "EXACT_MATCH"
+
+
 def test_static_diagnostic_v1_uses_every_public_field_and_exact_sets() -> None:
     case_id = "phase1-static.branch-policy.negative.16-no-allow-match"
     expected = expected_typed_diagnostics(case_id)
