@@ -1,0 +1,962 @@
+{
+  "contractSchema": "urn:uuid:7fc0bf0d-c5a6-4b81-b193-44a871d6a3a1",
+  "contractVersion": "fixture-contract-v1",
+  "sidecarKind": "operand-set",
+  "cases": {
+    "phase1-static.branch-policy.negative.16-no-allow-match": {
+      "caseId": "phase1-static.branch-policy.negative.16-no-allow-match",
+      "operandKind": "static",
+      "subject": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000116"
+        },
+        "spec": {
+          "contractVersion": "1",
+          "taskId": "00000000-0000-4000-8000-000000000016",
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "kind": "Project",
+            "id": "project.branch-policy-negative.invalid"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "transport": "https",
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance"
+              }
+            ]
+          },
+          "target": {
+            "worktreeId": "worktree.branch-policy-negative.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "WorktreeRole",
+              "id": "role.branch-policy-negative.invalid"
+            }
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "Domain",
+              "id": "domain.branch-policy-negative.invalid"
+            }
+          ],
+          "issuer": {
+            "issuerId": "issuer.branch-policy-pilot.invalid",
+            "issuanceMethod": "trusted-framework",
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "digests": {
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "requestedMode": "plan-only",
+          "effectiveMode": "plan-only",
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/file"
+            ]
+          },
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "expectedBaseline": {
+            "ref": {
+              "state": "branch",
+              "branchRef": "refs/heads/release"
+            },
+            "head": {
+              "state": "commit",
+              "objectId": {
+                "algorithm": "sha1",
+                "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              }
+            },
+            "index": {
+              "state": "clean"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            }
+          },
+          "permittedTransitions": [],
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "leaseRequired": false,
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "freshness": {
+            "issuedAt": "2000-01-01T00:00:00Z",
+            "expiresAt": "2000-01-01T00:01:00Z"
+          }
+        }
+      },
+      "validationContext": {
+        "governanceBundle": {
+          "apiVersion": "contextctl.dev/v1alpha1",
+          "project": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "kind": "Project",
+            "metadata": {
+              "id": "project.branch-policy-negative.invalid"
+            },
+            "spec": {
+              "repositoryIdentity": {
+                "acceptedRemotes": [
+                  {
+                    "transport": "https",
+                    "host": "repo.invalid",
+                    "namespace": [
+                      "synthetic"
+                    ],
+                    "repository": "governance"
+                  }
+                ]
+              },
+              "secureDefaults": {
+                "mode": "plan-only",
+                "allowWrite": false
+              },
+              "permissions": {
+                "modes": [
+                  "plan-only"
+                ],
+                "permittedCapabilities": [
+                  "inspect"
+                ],
+                "prohibitedCapabilities": []
+              },
+              "domainRefs": [
+                {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "Domain",
+                  "id": "domain.branch-policy-negative.invalid"
+                }
+              ],
+              "worktreeRoleRefs": [
+                {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "WorktreeRole",
+                  "id": "role.branch-policy-negative.invalid"
+                }
+              ],
+              "routingPolicyRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "kind": "RoutingPolicy",
+                "id": "routing.branch-policy-negative.invalid"
+              }
+            }
+          },
+          "domains": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "Domain",
+              "metadata": {
+                "id": "domain.branch-policy-negative.invalid"
+              },
+              "spec": {
+                "projectRef": {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "Project",
+                  "id": "project.branch-policy-negative.invalid"
+                },
+                "responsibility": "Conspicuously synthetic branch-policy negative pilot domain.",
+                "pathScope": {
+                  "include": [
+                    "synthetic/file"
+                  ],
+                  "exclude": []
+                },
+                "permissions": {
+                  "modes": [
+                    "plan-only"
+                  ],
+                  "permittedCapabilities": [
+                    "inspect"
+                  ],
+                  "prohibitedCapabilities": []
+                },
+                "overlapRefs": []
+              }
+            }
+          ],
+          "worktreeRoles": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "WorktreeRole",
+              "metadata": {
+                "id": "role.branch-policy-negative.invalid"
+              },
+              "spec": {
+                "projectRef": {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "Project",
+                  "id": "project.branch-policy-negative.invalid"
+                },
+                "roleClass": "implementation",
+                "ownedDomainRefs": [
+                  {
+                    "apiVersion": "contextctl.dev/v1alpha1",
+                    "kind": "Domain",
+                    "id": "domain.branch-policy-negative.invalid"
+                  }
+                ],
+                "excludedDomainRefs": [],
+                "permissions": {
+                  "modes": [
+                    "plan-only"
+                  ],
+                  "permittedCapabilities": [
+                    "inspect"
+                  ],
+                  "prohibitedCapabilities": []
+                },
+                "branchPolicy": {
+                  "allowed": {
+                    "exact": [
+                      "refs/heads/other"
+                    ],
+                    "prefixes": []
+                  },
+                  "denied": {
+                    "exact": [],
+                    "prefixes": []
+                  }
+                },
+                "cleanlinessPolicy": {
+                  "tracked": "clean",
+                  "untracked": "none",
+                  "ignored": "none",
+                  "index": "clean",
+                  "submodules": "none"
+                },
+                "exclusiveWriteRequired": false,
+                "reviewOnly": false
+              }
+            }
+          ],
+          "routingPolicy": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "kind": "RoutingPolicy",
+            "metadata": {
+              "id": "routing.branch-policy-negative.invalid"
+            },
+            "spec": {
+              "projectRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "kind": "Project",
+                "id": "project.branch-policy-negative.invalid"
+              },
+              "rules": [
+                {
+                  "id": "rule.branch-policy-negative.invalid",
+                  "priority": 1,
+                  "match": {
+                    "projectRef": {
+                      "apiVersion": "contextctl.dev/v1alpha1",
+                      "kind": "Project",
+                      "id": "project.branch-policy-negative.invalid"
+                    },
+                    "domainSet": {
+                      "operator": "exact",
+                      "domainRefs": [
+                        {
+                          "apiVersion": "contextctl.dev/v1alpha1",
+                          "kind": "Domain",
+                          "id": "domain.branch-policy-negative.invalid"
+                        }
+                      ]
+                    }
+                  },
+                  "decision": {
+                    "type": "route",
+                    "worktreeRoleRef": {
+                      "apiVersion": "contextctl.dev/v1alpha1",
+                      "kind": "WorktreeRole",
+                      "id": "role.branch-policy-negative.invalid"
+                    }
+                  }
+                }
+              ],
+              "fallback": {
+                "type": "deny",
+                "reasonCode": "reason.synthetic.denied"
+              }
+            }
+          }
+        },
+        "hostOverlay": {
+          "apiVersion": "contextctl.dev/v1alpha1",
+          "kind": "HostOverlay",
+          "metadata": {
+            "id": "overlay.branch-policy-negative.invalid"
+          },
+          "spec": {
+            "hostId": "host.branch-policy-pilot.invalid",
+            "projectRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "Project",
+              "id": "project.branch-policy-negative.invalid"
+            },
+            "repositoryIdentity": {
+              "acceptedRemotes": [
+                {
+                  "transport": "https",
+                  "host": "repo.invalid",
+                  "namespace": [
+                    "synthetic"
+                  ],
+                  "repository": "governance"
+                }
+              ]
+            },
+            "bindings": [
+              {
+                "roleRef": {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "WorktreeRole",
+                  "id": "role.branch-policy-negative.invalid"
+                },
+                "worktreeId": "worktree.branch-policy-negative.invalid",
+                "repositoryRoot": {
+                  "platform": "posix",
+                  "value": "/srv/synthetic.invalid/worktree/branch-policy-negative"
+                },
+                "expectedRef": {
+                  "state": "branch",
+                  "branchRef": "refs/heads/release"
+                },
+                "remoteNames": [
+                  "origin"
+                ]
+              }
+            ],
+            "remoteExpectations": [
+              {
+                "remoteName": "origin",
+                "acceptedRemotes": [
+                  {
+                    "transport": "https",
+                    "host": "repo.invalid",
+                    "namespace": [
+                      "synthetic"
+                    ],
+                    "repository": "governance"
+                  }
+                ]
+              }
+            ],
+            "capabilityCeiling": [
+              "inspect"
+            ],
+            "pathCeiling": {
+              "include": [
+                "synthetic/file"
+              ],
+              "exclude": []
+            },
+            "stateRoot": {
+              "platform": "posix",
+              "value": "/srv/synthetic.invalid/state/branch-policy-negative"
+            },
+            "lockRoot": {
+              "platform": "posix",
+              "value": "/srv/synthetic.invalid/locks/branch-policy-negative"
+            }
+          }
+        },
+        "inventoryContext": {
+          "snapshotId": "snapshot.branch-policy-negative.invalid"
+        },
+        "proofResponses": {
+          "inputProvenance": [
+            {
+              "subjectRef": "#/subject",
+              "schemaResourceId": "urn:uuid:314c8f9e-2554-4ebc-b688-d48598693282",
+              "schemaSetRevision": "v1alpha1-r1"
+            },
+            {
+              "subjectRef": "#/validationContext/governanceBundle",
+              "schemaResourceId": "urn:uuid:e1293323-8af3-41ed-a55e-dc0c27f35206",
+              "schemaSetRevision": "v1alpha1-r1"
+            },
+            {
+              "subjectRef": "#/validationContext/hostOverlay",
+              "schemaResourceId": "urn:uuid:c0de9354-1096-4cea-9cde-a33ad38ab313",
+              "schemaSetRevision": "v1alpha1-r1"
+            }
+          ],
+          "completeHostSnapshot": {
+            "hostId": "host.branch-policy-pilot.invalid",
+            "inventoryContextRef": "#/validationContext/inventoryContext",
+            "members": [
+              {
+                "hostOverlayRef": "#/validationContext/hostOverlay",
+                "governanceBundleRef": "#/validationContext/governanceBundle"
+              }
+            ],
+            "trustedRoots": []
+          },
+          "baselineMaterialization": {
+            "contractRef": "#/subject",
+            "dimensions": [
+              "ref",
+              "head",
+              "index",
+              "tracked",
+              "untracked",
+              "ignored",
+              "submodules",
+              "activeOperations",
+              "administrativeLocks"
+            ],
+            "values": {
+              "ref": {
+                "state": "branch",
+                "branchRef": "refs/heads/release"
+              },
+              "head": {
+                "state": "commit",
+                "objectId": {
+                  "algorithm": "sha1",
+                  "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                }
+              },
+              "index": [],
+              "tracked": [],
+              "untracked": [],
+              "ignored": [],
+              "submodules": [],
+              "activeOperations": {
+                "state": "none"
+              },
+              "administrativeLocks": {
+                "state": "none"
+              }
+            },
+            "headEntries": [],
+            "leafKinds": {},
+            "ordinaryIdentities": []
+          },
+          "canonicalComparisons": [],
+          "digests": [],
+          "completedStaticValidations": []
+        }
+      }
+    },
+    "schema.branch-policy.negative.01-empty-prefix": {
+      "caseId": "schema.branch-policy.negative.01-empty-prefix",
+      "operandKind": "schema",
+      "schemaOperand": {
+        "instance": "",
+        "schemaResourceId": "urn:uuid:78833fbe-1819-45db-824c-2edb235f2864",
+        "schemaPointer": "/$defs/branchPrefix"
+      }
+    },
+    "static.branch-policy.positive.01-exact-allow-no-deny": {
+      "caseId": "static.branch-policy.positive.01-exact-allow-no-deny",
+      "operandKind": "static",
+      "subject": {
+        "apiVersion": "contextctl.dev/v1alpha1",
+        "kind": "TaskContract",
+        "metadata": {
+          "id": "00000000-0000-4000-8000-000000000201"
+        },
+        "spec": {
+          "contractVersion": "1",
+          "taskId": "00000000-0000-4000-8000-000000000101",
+          "projectRef": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "kind": "Project",
+            "id": "project.branch-policy-positive.invalid"
+          },
+          "repositoryIdentity": {
+            "acceptedRemotes": [
+              {
+                "transport": "https",
+                "host": "repo.invalid",
+                "namespace": [
+                  "synthetic"
+                ],
+                "repository": "governance"
+              }
+            ]
+          },
+          "target": {
+            "worktreeId": "worktree.branch-policy-positive.invalid",
+            "worktreeRoleRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "WorktreeRole",
+              "id": "role.branch-policy-positive.invalid"
+            }
+          },
+          "domainRefs": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "Domain",
+              "id": "domain.branch-policy-positive.invalid"
+            }
+          ],
+          "issuer": {
+            "issuerId": "issuer.branch-policy-pilot.invalid",
+            "issuanceMethod": "trusted-framework",
+            "derivationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "digests": {
+            "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "configurationDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "taskIntentDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "requestedMode": "plan-only",
+          "effectiveMode": "plan-only",
+          "allowWrite": false,
+          "authorizedScope": {
+            "capabilities": [
+              "inspect"
+            ],
+            "paths": [
+              "synthetic/file"
+            ]
+          },
+          "prohibitedScope": {
+            "capabilities": [],
+            "paths": []
+          },
+          "expectedBaseline": {
+            "ref": {
+              "state": "branch",
+              "branchRef": "refs/heads/release"
+            },
+            "head": {
+              "state": "commit",
+              "objectId": {
+                "algorithm": "sha1",
+                "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              }
+            },
+            "index": {
+              "state": "clean"
+            },
+            "tracked": {
+              "state": "clean"
+            },
+            "untracked": {
+              "state": "none"
+            },
+            "ignored": {
+              "state": "none"
+            },
+            "submodules": {
+              "state": "none"
+            },
+            "activeOperations": {
+              "state": "none"
+            },
+            "administrativeLocks": {
+              "state": "none"
+            }
+          },
+          "permittedTransitions": [],
+          "requiredPostconditions": [
+            {
+              "type": "scope-contained"
+            }
+          ],
+          "leaseRequired": false,
+          "issuanceCheckpoint": {
+            "observedAt": "2000-01-01T00:00:00Z",
+            "stateDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "freshness": {
+            "issuedAt": "2000-01-01T00:00:00Z",
+            "expiresAt": "2000-01-01T00:01:00Z"
+          }
+        }
+      },
+      "validationContext": {
+        "governanceBundle": {
+          "apiVersion": "contextctl.dev/v1alpha1",
+          "project": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "kind": "Project",
+            "metadata": {
+              "id": "project.branch-policy-positive.invalid"
+            },
+            "spec": {
+              "repositoryIdentity": {
+                "acceptedRemotes": [
+                  {
+                    "transport": "https",
+                    "host": "repo.invalid",
+                    "namespace": [
+                      "synthetic"
+                    ],
+                    "repository": "governance"
+                  }
+                ]
+              },
+              "secureDefaults": {
+                "mode": "plan-only",
+                "allowWrite": false
+              },
+              "permissions": {
+                "modes": [
+                  "plan-only"
+                ],
+                "permittedCapabilities": [
+                  "inspect"
+                ],
+                "prohibitedCapabilities": []
+              },
+              "domainRefs": [
+                {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "Domain",
+                  "id": "domain.branch-policy-positive.invalid"
+                }
+              ],
+              "worktreeRoleRefs": [
+                {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "WorktreeRole",
+                  "id": "role.branch-policy-positive.invalid"
+                }
+              ],
+              "routingPolicyRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "kind": "RoutingPolicy",
+                "id": "routing.branch-policy-positive.invalid"
+              }
+            }
+          },
+          "domains": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "Domain",
+              "metadata": {
+                "id": "domain.branch-policy-positive.invalid"
+              },
+              "spec": {
+                "projectRef": {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "Project",
+                  "id": "project.branch-policy-positive.invalid"
+                },
+                "responsibility": "Conspicuously synthetic branch-policy positive pilot domain.",
+                "pathScope": {
+                  "include": [
+                    "synthetic/file"
+                  ],
+                  "exclude": []
+                },
+                "permissions": {
+                  "modes": [
+                    "plan-only"
+                  ],
+                  "permittedCapabilities": [
+                    "inspect"
+                  ],
+                  "prohibitedCapabilities": []
+                },
+                "overlapRefs": []
+              }
+            }
+          ],
+          "worktreeRoles": [
+            {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "WorktreeRole",
+              "metadata": {
+                "id": "role.branch-policy-positive.invalid"
+              },
+              "spec": {
+                "projectRef": {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "Project",
+                  "id": "project.branch-policy-positive.invalid"
+                },
+                "roleClass": "implementation",
+                "ownedDomainRefs": [
+                  {
+                    "apiVersion": "contextctl.dev/v1alpha1",
+                    "kind": "Domain",
+                    "id": "domain.branch-policy-positive.invalid"
+                  }
+                ],
+                "excludedDomainRefs": [],
+                "permissions": {
+                  "modes": [
+                    "plan-only"
+                  ],
+                  "permittedCapabilities": [
+                    "inspect"
+                  ],
+                  "prohibitedCapabilities": []
+                },
+                "branchPolicy": {
+                  "allowed": {
+                    "exact": [
+                      "refs/heads/release"
+                    ],
+                    "prefixes": []
+                  },
+                  "denied": {
+                    "exact": [],
+                    "prefixes": []
+                  }
+                },
+                "cleanlinessPolicy": {
+                  "tracked": "clean",
+                  "untracked": "none",
+                  "ignored": "none",
+                  "index": "clean",
+                  "submodules": "none"
+                },
+                "exclusiveWriteRequired": false,
+                "reviewOnly": false
+              }
+            }
+          ],
+          "routingPolicy": {
+            "apiVersion": "contextctl.dev/v1alpha1",
+            "kind": "RoutingPolicy",
+            "metadata": {
+              "id": "routing.branch-policy-positive.invalid"
+            },
+            "spec": {
+              "projectRef": {
+                "apiVersion": "contextctl.dev/v1alpha1",
+                "kind": "Project",
+                "id": "project.branch-policy-positive.invalid"
+              },
+              "rules": [
+                {
+                  "id": "rule.branch-policy-positive.invalid",
+                  "priority": 1,
+                  "match": {
+                    "projectRef": {
+                      "apiVersion": "contextctl.dev/v1alpha1",
+                      "kind": "Project",
+                      "id": "project.branch-policy-positive.invalid"
+                    },
+                    "domainSet": {
+                      "operator": "exact",
+                      "domainRefs": [
+                        {
+                          "apiVersion": "contextctl.dev/v1alpha1",
+                          "kind": "Domain",
+                          "id": "domain.branch-policy-positive.invalid"
+                        }
+                      ]
+                    }
+                  },
+                  "decision": {
+                    "type": "route",
+                    "worktreeRoleRef": {
+                      "apiVersion": "contextctl.dev/v1alpha1",
+                      "kind": "WorktreeRole",
+                      "id": "role.branch-policy-positive.invalid"
+                    }
+                  }
+                }
+              ],
+              "fallback": {
+                "type": "deny",
+                "reasonCode": "reason.synthetic.denied"
+              }
+            }
+          }
+        },
+        "hostOverlay": {
+          "apiVersion": "contextctl.dev/v1alpha1",
+          "kind": "HostOverlay",
+          "metadata": {
+            "id": "overlay.branch-policy-positive.invalid"
+          },
+          "spec": {
+            "hostId": "host.branch-policy-pilot.invalid",
+            "projectRef": {
+              "apiVersion": "contextctl.dev/v1alpha1",
+              "kind": "Project",
+              "id": "project.branch-policy-positive.invalid"
+            },
+            "repositoryIdentity": {
+              "acceptedRemotes": [
+                {
+                  "transport": "https",
+                  "host": "repo.invalid",
+                  "namespace": [
+                    "synthetic"
+                  ],
+                  "repository": "governance"
+                }
+              ]
+            },
+            "bindings": [
+              {
+                "roleRef": {
+                  "apiVersion": "contextctl.dev/v1alpha1",
+                  "kind": "WorktreeRole",
+                  "id": "role.branch-policy-positive.invalid"
+                },
+                "worktreeId": "worktree.branch-policy-positive.invalid",
+                "repositoryRoot": {
+                  "platform": "posix",
+                  "value": "/srv/synthetic.invalid/worktree/branch-policy-positive"
+                },
+                "expectedRef": {
+                  "state": "branch",
+                  "branchRef": "refs/heads/release"
+                },
+                "remoteNames": [
+                  "origin"
+                ]
+              }
+            ],
+            "remoteExpectations": [
+              {
+                "remoteName": "origin",
+                "acceptedRemotes": [
+                  {
+                    "transport": "https",
+                    "host": "repo.invalid",
+                    "namespace": [
+                      "synthetic"
+                    ],
+                    "repository": "governance"
+                  }
+                ]
+              }
+            ],
+            "capabilityCeiling": [
+              "inspect"
+            ],
+            "pathCeiling": {
+              "include": [
+                "synthetic/file"
+              ],
+              "exclude": []
+            },
+            "stateRoot": {
+              "platform": "posix",
+              "value": "/srv/synthetic.invalid/state/branch-policy-positive"
+            },
+            "lockRoot": {
+              "platform": "posix",
+              "value": "/srv/synthetic.invalid/locks/branch-policy-positive"
+            }
+          }
+        },
+        "inventoryContext": {
+          "snapshotId": "snapshot.branch-policy-positive.invalid"
+        },
+        "proofResponses": {
+          "inputProvenance": [
+            {
+              "subjectRef": "#/subject",
+              "schemaResourceId": "urn:uuid:314c8f9e-2554-4ebc-b688-d48598693282",
+              "schemaSetRevision": "v1alpha1-r1"
+            },
+            {
+              "subjectRef": "#/validationContext/governanceBundle",
+              "schemaResourceId": "urn:uuid:e1293323-8af3-41ed-a55e-dc0c27f35206",
+              "schemaSetRevision": "v1alpha1-r1"
+            },
+            {
+              "subjectRef": "#/validationContext/hostOverlay",
+              "schemaResourceId": "urn:uuid:c0de9354-1096-4cea-9cde-a33ad38ab313",
+              "schemaSetRevision": "v1alpha1-r1"
+            }
+          ],
+          "completeHostSnapshot": {
+            "hostId": "host.branch-policy-pilot.invalid",
+            "inventoryContextRef": "#/validationContext/inventoryContext",
+            "members": [
+              {
+                "hostOverlayRef": "#/validationContext/hostOverlay",
+                "governanceBundleRef": "#/validationContext/governanceBundle"
+              }
+            ],
+            "trustedRoots": []
+          },
+          "baselineMaterialization": {
+            "contractRef": "#/subject",
+            "dimensions": [
+              "ref",
+              "head",
+              "index",
+              "tracked",
+              "untracked",
+              "ignored",
+              "submodules",
+              "activeOperations",
+              "administrativeLocks"
+            ],
+            "values": {
+              "ref": {
+                "state": "branch",
+                "branchRef": "refs/heads/release"
+              },
+              "head": {
+                "state": "commit",
+                "objectId": {
+                  "algorithm": "sha1",
+                  "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                }
+              },
+              "index": [],
+              "tracked": [],
+              "untracked": [],
+              "ignored": [],
+              "submodules": [],
+              "activeOperations": {
+                "state": "none"
+              },
+              "administrativeLocks": {
+                "state": "none"
+              }
+            },
+            "headEntries": [],
+            "leafKinds": {},
+            "ordinaryIdentities": []
+          },
+          "canonicalComparisons": [],
+          "digests": [],
+          "completedStaticValidations": []
+        }
+      }
+    }
+  }
+}
